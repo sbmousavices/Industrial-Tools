@@ -18,7 +18,43 @@
     .product p { margin-bottom: 12px; color: #555; }
     .price { font-weight: bold; color: #27ae60; font-size: 1.1rem; }
     .delivery { font-size: 0.9rem; color: #999; margin-top: 8px; }
-    .wallet { background: #e8f4fc; padding: 15px; border-radius: 8px; margin: 30px 0; word-break: break-all; font-family: monospace; }
+    .wallet-box {
+      background: #e8f4fc;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .wallet-address {
+      font-family: monospace;
+      font-size: 1.1rem;
+      word-break: break-all;
+      margin: 10px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+      display: inline-block;
+      min-width: 300px;
+    }
+    .copy-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+    .copy-btn:hover {
+      background: #2980b9;
+    }
+    .copy-message {
+      margin-top: 10px;
+      color: #27ae60;
+      font-weight: bold;
+      min-height: 20px;
+    }
     .about { background: white; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .about h2 { color: #2c3e50; margin-bottom: 12px; }
     footer { text-align: center; margin-top: 30px; color: #999; font-size: 0.9rem; }
@@ -27,6 +63,7 @@
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .product h2 { font-size: 1.2rem; }
+      .wallet-address { min-width: 240px; font-size: 1rem; }
     }
   </style>
 </head>
@@ -41,7 +78,7 @@
       <!-- Product 1 -->
       <div class="product">
         <h2>Project Health Report Template</h2>
-        <p>A macro-enabled Excel tool for industrial engineers to automate production line scheduling, OEE analysis, and project planning under harsh conditions.</p>
+        <p>A macro-enabled Excel tool for industrial engineers to automate complex calculations, production line scheduling, OEE analysis, and project planning.</p>
         <div class="price">Price: 10 USDT</div>
         <div class="delivery">Delivery: Within 24 hours after payment</div>
       </div>
@@ -118,9 +155,11 @@
       </div>
     </div>
 
-    <div class="wallet">
-      <strong>USDT Wallet (TRC-20 Network Preferred):</strong><br>
-      TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2
+    <div class="wallet-box">
+      <h3>USDT Wallet (TRC-20 Network Preferred)</h3>
+      <div class="wallet-address" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+      <button class="copy-btn" onclick="copyWallet()">📋 Copy Address</button>
+      <div class="copy-message" id="copyMessage"></div>
     </div>
 
     <div class="about">
@@ -133,5 +172,19 @@
       GitHub: <a href="https://github.com/sbmousavices" target="_blank">sbmousavices</a>
     </footer>
   </div>
+
+  <script>
+    function copyWallet() {
+      const wallet = document.getElementById("walletAddress").innerText;
+      navigator.clipboard.writeText(wallet).then(() => {
+        document.getElementById("copyMessage").innerText = "✅ Copied to clipboard!";
+        setTimeout(() => {
+          document.getElementById("copyMessage").innerText = "";
+        }, 2000);
+      }).catch(err => {
+        document.getElementById("copyMessage").innerText = "⚠️ Failed to copy. Please select and copy manually.";
+      });
+    }
+  </script>
 </body>
 </html>
