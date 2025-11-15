@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Professional Excel-based project planning tools for industrial managers — from free templates to advanced claim packages.">
+  <meta name="description" content="Professional Excel-based project planning tools for industrial managers — from scheduling to EOT claims.">
   <title>Behzad Mousavi | Industrial Project Planning Tools</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -17,7 +17,6 @@
     .product h2 { color: #2980b9; margin-bottom: 10px; font-size: 1.4rem; }
     .product p { margin-bottom: 12px; color: #555; }
     .price { font-weight: bold; color: #27ae60; font-size: 1.1rem; }
-    .free { color: #3498db; }
     .delivery { font-size: 0.9rem; color: #999; margin-top: 8px; }
     .wallet { background: #e8f4fc; padding: 15px; border-radius: 8px; margin: 30px 0; word-break: break-all; font-family: monospace; }
     .about { background: white; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
@@ -39,13 +38,12 @@
     </header>
 
     <div class="products">
-      <!-- Product 1: Free -->
+      <!-- Product 1: Now paid -->
       <div class="product">
         <h2>Project Health Report Template</h2>
-        <p>A clean, macro-enabled Excel template to visualize your project’s current status — perfect for weekly steering committee reviews. <strong>Enable macros to use all features.</strong></p>
-        <div class="price free">Price: Free</div>
-        <div class="delivery">Delivery: Instant Download</div>
-        <p><a href="https://github.com/sbmousavices/Industrial-Tools/raw/21b1a879c91767db0c3c771a49c37357f2dd6dd9/Project_Health_Report_Template.xlsm" target="_blank" rel="noopener">📥 Download Now (.xlsm)</a></p>
+        <p>A macro-enabled Excel tool to visualize your project’s current status — ideal for production line scheduling, OEE analysis, and planning under harsh conditions.</p>
+        <div class="price">Price: 10 USDT</div>
+        <div class="delivery">Delivery: Within 24 hours</div>
       </div>
 
       <!-- Product 2 -->
