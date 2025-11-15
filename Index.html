@@ -18,14 +18,19 @@
     .product p { margin-bottom: 12px; color: #555; }
     .price { font-weight: bold; color: #27ae60; font-size: 1.1rem; }
     .delivery { font-size: 0.9rem; color: #999; margin-top: 8px; }
-    .wallet-box {
+    .info-box {
       background: #e8f4fc;
       padding: 20px;
       border-radius: 10px;
-      margin: 30px 0;
+      margin: 25px 0;
       text-align: center;
     }
-    .wallet-address {
+    .info-label {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+    .info-value {
       font-family: monospace;
       font-size: 1.1rem;
       word-break: break-all;
@@ -63,7 +68,7 @@
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .product h2 { font-size: 1.2rem; }
-      .wallet-address { min-width: 240px; font-size: 1rem; }
+      .info-value { min-width: 240px; font-size: 1rem; }
     }
   </style>
 </head>
@@ -155,11 +160,20 @@
       </div>
     </div>
 
-    <div class="wallet-box">
-      <h3>USDT Wallet (TRC-20 Network Preferred)</h3>
-      <div class="wallet-address" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
-      <button class="copy-btn" onclick="copyWallet()">📋 Copy Address</button>
-      <div class="copy-message" id="copyMessage"></div>
+    <!-- Wallet Section -->
+    <div class="info-box">
+      <div class="info-label">USDT Wallet (TRC-20 Network Preferred)</div>
+      <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+      <button class="copy-btn" onclick="copyText('walletAddress')">📋 Copy Address</button>
+      <div class="copy-message" id="walletMessage"></div>
+    </div>
+
+    <!-- Email Section -->
+    <div class="info-box">
+      <div class="info-label">Support & Purchase Confirmation Email</div>
+      <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
+      <button class="copy-btn" onclick="copyText('emailAddress')">📧 Copy Email</button>
+      <div class="copy-message" id="emailMessage"></div>
     </div>
 
     <div class="about">
@@ -174,15 +188,17 @@
   </div>
 
   <script>
-    function copyWallet() {
-      const wallet = document.getElementById("walletAddress").innerText;
-      navigator.clipboard.writeText(wallet).then(() => {
-        document.getElementById("copyMessage").innerText = "✅ Copied to clipboard!";
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const messageId = elementId === 'walletAddress' ? 'walletMessage' : 'emailMessage';
+        document.getElementById(messageId).innerText = "✅ Copied!";
         setTimeout(() => {
-          document.getElementById("copyMessage").innerText = "";
+          document.getElementById(messageId).innerText = "";
         }, 2000);
       }).catch(err => {
-        document.getElementById("copyMessage").innerText = "⚠️ Failed to copy. Please select and copy manually.";
+        const messageId = elementId === 'walletAddress' ? 'walletMessage' : 'emailMessage';
+        document.getElementById(messageId).innerText = "⚠️ Select and copy manually.";
       });
     }
   </script>
