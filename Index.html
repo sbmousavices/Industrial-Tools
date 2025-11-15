@@ -1,119 +1,181 @@
+Skip to content
+Navigation Menu
+sbmousavices
+Industrial-Tools
+
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Commit 82813ce
+sbmousavices
+sbmousavices
+authored
+10 hours ago
+·
+·
+Verified
+Create Products
+main
+1 parent 
+289b35f
+ commit 
+82813ce
+File tree
+Filter files…
+Products
+1 file changed
++139
+-0
+lines changed
+Search within code
+ 
+Customizable line height
+The default line height has been increased for improved accessibility. You can choose to enable a more compact line height from the view settings menu.
+
+‎Products‎
++139
+Lines changed: 139 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Industrial Engineering Excel Tool — By Behzad Mousavi</title>
-  <meta name="description" content="Professional Excel macro-enabled tool for industrial engineers. Automate production scheduling, OEE, and project calculations. Pay with USDT (TRC20).">
-
+  <title>Behzad Mousavi | Project Planning Tools</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #f9f9fb;
-      color: #333;
-      line-height: 1.7;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 30px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
-    .highlight {
-      background: #e8f4fc;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border-left: 4px solid #3498db;
-      text-align: center;
-    }
-    .wallet, .email {
-      background: #f1f8e9;
-      padding: 16px;
-      border-radius: 8px;
-      margin: 20px 0;
-      font-family: monospace;
-      word-break: break-all;
-      border-left: 4px solid #7cb342;
-      text-align: center;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background: #3498db;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      margin: 20px 0;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: #2980b9;
-    }
-    .note {
-      background: #fff8e1;
-      padding: 12px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border-left: 4px solid #ffb300;
-      font-size: 0.95em;
-    }
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #7f8c8d;
-      font-size: 0.9em;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #f9f9f9; color: #333; line-height: 1.6; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 40px; padding: 20px 0; }
+    h1 { font-size: 2.4rem; color: #2c3e50; margin-bottom: 10px; }
+    .subtitle { color: #7f8c8d; font-size: 1.1rem; }
+    .products { display: grid; gap: 20px; margin-bottom: 40px; }
+    .product { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .product h2 { color: #2980b9; margin-bottom: 10px; font-size: 1.4rem; }
+    .product p { margin-bottom: 12px; color: #555; }
+    .price { font-weight: bold; color: #27ae60; font-size: 1.1rem; }
+    .free { color: #3498db; }
+    .delivery { font-size: 0.9rem; color: #999; }
+    .wallet { background: #e8f4fc; padding: 15px; border-radius: 8px; margin: 30px 0; word-break: break-all; font-family: monospace; }
+    .about { background: white; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .about h2 { color: #2c3e50; margin-bottom: 12px; }
+    footer { text-align: center; margin-top: 30px; color: #999; font-size: 0.9rem; }
+    a { color: #2980b9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      .products { grid-template-columns: 1fr; }
+      h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Industrial Engineering Excel Tool</h1>
-    
-    <p>This macro-enabled Excel tool is designed by <strong>Behzad Mousavi</strong> for industrial engineers who need to automate complex calculations, production line scheduling, OEE analysis, and project planning.</p>
-
-    <div class="highlight">
-      <strong>Price:</strong> $10 USD (≈ 10 USDT)
+    <header>
+      <h1>Professional Project Planning Tools</h1>
+      <p class="subtitle">Excel & Macro-Based Solutions for Industrial & Project Managers</p>
+    </header>
+    <div class="products">
+      <!-- Product 1 -->
+      <div class="product">
+        <h2>Project Health Report Template</h2>
+        <p>A clean, ready-to-use template to visualize your project’s current status — perfect for weekly steering committee reviews.</p>
+        <div class="price free">Price: Free</div>
+        <div class="delivery">Delivery: Within 24 hours</div>
+        <p><a href="https://github.com/sbmousavices/Industrial-Tools/raw/main/Project_Health_Report_Template.xlsx" target="_blank">📥 Download Now</a></p>
+      </div>
+      <!-- Product 2 -->
+      <div class="product">
+        <h2>WBS Grouping Tool for MS Project</h2>
+        <p>Instantly group and structure your Work Breakdown Structure (WBS) in Microsoft Project — saving hours of manual effort.</p>
+        <div class="price">Price: 35 USDT</div>
+        <div class="delivery">Delivery: Within 24 hours</div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product">
+        <h2>Executive Monthly Action Plan (Excel + Gantt)</h2>
+        <p>Build a professional, dynamic monthly action plan with an integrated Gantt chart — all in a single Excel file.</p>
+        <div class="price">Price: 200 USDT</div>
+        <div class="delivery">Delivery: Within 2 days</div>
+      </div>
+      <!-- Product 4 -->
+      <div class="product">
+        <h2>Manpower & Machinery Data Bank (Macro-Enabled)</h2>
+        <p>Automate your daily reports with a macro-powered Excel system that tracks personnel and equipment usage month by month.</p>
+        <div class="price">Price: 300 USDT</div>
+        <div class="delivery">Delivery: Within 24 hours</div>
+      </div>
+      <!-- Product 5 -->
+      <div class="product">
+        <h2>EVMS – Earned Value Management System</h2>
+        <p>A complete EVMS dashboard that analyzes cost and schedule performance — requires project data from the last 3 months.</p>
+        <div class="price">Price: 300 USDT</div>
+        <div class="delivery">Delivery: Within 3 days</div>
+      </div>
+      <!-- Product 6 -->
+      <div class="product">
+        <h2>Executive Management Dashboard</h2>
+        <p>A dynamic, one-page dashboard that displays real-time project KPIs, timelines, and custom images — ideal for senior leadership.</p>
+        <div class="price">Price: 500 USDT</div>
+      </div>
+      <!-- Product 7 -->
+      <div class="product">
+        <h2>PMS – Progress Measurement System</h2>
+        <p>Custom-built Progress Measurement System aligned with your contract’s measurement rules and payment terms.</p>
+        <div class="price">Price: 500 USDT</div>
+        <div class="delivery">Delivery: Within 1 month</div>
+      </div>
+      <!-- Product 8 -->
+      <div class="product">
+        <h2>Project Time Schedule (MSP or Primavera)</h2>
+        <p>A fully compliant project schedule built from your approved WBS and contractual milestones — delivered in MS Project or Primavera.</p>
+        <div class="price">Price: 500 USDT</div>
+        <div class="delivery">Delivery: Within 1 month</div>
+      </div>
+      <!-- Product 9 -->
+      <div class="product">
+        <h2>Project Delay Report (EOT Support)</h2>
+        <p>A defensible delay analysis report documenting employer-caused disruptions — ready for Extension of Time (EOT) claims.</p>
+        <div class="price">Price: 1,000 USDT</div>
+        <div class="delivery">Delivery: Within 1 month</div>
+      </div>
+      <!-- Product 10 -->
+      <div class="product">
+        <h2>Claim Package – Financial Impact Assessment</h2>
+        <p>A comprehensive claim file quantifying financial damages caused by the employer — includes disruption, prolongation, and acceleration costs.</p>
+        <div class="price">Price: 5% of total claim value (2,000 USDT advance required)</div>
+        <div class="delivery">Delivery: Within 1 month</div>
+      </div>
     </div>
-
-    <h3>How to Purchase:</h3>
-    <ol>
-      <li>Send the payment to the USDT wallet address below (TRC20 network preferred for low fees).</li>
-      <li>After sending, email a screenshot of your transaction along with your name/email to the support address.</li>
-      <li>You’ll receive a download link for the Excel file (.xlsm) within 24 hours.</li>
-    </ol>
-
     <div class="wallet">
-      <strong>USDT Wallet (TRC20):</strong><br>
+      <strong>USDT Wallet (TRC-20):</strong><br>
       TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2
     </div>
-
-    <div class="email">
-      <strong>Support Email:</strong><br>
-      Sbmousavi.ces@gmail.com
+    <div class="about">
+      <h2>About the Creator</h2>
+      <p>With over <strong>25 years of experience</strong> as a Senior Project Planning Manager in the oil, gas, and industrial sectors, I specialize in delivering robust scheduling and control solutions under extreme operational conditions. My tools are born from real-world challenges: no internet, limited software access, and the need for <strong>fast, reliable, Excel-based systems</strong> that work offline. Every product you see here has been tested on live projects and designed for <strong>practicality, precision, and immediate impact</strong>.</p>
     </div>
-
-    <div class="note">
-      🔒 Note: This tool is licensed for personal and educational use only. Unauthorized redistribution or resale is prohibited.
-    </div>
-
     <footer>
-      Designed & Developed by <strong>Behzad Mousavi</strong> — Industrial Engineering<br>
-      © 2025 — All rights reserved.
+      &copy; 2025 Behzad Mousavi. All tools are property of the creator. 
+      <br>
+      GitHub: <a href="https://github.com/sbmousavices" target="_blank">sbmousavices</a>
     </footer>
   </div>
 </body>
-
 </html>
+0 commit comments
+Comments
+0
+ (0)
+Comment
+You're not receiving notifications from this thread.
+
+Create Products · sbmousavices/Industrial-Tools@82813ce
+
