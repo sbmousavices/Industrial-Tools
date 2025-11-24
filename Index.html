@@ -22,7 +22,6 @@
     }
     .instructions strong { color: #2980b9; }
 
-    /* دکمه دانلود PDF */
     .pdf-download {
       text-align: center;
       margin: 20px 0 30px;
@@ -113,7 +112,6 @@
         To purchase any product, send the exact amount in <strong>USDT (TRC-20 network preferred)</strong> to the wallet address listed below. After payment, email the <strong>product name</strong>, <strong>sent amount</strong>, and <strong>transaction hash</strong> to the support email provided. Your order will be processed and delivered once payment is verified.
       </p>
 
-      <!-- دکمه دانلود PDF - لینک نهایی و صحیح -->
       <div class="pdf-download">
         <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Industrial_Project_Planning_Tools.pdf" class="pdf-btn" target="_blank" download>
           📥 Download Full Product Catalog (PDF)
@@ -122,12 +120,22 @@
     </header>
 
     <div class="products">
-      <!-- Product 1 -->
+      <!-- Product 1 - FREE DEMO -->
       <div class="product">
-        <h2>Project Health Report Template</h2>
+        <h2>Project Health Report Template — <span style="color:#27ae60">FREE DEMO</span></h2>
         <p>A macro-enabled Excel tool for industrial engineers to automate complex calculations, production line scheduling, OEE analysis, and project planning.</p>
-        <div class="price">Price: 10 USDT</div>
-        <div class="delivery">Delivery: Within 24 hours after payment</div>
+        <p style="font-size:0.95rem; color:#555; margin-top:10px;">
+          ✅ <strong>Free demo version — no payment required!</strong> Try it today and see how it can streamline your reporting.
+        </p>
+        <div style="text-align:center; margin-top:12px;">
+          <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Demo_Project_Health_Report_Template.xlsm" 
+             class="pdf-btn" 
+             style="background:#2980b9; display:inline-block; padding:10px 20px; font-size:1.05rem;"
+             target="_blank"
+             download="Demo_Project_Health_Report_Template.xlsm">
+            📥 Download Free Demo
+          </a>
+        </div>
       </div>
 
       <!-- Product 2 -->
@@ -218,7 +226,7 @@
       <div class="copy-message" id="emailMessage"></div>
     </div>
 
-    <!-- Optional About Section -->
+    <!-- About Section -->
     <div class="about">
       <h2>About the Creator</h2>
       <p>With over 25 years of experience in industrial project planning and engineering, I design practical, no-nonsense tools that solve real-world scheduling, costing, and reporting challenges — especially in harsh operational environments like Asalouyeh.</p>
@@ -229,7 +237,6 @@
     </footer>
   </div>
 
-  <!-- کپی اسکریپت -->
   <script>
     function copyText(elementId) {
       const el = document.getElementById(elementId);
@@ -245,10 +252,9 @@
     }
   </script>
 
-  <!-- =============== 🕵️‍♂️ ردیاب بازدید صفحه فروش =============== -->
+  <!-- Visitor Tracking Script -->
   <script>
     (function() {
-      // ⬇️ TODO: این URL رو با آدرس Web App خودت از Google Apps Script جایگزین کن
       const TRACKER_URL = "https://script.google.com/macros/s/AKfycbw0XtDmDnxoGurRC7-Iuk4KMUxRtx0xXXKYh6LcdnrvFKGz7zDkOir8phYyys5_Y6ygsQ/exec";
 
       if (!TRACKER_URL || TRACKER_URL.includes("YOUR_DEPLOYMENT_ID")) return;
@@ -264,14 +270,10 @@
         params.append(key, payload[key]);
       }
 
-      // ارسال داده به صورت silent (بدون نمایش خطا به کاربر)
       fetch(TRACKER_URL, {
         method: "POST",
         body: params
-      }).catch(() => {
-        // Optional: برای دیباگ می‌تونی این خط رو فعال کنی
-        // console.log("Visitor tracking failed.");
-      });
+      }).catch(() => {});
     })();
   </script>
 </body>
