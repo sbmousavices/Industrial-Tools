@@ -46,12 +46,47 @@
   </script>
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: #f9f9f9; color: #333; line-height: 1.6; padding: 20px; }
-    .container { max-width: 1000px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 30px; padding: 20px 0; }
-    h1 { font-size: 2.4rem; color: #2c3e50; margin-bottom: 10px; }
-    .subtitle { color: #7f8c8d; font-size: 1.1rem; margin-bottom: 15px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    body {
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* کادر عنوان */
+    .title-box {
+      background-color: #5B9BD5;
+      padding: 26px 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .title-box h1 {
+      color: white;
+      text-align: left;
+      font-size: 2.2rem;
+      margin: 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
     .instructions {
       text-align: center;
       margin: 0 auto 25px;
@@ -83,11 +118,60 @@
     }
 
     .products { display: grid; gap: 20px; margin-bottom: 40px; }
-    .product { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .product h2 { color: #2980b9; margin-bottom: 10px; font-size: 1.4rem; }
-    .product p { margin-bottom: 12px; color: #555; }
-    .price { font-weight: bold; color: #27ae60; font-size: 1.1rem; }
-    .delivery { font-size: 0.9rem; color: #999; margin-top: 8px; }
+    .product {
+      background: #BDD7EE;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* سایه قوی‌تر */
+    }
+    .product h2 {
+      color: #2980b9;
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+    .product p {
+      margin-bottom: 12px;
+      color: #555;
+    }
+    .price {
+      font-weight: bold;
+      color: #27ae60;
+      font-size: 1.1rem;
+    }
+    .delivery {
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 8px;
+    }
+
+    /* دکمه‌های دانلود جدید — دو خطی + سه‌بعدی */
+    .download-btn {
+      display: inline-block;
+      background: #D0CECE;
+      color: #333;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: normal;
+      margin: 0 4px;
+      transition: all 0.2s;
+      border: 1px solid #aaa;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .download-btn:hover {
+      background: #c0bcbc;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+      transform: translateY(-1px);
+    }
+    .download-btn span {
+      display: block;
+      font-size: 0.75rem;
+      margin-top: 2px;
+    }
+
     .info-box {
       background: #e8f4fc;
       padding: 20px;
@@ -128,25 +212,55 @@
       font-weight: bold;
       min-height: 20px;
     }
-    .about { background: white; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .about {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
     .about h2 { color: #2c3e50; margin-bottom: 12px; }
-    footer { text-align: center; margin-top: 30;
-    color: #999; font-size: 0.9rem; }
+    footer { text-align: center; margin-top: 30px; color: #999; font-size: 0.9rem; }
     a { color: #2980b9; text-decoration: none; }
     a:hover { text-decoration: underline; }
     @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      .subtitle, .instructions { font-size: 0.95rem; padding: 0 10px; }
-      .pdf-btn { padding: 8px 16px; font-size: 1rem; }
-      .product h2 { font-size: 1.2rem; }
-      .info-value { min-width: 240px; font-size: 1rem; }
+      .title-box {
+        padding: 22px 20px;
+      }
+      .title-box h1 {
+        font-size: 1.8rem;
+      }
+      .subtitle, .instructions {
+        font-size: 0.95rem;
+      }
+      .pdf-btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+      }
+      .product h2 {
+        font-size: 1.2rem;
+      }
+      .info-value {
+        min-width: 240px;
+        font-size: 1rem;
+      }
+      .download-btn {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        line-height: 1.1;
+      }
+      .download-btn span {
+        font-size: 0.65rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Industrial Project Planning Tools</h1>
+      <div class="title-box">
+        <h1>Industrial Project Planning Tools</h1>
+      </div>
       <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
       <p class="instructions">
         To purchase any product, send the exact amount in <strong>USDT (TRC-20 network preferred)</strong> to the wallet address listed below. After payment, email the <strong>product name</strong>, <strong>sent amount</strong>, and <strong>transaction hash</strong> to the support email provided. Your order will be processed and delivered once payment is verified.
@@ -164,14 +278,15 @@
       <div class="product">
         <h2>Project Health Report Template — <span style="color:#27ae60">FREE DEMO</span></h2>
         <p>A macro-enabled Excel tool for industrial engineers to automate complex calculations, production line scheduling, OEE analysis, and project planning.</p>
-        <p style="font-size:0.95rem; color:#555; margin-top:10px;">
-          ✅ <strong>Free demo version — no payment required!</strong> Try it today and see how it can streamline your reporting.
-        </p>
-        <div style="text-align:center; margin-top:12px;">
+        <ul style="margin: 15px 0 20px 0; padding-left: 20px; font-size: 0.95rem; color: #555;">
+          <li>✅ Free demo version</li>
+          <li>✅ no payment required!</li>
+          <li>✅ Try it today and see how it can streamline your reporting.</li>
+        </ul>
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Demo_Project_Health_Report_Template.xlsm"
-             class="pdf-btn" style="background:#2980b9; padding:10px 20px; font-size:1.05rem;"
-             target="_blank" download="Demo_Project_Health_Report_Template.xlsm">
-            📥 Download Free Demo
+             class="download-btn" target="_blank" download="Demo_Project_Health_Report_Template.xlsm">
+            Download<span>Excel</span>
           </a>
         </div>
       </div>
@@ -182,13 +297,10 @@
         <p>Instantly group and structure your Work Breakdown Structure (WBS) in Microsoft Project — saving hours of manual effort.</p>
         <div class="price">Price: 35 USDT</div>
         <div class="delivery">Delivery: Within 24 hours</div>
-
-        <!-- ONLY Tutorial Video – NO Excel Demo -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/WBS_Grouping_Demo.mp4"
-             class="pdf-btn" style="background:#8e44ad; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="WBS_Grouping_Demo.mp4">
-            🎥 Watch & Download Tutorial Video
+             class="download-btn" target="_blank" download="WBS_Grouping_Demo.mp4">
+            Download<span>Video</span>
           </a>
         </div>
       </div>
@@ -199,13 +311,10 @@
         <p>Build a professional, dynamic monthly action plan with an integrated Gantt chart — all in a single Excel file.</p>
         <div class="price">Price: 200 USDT</div>
         <div class="delivery">Delivery: Within 2 days</div>
-
-        <!-- Download Action Plan PDF -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Executive_Monthly_Action_Plan.pdf"
-             class="pdf-btn" style="background:#20732e; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="Executive_Monthly_Action_Plan.pdf">
-            📄 Download Action Plan Sample (PDF)
+             class="download-btn" target="_blank" download="Executive_Monthly_Action_Plan.pdf">
+            Download<span>PDF</span>
           </a>
         </div>
       </div>
@@ -216,18 +325,14 @@
         <p>Automate your daily reports with a macro-powered Excel system that tracks personnel and equipment usage month by month.</p>
         <div class="price">Price: 300 USDT</div>
         <div class="delivery">Delivery: Within 24 hours</div>
-
-        <!-- Download Guide + Demo Video -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Manpower_Guide.pdf"
-             class="pdf-btn" style="background:#e67e22; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="Manpower_Guide.pdf">
-            📄 Download User Guide (PDF)
+             class="download-btn" target="_blank" download="Manpower_Guide.pdf">
+            Download<span>PDF</span>
           </a>
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Manpower_Data_Bank_Builder.mp4"
-             class="pdf-btn" style="background:#8e44ad; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="Manpower_Data_Bank_Builder.mp4">
-            🎥 Download Demo Video
+             class="download-btn" target="_blank" download="Manpower_Data_Bank_Builder.mp4">
+            Download<span>Video</span>
           </a>
         </div>
       </div>
@@ -238,13 +343,10 @@
         <p>A complete EVMS dashboard that analyzes cost and schedule performance — requires project data from the last 3 months.</p>
         <div class="price">Price: 300 USDT</div>
         <div class="delivery">Delivery: Within 3 days</div>
-
-        <!-- Download Demo PDF Button -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/EVMS.pdf"
-             class="pdf-btn" style="background:#9b59b6; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="EVMS.pdf">
-            📄 Download Demo PDF (with Charts & Calculations)
+             class="download-btn" target="_blank" download="EVMS.pdf">
+            Download<span>PDF</span>
           </a>
         </div>
       </div>
@@ -262,13 +364,10 @@
         <p>Custom-built Progress Measurement System aligned with your contract’s measurement rules and payment terms.</p>
         <div class="price">Price: 500 USDT</div>
         <div class="delivery">Delivery: Within 1 month</div>
-
-        <!-- Download PMS Sample PDF -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/EL_%26IN_Sample_PMS.pdf"
-             class="pdf-btn" style="background:#007236; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="EL_&IN_Sample_PMS.pdf">
-            📄 Download PMS Sample (PDF)
+             class="download-btn" target="_blank" download="EL_&IN_Sample_PMS.pdf">
+            Download<span>PDF</span>
           </a>
         </div>
       </div>
@@ -279,13 +378,10 @@
         <p>A fully compliant project schedule built from your approved WBS and contractual milestones — delivered in MS Project or Primavera.</p>
         <div class="price">Price: 500 USDT</div>
         <div class="delivery">Delivery: Within 1 month</div>
-
-        <!-- Download Demo Video -->
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: right; margin-top: 10px;">
           <a href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/refs/heads/main/Project_Time_Schedule.mp4"
-             class="pdf-btn" style="background:#8e44ad; padding:10px 18px; font-size:1rem; margin:0 6px;"
-             target="_blank" download="Project_Time_Schedule.mp4">
-            🎥 Download Demo Video
+             class="download-btn" target="_blank" download="Project_Time_Schedule.mp4">
+            Download<span>Video</span>
           </a>
         </div>
       </div>
