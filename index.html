@@ -431,22 +431,33 @@
       </div>
     </div>
 
-    <!-- Wallet -->
+    <!-- ✅ Smart Wallet Section (بدون TronScan) -->
     <div class="info-box">
-      <div class="info-label">USDT Wallet (TRC-20 Network Preferred)</div>
+      <div class="info-label">USDT Wallet (TRC-20 Network)</div>
       <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+      
       <button class="copy-btn" onclick="copyText('walletAddress')">📋 Copy Address</button>
       <div class="copy-message" id="walletMessage"></div>
+
+      <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <a href="tron:TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2" 
+           style="display: inline-block; padding: 8px 14px; background: #e8f5e9; color: #2e7d32; text-decoration: none; border-radius: 6px; font-size: 0.9rem; box-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+          💼 Open in Wallet (Mobile)
+        </a>
+      </div>
+
+      <p style="margin-top: 12px; font-size: 0.85rem; color: #666;">
+        💡 Tip: Most Iranian users prefer TRC-20 (low fee). Paste this address in your wallet and send exact amount.
+      </p>
     </div>
 
-    <!-- ✅ Email with Smart Outlook Link -->
+    <!-- ✅ Smart Email Section -->
     <div class="info-box">
       <div class="info-label">Support & Purchase Confirmation Email</div>
       <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
       <button class="copy-btn" onclick="copyText('emailAddress')">📧 Copy Email</button>
       <div class="copy-message" id="emailMessage"></div>
 
-      <!-- Outlook Smart Link -->
       <a href="https://outlook.live.com/mail/0/deeplink/compose?to=sbmousavices%40gmail.com&amp;subject=Purchase%20Inquiry%20%E2%80%93%20Industrial%20Project%20Tools&amp;body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20purchase%20one%20of%20your%20tools.%20Please%20find%20below%20my%20details%3A%0D%0A%0D%0A-%20Product%20Name%3A%20%0D%0A-%20Amount%20Sent%3A%20%0D%0A-%20Transaction%20Hash%3A%20%0D%0A%0D%0AThank%20you%21" 
          target="_blank"
          style="display: inline-block; margin-top: 12px; padding: 8px 16px; background-color: #0078d4; color: white; text-decoration: none; border-radius: 6px; font-size: 0.95rem; box-shadow: 2px 2px 4px rgba(0,0,0,0.15); transition: all 0.2s;">
