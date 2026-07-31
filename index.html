@@ -4,1300 +4,432 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
 
-<title>
-Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi
-</title>
-
-
-<meta name="description"
-content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
-
-
-<meta name="keywords"
-content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
-
-
-<meta name="author"
-content="Behzad Mousavi">
-
-
-<meta name="robots"
-content="index, follow">
-
-
-<link rel="canonical"
-href="https://sbmousavices.github.io/Industrial-Tools/">
-
-
+<meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
+<meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
+<meta name="author" content="Behzad Mousavi">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
 
 <!-- Open Graph -->
-
-<meta property="og:title"
-content="Industrial Project Planning Tools">
-
-
-<meta property="og:description"
-content="Professional Excel-based solutions for industrial project managers.">
-
-
-<meta property="og:type"
-content="website">
-
-
-<meta property="og:url"
-content="https://sbmousavices.github.io/Industrial-Tools/">
-
-
+<meta property="og:title" content="Industrial Project Planning Tools">
+<meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
 
 <!-- Schema -->
-
 <script type="application/ld+json">
-
 {
- "@context":"https://schema.org",
- "@type":"ProfessionalService",
- "name":"Industrial Project Planning Tools by Behzad Mousavi",
- "description":"Professional project planning and control tools for industrial engineers.",
- "url":"https://sbmousavices.github.io/Industrial-Tools/",
- "sameAs":[
- "https://github.com/sbmousavices"
- ]
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Industrial Project Planning Tools by Behzad Mousavi",
+  "description": "Professional project planning and control tools for industrial engineers.",
+  "url": "https://sbmousavices.github.io/Industrial-Tools/",
+  "sameAs": [
+    "https://github.com/sbmousavices"
+  ],
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "79",
+    "highPrice": "3000",
+    "priceCurrency": "USD",
+    "offerCount": "10"
+  }
 }
-
 </script>
 
-
-
 <style>
-
-
-*{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Times New Roman", Times, serif;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
 }
 
-
-
-body{
-
-background:#f5f7fa;
-
-color:#333;
-
-line-height:1.6;
-
-padding:20px;
-
+body {
+  background: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
 }
 
-
-
-.container{
-
-max-width:1000px;
-
-margin:auto;
-
+.container {
+  max-width: 1000px;
+  margin: auto;
 }
-
-
 
 /* Title */
-
-.title-box{
-
-background:#5B9BD5;
-
-padding:30px;
-
-border-radius:12px;
-
-margin-bottom:25px;
-
-box-shadow:0 4px 10px rgba(0,0,0,0.15);
-
+.title-box {
+  background: #5B9BD5;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-
-
-.title-box h1{
-
-color:white;
-
-text-align:center;
-
-font-size:2.3rem;
-
+.title-box h1 {
+  color: white;
+  text-align: center;
+  font-size: 2.3rem;
 }
-
-
 
 /* Header */
-
-header{
-
-text-align:center;
-
-margin-bottom:30px;
-
+header {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-
-
-.subtitle{
-
-font-size:1.2rem;
-
-color:#666;
-
-margin-bottom:20px;
-
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-
-
-.instructions{
-
-max-width:800px;
-
-margin:auto;
-
-font-size:1rem;
-
-color:#555;
-
+.instructions {
+  max-width: 800px;
+  margin: auto;
+  font-size: 1rem;
+  color: #555;
 }
 
-
-
-.instructions strong{
-
-color:#2980b9;
-
+.instructions strong {
+  color: #2980b9;
 }
-
-
 
 /* PDF Button */
-
-
-.pdf-download{
-
-margin:30px 0;
-
+.pdf-download {
+  margin: 30px 0;
 }
 
-
-
-.pdf-btn{
-
-display:inline-block;
-
-background:#27ae60;
-
-color:white;
-
-padding:12px 25px;
-
-border-radius:8px;
-
-font-weight:bold;
-
-text-decoration:none;
-
+.pdf-btn {
+  display: inline-block;
+  background: #27ae60;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-
-
-.pdf-btn:hover{
-
-background:#219653;
-
+.pdf-btn:hover {
+  background: #219653;
 }
-
-
 
 /* Products */
-
-
-.products{
-
-display:grid;
-
-gap:20px;
-
+.products {
+  display: grid;
+  gap: 20px;
 }
 
-
-
-.product{
-
-background:#BDD7EE;
-
-padding:20px;
-
-border-radius:10px;
-
-box-shadow:0 4px 10px rgba(0,0,0,0.12);
-
+.product {
+  background: #BDD7EE;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
-
-
-.product h2{
-
-color:#2980b9;
-
-font-size:1.35rem;
-
-margin-bottom:10px;
-
+.product h2 {
+  color: #2980b9;
+  font-size: 1.35rem;
+  margin-bottom: 10px;
 }
 
-
-
-.product p{
-
-color:#555;
-
-margin-bottom:12px;
-
+.product p {
+  color: #555;
+  margin-bottom: 12px;
 }
 
-.price{
-
-font-weight:bold;
-
-color:#27ae60;
-
-font-size:1.1rem;
-
+.price {
+  font-weight: bold;
+  color: #27ae60;
+  font-size: 1.1rem;
 }
 
-
-
-.launch-tag{
-
-display:inline-block;
-
-background:#f1c40f;
-
-color:#2c3e50;
-
-padding:3px 8px;
-
-border-radius:5px;
-
-font-size:0.85rem;
-
-margin-top:5px;
-
+.launch-tag {
+  display: inline-block;
+  background: #f1c40f;
+  color: #2c3e50;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  margin-top: 5px;
 }
 
-
-
-.delivery{
-
-color:#777;
-
-font-size:0.9rem;
-
-margin-top:8px;
-
+.delivery {
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: 8px;
 }
 
-
-
-.download-btn{
-
-display:inline-block;
-
-background:#D0CECE;
-
-color:#333;
-
-padding:8px 12px;
-
-border-radius:6px;
-
-text-decoration:none;
-
-font-size:0.85rem;
-
-border:1px solid #aaa;
-
-margin-top:10px;
-
+.download-btn {
+  display: inline-block;
+  background: #D0CECE;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border: 1px solid #aaa;
+  margin-top: 10px;
 }
 
-
-
-.download-btn:hover{
-
-background:#bbb;
-
+.download-btn:hover {
+  background: #bbb;
 }
 
-
-
-.info-box{
-
-background:#e8f4fc;
-
-padding:20px;
-
-border-radius:10px;
-
-margin:25px 0;
-
-text-align:center;
-
+.info-box {
+  background: #e8f4fc;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 25px 0;
+  text-align: center;
 }
 
-
-
-.info-label{
-
-font-weight:bold;
-
-color:#2c3e50;
-
-margin-bottom:10px;
-
+.info-label {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
 }
 
-
-
-.info-value{
-
-font-family:monospace;
-
-background:white;
-
-padding:10px;
-
-border-radius:6px;
-
-display:inline-block;
-
-word-break:break-all;
-
-margin:10px;
-
+.info-value {
+  font-family: monospace;
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  display: inline-block;
+  word-break: break-all;
+  margin: 10px;
 }
 
-
-
-.copy-btn{
-
-background:#3498db;
-
-color:white;
-
-border:none;
-
-padding:8px 16px;
-
-border-radius:6px;
-
-cursor:pointer;
-
+.copy-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-
-
-.copy-message{
-
-color:#27ae60;
-
-font-weight:bold;
-
-height:20px;
-
+.copy-message {
+  color: #27ae60;
+  font-weight: bold;
+  height: 20px;
 }
 
-
-
-.about{
-
-background:white;
-
-padding:20px;
-
-border-radius:10px;
-
-margin-top:30px;
-
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-
+.about {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-
-
-footer{
-
-text-align:center;
-
-margin-top:30px;
-
-color:#999;
-
+footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #999;
 }
 
-
-
-@media(max-width:600px){
-
-.title-box h1{
-
-font-size:1.7rem;
-
+@media(max-width:600px) {
+  .title-box h1 {
+    font-size: 1.7rem;
+  }
+  .product h2 {
+    font-size: 1.1rem;
+  }
 }
-
-.product h2{
-
-font-size:1.1rem;
-
-}
-
-}
-
-
-
 </style>
-
 
 </head>
 
-
-
 <body>
-
 
 <div class="container">
 
-
 <header>
+  <div class="title-box">
+    <h1>Industrial Project Planning Tools</h1>
+  </div>
 
+  <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
 
-<div class="title-box">
+  <p class="instructions">
+    Professional tools developed by <strong>Behzad Mousavi, MSc Industrial Engineering</strong>
+    with more than 25 years experience in industrial project planning,
+    scheduling, cost control and project management.
+  </p>
 
-<h1>
-Industrial Project Planning Tools
-</h1>
-
-</div>
-
-
-
-<p class="subtitle">
-
-Macro-Enabled Excel Solutions for Engineers & Project Managers
-
-</p>
-
-
-
-<p class="instructions">
-
-Professional tools developed by 
-<strong>Behzad Mousavi, MSc Industrial Engineering</strong>
-
-with more than 25 years experience in industrial project planning,
-scheduling, cost control and project management.
-
-</p>
-
-
-
-<div class="pdf-download">
-
-<a class="pdf-btn"
-href="Industrial_Project_Planning_Tools.pdf"
-target="_blank">
-
-📥 Download Product Catalog PDF
-
-</a>
-
-
-</div>
-
-
+  <div class="pdf-download">
+    <a class="pdf-btn" href="Industrial_Project_Planning_Tools.pdf" target="_blank">
+      📥 Download Product Catalog PDF
+    </a>
+  </div>
 </header>
-
-
 
 <div class="products">
 
+  <!-- PRODUCT 1 -->
+  <div class="product">
+    <h2>Project Health Report Template - <span style="color:#27ae60">FREE DEMO</span></h2>
+    <p>A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis and project monitoring.</p>
+    <ul>
+      <li>Free demo version</li>
+      <li>No payment required</li>
+      <li>Try before purchase</li>
+    </ul>
+    <a class="download-btn" href="Demo_Project_Health_Report_Template.xlsm" download>Download Excel Demo</a>
+  </div>
 
-<!-- PRODUCT 1 -->
+  <!-- PRODUCT 2 -->
+  <div class="product">
+    <h2>WBS Grouping Tool for MS Project</h2>
+    <p>Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
+    <div class="price">Price: 79 USDT</div>
+    <div class="launch-tag">Introductory Price</div>
+    <div class="delivery">Delivery: Within 24 hours</div>
+    <a class="download-btn" href="WBS_Grouping_Demo.mp4" download>Download Demo Video</a>
+  </div>
 
+  <!-- PRODUCT 3 -->
+  <div class="product">
+    <h2>Executive Monthly Action Plan (Excel + Gantt)</h2>
+    <p>Dynamic monthly action plan with integrated Gantt chart.</p>
+    <div class="price">Price: 350 USDT</div>
+    <div class="launch-tag">Introductory Price</div>
+    <div class="delivery">Delivery: Within 2 days</div>
+    <a class="download-btn" href="Executive_Monthly_Action_Plan.pdf" download>Download PDF</a>
+  </div>
 
-<div class="product">
+  <!-- PRODUCT 4 -->
+  <div class="product">
+    <h2>Manpower & Machinery Data Bank (Macro-Enabled)</h2>
+    <p>Automated Excel system for tracking manpower, equipment usage and monthly project resources.</p>
+    <div class="price">Price: 600 USDT</div>
+    <div class="launch-tag">Introductory Price</div>
+    <div class="delivery">Delivery: Within 24 hours</div>
+    <a class="download-btn" href="Manpower_Guide.pdf" download>Download PDF</a>
+    <a class="download-btn" href="Manpower_Data_Bank_Builder.mp4" download>Download Video</a>
+  </div>
 
+  <!-- PRODUCT 5 -->
+  <div class="product">
+    <h2>EVMS - Earned Value Management System</h2>
+    <p>Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
+    <div class="price">Price: 800 USDT</div>
+    <div class="launch-tag">Introductory Price</div>
+    <div class="delivery">Delivery: Within 3 days</div>
+    <a class="download-btn" href="EVMS.pdf" download>Download PDF</a>
+  </div>
 
-<h2>
-Project Health Report Template -
-<span style="color:#27ae60">
-FREE DEMO
-</span>
-</h2>
+  <!-- PRODUCT 6 -->
+  <div class="product">
+    <h2>Executive Management Dashboard</h2>
+    <p>Dynamic one-page dashboard showing project KPIs, timelines, progress status and executive information.</p>
+    <div class="price">Price: 1200 USDT</div>
+    <div class="launch-tag">Premium Dashboard</div>
+    <a class="download-btn" href="Management_Dashboard.pdf" download>Download PDF</a>
+  </div>
 
+  <!-- PRODUCT 7 -->
+  <div class="product">
+    <h2>PMS - Progress Measurement System</h2>
+    <p>Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
+    <div class="price">Price: 1500 USDT</div>
+    <div class="launch-tag">Professional Service</div>
+    <div class="delivery">Delivery: Within 1 month</div>
+    <a class="download-btn" href="EL_IN_Sample_PMS.pdf" download>Download Sample PDF</a>
+  </div>
 
-<p>
-A macro-enabled Excel tool for project health reporting,
-production line scheduling, OEE analysis and project monitoring.
-</p>
+  <!-- PRODUCT 8 -->
+  <div class="product">
+    <h2>Project Time Schedule (MSP or Primavera)</h2>
+    <p>A fully compliant project schedule created from approved WBS, contract milestones and project requirements.</p>
+    <div class="price">Price: 1500 USDT</div>
+    <div class="launch-tag">Professional Service</div>
+    <div class="delivery">Delivery: Within 1 month</div>
+    <a class="download-btn" href="Project_Time_Schedule.mp4" download>Download Demo Video</a>
+  </div>
 
+  <!-- PRODUCT 9 -->
+  <div class="product">
+    <h2>Project Delay Report (EOT Support)</h2>
+    <p>Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
+    <div class="price">Price: 3000 USDT</div>
+    <div class="launch-tag">Premium Claim Service</div>
+    <div class="delivery">Delivery: Within 1 month</div>
+    <a class="download-btn" href="Delay_Schedule_Analysis.pdf" download>Download Sample PDF</a>
+  </div>
 
-<ul>
-
-<li>Free demo version</li>
-
-<li>No payment required</li>
-
-<li>Try before purchase</li>
-
-</ul>
-
-
-<a class="download-btn"
-href="Demo_Project_Health_Report_Template.xlsm"
-download>
-
-Download Excel Demo
-
-</a>
-
-
-</div>
-
-
-
-<!-- PRODUCT 2 -->
-
-
-<div class="product">
-
-
-<h2>
-WBS Grouping Tool for MS Project
-</h2>
-
-
-<p>
-Automatically organize Work Breakdown Structure
-in Microsoft Project and save hours of manual work.
-</p>
-
-
-<div class="price">
-
-Price: 79 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Introductory Price
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 24 hours
-
-</div>
-
-
-<a class="download-btn"
-href="WBS_Grouping_Demo.mp4"
-download>
-
-Download Demo Video
-
-</a>
-
-
-</div>
-
-
-
-<!-- PRODUCT 3 -->
-
-
-<div class="product">
-
-
-<h2>
-Executive Monthly Action Plan (Excel + Gantt)
-</h2>
-
-
-<p>
-Dynamic monthly action plan with integrated Gantt chart.
-</p>
-
-
-<div class="price">
-
-Price: 350 USDT
+  <!-- PRODUCT 10 -->
+  <div class="product">
+    <h2>Claim Package - Financial Impact Assessment</h2>
+    <p>Complete claim documentation including disruption, prolongation and acceleration cost assessment.</p>
+    <div class="price">Price: 5% of Claim Value (USDT)</div>
+    <div class="launch-tag">Full Documentation Package</div>
+    <div class="delivery">Delivery: Within 1 month</div>
+  </div>
 
 </div>
-
-
-<div class="launch-tag">
-
-Introductory Price
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 2 days
-
-</div>
-
-
-<a class="download-btn"
-href="Executive_Monthly_Action_Plan.pdf"
-download>
-
-Download PDF
-
-</a>
-
-
-</div>
-
-<!-- PRODUCT 4 -->
-
-
-<div class="product">
-
-
-<h2>
-Manpower & Machinery Data Bank (Macro-Enabled)
-</h2>
-
-
-<p>
-
-Automated Excel system for tracking manpower,
-equipment usage and monthly project resources.
-
-</p>
-
-
-<div class="price">
-
-Price: 600 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Introductory Price
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 24 hours
-
-</div>
-
-
-<a class="download-btn"
-href="Manpower_Guide.pdf"
-download>
-
-Download PDF
-
-</a>
-
-
-<a class="download-btn"
-href="Manpower_Data_Bank_Builder.mp4"
-download>
-
-Download Video
-
-</a>
-
-
-</div>
-
-
-
-
-<!-- PRODUCT 5 -->
-
-
-<div class="product">
-
-
-<h2>
-
-EVMS - Earned Value Management System
-
-</h2>
-
-
-<p>
-
-Complete Earned Value Management dashboard
-for analyzing cost and schedule performance.
-
-</p>
-
-
-<div class="price">
-
-Price: 800 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Introductory Price
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 3 days
-
-</div>
-
-
-<a class="download-btn"
-href="EVMS.pdf"
-download>
-
-Download PDF
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- PRODUCT 6 -->
-
-
-<div class="product">
-
-
-<h2>
-
-Executive Management Dashboard
-
-</h2>
-
-
-<p>
-
-Dynamic one-page dashboard showing project KPIs,
-timelines, progress status and executive information.
-
-</p>
-
-
-<div class="price">
-
-Price: 1200 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Premium Dashboard
-
-</div>
-
-
-<a class="download-btn"
-href="Management_Dashboard.pdf"
-download>
-
-Download PDF
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- PRODUCT 7 -->
-
-
-<div class="product">
-
-
-<h2>
-
-PMS - Progress Measurement System
-
-</h2>
-
-
-<p>
-
-Custom Progress Measurement System aligned with
-contract measurement rules and payment terms.
-
-</p>
-
-
-<div class="price">
-
-Price: 1500 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Professional Service
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 1 month
-
-</div>
-
-
-<a class="download-btn"
-href="EL_IN_Sample_PMS.pdf"
-download>
-
-Download Sample PDF
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- PRODUCT 8 -->
-
-
-<div class="product">
-
-
-<h2>
-
-Project Time Schedule (MSP or Primavera)
-
-</h2>
-
-
-<p>
-
-A fully compliant project schedule created from approved WBS,
-contract milestones and project requirements.
-
-</p>
-
-
-<div class="price">
-
-Price: 1500 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Professional Service
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 1 month
-
-</div>
-
-
-<a class="download-btn"
-href="Project_Time_Schedule.mp4"
-download>
-
-Download Demo Video
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- PRODUCT 9 -->
-
-
-<div class="product">
-
-
-<h2>
-
-Project Delay Report (EOT Support)
-
-</h2>
-
-
-<p>
-
-Professional delay analysis report documenting disruption events
-and supporting Extension of Time claims.
-
-</p>
-
-
-<div class="price">
-
-Price: 3000 USDT
-
-</div>
-
-
-<div class="launch-tag">
-
-Premium Claim Service
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 1 month
-
-</div>
-
-
-<a class="download-btn"
-href="Delay_Schedule_Analysis.pdf"
-download>
-
-Download Sample PDF
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- PRODUCT 10 -->
-
-
-<div class="product">
-
-
-<h2>
-
-Claim Package - Financial Impact Assessment
-
-</h2>
-
-
-<p>
-
-Complete claim documentation including disruption,
-prolongation and acceleration cost assessment.
-
-</p>
-
-
-<div class="price">
-
-Price: 5% of Claim Value (USDT)
-
-</div>
-
-
-<div class="launch-tag">
-
-Full Documentation Package
-
-</div>
-
-
-<div class="delivery">
-
-Delivery: Within 1 month
-
-</div>
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
 
 <!-- PAYMENT SECTION -->
-
-
 <div class="info-box">
-
-
-<div class="info-label">
-
-USDT Wallet (TRC-20 Network)
-
+  <div class="info-label">USDT Wallet (TRC-20 Network)</div>
+  <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+  <button class="copy-btn" onclick="copyText('walletAddress')">📋 Copy Wallet Address</button>
+  <div class="copy-message" id="walletMessage"></div>
 </div>
-
-
-
-<div class="info-value" id="walletAddress">
-
-TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2
-
-</div>
-
-
-
-<button class="copy-btn"
-onclick="copyText('walletAddress')">
-
-📋 Copy Wallet Address
-
-</button>
-
-
-<div class="copy-message"
-id="walletMessage">
-
-</div>
-
-
-</div>
-
-
-
 
 <!-- EMAIL SECTION -->
-
-
 <div class="info-box">
-
-
-<div class="info-label">
-
-Support & Purchase Confirmation Email
-
+  <div class="info-label">Support & Purchase Confirmation Email</div>
+  <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
+  <button class="copy-btn" onclick="copyText('emailAddress')">📧 Copy Email</button>
+  <div class="copy-message" id="emailMessage"></div>
 </div>
 
-
-
-<div class="info-value" id="emailAddress">
-
-sbmousavices@gmail.com
-
-</div>
-
-
-
-<button class="copy-btn"
-onclick="copyText('emailAddress')">
-
-📧 Copy Email
-
-</button>
-
-
-<div class="copy-message"
-id="emailMessage">
-
-</div>
-
-
-
-</div>
-
-
-
-
-<a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you."
-
-class="pdf-btn">
-
-✉️ Send Purchase Email
-
+<a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="pdf-btn">
+  ✉️ Send Purchase Email
 </a>
 
-
-
-</div>
-
-
-
-
-
 <!-- ABOUT SECTION -->
-
-
 <div class="about">
-
-
-<h2>
-
-About the Creator
-
-</h2>
-
-
-
-<p>
-
-With more than 25 years of experience in industrial project planning
-and control, I design practical tools for engineers and project managers.
-
-My experience covers oil and gas projects including engineering,
-procurement, construction, commissioning, scheduling,
-progress measurement, cost control and delay analysis.
-
-These solutions are developed based on real project challenges
-and practical field requirements.
-
-</p>
-
-
+  <h2>About the Creator</h2>
+  <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
 </div>
-
-
-
 
 <!-- FOOTER -->
-
-
 <footer>
-
-
-<p>
-
-© 2025 Behzad Mousavi. All rights reserved.
-
-</p>
-
-
+  <p>© 2025 Behzad Mousavi. All rights reserved.</p>
 </footer>
-
-
-
-
-<script>
-
-
-function copyText(id){
-
-
-const element = document.getElementById(id);
-
-
-const text = element.innerText || element.textContent;
-
-
-
-navigator.clipboard.writeText(text)
-
-.then(function(){
-
-
-let message;
-
-
-
-if(id === "walletAddress"){
-
-message = document.getElementById("walletMessage");
-
-}
-
-else{
-
-message = document.getElementById("emailMessage");
-
-}
-
-
-
-message.innerHTML = "✅ Copied!";
-
-
-
-setTimeout(function(){
-
-message.innerHTML = "";
-
-},2000);
-
-
-
-})
-
-.catch(function(error){
-
-
-console.log("Copy failed:", error);
-
-
-});
-
-
-}
-
-
-
-</script>
-
-
 
 </div>
 
+<script>
+function copyText(id) {
+  const element = document.getElementById(id);
+  const text = element.innerText || element.textContent;
+
+  navigator.clipboard.writeText(text)
+    .then(function() {
+      let message;
+      if (id === "walletAddress") {
+        message = document.getElementById("walletMessage");
+      } else {
+        message = document.getElementById("emailMessage");
+      }
+      message.innerHTML = "✅ Copied!";
+      setTimeout(function() {
+        message.innerHTML = "";
+      }, 2000);
+    })
+    .catch(function(error) {
+      console.log("Copy failed:", error);
+    });
+}
+</script>
 
 </body>
-
-
 </html>
