@@ -2,434 +2,578 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
 
-<title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
+    <meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
+    <meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
+    <meta name="author" content="Behzad Mousavi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
 
-<meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
-<meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
-<meta name="author" content="Behzad Mousavi">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Industrial Project Planning Tools">
+    <meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
 
-<!-- Open Graph -->
-<meta property="og:title" content="Industrial Project Planning Tools">
-<meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
+    <!-- Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Industrial Project Planning Tools by Behzad Mousavi",
+      "description": "Professional project planning and control tools for industrial engineers.",
+      "url": "https://sbmousavices.github.io/Industrial-Tools/",
+      "sameAs": ["https://github.com/sbmousavices"],
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "79",
+        "highPrice": "3000",
+        "priceCurrency": "USD",
+        "offerCount": "10"
+      }
+    }
+    </script>
 
-<!-- Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Industrial Project Planning Tools by Behzad Mousavi",
-  "description": "Professional project planning and control tools for industrial engineers.",
-  "url": "https://sbmousavices.github.io/Industrial-Tools/",
-  "sameAs": [
-    "https://github.com/sbmousavices"
-  ],
-  "offers": {
-    "@type": "AggregateOffer",
-    "lowPrice": "79",
-    "highPrice": "3000",
-    "priceCurrency": "USD",
-    "offerCount": "10"
-  }
-}
-</script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Times New Roman", Times, serif;
-}
+    <style>
+        :root {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #e8f4fc;
+            --bg-card: #ffffff;
+            --accent-blue: #5B9BD5;
+            --accent-dark-blue: #2980b9;
+            --accent-green: #27ae60;
+            --accent-green-hover: #219653;
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --border-color: #BDD7EE;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
 
-body {
-  background: #f5f7fa;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Times New Roman", Times, serif;
+        }
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-}
+        html { scroll-behavior: smooth; }
 
-/* Title */
-.title-box {
-  background: #5B9BD5;
-  padding: 30px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
 
-.title-box h1 {
-  color: white;
-  text-align: center;
-  font-size: 2.3rem;
-}
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
 
-/* Header */
-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
+        /* Header & Title */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
 
-.subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 20px;
-}
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-dark-blue);
+            margin-bottom: 15px;
+        }
 
-.instructions {
-  max-width: 800px;
-  margin: auto;
-  font-size: 1rem;
-  color: #555;
-}
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
 
-.instructions strong {
-  color: #2980b9;
-}
+        .instructions {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
 
-/* PDF Button */
-.pdf-download {
-  margin: 30px 0;
-}
+        .instructions strong {
+            color: var(--accent-dark-blue);
+        }
 
-.pdf-btn {
-  display: inline-block;
-  background: #27ae60;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-}
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
 
-.pdf-btn:hover {
-  background: #219653;
-}
+        .btn-primary {
+            background: var(--accent-green);
+            color: white;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
 
-/* Products */
-.products {
-  display: grid;
-  gap: 20px;
-}
+        .btn-primary:hover {
+            background: var(--accent-green-hover);
+            transform: translateY(-2px);
+        }
 
-.product {
-  background: #BDD7EE;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-dark-blue);
+            border: 2px solid var(--accent-blue);
+        }
 
-.product h2 {
-  color: #2980b9;
-  font-size: 1.35rem;
-  margin-bottom: 10px;
-}
+        .btn-outline:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
 
-.product p {
-  color: #555;
-  margin-bottom: 12px;
-}
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
 
-.price {
-  font-weight: bold;
-  color: #27ae60;
-  font-size: 1.1rem;
-}
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
-.launch-tag {
-  display: inline-block;
-  background: #f1c40f;
-  color: #2c3e50;
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: 0.85rem;
-  margin-top: 5px;
-}
+        .product-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
 
-.delivery {
-  color: #777;
-  font-size: 0.9rem;
-  margin-top: 8px;
-}
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-blue);
+        }
 
-.download-btn {
-  display: inline-block;
-  background: #D0CECE;
-  color: #333;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 0.85rem;
-  border: 1px solid #aaa;
-  margin-top: 10px;
-}
+        .product-card h2 {
+            color: var(--accent-dark-blue);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
 
-.download-btn:hover {
-  background: #bbb;
-}
+        .product-card p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
 
-.info-box {
-  background: #e8f4fc;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 25px 0;
-  text-align: center;
-}
+        .product-card ul {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
 
-.info-label {
-  font-weight: bold;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
+        .product-card ul li {
+            margin-bottom: 5px;
+        }
 
-.info-value {
-  font-family: monospace;
-  background: white;
-  padding: 10px;
-  border-radius: 6px;
-  display: inline-block;
-  word-break: break-all;
-  margin: 10px;
-}
+        .price {
+            font-weight: bold;
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
 
-.copy-btn {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
+        .launch-tag {
+            display: inline-block;
+            background: var(--bg-secondary);
+            color: var(--accent-dark-blue);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+        }
 
-.copy-message {
-  color: #27ae60;
-  font-weight: bold;
-  height: 20px;
-}
+        .delivery {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
 
-.about {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+        /* Info Boxes (Payment & Email) */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
 
-footer {
-  text-align: center;
-  margin-top: 30px;
-  color: #999;
-}
+        .info-box {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+        }
 
-@media(max-width:600px) {
-  .title-box h1 {
-    font-size: 1.7rem;
-  }
-  .product h2 {
-    font-size: 1.1rem;
-  }
-}
-</style>
+        .info-box:hover {
+            border-color: var(--accent-blue);
+        }
 
+        .info-label {
+            font-weight: bold;
+            color: var(--accent-dark-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .info-value {
+            font-family: monospace;
+            background: var(--bg-primary);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            display: block;
+            word-break: break-all;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-dark-blue);
+        }
+
+        .copy-message {
+            color: var(--accent-green);
+            font-weight: bold;
+            height: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .about h2 {
+            color: var(--accent-dark-blue);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .about p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .page-header h1 { font-size: 1.8rem; }
+            .product-card h2 { font-size: 1.15rem; }
+            .info-section { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<header>
-  <div class="title-box">
-    <h1>Industrial Project Planning Tools</h1>
-  </div>
+        <!-- HEADER -->
+        <header class="page-header reveal">
+            <h1>Industrial Project Planning Tools</h1>
+            <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
+            <p class="instructions">
+                Professional tools developed by <strong>Behzad Mousavi, MSc Industrial Engineering</strong> 
+                with more than 25 years of experience in industrial project planning, scheduling, 
+                cost control, and project management.
+            </p>
+            <a class="btn btn-primary" href="Industrial_Project_Planning_Tools.pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Download Product Catalog PDF
+            </a>
+        </header>
 
-  <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
+        <!-- PRODUCTS GRID -->
+        <div class="products">
 
-  <p class="instructions">
-    Professional tools developed by <strong>Behzad Mousavi, MSc Industrial Engineering</strong>
-    with more than 25 years experience in industrial project planning,
-    scheduling, cost control and project management.
-  </p>
+            <!-- PRODUCT 1 -->
+            <div class="product-card reveal">
+                <h2>Project Health Report Template <br><span style="color: var(--accent-green); font-size: 1rem;">(FREE DEMO)</span></h2>
+                <p>A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
+                <ul>
+                    <li>Free demo version</li>
+                    <li>No payment required</li>
+                    <li>Try before purchase</li>
+                </ul>
+                <a class="btn btn-outline btn-small" href="Demo_Project_Health_Report_Template.xlsm" download>
+                    <i class="fas fa-download"></i> Download Excel Demo
+                </a>
+            </div>
 
-  <div class="pdf-download">
-    <a class="pdf-btn" href="Industrial_Project_Planning_Tools.pdf" target="_blank">
-      📥 Download Product Catalog PDF
-    </a>
-  </div>
-</header>
+            <!-- PRODUCT 2 -->
+            <div class="product-card reveal">
+                <h2>WBS Grouping Tool for MS Project</h2>
+                <p>Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
+                <div class="price">Price: 79 USDT</div>
+                <div class="launch-tag">Introductory Price</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
+                <a class="btn btn-outline btn-small" href="WBS_Grouping_Demo.mp4" download>
+                    <i class="fas fa-video"></i> Download Demo Video
+                </a>
+            </div>
 
-<div class="products">
+            <!-- PRODUCT 3 -->
+            <div class="product-card reveal">
+                <h2>Executive Monthly Action Plan</h2>
+                <p>Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
+                <div class="price">Price: 350 USDT</div>
+                <div class="launch-tag">Introductory Price</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 2 days</div>
+                <a class="btn btn-outline btn-small" href="Executive_Monthly_Action_Plan.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
 
-  <!-- PRODUCT 1 -->
-  <div class="product">
-    <h2>Project Health Report Template - <span style="color:#27ae60">FREE DEMO</span></h2>
-    <p>A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis and project monitoring.</p>
-    <ul>
-      <li>Free demo version</li>
-      <li>No payment required</li>
-      <li>Try before purchase</li>
-    </ul>
-    <a class="download-btn" href="Demo_Project_Health_Report_Template.xlsm" download>Download Excel Demo</a>
-  </div>
+            <!-- PRODUCT 4 -->
+            <div class="product-card reveal">
+                <h2>Manpower & Machinery Data Bank</h2>
+                <p>Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
+                <div class="price">Price: 600 USDT</div>
+                <div class="launch-tag">Introductory Price</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
+                <a class="btn btn-outline btn-small" href="Manpower_Guide.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
 
-  <!-- PRODUCT 2 -->
-  <div class="product">
-    <h2>WBS Grouping Tool for MS Project</h2>
-    <p>Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
-    <div class="price">Price: 79 USDT</div>
-    <div class="launch-tag">Introductory Price</div>
-    <div class="delivery">Delivery: Within 24 hours</div>
-    <a class="download-btn" href="WBS_Grouping_Demo.mp4" download>Download Demo Video</a>
-  </div>
+            <!-- PRODUCT 5 -->
+            <div class="product-card reveal">
+                <h2>EVMS - Earned Value Management</h2>
+                <p>Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
+                <div class="price">Price: 800 USDT</div>
+                <div class="launch-tag">Introductory Price</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 3 days</div>
+                <a class="btn btn-outline btn-small" href="EVMS.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
 
-  <!-- PRODUCT 3 -->
-  <div class="product">
-    <h2>Executive Monthly Action Plan (Excel + Gantt)</h2>
-    <p>Dynamic monthly action plan with integrated Gantt chart.</p>
-    <div class="price">Price: 350 USDT</div>
-    <div class="launch-tag">Introductory Price</div>
-    <div class="delivery">Delivery: Within 2 days</div>
-    <a class="download-btn" href="Executive_Monthly_Action_Plan.pdf" download>Download PDF</a>
-  </div>
+            <!-- PRODUCT 6 -->
+            <div class="product-card reveal">
+                <h2>Executive Management Dashboard</h2>
+                <p>Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
+                <div class="price">Price: 1200 USDT</div>
+                <div class="launch-tag">Premium Dashboard</div>
+                <a class="btn btn-outline btn-small" href="Management_Dashboard.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+            </div>
 
-  <!-- PRODUCT 4 -->
-  <div class="product">
-    <h2>Manpower & Machinery Data Bank (Macro-Enabled)</h2>
-    <p>Automated Excel system for tracking manpower, equipment usage and monthly project resources.</p>
-    <div class="price">Price: 600 USDT</div>
-    <div class="launch-tag">Introductory Price</div>
-    <div class="delivery">Delivery: Within 24 hours</div>
-    <a class="download-btn" href="Manpower_Guide.pdf" download>Download PDF</a>
-    <a class="download-btn" href="Manpower_Data_Bank_Builder.mp4" download>Download Video</a>
-  </div>
+            <!-- PRODUCT 7 -->
+            <div class="product-card reveal">
+                <h2>PMS - Progress Measurement System</h2>
+                <p>Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
+                <div class="price">Price: 1500 USDT</div>
+                <div class="launch-tag">Professional Service</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
+                <a class="btn btn-outline btn-small" href="EL_IN_Sample_PMS.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download Sample
+                </a>
+            </div>
 
-  <!-- PRODUCT 5 -->
-  <div class="product">
-    <h2>EVMS - Earned Value Management System</h2>
-    <p>Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
-    <div class="price">Price: 800 USDT</div>
-    <div class="launch-tag">Introductory Price</div>
-    <div class="delivery">Delivery: Within 3 days</div>
-    <a class="download-btn" href="EVMS.pdf" download>Download PDF</a>
-  </div>
+            <!-- PRODUCT 8 -->
+            <div class="product-card reveal">
+                <h2>Project Time Schedule</h2>
+                <p>A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
+                <div class="price">Price: 1500 USDT</div>
+                <div class="launch-tag">Professional Service</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
+                <a class="btn btn-outline btn-small" href="Project_Time_Schedule.mp4" download>
+                    <i class="fas fa-video"></i> Download Demo Video
+                </a>
+            </div>
 
-  <!-- PRODUCT 6 -->
-  <div class="product">
-    <h2>Executive Management Dashboard</h2>
-    <p>Dynamic one-page dashboard showing project KPIs, timelines, progress status and executive information.</p>
-    <div class="price">Price: 1200 USDT</div>
-    <div class="launch-tag">Premium Dashboard</div>
-    <a class="download-btn" href="Management_Dashboard.pdf" download>Download PDF</a>
-  </div>
+            <!-- PRODUCT 9 -->
+            <div class="product-card reveal">
+                <h2>Project Delay Report (EOT Support)</h2>
+                <p>Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
+                <div class="price">Price: 3000 USDT</div>
+                <div class="launch-tag">Premium Claim Service</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
+                <a class="btn btn-outline btn-small" href="Delay_Schedule_Analysis.pdf" download>
+                    <i class="fas fa-file-pdf"></i> Download Sample
+                </a>
+            </div>
 
-  <!-- PRODUCT 7 -->
-  <div class="product">
-    <h2>PMS - Progress Measurement System</h2>
-    <p>Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
-    <div class="price">Price: 1500 USDT</div>
-    <div class="launch-tag">Professional Service</div>
-    <div class="delivery">Delivery: Within 1 month</div>
-    <a class="download-btn" href="EL_IN_Sample_PMS.pdf" download>Download Sample PDF</a>
-  </div>
+            <!-- PRODUCT 10 -->
+            <div class="product-card reveal">
+                <h2>Claim Package - Financial Impact</h2>
+                <p>Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
+                <div class="price">Price: 5% of Claim Value (USDT)</div>
+                <div class="launch-tag">Full Documentation Package</div>
+                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
+            </div>
 
-  <!-- PRODUCT 8 -->
-  <div class="product">
-    <h2>Project Time Schedule (MSP or Primavera)</h2>
-    <p>A fully compliant project schedule created from approved WBS, contract milestones and project requirements.</p>
-    <div class="price">Price: 1500 USDT</div>
-    <div class="launch-tag">Professional Service</div>
-    <div class="delivery">Delivery: Within 1 month</div>
-    <a class="download-btn" href="Project_Time_Schedule.mp4" download>Download Demo Video</a>
-  </div>
+        </div>
 
-  <!-- PRODUCT 9 -->
-  <div class="product">
-    <h2>Project Delay Report (EOT Support)</h2>
-    <p>Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
-    <div class="price">Price: 3000 USDT</div>
-    <div class="launch-tag">Premium Claim Service</div>
-    <div class="delivery">Delivery: Within 1 month</div>
-    <a class="download-btn" href="Delay_Schedule_Analysis.pdf" download>Download Sample PDF</a>
-  </div>
+        <!-- PAYMENT & CONTACT SECTION -->
+        <div class="info-section">
+            <div class="info-box reveal">
+                <div class="info-label"><i class="fas fa-wallet"></i> USDT Wallet (TRC-20 Network)</div>
+                <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+                <button class="copy-btn" onclick="copyText('walletAddress', 'walletMessage')">
+                    <i class="fas fa-copy"></i> Copy Wallet Address
+                </button>
+                <div class="copy-message" id="walletMessage"></div>
+            </div>
 
-  <!-- PRODUCT 10 -->
-  <div class="product">
-    <h2>Claim Package - Financial Impact Assessment</h2>
-    <p>Complete claim documentation including disruption, prolongation and acceleration cost assessment.</p>
-    <div class="price">Price: 5% of Claim Value (USDT)</div>
-    <div class="launch-tag">Full Documentation Package</div>
-    <div class="delivery">Delivery: Within 1 month</div>
-  </div>
+            <div class="info-box reveal">
+                <div class="info-label"><i class="fas fa-envelope"></i> Support & Purchase Email</div>
+                <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
+                <button class="copy-btn" onclick="copyText('emailAddress', 'emailMessage')">
+                    <i class="fas fa-copy"></i> Copy Email
+                </button>
+                <div class="copy-message" id="emailMessage"></div>
+            </div>
+        </div>
 
-</div>
+        <div style="text-align: center; margin-bottom: 40px;" class="reveal">
+            <a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Send Purchase Email
+            </a>
+        </div>
 
-<!-- PAYMENT SECTION -->
-<div class="info-box">
-  <div class="info-label">USDT Wallet (TRC-20 Network)</div>
-  <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
-  <button class="copy-btn" onclick="copyText('walletAddress')">📋 Copy Wallet Address</button>
-  <div class="copy-message" id="walletMessage"></div>
-</div>
+        <!-- ABOUT SECTION -->
+        <div class="about reveal">
+            <h2>About the Creator</h2>
+            <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
+        </div>
 
-<!-- EMAIL SECTION -->
-<div class="info-box">
-  <div class="info-label">Support & Purchase Confirmation Email</div>
-  <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
-  <button class="copy-btn" onclick="copyText('emailAddress')">📧 Copy Email</button>
-  <div class="copy-message" id="emailMessage"></div>
-</div>
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2026 Behzad Mousavi. All rights reserved. | Industrial Project Planning Excellence</p>
+        </footer>
 
-<a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="pdf-btn">
-  ✉️ Send Purchase Email
-</a>
+    </div>
 
-<!-- ABOUT SECTION -->
-<div class="about">
-  <h2>About the Creator</h2>
-  <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
-</div>
+    <script>
+        // Copy to Clipboard Function
+        function copyText(id, messageId) {
+            const element = document.getElementById(id);
+            const text = element.innerText || element.textContent;
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2025 Behzad Mousavi. All rights reserved.</p>
-</footer>
+            navigator.clipboard.writeText(text).then(function() {
+                const message = document.getElementById(messageId);
+                message.innerHTML = '<i class="fas fa-check-circle"></i> Copied successfully!';
+                setTimeout(function() {
+                    message.innerHTML = "";
+                }, 2500);
+            }).catch(function(error) {
+                console.log("Copy failed:", error);
+                alert("Failed to copy. Please copy manually.");
+            });
+        }
 
-</div>
-
-<script>
-function copyText(id) {
-  const element = document.getElementById(id);
-  const text = element.innerText || element.textContent;
-
-  navigator.clipboard.writeText(text)
-    .then(function() {
-      let message;
-      if (id === "walletAddress") {
-        message = document.getElementById("walletMessage");
-      } else {
-        message = document.getElementById("emailMessage");
-      }
-      message.innerHTML = "✅ Copied!";
-      setTimeout(function() {
-        message.innerHTML = "";
-      }, 2000);
-    })
-    .catch(function(error) {
-      console.log("Copy failed:", error);
-    });
-}
-</script>
+        // Scroll Reveal Animation
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 
 </body>
 </html>
