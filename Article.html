@@ -514,7 +514,7 @@
                 <li><a href="EnglishInfo.html#about">About</a></li>
                 <li><a href="EnglishInfo.html#skills">Expertise</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/" target="_blank">Products</a></li>
-                <li><a href="Articles.html" class="active">Articles</a></li>
+                <li><a href="Article.html" class="active">Articles</a></li>
                 <li><a href="EnglishInfo.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -529,7 +529,7 @@
         <div class="stats-strip">
             <div class="stat-box">
                 <i class="fas fa-newspaper"></i>
-                <div class="stat-number" id="articleCount">2</div>
+                <div class="stat-number" id="articleCount">3</div>
                 <div class="stat-label">Articles</div>
             </div>
             <div class="stat-box">
@@ -559,6 +559,7 @@
         <div class="filter-pills" id="filterPills">
             <button class="filter-pill active" data-category="all">All</button>
             <button class="filter-pill" data-category="Project Controls">Project Controls</button>
+            <button class="filter-pill" data-category="EPC Planning">EPC Planning</button>
             <button class="filter-pill" data-category="Risk Management">Risk Management</button>
             <button class="filter-pill" data-category="Primavera P6">Primavera P6</button>
             <button class="filter-pill" data-category="EVM">EVM</button>
@@ -569,10 +570,35 @@
     <section class="articles-container">
         <div class="articles-grid" id="articlesGrid">
             
-            <!-- Article 1: Primavera P6 -->
+            <!-- Article 1: WBS Development for EPC Projects (NEW) -->
+            <article class="article-card" data-category="EPC Planning" data-keywords="wbs development epc projects work breakdown structure engineering procurement construction aace pmi deliverable">
+                <div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
+                    <span class="article-badge">NEW</span>
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="article-body">
+                    <span class="article-category">EPC Planning</span>
+                    <h2 class="article-title">WBS Development for EPC Projects</h2>
+                    <p class="article-description">Master WBS development for EPC projects with this comprehensive guide. Learn deliverable-based structuring, WBS dictionaries, phase-specific templates for Engineering, Procurement, Construction, and Commissioning, plus AACE/PMI best practices.</p>
+                    <div class="article-meta">
+                        <span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+                        <span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+                        <span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="btn-article btn-article-download" onclick="downloadArticle('https://sbmousavices.github.io/Industrial-Tools/WBS_Development_for_EPC_Projects.pdf', 'WBS_Development_for_EPC_Projects.pdf', this)">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <a href="https://sbmousavices.github.io/Industrial-Tools/WBS_Development_for_EPC_Projects.pdf" target="_blank" class="btn-article btn-article-view">
+                            <i class="fas fa-eye"></i> Read Online
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 2: Primavera P6 Scheduling -->
             <article class="article-card" data-category="Project Controls" data-keywords="primavera p6 scheduling best practices wbs baseline dcma critical path">
                 <div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
-                    <span class="article-badge">NEW</span>
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <div class="article-body">
@@ -595,7 +621,7 @@
                 </div>
             </article>
             
-            <!-- Article 2: EPC Project Delay -->
+            <!-- Article 3: EPC Project Delay -->
             <article class="article-card" data-category="Risk Management" data-keywords="epc project delay schedule risks critical construction mitigation">
                 <div class="article-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                     <i class="fas fa-file-pdf"></i>
