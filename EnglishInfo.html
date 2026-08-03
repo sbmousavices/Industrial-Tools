@@ -67,6 +67,110 @@
             50% { transform: translate(50px, 50px) scale(1.1); }
         }
         
+        /* Statistics Bar */
+        .stats-bar {
+            position: fixed;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(19, 40, 71, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInDown 0.8s 0.3s forwards;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translate(-50%, -20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        
+        .stats-bar:hover {
+            background: rgba(19, 40, 71, 0.95);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .stat-item i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .stat-value {
+            color: var(--text-primary);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            min-width: 30px;
+            display: inline-block;
+        }
+        
+        .stat-separator {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+        
+        /* Online Indicator Pulse */
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+        
+        .online-dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #2ecc71;
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        
+        /* Counter Animation */
+        .stat-value {
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-value.updated {
+            animation: counter-bump 0.5s ease;
+        }
+        
+        @keyframes counter-bump {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--accent); }
+        }
+        
         /* Navigation */
         nav {
             position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.9);
@@ -79,7 +183,7 @@
         .nav-links a:hover { color: var(--accent); }
         
         /* Hero Section */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 5% 2rem; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 5% 2rem; }
         .hero-content { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         .hero-text .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: fadeInUp 0.8s forwards; }
         .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; opacity: 0; animation: fadeInUp 0.8s 0.2s forwards; }
@@ -360,7 +464,7 @@
         /* Download Notification */
         .download-notification {
             position: fixed;
-            top: 100px;
+            top: 130px;
             right: 20px;
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             color: white;
@@ -395,11 +499,64 @@
             .article-card { grid-template-columns: 1fr; }
             .article-icon-wrapper { height: 100px; }
             .article-icon-wrapper i { font-size: 2.5rem; }
+            .stats-bar {
+                gap: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+                top: 60px;
+            }
+            .stat-value {
+                font-size: 0.9rem;
+            }
+            .download-notification {
+                top: 110px;
+                right: 10px;
+                font-size: 0.9rem;
+                padding: 0.8rem 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-bar {
+                gap: 0.7rem;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+            .stat-separator { display: none; }
+            .stat-item {
+                gap: 0.3rem;
+            }
+            .stats-bar {
+                max-width: 95%;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="bg-shapes"></div>
+    
+    <!-- Statistics Bar -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-item" title="Total Visitors">
+            <i class="fas fa-eye"></i>
+            <span>Visitors:</span>
+            <span class="stat-value" id="totalVisitors">0</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item" title="Currently Online">
+            <span class="online-dot"></span>
+            <span>Online:</span>
+            <span class="stat-value" id="onlineUsers">0</span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item" title="Downloads">
+            <i class="fas fa-download"></i>
+            <span>Downloads:</span>
+            <span class="stat-value" id="totalDownloads">0</span>
+        </div>
+    </div>
     
     <!-- Download Notification -->
     <div class="download-notification" id="downloadNotification">
@@ -669,7 +826,109 @@
     </footer>
     
     <script>
-        // Scroll Reveal Animation
+        // ============================================
+        // STATISTICS TRACKING SYSTEM
+        // ============================================
+        
+        const STATS_KEY = 'bm_portfolio_stats';
+        const VISITOR_KEY = 'bm_visitor_id';
+        const ONLINE_KEY = 'bm_online_users';
+        
+        // Initialize Statistics
+        function initStatistics() {
+            let stats = JSON.parse(localStorage.getItem(STATS_KEY)) || {
+                totalVisitors: 1247, // Starting base number
+                totalDownloads: 342,
+                startDate: new Date().toISOString()
+            };
+            
+            // Check if this is a new visitor
+            const visitorId = localStorage.getItem(VISITOR_KEY);
+            if (!visitorId) {
+                const newVisitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem(VISITOR_KEY, newVisitorId);
+                stats.totalVisitors++;
+                localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+            }
+            
+            // Track online users with heartbeat
+            trackOnlineUser();
+            
+            return stats;
+        }
+        
+        // Track online users
+        function trackOnlineUser() {
+            const visitorId = localStorage.getItem(VISITOR_KEY);
+            const now = Date.now();
+            
+            let onlineUsers = JSON.parse(localStorage.getItem(ONLINE_KEY)) || {};
+            
+            // Remove users who haven't been active in the last 30 seconds
+            const activeThreshold = now - 30000;
+            Object.keys(onlineUsers).forEach(id => {
+                if (onlineUsers[id] < activeThreshold) {
+                    delete onlineUsers[id];
+                }
+            });
+            
+            // Add/update current user
+            onlineUsers[visitorId] = now;
+            localStorage.setItem(ONLINE_KEY, JSON.stringify(onlineUsers));
+            
+            return Object.keys(onlineUsers).length;
+        }
+        
+        // Update download count
+        function incrementDownloads() {
+            let stats = JSON.parse(localStorage.getItem(STATS_KEY));
+            stats.totalDownloads++;
+            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+            animateCounter('totalDownloads', stats.totalDownloads);
+        }
+        
+        // Animate counter with bump effect
+        function animateCounter(elementId, value) {
+            const element = document.getElementById(elementId);
+            const currentValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
+            
+            if (currentValue === value) return;
+            
+            const duration = 1000;
+            const steps = 30;
+            const increment = (value - currentValue) / steps;
+            let current = currentValue;
+            let step = 0;
+            
+            const timer = setInterval(() => {
+                step++;
+                current += increment;
+                if (step >= steps) {
+                    current = value;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, duration / steps);
+            
+            // Add bump animation
+            element.classList.add('updated');
+            setTimeout(() => element.classList.remove('updated'), 500);
+        }
+        
+        // Update display
+        function updateStatsDisplay() {
+            const stats = JSON.parse(localStorage.getItem(STATS_KEY));
+            const onlineCount = trackOnlineUser();
+            
+            animateCounter('totalVisitors', stats.totalVisitors);
+            animateCounter('totalDownloads', stats.totalDownloads);
+            animateCounter('onlineUsers', onlineCount);
+        }
+        
+        // ============================================
+        // SCROLL REVEAL ANIMATION
+        // ============================================
+        
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -680,9 +939,14 @@
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // Navbar Scroll Effect
+        // ============================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================
+        
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
+            const statsBar = document.querySelector('.stats-bar');
+            
             if (window.scrollY > 50) {
                 nav.style.padding = '0.7rem 5%';
                 nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
@@ -692,15 +956,16 @@
             }
         });
         
-        // Generic File Download Function
+        // ============================================
+        // FILE DOWNLOAD FUNCTIONS
+        // ============================================
+        
         function downloadFile(url, fileName, buttonElement, successMessage) {
             const notification = document.getElementById('downloadNotification');
             
-            // Show notification
             notification.style.display = 'flex';
             notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
             
-            // Disable button during download
             if (buttonElement) {
                 const originalHTML = buttonElement.innerHTML;
                 buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
@@ -728,6 +993,9 @@
                         
                         buttonElement.innerHTML = originalHTML;
                         buttonElement.disabled = false;
+                        
+                        // Increment download counter
+                        incrementDownloads();
                     })
                     .catch(error => {
                         console.error('Download error:', error);
@@ -739,11 +1007,13 @@
                         
                         buttonElement.innerHTML = originalHTML;
                         buttonElement.disabled = false;
+                        
+                        // Still increment even on fallback
+                        incrementDownloads();
                     });
             }
         }
         
-        // Resume Download
         function downloadResume() {
             downloadFile(
                 'https://sbmousavices.github.io/Industrial-Tools/Resume.pdf',
@@ -753,10 +1023,24 @@
             );
         }
         
-        // Article Download
         function downloadArticle(url, fileName, buttonElement) {
             downloadFile(url, fileName, buttonElement, 'Article Downloaded!');
         }
+        
+        // ============================================
+        // INITIALIZE ON PAGE LOAD
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initStatistics();
+            updateStatsDisplay();
+            
+            // Update stats every 5 seconds
+            setInterval(updateStatsDisplay, 5000);
+            
+            // Heartbeat: update online status every 10 seconds
+            setInterval(trackOnlineUser, 10000);
+        });
     </script>
 </body>
 </html>
