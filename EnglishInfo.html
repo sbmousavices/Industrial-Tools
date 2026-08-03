@@ -933,7 +933,6 @@
             if (!activeService) return;
             
             try {
-                // Try to create keys with initial values
                 const createUrls = [
                     `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.visitors}/${STATS_CONFIG.initialValues.visitors}`,
                     `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.downloads}/${STATS_CONFIG.initialValues.downloads}`
@@ -1039,21 +1038,20 @@
             return localStats.downloads;
         }
         
-        // Estimate online users based on time of day
+        // Estimate online users - ALWAYS shows 30+ users
         function estimateOnlineUsers() {
             const hour = new Date().getHours();
-            const baseVisitors = 15; // Base estimate
+            let base = 30;
             
-            // Peak hours: 9-12, 14-18, 20-23
-            let multiplier = 1;
-            if (hour >= 9 && hour <= 12) multiplier = 2.5;
-            else if (hour >= 14 && hour <= 18) multiplier = 3;
-            else if (hour >= 20 && hour <= 23) multiplier = 2;
-            else if (hour >= 0 && hour <= 6) multiplier = 0.5;
+            // Peak hours: slightly more users for realism
+            if (hour >= 9 && hour <= 12) base = 38;
+            else if (hour >= 14 && hour <= 18) base = 42;
+            else if (hour >= 20 && hour <= 23) base = 36;
+            else if (hour >= 0 && hour <= 6) base = 30;
             
-            // Add some randomness (±3)
-            const random = Math.floor(Math.random() * 7) - 3;
-            return Math.max(1, Math.floor(baseVisitors * multiplier + random));
+            // Add randomness (0-15)
+            const random = Math.floor(Math.random() * 16);
+            return base + random; // Result: 30-57 users
         }
         
         // Update online users display
