@@ -93,6 +93,18 @@
         .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
         .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
         
+        /* Resume Button Style */
+        .btn-resume {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
+        }
+        .btn-resume:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.5);
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+        
         .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
         .avatar-wrapper { position: relative; width: 320px; height: 320px; border-radius: 50%; background: var(--gradient); padding: 5px; animation: pulse 3s infinite; }
         .avatar-wrapper::before { content: ''; position: absolute; inset: -15px; border-radius: 50%; border: 2px dashed var(--accent); opacity: 0.3; animation: rotate 20s linear infinite; }
@@ -149,14 +161,51 @@
         
         /* Contact Section */
         .contact-container { max-width: 600px; margin: 0 auto; text-align: center; }
-        .contact-item { display: inline-flex; align-items: center; gap: 1rem; padding: 1.2rem 2rem; background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: all 0.3s; margin-top: 1rem; }
+        .contact-item { display: inline-flex; align-items: center; gap: 1rem; padding: 1.2rem 2rem; background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: all 0.3s; margin-top: 1rem; cursor: pointer; }
         .contact-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
         .contact-item i { color: var(--accent); font-size: 1.3rem; }
         .contact-item span { font-weight: 500; font-size: 1.1rem; }
         
+        /* Resume Contact Item Style */
+        .contact-item-resume {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        .contact-item-resume:hover {
+            border-color: #2ecc71;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(39, 174, 96, 0.15) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-resume i {
+            color: #2ecc71;
+        }
+        
         /* Footer */
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        /* Download Notification */
+        .download-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
         
         /* Scroll Reveal */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
@@ -175,6 +224,12 @@
 </head>
 <body>
     <div class="bg-shapes"></div>
+    
+    <!-- Download Notification -->
+    <div class="download-notification" id="downloadNotification">
+        <i class="fas fa-download"></i>
+        <span>Downloading Resume...</span>
+    </div>
     
     <!-- Navigation -->
     <nav>
@@ -198,6 +253,9 @@
                 <h1>Behzad <span>Mousavi</span></h1>
                 <p class="tagline">Planning & Project Control Manager<br>Precision Planning. Powerful Control. Proven Results.</p>
                 <div class="hero-buttons">
+                    <button class="btn btn-resume" onclick="downloadResume()">
+                        <i class="fas fa-file-pdf"></i> Download Resume
+                    </button>
                     <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary" target="_blank">
                         <i class="fas fa-box-open"></i> View Products
                     </a>
@@ -361,11 +419,17 @@
                 <div class="section-divider"></div>
             </div>
             <div class="contact-container reveal">
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out directly via email.</p>
-                <a href="mailto:sbmousavi.planning@gmail.com" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>sbmousavi.planning@gmail.com</span>
-                </a>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out directly or download my resume.</p>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                    <button class="contact-item contact-item-resume" onclick="downloadResume()">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Download Resume (PDF)</span>
+                    </button>
+                    <a href="mailto:sbmousavi.planning@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>sbmousavi.planning@gmail.com</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -398,6 +462,52 @@
                 nav.style.boxShadow = 'none';
             }
         });
+        
+        // Resume Download Function with fetch API
+        function downloadResume() {
+            const notification = document.getElementById('downloadNotification');
+            const pdfUrl = 'https://sbmousavices.github.io/Industrial-Tools/Resume.pdf';
+            const fileName = 'Behzad_Mousavi_Resume.pdf';
+            
+            // Show notification
+            notification.style.display = 'flex';
+            
+            // Use fetch to download the file
+            fetch(pdfUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Create blob link
+                    const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Update notification
+                    notification.innerHTML = '<i class="fas fa-check-circle"></i><span>Resume Downloaded!</span>';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                        // Reset notification content
+                        notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading Resume...</span>';
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Download error:', error);
+                    // Fallback: open in new tab
+                    window.open(pdfUrl, '_blank');
+                    notification.innerHTML = '<i class="fas fa-info-circle"></i><span>Opened in new tab</span>';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                        notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading Resume...</span>';
+                    }, 3000);
+                });
+        }
     </script>
 </body>
 </html>
