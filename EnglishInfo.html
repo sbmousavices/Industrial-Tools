@@ -133,6 +133,20 @@
         .info-item { padding: 1rem; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
         .info-item .label { color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; text-transform: uppercase; }
         .info-item .value { color: var(--text-primary); font-weight: 500; font-size: 0.95rem; }
+        .info-item a { color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+        .info-item a:hover { color: var(--accent); }
+        
+        /* Instagram specific in info-item */
+        .info-item .instagram-link {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+        .info-item .instagram-link:hover {
+            opacity: 0.85;
+        }
         
         /* Skills Section */
         #skills { background: var(--bg-secondary); }
@@ -159,6 +173,145 @@
         .products-cta h3 { font-size: 1.8rem; margin-bottom: 1rem; }
         .products-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
         
+        /* Articles Section */
+        #articles { background: var(--bg-primary); }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .article-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            position: relative;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .article-icon-wrapper {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+        .article-icon-wrapper i {
+            font-size: 3.5rem;
+            color: white;
+            z-index: 1;
+        }
+        .article-content {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .article-category {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            width: fit-content;
+        }
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        .article-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .article-meta-item i {
+            color: var(--accent);
+        }
+        .article-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .btn-article {
+            padding: 0.6rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-article-download {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        .btn-article-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5);
+        }
+        .btn-article-view {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-article-view:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
         /* Contact Section */
         .contact-container { max-width: 600px; margin: 0 auto; text-align: center; }
         .contact-item { display: inline-flex; align-items: center; gap: 1rem; padding: 1.2rem 2rem; background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: all 0.3s; margin-top: 1rem; cursor: pointer; }
@@ -178,6 +331,26 @@
         }
         .contact-item-resume i {
             color: #2ecc71;
+        }
+        
+        /* Instagram Contact Item Style */
+        .contact-item-instagram {
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
+            border: 1px solid rgba(225, 48, 108, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-item-instagram:hover {
+            border-color: #e1306c;
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.15) 0%, rgba(131, 58, 180, 0.15) 100%);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+        .contact-item-instagram i {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         /* Footer */
@@ -219,6 +392,9 @@
             .hero-buttons { justify-content: center; }
             .info-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .article-card { grid-template-columns: 1fr; }
+            .article-icon-wrapper { height: 100px; }
+            .article-icon-wrapper i { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -228,7 +404,7 @@
     <!-- Download Notification -->
     <div class="download-notification" id="downloadNotification">
         <i class="fas fa-download"></i>
-        <span>Downloading Resume...</span>
+        <span>Downloading...</span>
     </div>
     
     <!-- Navigation -->
@@ -240,6 +416,7 @@
                 <li><a href="#skills">Expertise</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#products">Products</a></li>
+                <li><a href="#articles">Articles</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -301,11 +478,15 @@
                     </div>
                     <div class="info-item">
                         <div class="label">Email</div>
-                        <div class="value">sbmousavi.planning@gmail.com</div>
+                        <div class="value">sbmousavi@proton.me</div>
                     </div>
                     <div class="info-item">
-                        <div class="label">Availability</div>
-                        <div class="value">Open to Consulting & Projects</div>
+                        <div class="label">Instagram</div>
+                        <div class="value">
+                            <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                                @industrial.planning.tools
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -410,6 +591,50 @@
         </div>
     </section>
     
+    <!-- Articles Section -->
+    <section id="articles">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Knowledge Sharing</p>
+                <h2 class="section-title">Professional <span>Articles</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="articles-grid reveal">
+                <div class="article-card">
+                    <div class="article-icon-wrapper">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="article-content">
+                        <div>
+                            <span class="article-category">Project Risk Management</span>
+                            <h3 class="article-title">EPC Project Delay Due to 10 Critical Schedule Risks</h3>
+                            <p class="article-description">An in-depth analysis of the top 10 critical schedule risks that commonly cause delays in Engineering, Procurement, and Construction (EPC) projects. Learn how to identify, assess, and mitigate these risks to ensure timely project delivery.</p>
+                            <div class="article-meta">
+                                <span class="article-meta-item">
+                                    <i class="fas fa-file-alt"></i> PDF Document
+                                </span>
+                                <span class="article-meta-item">
+                                    <i class="fas fa-industry"></i> EPC Projects
+                                </span>
+                                <span class="article-meta-item">
+                                    <i class="fas fa-language"></i> English
+                                </span>
+                            </div>
+                        </div>
+                        <div class="article-actions">
+                            <button class="btn-article btn-article-download" onclick="downloadArticle('https://sbmousavices.github.io/Industrial-Tools/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf', 'EPC_Project_Delay_10_Critical_Risks.pdf', this)">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf" target="_blank" class="btn-article btn-article-view">
+                                <i class="fas fa-eye"></i> View Online
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">
@@ -419,15 +644,19 @@
                 <div class="section-divider"></div>
             </div>
             <div class="contact-container reveal">
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out directly or download my resume.</p>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out directly, download my resume, or follow me on Instagram.</p>
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                     <button class="contact-item contact-item-resume" onclick="downloadResume()">
                         <i class="fas fa-file-pdf"></i>
                         <span>Download Resume (PDF)</span>
                     </button>
-                    <a href="mailto:sbmousavi.planning@gmail.com" class="contact-item">
+                    <a href="mailto:sbmousavi@proton.me" class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>sbmousavi.planning@gmail.com</span>
+                        <span>sbmousavi@proton.me</span>
+                    </a>
+                    <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@industrial.planning.tools</span>
                     </a>
                 </div>
             </div>
@@ -463,50 +692,70 @@
             }
         });
         
-        // Resume Download Function with fetch API
-        function downloadResume() {
+        // Generic File Download Function
+        function downloadFile(url, fileName, buttonElement, successMessage) {
             const notification = document.getElementById('downloadNotification');
-            const pdfUrl = 'https://sbmousavices.github.io/Industrial-Tools/Resume.pdf';
-            const fileName = 'Behzad_Mousavi_Resume.pdf';
             
             // Show notification
             notification.style.display = 'flex';
+            notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
             
-            // Use fetch to download the file
-            fetch(pdfUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.blob();
-                })
-                .then(blob => {
-                    // Create blob link
-                    const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = fileName;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    window.URL.revokeObjectURL(url);
-                    
-                    // Update notification
-                    notification.innerHTML = '<i class="fas fa-check-circle"></i><span>Resume Downloaded!</span>';
-                    setTimeout(() => {
-                        notification.style.display = 'none';
-                        // Reset notification content
-                        notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading Resume...</span>';
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error('Download error:', error);
-                    // Fallback: open in new tab
-                    window.open(pdfUrl, '_blank');
-                    notification.innerHTML = '<i class="fas fa-info-circle"></i><span>Opened in new tab</span>';
-                    setTimeout(() => {
-                        notification.style.display = 'none';
-                        notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading Resume...</span>';
-                    }, 3000);
-                });
+            // Disable button during download
+            if (buttonElement) {
+                const originalHTML = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                buttonElement.disabled = true;
+                
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: blob.type }));
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.download = fileName;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(blobUrl);
+                        
+                        notification.innerHTML = `<i class="fas fa-check-circle"></i><span>${successMessage}</span>`;
+                        setTimeout(() => {
+                            notification.style.display = 'none';
+                        }, 3000);
+                        
+                        buttonElement.innerHTML = originalHTML;
+                        buttonElement.disabled = false;
+                    })
+                    .catch(error => {
+                        console.error('Download error:', error);
+                        window.open(url, '_blank');
+                        notification.innerHTML = '<i class="fas fa-info-circle"></i><span>Opened in new tab</span>';
+                        setTimeout(() => {
+                            notification.style.display = 'none';
+                        }, 3000);
+                        
+                        buttonElement.innerHTML = originalHTML;
+                        buttonElement.disabled = false;
+                    });
+            }
+        }
+        
+        // Resume Download
+        function downloadResume() {
+            downloadFile(
+                'https://sbmousavices.github.io/Industrial-Tools/Resume.pdf',
+                'Behzad_Mousavi_Resume.pdf',
+                event.target.closest('button'),
+                'Resume Downloaded!'
+            );
+        }
+        
+        // Article Download
+        function downloadArticle(url, fileName, buttonElement) {
+            downloadFile(url, fileName, buttonElement, 'Article Downloaded!');
         }
     </script>
 </body>
