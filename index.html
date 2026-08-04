@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +13,12 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
 
-    <!-- Open Graph -->
     <meta property="og:title" content="Industrial Project Planning Tools">
     <meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
     <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
 
-    <!-- Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -40,484 +37,741 @@
     }
     </script>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         :root {
-            --bg-primary: #f5f7fa;
-            --bg-secondary: #e8f4fc;
-            --bg-card: #ffffff;
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --bg-card: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
             --accent-blue: #5B9BD5;
-            --accent-dark-blue: #2980b9;
-            --accent-green: #27ae60;
-            --accent-green-hover: #219653;
-            --text-primary: #333333;
-            --text-secondary: #555555;
-            --border-color: #BDD7EE;
-            --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+            --accent-green: #2ecc71;
+            --accent-green-hover: #27ae60;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Times New Roman", Times, serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
+            font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        /* Header & Title */
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 20px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-        }
-
-        .page-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .instructions {
-            max-width: 800px;
-            margin: 0 auto 30px;
-            font-size: 1.05rem;
-            color: var(--text-secondary);
             line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        .instructions strong {
-            color: var(--accent-dark-blue);
+        /* Animated Background */
+        .bg-shapes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
         }
+        .bg-shapes::before, .bg-shapes::after {
+            content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out;
+        }
+        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
 
-        /* Buttons */
-        .btn {
+        /* Navigation - Same as Articles & Main */
+        nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .active { color: var(--accent); font-weight: 600; }
+
+        /* Page Header */
+        .page-header { padding: 9rem 5% 3rem; text-align: center; position: relative; }
+        .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
+
+        /* Stats Strip */
+        .stats-strip { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; padding: 1.5rem; background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border); flex-wrap: wrap; }
+        .stat-box { text-align: center; }
+        .stat-box i { color: var(--accent); font-size: 1.5rem; margin-bottom: 0.3rem; display: block; }
+        .stat-box .stat-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+        .stat-box .stat-label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Catalog Button */
+        .catalog-section { text-align: center; margin: 3rem auto; }
+        .btn-catalog {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            gap: 0.7rem;
+            transition: all 0.3s;
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            font-family: inherit;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
+        .btn-catalog:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
 
-        .btn-primary {
-            background: var(--accent-green);
-            color: white;
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-green-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--accent-dark-blue);
-            border: 2px solid var(--accent-blue);
-        }
-
-        .btn-outline:hover {
-            background: var(--accent-blue);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            font-size: 0.9rem;
-        }
+        /* Products Container */
+        .products-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
 
         /* Products Grid */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
 
         .product-card {
             background: var(--bg-card);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.4s;
             display: flex;
             flex-direction: column;
         }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--shadow); }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-blue);
+        .product-banner {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
+        .product-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%); }
+        .product-banner i { font-size: 3.5rem; color: white; z-index: 1; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
 
-        .product-card h2 {
-            color: var(--accent-dark-blue);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            line-height: 1.3;
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
         }
+        .product-badge-free { background: var(--accent-green); color: white; }
+        .product-badge-premium { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; }
 
-        .product-card p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            flex-grow: 1;
-            font-size: 0.95rem;
-        }
+        .product-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
 
-        .product-card ul {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            padding-left: 20px;
-            font-size: 0.95rem;
-        }
-
-        .product-card ul li {
-            margin-bottom: 5px;
-        }
-
-        .price {
-            font-weight: bold;
-            color: var(--accent-green);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .launch-tag {
+        .product-category {
             display: inline-block;
-            background: var(--bg-secondary);
-            color: var(--accent-dark-blue);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            width: fit-content;
         }
 
-        .delivery {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        /* Info Boxes (Payment & Email) */
-        .info-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .info-box {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .info-box:hover {
-            border-color: var(--accent-blue);
-        }
-
-        .info-label {
-            font-weight: bold;
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .info-value {
-            font-family: monospace;
-            background: var(--bg-primary);
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            display: block;
-            word-break: break-all;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
             color: var(--text-primary);
         }
 
-        .copy-btn {
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
+        .product-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .product-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .product-delivery {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .product-delivery i { color: var(--accent); }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.2rem;
+            padding: 0;
+        }
+        .product-features li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
             font-weight: bold;
+        }
+
+        .product-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+        .btn-product {
+            padding: 0.7rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex: 1;
+            justify-content: center;
+            min-width: 140px;
         }
-
-        .copy-btn:hover {
-            background: var(--accent-dark-blue);
+        .btn-download-product {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
+        .btn-download-product:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5); }
+        .btn-purchase {
+            background: var(--gradient);
+            color: var(--bg-primary);
+        }
+        .btn-purchase:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
 
-        .copy-message {
-            color: var(--accent-green);
-            font-weight: bold;
-            height: 20px;
-            margin-top: 10px;
+        /* Payment Section */
+        .payment-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        .info-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .info-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        .info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .info-value-box {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            word-break: break-all;
+            user-select: all;
+        }
+        .copy-btn {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
             font-size: 0.9rem;
         }
+        .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .copy-message {
+            color: var(--accent-green);
+            font-weight: 600;
+            height: 20px;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+        }
 
-        /* About Section */
-        .about {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            margin-top: 40px;
+        /* Purchase CTA */
+        .purchase-cta {
+            max-width: 800px;
+            margin: 3rem auto;
             text-align: center;
         }
-
-        .about h2 {
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .about p {
+        .purchase-cta p {
             color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 800px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        .btn-email {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-email:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
+
+        /* About Section */
+        .about-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+        .about-card {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+        .about-card i.about-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .about-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .about-card p {
+            color: var(--text-secondary);
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1rem;
         }
 
         /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-        }
+        footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
+        footer p { color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Responsive */
-        @media(max-width: 768px) {
-            .page-header h1 { font-size: 1.8rem; }
-            .product-card h2 { font-size: 1.15rem; }
-            .info-section { grid-template-columns: 1fr; }
+        @media (max-width: 968px) {
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .stats-strip { gap: 1.5rem; padding: 1rem; }
+            .stat-box .stat-number { font-size: 1.4rem; }
+            .page-header h1 { font-size: 2rem; }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .products-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-
 <body>
+    <div class="bg-shapes"></div>
 
-    <div class="container">
+    <!-- Navigation - Same as Articles & Main -->
+    <nav>
+        <div class="nav-container">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
+            <ul class="nav-links">
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#about">About</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#skills">Expertise</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+                <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        <!-- HEADER -->
-        <header class="page-header reveal">
-            <h1>Industrial Project Planning Tools</h1>
-            <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
-            <p class="instructions">
-                Professional tools developed by <strong>Behzad Mousavi, MSc Industrial Engineering</strong> 
-                with more than 25 years of experience in industrial project planning, scheduling, 
-                cost control, and project management.
-            </p>
-            <a class="btn btn-primary" href="Industrial_Project_Planning_Tools.pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Download Product Catalog PDF
-            </a>
-        </header>
+    <!-- Page Header -->
+    <section class="page-header">
+        <p class="greeting">Macro-Enabled Solutions</p>
+        <h1>Industrial Project <span>Planning Tools</span></h1>
+        <p class="tagline">Professional Excel-based solutions for engineers and project managers, developed with 25+ years of field experience in oil & gas, EPC, and industrial projects.</p>
 
-        <!-- PRODUCTS GRID -->
-        <div class="products">
+        <div class="stats-strip">
+            <div class="stat-box"><i class="fas fa-box-open"></i><div class="stat-number">10</div><div class="stat-label">Tools</div></div>
+            <div class="stat-box"><i class="fas fa-star"></i><div class="stat-number">25+</div><div class="stat-label">Years Exp.</div></div>
+            <div class="stat-box"><i class="fas fa-users"></i><div class="stat-number">500+</div><div class="stat-label">Users</div></div>
+            <div class="stat-box"><i class="fas fa-globe"></i><div class="stat-number">Global</div><div class="stat-label">Delivery</div></div>
+        </div>
+    </section>
 
-            <!-- PRODUCT 1 -->
+    <!-- Catalog Download -->
+    <div class="catalog-section">
+        <a href="Industrial_Project_Planning_Tools.pdf" download class="btn-catalog">
+            <i class="fas fa-file-pdf"></i> Download Full Product Catalog (PDF)
+        </a>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">Available Solutions</p>
+            <h2 class="section-title">Professional <span>Tools & Services</span></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="products-grid">
+
+            <!-- PRODUCT 1: FREE DEMO -->
             <div class="product-card reveal">
-                <h2>Project Health Report Template <br><span style="color: var(--accent-green); font-size: 1rem;">(FREE DEMO)</span></h2>
-                <p>A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
-                <ul>
-                    <li>Free demo version</li>
-                    <li>No payment required</li>
-                    <li>Try before purchase</li>
-                </ul>
-                <a class="btn btn-outline btn-small" href="Demo_Project_Health_Report_Template.xlsm" download>
-                    <i class="fas fa-download"></i> Download Excel Demo
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
+                    <span class="product-badge product-badge-free">FREE DEMO</span>
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Free Tool</span>
+                    <h3 class="product-title">Project Health Report Template</h3>
+                    <p class="product-description">A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
+                    <ul class="product-features">
+                        <li>Free demo version</li>
+                        <li>No payment required</li>
+                        <li>Try before purchase</li>
+                    </ul>
+                    <div class="product-meta">
+                        <span class="product-price">FREE</span>
+                        <span class="product-delivery"><i class="fas fa-bolt"></i> Instant</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Demo_Project_Health_Report_Template.xlsm" download class="btn-product btn-download-product">
+                            <i class="fas fa-download"></i> Download Demo
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 2 -->
+            <!-- PRODUCT 2: WBS Grouping Tool -->
             <div class="product-card reveal">
-                <h2>WBS Grouping Tool for MS Project</h2>
-                <p>Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
-                <div class="price">Price: 79 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
-                <a class="btn btn-outline btn-small" href="WBS_Grouping_Demo.mp4" download>
-                    <i class="fas fa-video"></i> Download Demo Video
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
+                    <span class="product-badge">INTRO PRICE</span>
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">MS Project Tool</span>
+                    <h3 class="product-title">WBS Grouping Tool for MS Project</h3>
+                    <p class="product-description">Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
+                    <div class="product-meta">
+                        <span class="product-price">79 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product">
+                            <i class="fas fa-video"></i> Demo Video
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - WBS Grouping Tool" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 3 -->
+            <!-- PRODUCT 3: Executive Monthly Action Plan -->
             <div class="product-card reveal">
-                <h2>Executive Monthly Action Plan</h2>
-                <p>Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
-                <div class="price">Price: 350 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 2 days</div>
-                <a class="btn btn-outline btn-small" href="Executive_Monthly_Action_Plan.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+                    <span class="product-badge">INTRO PRICE</span>
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Planning Tool</span>
+                    <h3 class="product-title">Executive Monthly Action Plan</h3>
+                    <p class="product-description">Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
+                    <div class="product-meta">
+                        <span class="product-price">350 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 2 days</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Executive Monthly Action Plan" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 4 -->
+            <!-- PRODUCT 4: Manpower Data Bank -->
             <div class="product-card reveal">
-                <h2>Manpower & Machinery Data Bank</h2>
-                <p>Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
-                <div class="price">Price: 600 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
-                <a class="btn btn-outline btn-small" href="Manpower_Guide.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+                    <span class="product-badge">INTRO PRICE</span>
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Resource Tool</span>
+                    <h3 class="product-title">Manpower & Machinery Data Bank</h3>
+                    <p class="product-description">Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
+                    <div class="product-meta">
+                        <span class="product-price">600 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Manpower Data Bank" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 5 -->
+            <!-- PRODUCT 5: EVMS -->
             <div class="product-card reveal">
-                <h2>EVMS - Earned Value Management</h2>
-                <p>Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
-                <div class="price">Price: 800 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 3 days</div>
-                <a class="btn btn-outline btn-small" href="EVMS.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
+                    <span class="product-badge">INTRO PRICE</span>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">EVM System</span>
+                    <h3 class="product-title">EVMS - Earned Value Management</h3>
+                    <p class="product-description">Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
+                    <div class="product-meta">
+                        <span class="product-price">800 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 3 days</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="EVMS.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - EVMS Dashboard" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 6 -->
+            <!-- PRODUCT 6: Executive Dashboard -->
             <div class="product-card reveal">
-                <h2>Executive Management Dashboard</h2>
-                <p>Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
-                <div class="price">Price: 1200 USDT</div>
-                <div class="launch-tag">Premium Dashboard</div>
-                <a class="btn btn-outline btn-small" href="Management_Dashboard.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                    <span class="product-badge product-badge-premium">PREMIUM</span>
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Executive Dashboard</span>
+                    <h3 class="product-title">Executive Management Dashboard</h3>
+                    <p class="product-description">Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
+                    <div class="product-meta">
+                        <span class="product-price">1200 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-crown"></i> Premium</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Executive Dashboard" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 7 -->
+            <!-- PRODUCT 7: PMS -->
             <div class="product-card reveal">
-                <h2>PMS - Progress Measurement System</h2>
-                <p>Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
-                <div class="price">Price: 1500 USDT</div>
-                <div class="launch-tag">Professional Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="EL_IN_Sample_PMS.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download Sample
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                    <span class="product-badge">PROFESSIONAL</span>
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Measurement System</span>
+                    <h3 class="product-title">PMS - Progress Measurement System</h3>
+                    <p class="product-description">Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
+                    <div class="product-meta">
+                        <span class="product-price">1500 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="EL_&IN_Sample_PMS.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download Sample
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - PMS System" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 8 -->
+            <!-- PRODUCT 8: Project Time Schedule -->
             <div class="product-card reveal">
-                <h2>Project Time Schedule</h2>
-                <p>A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
-                <div class="price">Price: 1500 USDT</div>
-                <div class="launch-tag">Professional Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="Project_Time_Schedule.mp4" download>
-                    <i class="fas fa-video"></i> Download Demo Video
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                    <span class="product-badge">PROFESSIONAL</span>
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Schedule Service</span>
+                    <h3 class="product-title">Project Time Schedule</h3>
+                    <p class="product-description">A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
+                    <div class="product-meta">
+                        <span class="product-price">1500 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product">
+                            <i class="fas fa-video"></i> Demo Video
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Project Time Schedule" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 9 -->
+            <!-- PRODUCT 9: EOT Support -->
             <div class="product-card reveal">
-                <h2>Project Delay Report (EOT Support)</h2>
-                <p>Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
-                <div class="price">Price: 3000 USDT</div>
-                <div class="launch-tag">Premium Claim Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="Delay_Schedule_Analysis.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download Sample
-                </a>
+                <div class="product-banner" style="background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);">
+                    <span class="product-badge product-badge-premium">PREMIUM CLAIM</span>
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Claim Service</span>
+                    <h3 class="product-title">Project Delay Report (EOT Support)</h3>
+                    <p class="product-description">Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
+                    <div class="product-meta">
+                        <span class="product-price">3000 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product">
+                            <i class="fas fa-file-pdf"></i> Download Sample
+                        </a>
+                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - EOT Delay Report" class="btn-product btn-purchase">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <!-- PRODUCT 10 -->
+            <!-- PRODUCT 10: Claim Package -->
             <div class="product-card reveal">
-                <h2>Claim Package - Financial Impact</h2>
-                <p>Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
-                <div class="price">Price: 5% of Claim Value (USDT)</div>
-                <div class="launch-tag">Full Documentation Package</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
+                <div class="product-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%);">
+                    <span class="product-badge">FULL PACKAGE</span>
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Claim Package</span>
+                    <h3 class="product-title">Claim Package - Financial Impact</h3>
+                    <p class="product-description">Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
+                    <div class="product-meta">
+                        <span class="product-price">5% of Claim Value</span>
+                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="mailto:sbmousavices@gmail.com?subject=Inquiry - Full Claim Package" class="btn-product btn-purchase">
+                            <i class="fas fa-envelope"></i> Request Quote
+                        </a>
+                    </div>
+                </div>
             </div>
 
         </div>
+    </section>
 
-        <!-- PAYMENT & CONTACT SECTION -->
-        <div class="info-section">
-            <div class="info-box reveal">
-                <div class="info-label"><i class="fas fa-wallet"></i> USDT Wallet (TRC-20 Network)</div>
-                <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+    <!-- Payment & Contact Section -->
+    <section class="payment-section">
+        <div class="section-header reveal">
+            <p class="section-subtitle">How to Purchase</p>
+            <h2 class="section-title">Payment & <span>Contact</span></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card reveal">
+                <div class="info-icon"><i class="fas fa-wallet"></i></div>
+                <h3 class="info-title">USDT Wallet (TRC-20)</h3>
+                <div class="info-value-box" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
                 <button class="copy-btn" onclick="copyText('walletAddress', 'walletMessage')">
                     <i class="fas fa-copy"></i> Copy Wallet Address
                 </button>
                 <div class="copy-message" id="walletMessage"></div>
             </div>
 
-            <div class="info-box reveal">
-                <div class="info-label"><i class="fas fa-envelope"></i> Support & Purchase Email</div>
-                <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
+            <div class="info-card reveal">
+                <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                <h3 class="info-title">Support & Purchase Email</h3>
+                <div class="info-value-box" id="emailAddress">sbmousavices@gmail.com</div>
                 <button class="copy-btn" onclick="copyText('emailAddress', 'emailMessage')">
                     <i class="fas fa-copy"></i> Copy Email
                 </button>
@@ -525,31 +779,33 @@
             </div>
         </div>
 
-        <div style="text-align: center; margin-bottom: 40px;" class="reveal">
-            <a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn btn-primary">
+        <div class="purchase-cta reveal">
+            <p>After payment, send an email with the product name, amount sent, and transaction hash to receive your tool.</p>
+            <a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn-email">
                 <i class="fas fa-paper-plane"></i> Send Purchase Email
             </a>
         </div>
+    </section>
 
-        <!-- ABOUT SECTION -->
-        <div class="about reveal">
-            <h2>About the Creator</h2>
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-card reveal">
+            <i class="fas fa-user-tie about-icon"></i>
+            <h3>About the Creator</h3>
             <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
         </div>
+    </section>
 
-        <!-- FOOTER -->
-        <footer>
-            <p>&copy; 2026 Behzad Mousavi. All rights reserved. | Industrial Project Planning Excellence</p>
-        </footer>
-
-    </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
+    </footer>
 
     <script>
         // Copy to Clipboard Function
         function copyText(id, messageId) {
             const element = document.getElementById(id);
             const text = element.innerText || element.textContent;
-
             navigator.clipboard.writeText(text).then(function() {
                 const message = document.getElementById(messageId);
                 message.innerHTML = '<i class="fas fa-check-circle"></i> Copied successfully!';
@@ -563,7 +819,7 @@
         }
 
         // Scroll Reveal Animation
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -571,9 +827,7 @@
                 }
             });
         }, observerOptions);
-        
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
-
 </body>
 </html>
