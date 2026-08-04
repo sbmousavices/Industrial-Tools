@@ -763,6 +763,39 @@
             return localStats.visitors;
         }
         
+        // ============================================
+        // SIMULATE DOWNLOADS ON PAGE LOAD
+        // Adds 2-5 downloads per page visit (Social Proof)
+        // ============================================
+        async function simulateDownloads() {
+            // Random number between 2 and 5
+            const downloadCount = Math.floor(Math.random() * 4) + 2;
+            
+            if (activeService) {
+                try {
+                    let finalValue = 0;
+                    for (let i = 0; i < downloadCount; i++) {
+                        const url = activeService.hit(STATS_CONFIG.namespace, STATS_CONFIG.keys.downloads);
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        finalValue = activeService.parse(data);
+                    }
+                    if (typeof finalValue === 'number' && !isNaN(finalValue)) {
+                        animateCounter('totalDownloads', finalValue);
+                        return finalValue;
+                    }
+                } catch (e) {
+                    console.error('Download simulation failed:', e);
+                }
+            }
+            
+            // Fallback to local storage
+            localStats.downloads += downloadCount;
+            saveLocalStats();
+            animateCounter('totalDownloads', localStats.downloads);
+            return localStats.downloads;
+        }
+        
         async function trackDownload() {
             if (activeService) {
                 try {
@@ -878,12 +911,24 @@
             loadLocalStats();
             await findWorkingService();
             if (activeService) await initializeCounters();
+            
+            // Track visit first
             await trackVisit();
+            
             const visitorCount = await getVisitorCount();
-            const downloadCount = await getDownloadCount();
             animateCounter('totalVisitors', visitorCount);
+            
+            // Show current downloads count first
+            const downloadCount = await getDownloadCount();
             animateCounter('totalDownloads', downloadCount);
+            
             updateOnlineUsers();
+            
+            // After 2 seconds, simulate 2-5 new downloads (feels natural)
+            setTimeout(async () => {
+                await simulateDownloads();
+            }, 2000);
+            
             setInterval(updateOnlineUsers, 30000);
             setInterval(async () => {
                 const visitors = await getVisitorCount();
