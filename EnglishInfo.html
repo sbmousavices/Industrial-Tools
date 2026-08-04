@@ -67,7 +67,7 @@
             50% { transform: translate(50px, 50px) scale(1.1); }
         }
         
-        /* Statistics Bar - Aligned exactly under nav links (right edge of 1200px container) */
+        /* Statistics Bar */
         .stats-bar {
             position: fixed;
             top: 65px;
@@ -128,7 +128,6 @@
             background: var(--border);
         }
         
-        /* Online Indicator Pulse */
         .online-dot {
             width: 8px;
             height: 8px;
@@ -156,10 +155,7 @@
             100% { transform: scale(2.5); opacity: 0; }
         }
         
-        /* Counter Animation */
-        .stat-value {
-            transition: transform 0.3s ease;
-        }
+        .stat-value { transition: transform 0.3s ease; }
         
         .stat-value.updated {
             animation: counter-bump 0.5s ease;
@@ -170,7 +166,6 @@
             50% { transform: scale(1.2); color: var(--accent); }
         }
         
-        /* Loading Spinner for Stats */
         .stat-loading {
             display: inline-block;
             width: 12px;
@@ -211,7 +206,6 @@
         .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
         .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
         
-        /* Resume Button Style */
         .btn-resume {
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
             color: white;
@@ -254,7 +248,6 @@
         .info-item a { color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
         .info-item a:hover { color: var(--accent); }
         
-        /* Instagram specific in info-item */
         .info-item .instagram-link {
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             -webkit-background-clip: text;
@@ -262,9 +255,7 @@
             background-clip: text;
             font-weight: 600;
         }
-        .info-item .instagram-link:hover {
-            opacity: 0.85;
-        }
+        .info-item .instagram-link:hover { opacity: 0.85; }
         
         /* Skills Section */
         #skills { background: var(--bg-secondary); }
@@ -283,12 +274,15 @@
         .edu-card .degree { color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
         .edu-card .uni { color: var(--text-secondary); font-size: 1rem; }
         
-        /* CTA Cards (Articles) */
+        /* CTA Cards (Products & Articles) */
         .products-cta { max-width: 700px; margin: 0 auto; text-align: center; background: var(--bg-card); padding: 3rem 2rem; border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
         .products-cta::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
         .products-cta i { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
         .products-cta h3 { font-size: 1.8rem; margin-bottom: 1rem; }
         .products-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        
+        /* Products Section */
+        #products { background: var(--bg-primary); }
         
         /* Articles Section */
         #articles { background: var(--bg-secondary); }
@@ -300,7 +294,6 @@
         .contact-item i { color: var(--accent); font-size: 1.3rem; }
         .contact-item span { font-weight: 500; font-size: 1.1rem; }
         
-        /* Resume Contact Item Style */
         .contact-item-resume {
             background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
             border: 1px solid rgba(46, 204, 113, 0.3);
@@ -310,11 +303,8 @@
             background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(39, 174, 96, 0.15) 100%);
             box-shadow: var(--shadow);
         }
-        .contact-item-resume i {
-            color: #2ecc71;
-        }
+        .contact-item-resume i { color: #2ecc71; }
         
-        /* Instagram Contact Item Style */
         .contact-item-instagram {
             background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
             border: 1px solid rgba(225, 48, 108, 0.3);
@@ -367,9 +357,7 @@
         
         /* Responsive */
         @media (max-width: 1280px) {
-            .stats-bar {
-                right: 5vw;
-            }
+            .stats-bar { right: 5vw; }
         }
         
         @media (max-width: 968px) {
@@ -386,9 +374,7 @@
                 top: 60px;
                 right: 10px;
             }
-            .stat-value {
-                font-size: 0.9rem;
-            }
+            .stat-value { font-size: 0.9rem; }
             .download-notification {
                 top: 110px;
                 right: 10px;
@@ -407,9 +393,7 @@
                 max-width: calc(100% - 20px);
             }
             .stat-separator { display: none; }
-            .stat-item {
-                gap: 0.3rem;
-            }
+            .stat-item { gap: 0.3rem; }
         }
         
         @media (max-width: 360px) {
@@ -460,7 +444,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Expertise</a></li>
                 <li><a href="#education">Education</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+                <li><a href="#products">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/index.html">Articles</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -617,6 +601,25 @@
         </div>
     </section>
     
+    <!-- Products CTA Section (RESTORED) -->
+    <section id="products">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Resources & Tools</p>
+                <h2 class="section-title">Professional <span>Products</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="products-cta reveal">
+                <i class="fas fa-box-open"></i>
+                <h3>Explore My Products & Templates</h3>
+                <p>Access professional project planning templates, specialized tools, and educational resources designed to streamline your project control processes. From WBS tools to EVMS dashboards and EOT claim support.</p>
+                <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> View Products Catalog
+                </a>
+            </div>
+        </div>
+    </section>
+    
     <!-- Articles CTA Section -->
     <section id="articles">
         <div class="container">
@@ -670,62 +673,23 @@
     </footer>
     
     <script>
-        // ============================================
-        // REAL-TIME STATISTICS TRACKING SYSTEM
-        // ============================================
-        
         const STATS_CONFIG = {
             namespace: 'bm-portfolio-v3',
-            keys: {
-                visitors: 'visitors',
-                downloads: 'downloads'
-            },
-            initialValues: {
-                visitors: 1247,
-                downloads: 342
-            }
+            keys: { visitors: 'visitors', downloads: 'downloads' },
+            initialValues: { visitors: 1247, downloads: 342 }
         };
         
         const COUNTER_SERVICES = [
-            {
-                name: 'Abacus',
-                hit: (ns, key) => `https://abacus.jasoncameron.dev/hit/${ns}/${key}`,
-                get: (ns, key) => `https://abacus.jasoncameron.dev/get/${ns}/${key}`,
-                add: (ns, key, amount) => `https://abacus.jasoncameron.dev/add/${ns}/${key}/${amount}`,
-                parse: (data) => data.value
-            },
-            {
-                name: 'CountAPI',
-                hit: (ns, key) => `https://api.countapi.xyz/hit/${ns}/${key}`,
-                get: (ns, key) => `https://api.countapi.xyz/get/${ns}/${key}`,
-                add: null,
-                parse: (data) => data.value
-            },
-            {
-                name: 'CounterAPI',
-                hit: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}/up`,
-                get: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}`,
-                add: null,
-                parse: (data) => data.count
-            }
+            { name: 'Abacus', hit: (ns, key) => `https://abacus.jasoncameron.dev/hit/${ns}/${key}`, get: (ns, key) => `https://abacus.jasoncameron.dev/get/${ns}/${key}`, add: (ns, key, amount) => `https://abacus.jasoncameron.dev/add/${ns}/${key}/${amount}`, parse: (data) => data.value },
+            { name: 'CountAPI', hit: (ns, key) => `https://api.countapi.xyz/hit/${ns}/${key}`, get: (ns, key) => `https://api.countapi.xyz/get/${ns}/${key}`, add: null, parse: (data) => data.value },
+            { name: 'CounterAPI', hit: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}/up`, get: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}`, add: null, parse: (data) => data.count }
         ];
         
         let activeService = null;
-        let localStats = {
-            visitors: STATS_CONFIG.initialValues.visitors,
-            downloads: STATS_CONFIG.initialValues.downloads
-        };
+        let localStats = { visitors: STATS_CONFIG.initialValues.visitors, downloads: STATS_CONFIG.initialValues.downloads };
         
-        function loadLocalStats() {
-            const saved = localStorage.getItem('bm_stats_local_v3');
-            if (saved) {
-                localStats = JSON.parse(saved);
-            }
-        }
-        
-        function saveLocalStats() {
-            localStorage.setItem('bm_stats_local_v3', JSON.stringify(localStats));
-        }
+        function loadLocalStats() { const saved = localStorage.getItem('bm_stats_local_v3'); if (saved) localStats = JSON.parse(saved); }
+        function saveLocalStats() { localStorage.setItem('bm_stats_local_v3', JSON.stringify(localStats)); }
         
         async function findWorkingService() {
             for (const service of COUNTER_SERVICES) {
@@ -733,10 +697,8 @@
                     const testUrl = service.get(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors);
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 5000);
-                    
                     const response = await fetch(testUrl, { signal: controller.signal });
                     clearTimeout(timeout);
-                    
                     if (response.ok) {
                         const data = await response.json();
                         const value = service.parse(data);
@@ -746,10 +708,7 @@
                             return true;
                         }
                     }
-                } catch (e) {
-                    console.log(`Service ${service.name} failed, trying next...`);
-                    continue;
-                }
+                } catch (e) { console.log(`Service ${service.name} failed, trying next...`); continue; }
             }
             console.log('All counter services failed, using local storage');
             return false;
@@ -757,40 +716,27 @@
         
         async function initializeCounters() {
             if (!activeService) return;
-            
             try {
                 const createUrls = [
                     `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.visitors}/${STATS_CONFIG.initialValues.visitors}`,
                     `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.downloads}/${STATS_CONFIG.initialValues.downloads}`
                 ];
-                
-                for (const url of createUrls) {
-                    try {
-                        await fetch(url);
-                    } catch (e) {
-                    }
-                }
-            } catch (e) {
-                console.log('Counter initialization skipped');
-            }
+                for (const url of createUrls) { try { await fetch(url); } catch (e) {} }
+            } catch (e) { console.log('Counter initialization skipped'); }
         }
         
         function estimateOnlineUsers() {
             const hour = new Date().getHours();
             let base = 30;
-            
             if (hour >= 9 && hour <= 12) base = 38;
             else if (hour >= 14 && hour <= 18) base = 42;
             else if (hour >= 20 && hour <= 23) base = 36;
             else if (hour >= 0 && hour <= 6) base = 30;
-            
-            const random = Math.floor(Math.random() * 16);
-            return base + random;
+            return base + Math.floor(Math.random() * 16);
         }
         
         async function trackVisit() {
             const onlineCount = estimateOnlineUsers();
-            
             if (activeService) {
                 try {
                     if (activeService.add) {
@@ -798,32 +744,19 @@
                         const response = await fetch(url);
                         const data = await response.json();
                         const value = activeService.parse(data);
-                        
-                        if (typeof value === 'number' && !isNaN(value)) {
-                            animateCounter('totalVisitors', value);
-                            return value;
-                        }
+                        if (typeof value === 'number' && !isNaN(value)) { animateCounter('totalVisitors', value); return value; }
                     }
-                    
                     let finalValue = 0;
                     const batchSize = Math.min(onlineCount, 50);
-                    
                     for (let i = 0; i < batchSize; i++) {
                         const url = activeService.hit(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors);
                         const response = await fetch(url);
                         const data = await response.json();
                         finalValue = activeService.parse(data);
                     }
-                    
-                    if (typeof finalValue === 'number' && !isNaN(finalValue)) {
-                        animateCounter('totalVisitors', finalValue);
-                        return finalValue;
-                    }
-                } catch (e) {
-                    console.error('Visit tracking failed:', e);
-                }
+                    if (typeof finalValue === 'number' && !isNaN(finalValue)) { animateCounter('totalVisitors', finalValue); return finalValue; }
+                } catch (e) { console.error('Visit tracking failed:', e); }
             }
-            
             localStats.visitors += onlineCount;
             saveLocalStats();
             animateCounter('totalVisitors', localStats.visitors);
@@ -837,16 +770,9 @@
                     const response = await fetch(url);
                     const data = await response.json();
                     const value = activeService.parse(data);
-                    
-                    if (typeof value === 'number' && !isNaN(value)) {
-                        animateCounter('totalDownloads', value);
-                        return value;
-                    }
-                } catch (e) {
-                    console.error('Download tracking failed:', e);
-                }
+                    if (typeof value === 'number' && !isNaN(value)) { animateCounter('totalDownloads', value); return value; }
+                } catch (e) { console.error('Download tracking failed:', e); }
             }
-            
             localStats.downloads++;
             saveLocalStats();
             animateCounter('totalDownloads', localStats.downloads);
@@ -860,13 +786,8 @@
                     const response = await fetch(url);
                     const data = await response.json();
                     const value = activeService.parse(data);
-                    
-                    if (typeof value === 'number' && !isNaN(value)) {
-                        return value;
-                    }
-                } catch (e) {
-                    console.error('Get visitor count failed:', e);
-                }
+                    if (typeof value === 'number' && !isNaN(value)) return value;
+                } catch (e) { console.error('Get visitor count failed:', e); }
             }
             return localStats.visitors;
         }
@@ -878,154 +799,92 @@
                     const response = await fetch(url);
                     const data = await response.json();
                     const value = activeService.parse(data);
-                    
-                    if (typeof value === 'number' && !isNaN(value)) {
-                        return value;
-                    }
-                } catch (e) {
-                    console.error('Get download count failed:', e);
-                }
+                    if (typeof value === 'number' && !isNaN(value)) return value;
+                } catch (e) { console.error('Get download count failed:', e); }
             }
             return localStats.downloads;
         }
         
-        function updateOnlineUsers() {
-            const online = estimateOnlineUsers();
-            animateCounter('onlineUsers', online);
-        }
+        function updateOnlineUsers() { animateCounter('onlineUsers', estimateOnlineUsers()); }
         
         function animateCounter(elementId, value) {
             const element = document.getElementById(elementId);
             if (!element) return;
-            
             const currentValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
-            
             if (currentValue === value) return;
-            
-            const duration = 1000;
-            const steps = 30;
-            const increment = (value - currentValue) / steps;
-            let current = currentValue;
-            let step = 0;
-            
+            const duration = 1000, steps = 30, increment = (value - currentValue) / steps;
+            let current = currentValue, step = 0;
             const timer = setInterval(() => {
                 step++;
                 current += increment;
-                if (step >= steps) {
-                    current = value;
-                    clearInterval(timer);
-                }
+                if (step >= steps) { current = value; clearInterval(timer); }
                 element.textContent = Math.floor(current).toLocaleString();
             }, duration / steps);
-            
             element.classList.add('updated');
             setTimeout(() => element.classList.remove('updated'), 500);
         }
         
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            
-            if (window.scrollY > 50) {
-                nav.style.padding = '0.7rem 5%';
-                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
-            } else {
-                nav.style.padding = '1rem 5%';
-                nav.style.boxShadow = 'none';
-            }
+            if (window.scrollY > 50) { nav.style.padding = '0.7rem 5%'; nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)'; }
+            else { nav.style.padding = '1rem 5%'; nav.style.boxShadow = 'none'; }
         });
         
         function downloadFile(url, fileName, buttonElement, successMessage) {
             const notification = document.getElementById('downloadNotification');
-            
             notification.style.display = 'flex';
             notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
-            
             if (buttonElement) {
                 const originalHTML = buttonElement.innerHTML;
                 buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
                 buttonElement.disabled = true;
-                
                 fetch(url)
-                    .then(response => {
-                        if (!response.ok) throw new Error('Network response was not ok');
-                        return response.blob();
-                    })
+                    .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.blob(); })
                     .then(blob => {
                         const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: blob.type }));
                         const link = document.createElement('a');
-                        link.href = blobUrl;
-                        link.download = fileName;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
+                        link.href = blobUrl; link.download = fileName;
+                        document.body.appendChild(link); link.click(); document.body.removeChild(link);
                         window.URL.revokeObjectURL(blobUrl);
-                        
                         notification.innerHTML = `<i class="fas fa-check-circle"></i><span>${successMessage}</span>`;
-                        setTimeout(() => {
-                            notification.style.display = 'none';
-                        }, 3000);
-                        
+                        setTimeout(() => { notification.style.display = 'none'; }, 3000);
                         buttonElement.innerHTML = originalHTML;
                         buttonElement.disabled = false;
-                        
                         trackDownload();
                     })
                     .catch(error => {
                         console.error('Download error:', error);
                         window.open(url, '_blank');
                         notification.innerHTML = '<i class="fas fa-info-circle"></i><span>Opened in new tab</span>';
-                        setTimeout(() => {
-                            notification.style.display = 'none';
-                        }, 3000);
-                        
+                        setTimeout(() => { notification.style.display = 'none'; }, 3000);
                         buttonElement.innerHTML = originalHTML;
                         buttonElement.disabled = false;
-                        
                         trackDownload();
                     });
             }
         }
         
         function downloadResume() {
-            downloadFile(
-                'https://sbmousavices.github.io/Industrial-Tools/Resume.pdf',
-                'Behzad_Mousavi_Resume.pdf',
-                event.target.closest('button'),
-                'Resume Downloaded!'
-            );
+            downloadFile('https://sbmousavices.github.io/Industrial-Tools/Resume.pdf', 'Behzad_Mousavi_Resume.pdf', event.target.closest('button'), 'Resume Downloaded!');
         }
         
         document.addEventListener('DOMContentLoaded', async () => {
             loadLocalStats();
-            
             await findWorkingService();
-            
-            if (activeService) {
-                await initializeCounters();
-            }
-            
+            if (activeService) await initializeCounters();
             await trackVisit();
-            
             const visitorCount = await getVisitorCount();
             const downloadCount = await getDownloadCount();
-            
             animateCounter('totalVisitors', visitorCount);
             animateCounter('totalDownloads', downloadCount);
-            
             updateOnlineUsers();
-            
             setInterval(updateOnlineUsers, 30000);
-            
             setInterval(async () => {
                 const visitors = await getVisitorCount();
                 const downloads = await getDownloadCount();
