@@ -104,27 +104,6 @@
         .stat-box .stat-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
         .stat-box .stat-label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Catalog Button */
-        .catalog-section { text-align: center; margin: 3rem auto; }
-        .btn-catalog {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-family: inherit;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-        }
-        .btn-catalog:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
-
         /* Products Container */
         .products-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
         .section-header { text-align: center; margin-bottom: 3rem; }
@@ -433,6 +412,16 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* Highlight Animation for Payment Section */
+        @keyframes highlight-section {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .payment-section.highlight {
+            animation: highlight-section 1.5s ease-out;
+        }
+
         /* Responsive */
         @media (max-width: 968px) {
             .nav-links { gap: 1rem; }
@@ -479,13 +468,6 @@
             <div class="stat-box"><i class="fas fa-globe"></i><div class="stat-number">Global</div><div class="stat-label">Delivery</div></div>
         </div>
     </section>
-
-    <!-- Catalog Download -->
-    <div class="catalog-section">
-        <a href="Industrial_Project_Planning_Tools.pdf" download class="btn-catalog">
-            <i class="fas fa-file-pdf"></i> Download Full Product Catalog (PDF)
-        </a>
-    </div>
 
     <!-- Products Section -->
     <section class="products-container">
@@ -542,7 +524,7 @@
                         <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - WBS Grouping Tool" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -567,7 +549,7 @@
                         <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Executive Monthly Action Plan" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -592,7 +574,7 @@
                         <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Manpower Data Bank" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -617,7 +599,7 @@
                         <a href="EVMS.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - EVMS Dashboard" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -642,7 +624,7 @@
                         <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Executive Dashboard" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -667,7 +649,7 @@
                         <a href="EL_&IN_Sample_PMS.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - PMS System" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -692,7 +674,7 @@
                         <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - Project Time Schedule" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -717,7 +699,7 @@
                         <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="mailto:sbmousavices@gmail.com?subject=Purchase - EOT Delay Report" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
@@ -739,7 +721,7 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                     </div>
                     <div class="product-actions">
-                        <a href="mailto:sbmousavices@gmail.com?subject=Inquiry - Full Claim Package" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase">
                             <i class="fas fa-envelope"></i> Request Quote
                         </a>
                     </div>
@@ -750,7 +732,7 @@
     </section>
 
     <!-- Payment & Contact Section -->
-    <section class="payment-section">
+    <section class="payment-section" id="payment-section">
         <div class="section-header reveal">
             <p class="section-subtitle">How to Purchase</p>
             <h2 class="section-title">Payment & <span>Contact</span></h2>
@@ -771,7 +753,7 @@
             <div class="info-card reveal">
                 <div class="info-icon"><i class="fas fa-envelope"></i></div>
                 <h3 class="info-title">Support & Purchase Email</h3>
-                <div class="info-value-box" id="emailAddress">sbmousavices@gmail.com</div>
+                <div class="info-value-box" id="emailAddress">sbmousavi@proton.me</div>
                 <button class="copy-btn" onclick="copyText('emailAddress', 'emailMessage')">
                     <i class="fas fa-copy"></i> Copy Email
                 </button>
@@ -781,7 +763,7 @@
 
         <div class="purchase-cta reveal">
             <p>After payment, send an email with the product name, amount sent, and transaction hash to receive your tool.</p>
-            <a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn-email">
+            <a href="mailto:sbmousavi@proton.me?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn-email">
                 <i class="fas fa-paper-plane"></i> Send Purchase Email
             </a>
         </div>
@@ -828,6 +810,23 @@
             });
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Highlight Payment Section when scrolled to
+        document.querySelectorAll('a[href="#payment-section"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.getElementById('payment-section');
+                const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                setTimeout(() => {
+                    target.classList.add('highlight');
+                    setTimeout(() => target.classList.remove('highlight'), 1500);
+                }, 600);
+            });
+        });
     </script>
 </body>
 </html>
