@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Join Our Community | Industrial Project Planning | Behzad Mousavi</title>
+
+    <meta name="description" content="Join our professional community of project planners and industrial engineers. Follow us on multiple platforms for exclusive content, free tools, and networking opportunities.">
+    <meta name="keywords" content="Project Planning Community, Industrial Engineers, EPC, Oil Gas, Medium, GitHub, YouTube, Facebook, Instagram, Reddit">
+    <meta name="author" content="Behzad Mousavi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/community.html">
+
+    <meta property="og:title" content="Join Our Project Planning Community">
+    <meta property="og:description" content="Connect with 500+ industrial professionals. Get exclusive tools and content.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/community.html">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --bg-card: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --accent-blue: #5B9BD5;
+            --accent-green: #2ecc71;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .bg-shapes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
+        }
+        .bg-shapes::before, .bg-shapes::after {
+            content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out;
+        }
+        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
+
+        nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .active { color: var(--accent); font-weight: 600; }
+
+        .page-header { padding: 9rem 5% 3rem; text-align: center; position: relative; }
+        .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
+
+        .community-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
+
+        .platforms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+
+        .platform-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .platform-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--platform-color, var(--gradient));
+        }
+
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--platform-color, var(--accent));
+        }
+
+        .platform-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .platform-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .platform-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .platform-stat { text-align: center; }
+        .platform-stat .stat-value {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        .platform-stat .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-follow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            background: var(--platform-color, var(--gradient));
+            color: white;
+        }
+        .btn-follow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-confirm {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            font-family: inherit;
+            background: transparent;
+            color: var(--accent);
+            margin-top: 0.8rem;
+        }
+        .btn-confirm:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .btn-confirm.confirmed {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+            cursor: default;
+        }
+
+        .reward-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(91, 155, 213, 0.1) 100%);
+            border: 2px dashed var(--accent);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+        .reward-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .reward-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .reward-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-section {
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 600px;
+        }
+        .signup-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .consent-group {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            margin: 1.5rem 0;
+        }
+        .consent-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.3rem;
+        }
+        .consent-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .progress-text {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: var(--accent-green);
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #27ae60 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+        .download-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .download-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+        .btn-download {
+            background: white;
+            color: var(--bg-primary);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: inherit;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .message.error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        .message.success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
+        footer p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 968px) {
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .page-header h1 { font-size: 2rem; }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .platforms-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
+            <ul class="nav-links">
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#about">About</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#skills">Expertise</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+                <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+                <li><a href="community.html" class="active">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <p class="greeting">Join The Network</p>
+        <h1>Professional <span>Community</span></h1>
+        <p class="tagline">Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
+    </section>
+
+    <section class="community-container">
+        
+        <!-- Signup Form -->
+        <div class="signup-section reveal">
+            <h3>📝 Step 1: Register Your Information</h3>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="consent-group">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">I agree to receive occasional newsletters and promotional emails. I can unsubscribe at any time.</label>
+                </div>
+                <div id="formMessage"></div>
+            </form>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="progress-bar reveal">
+            <div class="progress-text">Step 2: Follow Our Platforms (Complete all 6 to unlock download)</div>
+            <div class="progress-dots">
+                <div class="dot" data-platform="medium"></div>
+                <div class="dot" data-platform="github"></div>
+                <div class="dot" data-platform="facebook"></div>
+                <div class="dot" data-platform="youtube"></div>
+                <div class="dot" data-platform="instagram"></div>
+                <div class="dot" data-platform="reddit"></div>
+            </div>
+        </div>
+
+        <div class="section-header reveal">
+            <p class="section-subtitle">Where To Find Us</p>
+            <h2 class="section-title">Follow & <span>Connect</span></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="platforms-grid">
+
+            <!-- Medium -->
+            <div class="platform-card reveal" style="--platform-color: #00AB6C;">
+                <div class="platform-icon">
+                    <i class="fab fa-medium"></i>
+                </div>
+                <h3 class="platform-name">Medium</h3>
+                <p class="platform-description">In-depth articles about project planning, EVM, delay analysis, and practical insights from 25+ years of field experience.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">Weekly</div>
+                        <div class="stat-label">Articles</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Free</div>
+                        <div class="stat-label">Content</div>
+                    </div>
+                </div>
+                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium">
+                    <i class="fab fa-medium"></i> Follow on Medium
+                </a>
+                <button class="btn-confirm" data-platform="medium" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+            <!-- GitHub -->
+            <div class="platform-card reveal" style="--platform-color: #f0f0f0;">
+                <div class="platform-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <h3 class="platform-name">GitHub</h3>
+                <p class="platform-description">Open-source Excel tools, macros, and VBA scripts for project planning and control. Free resources for engineers.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">Repos</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Free</div>
+                        <div class="stat-label">Tools</div>
+                    </div>
+                </div>
+                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github">
+                    <i class="fab fa-github"></i> Star on GitHub
+                </a>
+                <button class="btn-confirm" data-platform="github" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+            <!-- Facebook -->
+            <div class="platform-card reveal" style="--platform-color: #1877F2;">
+                <div class="platform-icon">
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <h3 class="platform-name">Facebook</h3>
+                <p class="platform-description">Project management discussions, success stories, and behind-the-scenes of tool development.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">Active</div>
+                        <div class="stat-label">Community</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Daily</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                </div>
+                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook">
+                    <i class="fab fa-facebook"></i> Follow on Facebook
+                </a>
+                <button class="btn-confirm" data-platform="facebook" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+            <!-- YouTube -->
+            <div class="platform-card reveal" style="--platform-color: #FF0000;">
+                <div class="platform-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h3 class="platform-name">YouTube</h3>
+                <p class="platform-description">Tutorial videos, software demos, and deep-dive explanations of EVM, WBS, and project scheduling concepts.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">HD</div>
+                        <div class="stat-label">Quality</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Free</div>
+                        <div class="stat-label">Tutorials</div>
+                    </div>
+                </div>
+                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube">
+                    <i class="fab fa-youtube"></i> Subscribe on YouTube
+                </a>
+                <button class="btn-confirm" data-platform="youtube" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+            <!-- Instagram -->
+            <div class="platform-card reveal" style="--platform-color: #E4405F;">
+                <div class="platform-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <h3 class="platform-name">Instagram</h3>
+                <p class="platform-description">Visual tips, infographics, reels about industrial planning tools, and quick project management insights.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">Visual</div>
+                        <div class="stat-label">Content</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Daily</div>
+                        <div class="stat-label">Reels</div>
+                    </div>
+                </div>
+                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram">
+                    <i class="fab fa-instagram"></i> Follow on Instagram
+                </a>
+                <button class="btn-confirm" data-platform="instagram" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+            <!-- Reddit -->
+            <div class="platform-card reveal" style="--platform-color: #FF4500;">
+                <div class="platform-icon">
+                    <i class="fab fa-reddit"></i>
+                </div>
+                <h3 class="platform-name">Reddit</h3>
+                <p class="platform-description">Join discussions on project management, share experiences, and get answers to your planning challenges.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat">
+                        <div class="stat-value">Open</div>
+                        <div class="stat-label">Discussions</div>
+                    </div>
+                    <div class="platform-stat">
+                        <div class="stat-value">Expert</div>
+                        <div class="stat-label">Advice</div>
+                    </div>
+                </div>
+                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit">
+                    <i class="fab fa-reddit"></i> Join on Reddit
+                </a>
+                <button class="btn-confirm" data-platform="reddit" disabled>
+                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Download Section (Hidden initially) -->
+        <div class="download-section reveal" id="downloadSection" style="display: none;">
+            <h3>🎉 Congratulations! Download Unlocked</h3>
+            <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
+            <a href="mailto:sbmousavi@proton.me?subject=Starter Kit Request&body=Hello,%0A%0AI have successfully joined your community on all platforms.%0A%0APlease send me the free Starter Kit.%0A%0AThank you!" class="btn-download">
+                <i class="fas fa-download"></i> Download Starter Kit
+            </a>
+        </div>
+
+        <!-- Reward Section (Original) -->
+        <div class="reward-section reveal" id="rewardSection">
+            <div class="reward-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h3 class="reward-title">🎁 Exclusive Community Reward</h3>
+            <p class="reward-description">
+                After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:
+                <br>✅ Professional WBS Template (Excel)
+                <br>✅ Project Health Checklist (50 Points)
+                <br>✅ EVM Basics Quick-Reference Guide
+            </p>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
+    </footer>
+
+    <script>
+        // ===== CONFIGURATION =====
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPMHmXYbfg8pHyy1yssKjCC5nDUolrtmGEyjJSk-DHO9kcqOZPAag8VVqxAYuJAv8TpA/exec';
+        const DOWNLOAD_LINK = 'mailto:sbmousavi@proton.me?subject=Starter Kit Request&body=Hello,%0A%0AI have successfully joined your community on all platforms.%0A%0APlease send me the free Starter Kit.%0A%0AThank you!';
+        
+        // ===== STATE MANAGEMENT =====
+        const state = {
+            formData: { name: '', email: '', consent: false },
+            platforms: {
+                medium: { opened: false, confirmed: false },
+                github: { opened: false, confirmed: false },
+                facebook: { opened: false, confirmed: false },
+                youtube: { opened: false, confirmed: false },
+                instagram: { opened: false, confirmed: false },
+                reddit: { opened: false, confirmed: false }
+            }
+        };
+
+        // ===== SCROLL REVEAL =====
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== PLATFORM TRACKING =====
+        document.querySelectorAll('.btn-follow').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const platform = this.dataset.platform;
+                state.platforms[platform].opened = true;
+                
+                const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
+                let countdown = 10;
+                const span = confirmBtn.querySelector('span');
+                
+                confirmBtn.disabled = true;
+                const timer = setInterval(() => {
+                    countdown--;
+                    span.textContent = `I've followed (${countdown}s)`;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        confirmBtn.disabled = false;
+                        span.textContent = "I've followed ✓";
+                    }
+                }, 1000);
+            });
+        });
+
+        document.querySelectorAll('.btn-confirm').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.dataset.platform;
+                state.platforms[platform].confirmed = true;
+                
+                this.classList.add('confirmed');
+                this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
+                
+                const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
+                dot.classList.add('active');
+                
+                checkAllConfirmed();
+            });
+        });
+
+        function checkAllConfirmed() {
+            const allConfirmed = Object.values(state.platforms).every(p => p.confirmed);
+            
+            if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email) {
+                document.getElementById('downloadSection').style.display = 'block';
+                document.getElementById('rewardSection').style.display = 'none';
+                
+                submitData();
+            }
+        }
+
+        // ===== FORM HANDLING =====
+        const form = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('input', function() {
+            state.formData.name = document.getElementById('name').value;
+            state.formData.email = document.getElementById('email').value;
+            state.formData.consent = document.getElementById('consent').checked;
+            
+            checkAllConfirmed();
+        });
+
+        async function submitData() {
+            const followed = Object.entries(state.platforms)
+                .filter(([_, data]) => data.confirmed)
+                .map(([platform]) => platform);
+
+            const payload = {
+                name: state.formData.name,
+                email: state.formData.email,
+                followed: followed
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                formMessage.innerHTML = '<div class="message success">✓ Your information has been saved successfully!</div>';
+            } catch (error) {
+                formMessage.innerHTML = '<div class="message error">Error saving data. Please try again.</div>';
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
