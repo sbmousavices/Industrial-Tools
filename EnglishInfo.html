@@ -288,28 +288,34 @@
         #articles { background: var(--bg-secondary); }
         
         /* Contact Section */
-        .contact-container { max-width: 600px; margin: 0 auto; text-align: center; }
-        .contact-item { display: inline-flex; align-items: center; gap: 1rem; padding: 1.2rem 2rem; background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: all 0.3s; margin-top: 1rem; cursor: pointer; }
+        .contact-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1rem; 
+            margin-top: 2rem;
+        }
+        .contact-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 1rem; 
+            padding: 1.2rem 2rem; 
+            background: var(--bg-card); 
+            border-radius: 50px; 
+            border: 1px solid var(--border); 
+            text-decoration: none; 
+            color: var(--text-primary); 
+            transition: all 0.3s; 
+            cursor: pointer;
+            justify-content: flex-start;
+        }
         .contact-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
-        .contact-item i { color: var(--accent); font-size: 1.3rem; }
-        .contact-item span { font-weight: 500; font-size: 1.1rem; }
-        
-        .contact-item-resume {
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
-            border: 1px solid rgba(46, 204, 113, 0.3);
-        }
-        .contact-item-resume:hover {
-            border-color: #2ecc71;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(39, 174, 96, 0.15) 100%);
-            box-shadow: var(--shadow);
-        }
-        .contact-item-resume i { color: #2ecc71; }
+        .contact-item i { color: var(--accent); font-size: 1.3rem; min-width: 24px; }
+        .contact-item span { font-weight: 500; font-size: 1rem; }
         
         .contact-item-instagram {
             background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
             border: 1px solid rgba(225, 48, 108, 0.3);
-            position: relative;
-            overflow: hidden;
         }
         .contact-item-instagram:hover {
             border-color: #e1306c;
@@ -323,6 +329,50 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        .contact-item-telegram {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.1) 0%, rgba(0, 136, 204, 0.05) 100%);
+            border: 1px solid rgba(0, 136, 204, 0.3);
+        }
+        .contact-item-telegram:hover {
+            border-color: #0088cc;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.15) 0%, rgba(0, 136, 204, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-telegram i { color: #0088cc; }
+        
+        .contact-item-facebook {
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.1) 0%, rgba(59, 89, 152, 0.05) 100%);
+            border: 1px solid rgba(59, 89, 152, 0.3);
+        }
+        .contact-item-facebook:hover {
+            border-color: #3b5998;
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.15) 0%, rgba(59, 89, 152, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-facebook i { color: #3b5998; }
+        
+        .contact-item-reddit {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 69, 0, 0.3);
+        }
+        .contact-item-reddit:hover {
+            border-color: #ff4500;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 69, 0, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-reddit i { color: #ff4500; }
+        
+        .contact-item-medium {
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.1) 0%, rgba(0, 171, 0, 0.05) 100%);
+            border: 1px solid rgba(0, 171, 0, 0.3);
+        }
+        .contact-item-medium:hover {
+            border-color: #00ab00;
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.15) 0%, rgba(0, 171, 0, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-medium i { color: #00ab00; }
         
         /* Footer */
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
@@ -381,6 +431,7 @@
                 font-size: 0.9rem;
                 padding: 0.8rem 1.2rem;
             }
+            .contact-grid { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 480px) {
@@ -394,6 +445,8 @@
             }
             .stat-separator { display: none; }
             .stat-item { gap: 0.3rem; }
+            .contact-item { padding: 1rem 1.5rem; }
+            .contact-item span { font-size: 0.9rem; }
         }
         
         @media (max-width: 360px) {
@@ -601,7 +654,7 @@
         </div>
     </section>
     
-    <!-- Products CTA Section (RESTORED) -->
+    <!-- Products CTA Section -->
     <section id="products">
         <div class="container">
             <div class="section-header reveal">
@@ -648,19 +701,31 @@
                 <div class="section-divider"></div>
             </div>
             <div class="contact-container reveal">
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out directly, download my resume, or follow me on Instagram.</p>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                    <button class="contact-item contact-item-resume" onclick="downloadResume()">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Download Resume (PDF)</span>
-                    </button>
-                    <a href="mailto:sbmousavi@proton.me" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>sbmousavi@proton.me</span>
-                    </a>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out via email or connect with me on social platforms.</p>
+                <a href="mailto:sbmousavi@proton.me" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>sbmousavi@proton.me</span>
+                </a>
+                <div class="contact-grid">
                     <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram">
                         <i class="fa-brands fa-instagram"></i>
                         <span>@industrial.planning.tools</span>
+                    </a>
+                    <a href="https://t.me/PlanningUser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-telegram">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>@PlanningUser</span>
+                    </a>
+                    <a href="https://www.facebook.com/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>facebook.com/planninguser</span>
+                    </a>
+                    <a href="https://www.reddit.com/user/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-reddit">
+                        <i class="fa-brands fa-reddit"></i>
+                        <span>u/planninguser</span>
+                    </a>
+                    <a href="https://medium.com/@sbmousavi" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-medium">
+                        <i class="fa-brands fa-medium"></i>
+                        <span>@sbmousavi</span>
                     </a>
                 </div>
             </div>
@@ -763,12 +828,7 @@
             return localStats.visitors;
         }
         
-        // ============================================
-        // SIMULATE DOWNLOADS ON PAGE LOAD
-        // Adds 2-5 downloads per page visit (Social Proof)
-        // ============================================
         async function simulateDownloads() {
-            // Random number between 2 and 5
             const downloadCount = Math.floor(Math.random() * 4) + 2;
             
             if (activeService) {
@@ -789,7 +849,6 @@
                 }
             }
             
-            // Fallback to local storage
             localStats.downloads += downloadCount;
             saveLocalStats();
             animateCounter('totalDownloads', localStats.downloads);
@@ -912,19 +971,16 @@
             await findWorkingService();
             if (activeService) await initializeCounters();
             
-            // Track visit first
             await trackVisit();
             
             const visitorCount = await getVisitorCount();
             animateCounter('totalVisitors', visitorCount);
             
-            // Show current downloads count first
             const downloadCount = await getDownloadCount();
             animateCounter('totalDownloads', downloadCount);
             
             updateOnlineUsers();
             
-            // After 2 seconds, simulate 2-5 new downloads (feels natural)
             setTimeout(async () => {
                 await simulateDownloads();
             }, 2000);
