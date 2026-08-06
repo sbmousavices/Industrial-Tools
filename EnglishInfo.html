@@ -274,11 +274,31 @@
         
         /* Contact Section */
         .contact-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        
+        .contact-label {
+            text-align: left;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 2rem 0 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .contact-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .contact-label:first-of-type { margin-top: 0.5rem; }
+        
         .contact-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 1rem; 
-            margin-top: 2rem;
         }
         .contact-item { 
             display: flex; 
@@ -296,7 +316,7 @@
         }
         .contact-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
         .contact-item i { color: var(--accent); font-size: 1.3rem; min-width: 24px; }
-        .contact-item span { font-weight: 500; font-size: 1rem; }
+        .contact-item span { font-weight: 500; font-size: 1rem; line-height: 1.4; }
         
         .contact-item-instagram {
             background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
@@ -664,11 +684,17 @@
                 <div class="section-divider"></div>
             </div>
             <div class="contact-container reveal">
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Ready to bring precision and control to your next project? Reach out via email or connect with me on social platforms.</p>
-                <a href="mailto:sbmousavi@proton.me" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>sbmousavi@proton.me</span>
-                </a>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Ready to bring precision and control to your next project? Reach out via email or connect with me on social platforms.</p>
+                
+                <div class="contact-label">E-Mail</div>
+                <div class="contact-grid">
+                    <a href="mailto:sbmousavi@proton.me" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>sbmousavi@proton.me</span>
+                    </a>
+                </div>
+                
+                <div class="contact-label">Other Platforms</div>
                 <div class="contact-grid">
                     <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram">
                         <i class="fa-brands fa-instagram"></i>
@@ -680,7 +706,7 @@
                     </a>
                     <a href="https://www.facebook.com/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-facebook">
                         <i class="fa-brands fa-facebook"></i>
-                        <span>facebook.com/planninguser</span>
+                        <span>Facebook.com/<br>planninguser</span>
                     </a>
                     <a href="https://www.reddit.com/user/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-reddit">
                         <i class="fa-brands fa-reddit"></i>
