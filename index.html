@@ -57,6 +57,8 @@
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --hub-color: #9b59b6;
+            --hub-color-light: #bb8fce;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -114,11 +116,32 @@
             border-radius: 15px;
             border: 1px solid var(--border);
             overflow: hidden;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--shadow); }
+        .product-card.active {
+            transform: scale(1.03) translateY(-8px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+            z-index: 10;
+        }
+        .product-card.active .product-banner i {
+            transform: scale(1.15);
+            filter: drop-shadow(0 5px 20px rgba(255, 255, 255, 0.5));
+        }
+        .product-card.active .product-title {
+            color: var(--accent-light);
+        }
+        .product-card.active .product-price {
+            color: var(--accent-light);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
 
         .product-banner {
             height: 140px;
@@ -129,7 +152,13 @@
             overflow: hidden;
         }
         .product-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%); }
-        .product-banner i { font-size: 3.5rem; color: white; z-index: 1; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        .product-banner i { 
+            font-size: 3.5rem; 
+            color: white; 
+            z-index: 1; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
         .product-badge {
             position: absolute;
@@ -171,6 +200,7 @@
             margin-bottom: 0.8rem;
             line-height: 1.3;
             color: var(--text-primary);
+            transition: color 0.3s ease;
         }
 
         .product-description {
@@ -198,6 +228,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
         }
         .product-delivery {
             display: flex;
@@ -272,9 +303,24 @@
             border-radius: 15px;
             border: 1px solid var(--border);
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .info-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
+        .info-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+        }
+        .info-card.active .info-icon {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        .info-card.active .info-title {
+            color: var(--accent-light);
+        }
         .info-icon {
             width: 70px;
             height: 70px;
@@ -286,12 +332,14 @@
             justify-content: center;
             color: var(--accent);
             font-size: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .info-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--text-primary);
+            transition: color 0.3s ease;
         }
         .info-value-box {
             background: var(--bg-primary);
@@ -364,6 +412,8 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .community-section::before {
             content: '';
@@ -373,16 +423,50 @@
             width: 100%;
             height: 4px;
             background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71);
+            transition: height 0.4s ease;
+        }
+        .community-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2);
+        }
+        .community-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(91, 155, 213, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(91, 155, 213, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .community-section.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .community-section.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6));
+        }
+        .community-section.active h3 {
+            color: var(--accent-light);
+        }
+        .community-section.active .community-stat-value {
+            color: var(--accent-light);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
         .community-section i {
             font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
         }
         .community-section h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
         }
         .community-section p {
             color: var(--text-secondary);
@@ -403,6 +487,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--accent);
+            transition: all 0.3s ease;
         }
         .community-stat-label {
             font-size: 0.8rem;
@@ -428,6 +513,113 @@
             box-shadow: 0 10px 30px rgba(91, 155, 213, 0.5);
         }
 
+        .hub-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--hub-color);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .hub-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5);
+            transition: height 0.4s ease;
+        }
+        .hub-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2);
+        }
+        .hub-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--hub-color-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .hub-section.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .hub-section.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6));
+        }
+        .hub-section.active h3 {
+            color: var(--hub-color-light);
+        }
+        .hub-section.active .hub-stat-value {
+            color: var(--hub-color-light);
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        .hub-section i {
+            font-size: 2.5rem;
+            color: var(--hub-color);
+            margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .hub-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        .hub-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .hub-stat {
+            text-align: center;
+        }
+        .hub-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--hub-color);
+            transition: all 0.3s ease;
+        }
+        .hub-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-hub {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        }
+        .btn-hub:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
+        }
+
         .about-section {
             max-width: 900px;
             margin: 4rem auto;
@@ -441,6 +633,8 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .about-card::before {
             content: '';
@@ -450,16 +644,43 @@
             width: 100%;
             height: 4px;
             background: var(--gradient);
+            transition: height 0.4s ease;
+        }
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .about-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+        .about-card.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .about-card.active i.about-icon {
+            transform: scale(1.15);
+            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5));
+        }
+        .about-card.active h3 {
+            color: var(--accent-light);
         }
         .about-card i.about-icon {
             font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
         }
         .about-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             margin-bottom: 1rem;
+            transition: color 0.3s ease;
         }
         .about-card p {
             color: var(--text-secondary);
@@ -490,8 +711,11 @@
             .stats-strip { gap: 1.5rem; padding: 1rem; }
             .stat-box .stat-number { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
-            .community-stats { gap: 1rem; }
-            .community-stat-value { font-size: 1.4rem; }
+            .community-stats, .hub-stats { gap: 1rem; }
+            .community-stat-value, .hub-stat-value { font-size: 1.4rem; }
+            .product-card.active, .info-card.active, .community-section.active, .hub-section.active, .about-card.active {
+                transform: scale(1.02) translateY(-5px);
+            }
         }
         @media (max-width: 600px) {
             .nav-links { display: none; }
@@ -513,6 +737,7 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -540,7 +765,7 @@
 
         <div class="products-grid">
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
                     <span class="product-badge product-badge-free">FREE DEMO</span>
                     <i class="fas fa-heartbeat"></i>
@@ -559,14 +784,14 @@
                         <span class="product-delivery"><i class="fas fa-bolt"></i> Instant</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Demo_Project_Health_Report_Template.xlsm" download class="btn-product btn-download-product">
+                        <a href="Demo_Project_Health_Report_Template.xlsm" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-download"></i> Download Demo
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-sitemap"></i>
@@ -580,17 +805,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
                     </div>
                     <div class="product-actions">
-                        <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product">
+                        <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-calendar-alt"></i>
@@ -604,17 +829,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 days</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product">
+                        <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-users-cog"></i>
@@ -628,17 +853,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product">
+                        <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-chart-line"></i>
@@ -652,17 +877,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 3 days</span>
                     </div>
                     <div class="product-actions">
-                        <a href="EVMS.pdf" download class="btn-product btn-download-product">
+                        <a href="EVMS.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM</span>
                     <i class="fas fa-tachometer-alt"></i>
@@ -676,17 +901,17 @@
                         <span class="product-delivery"><i class="fas fa-crown"></i> Premium</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product">
+                        <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
                     <i class="fas fa-tasks"></i>
@@ -700,17 +925,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                     </div>
                     <div class="product-actions">
-                        <a href="EL_&IN_Sample_PMS.pdf" download class="btn-product btn-download-product">
+                        <a href="EL_&IN_Sample_PMS.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
                     <i class="fas fa-project-diagram"></i>
@@ -724,17 +949,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product">
+                        <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM CLAIM</span>
                     <i class="fas fa-gavel"></i>
@@ -748,17 +973,17 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product">
+                        <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation()">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-shopping-cart"></i> Purchase
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card reveal">
+            <div class="product-card reveal" data-interactive>
                 <div class="product-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%);">
                     <span class="product-badge">FULL PACKAGE</span>
                     <i class="fas fa-balance-scale"></i>
@@ -772,7 +997,7 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                     </div>
                     <div class="product-actions">
-                        <a href="#payment-section" class="btn-product btn-purchase">
+                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation()">
                             <i class="fas fa-envelope"></i> Request Quote
                         </a>
                     </div>
@@ -790,21 +1015,21 @@
         </div>
 
         <div class="info-grid">
-            <div class="info-card reveal">
+            <div class="info-card reveal" data-interactive>
                 <div class="info-icon"><i class="fas fa-wallet"></i></div>
                 <h3 class="info-title">USDT Wallet (TRC-20)</h3>
                 <div class="info-value-box" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
-                <button class="copy-btn" onclick="copyText('walletAddress', 'walletMessage')">
+                <button class="copy-btn" onclick="event.stopPropagation(); copyText('walletAddress', 'walletMessage')">
                     <i class="fas fa-copy"></i> Copy Wallet Address
                 </button>
                 <div class="copy-message" id="walletMessage"></div>
             </div>
 
-            <div class="info-card reveal">
+            <div class="info-card reveal" data-interactive>
                 <div class="info-icon"><i class="fas fa-envelope"></i></div>
                 <h3 class="info-title">Support & Purchase Email</h3>
                 <div class="info-value-box" id="emailAddress">sbmousavi@proton.me</div>
-                <button class="copy-btn" onclick="copyText('emailAddress', 'emailMessage')">
+                <button class="copy-btn" onclick="event.stopPropagation(); copyText('emailAddress', 'emailMessage')">
                     <i class="fas fa-copy"></i> Copy Email
                 </button>
                 <div class="copy-message" id="emailMessage"></div>
@@ -820,7 +1045,7 @@
     </section>
 
     <section class="products-container">
-        <div class="community-section reveal">
+        <div class="community-section reveal" data-interactive>
             <i class="fas fa-users"></i>
             <h3>Join Our Professional Community</h3>
             <p>Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
@@ -838,14 +1063,39 @@
                     <div class="community-stat-label">Starter Kit</div>
                 </div>
             </div>
-            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn-community">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn-community" onclick="event.stopPropagation()">
                 <i class="fas fa-user-plus"></i> Join Community Now
             </a>
         </div>
     </section>
 
+    <section class="products-container">
+        <div class="hub-section reveal" data-interactive>
+            <i class="fas fa-comments"></i>
+            <h3>Community Hub - Connect & Share</h3>
+            <p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+            <div class="hub-stats">
+                <div class="hub-stat">
+                    <div class="hub-stat-value">LIVE</div>
+                    <div class="hub-stat-label">Discussions</div>
+                </div>
+                <div class="hub-stat">
+                    <div class="hub-stat-value">JOBS</div>
+                    <div class="hub-stat-label">Board</div>
+                </div>
+                <div class="hub-stat">
+                    <div class="hub-stat-value">ADS</div>
+                    <div class="hub-stat-label">Marketplace</div>
+                </div>
+            </div>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
+                <i class="fas fa-arrow-right"></i> Enter Community Hub
+            </a>
+        </div>
+    </section>
+
     <section class="about-section">
-        <div class="about-card reveal">
+        <div class="about-card reveal" data-interactive>
             <i class="fas fa-user-tie about-icon"></i>
             <h3>About the Creator</h3>
             <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
@@ -896,6 +1146,32 @@
                     setTimeout(() => target.classList.remove('highlight'), 1500);
                 }, 600);
             });
+        });
+
+        document.querySelectorAll('[data-interactive]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON') return;
+                
+                const wasActive = this.classList.contains('active');
+                
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    if (el !== this) el.classList.remove('active');
+                });
+                
+                this.classList.toggle('active');
+                
+                if (!wasActive) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('[data-interactive]')) {
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
         });
     </script>
 </body>
