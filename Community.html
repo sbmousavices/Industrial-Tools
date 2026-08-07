@@ -38,6 +38,8 @@
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --hub-color: #9b59b6;
+            --hub-color-light: #bb8fce;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -90,14 +92,38 @@
             border: 1px solid var(--border);
             padding: 2rem;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         .platform-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent);
             box-shadow: var(--shadow);
+        }
+        .platform-card.active {
+            transform: scale(1.03) translateY(-8px);
+            border-color: var(--platform-color, var(--accent-light));
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            z-index: 10;
+        }
+        .platform-card.active .platform-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .platform-card.active .platform-name {
+            color: var(--accent-light);
+        }
+        .platform-card.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
         .platform-card::before {
             content: '';
@@ -107,6 +133,7 @@
             width: 100%;
             height: 4px;
             background: var(--platform-color, var(--gradient));
+            transition: height 0.4s ease;
         }
 
         .platform-icon {
@@ -120,6 +147,7 @@
             justify-content: center;
             font-size: 2.5rem;
             color: var(--platform-color, var(--accent));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .platform-name {
@@ -127,6 +155,7 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
         }
 
         .platform-description {
@@ -214,12 +243,35 @@
             text-align: center;
             margin: 3rem auto;
             max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .reward-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
+        }
+        .reward-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            border-style: solid;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(91, 155, 213, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .reward-section.active .reward-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6));
+        }
+        .reward-section.active .reward-title {
+            color: var(--accent-light);
         }
         .reward-icon {
             font-size: 3rem;
             color: var(--accent);
             margin-bottom: 1rem;
             animation: pulse 2s infinite;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
@@ -229,6 +281,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            transition: color 0.3s ease;
         }
         .reward-description {
             color: var(--text-secondary);
@@ -242,12 +295,29 @@
             padding: 2rem;
             margin: 3rem auto;
             max-width: 600px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .signup-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
+        }
+        .signup-section.active {
+            transform: scale(1.02) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+        .signup-section.active h3 {
+            color: var(--accent-light);
         }
         .signup-section h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             text-align: center;
+            transition: color 0.3s ease;
         }
         .form-group {
             margin-bottom: 1rem;
@@ -359,11 +429,27 @@
             padding: 1rem;
             margin: 2rem 0;
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .progress-bar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+        .progress-bar.active {
+            transform: scale(1.02) translateY(-3px);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            border: 1px solid var(--accent);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+        .progress-bar.active .progress-text {
+            color: var(--accent-light);
         }
         .progress-text {
             color: var(--accent);
             font-weight: 600;
             margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
         .progress-dots {
             display: flex;
@@ -379,6 +465,7 @@
         }
         .dot.active {
             background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
         }
 
         .download-section {
@@ -388,12 +475,30 @@
             text-align: center;
             margin: 3rem auto;
             max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .download-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(46, 204, 113, 0.3);
+        }
+        .download-section.active {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 20px 60px rgba(46, 204, 113, 0.4), 0 0 40px rgba(46, 204, 113, 0.2);
+        }
+        .download-section.active h3 {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .download-section.active .btn-download {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
         .download-section h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             margin-bottom: 1rem;
             color: white;
+            transition: all 0.3s ease;
         }
         .download-section p {
             color: rgba(255, 255, 255, 0.9);
@@ -419,6 +524,113 @@
         .btn-download:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .hub-section {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border: 2px solid var(--hub-color);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .hub-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5);
+            transition: height 0.4s ease;
+        }
+        .hub-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2);
+        }
+        .hub-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--hub-color-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .hub-section.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .hub-section.active .hub-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6));
+        }
+        .hub-section.active .hub-title {
+            color: var(--hub-color-light);
+        }
+        .hub-section.active .hub-stat-value {
+            color: var(--hub-color-light);
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        .hub-icon {
+            font-size: 3rem;
+            color: var(--hub-color);
+            margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .hub-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .hub-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .hub-stat {
+            text-align: center;
+        }
+        .hub-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--hub-color);
+            transition: all 0.3s ease;
+        }
+        .hub-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-hub {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        }
+        .btn-hub:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
         }
 
         .message {
@@ -448,6 +660,11 @@
             .nav-links { gap: 1rem; }
             .nav-links a { font-size: 0.85rem; }
             .page-header h1 { font-size: 2rem; }
+            .platform-card.active, .reward-section.active, .signup-section.active, .progress-bar.active, .download-section.active, .hub-section.active {
+                transform: scale(1.02) translateY(-5px);
+            }
+            .hub-stats { gap: 1rem; }
+            .hub-stat-value { font-size: 1.4rem; }
         }
         @media (max-width: 600px) {
             .nav-links { display: none; }
@@ -469,6 +686,7 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
                 <li><a href="community.html" class="active">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -482,9 +700,9 @@
 
     <section class="community-container">
         
-        <div class="signup-section reveal">
+        <div class="signup-section reveal" data-interactive>
             <h3>📝 Step 1: Register Your Information</h3>
-            <form id="signupForm">
+            <form id="signupForm" onclick="event.stopPropagation()">
                 <div class="form-group">
                     <label for="name">Full Name *</label>
                     <input type="text" id="name" name="name" required>
@@ -517,7 +735,7 @@
             </form>
         </div>
 
-        <div class="progress-bar reveal">
+        <div class="progress-bar reveal" data-interactive>
             <div class="progress-text">Step 2: Follow Our Platforms (Complete all 6 to unlock download)</div>
             <div class="progress-dots">
                 <div class="dot" data-platform="medium"></div>
@@ -537,7 +755,7 @@
 
         <div class="platforms-grid">
 
-            <div class="platform-card reveal" style="--platform-color: #00AB6C;">
+            <div class="platform-card reveal" style="--platform-color: #00AB6C;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-medium"></i>
                 </div>
@@ -553,15 +771,15 @@
                         <div class="stat-label">Content</div>
                     </div>
                 </div>
-                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium">
+                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium" onclick="event.stopPropagation()">
                     <i class="fab fa-medium"></i> Follow on Medium
                 </a>
-                <button class="btn-confirm" data-platform="medium" disabled>
+                <button class="btn-confirm" data-platform="medium" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
-            <div class="platform-card reveal" style="--platform-color: #f0f0f0;">
+            <div class="platform-card reveal" style="--platform-color: #f0f0f0;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-github"></i>
                 </div>
@@ -577,15 +795,15 @@
                         <div class="stat-label">Tools</div>
                     </div>
                 </div>
-                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github">
+                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github" onclick="event.stopPropagation()">
                     <i class="fab fa-github"></i> Star on GitHub
                 </a>
-                <button class="btn-confirm" data-platform="github" disabled>
+                <button class="btn-confirm" data-platform="github" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
-            <div class="platform-card reveal" style="--platform-color: #1877F2;">
+            <div class="platform-card reveal" style="--platform-color: #1877F2;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-facebook"></i>
                 </div>
@@ -601,15 +819,15 @@
                         <div class="stat-label">Posts</div>
                     </div>
                 </div>
-                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook">
+                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook" onclick="event.stopPropagation()">
                     <i class="fab fa-facebook"></i> Follow on Facebook
                 </a>
-                <button class="btn-confirm" data-platform="facebook" disabled>
+                <button class="btn-confirm" data-platform="facebook" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
-            <div class="platform-card reveal" style="--platform-color: #FF0000;">
+            <div class="platform-card reveal" style="--platform-color: #FF0000;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-youtube"></i>
                 </div>
@@ -625,15 +843,15 @@
                         <div class="stat-label">Tutorials</div>
                     </div>
                 </div>
-                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube">
+                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube" onclick="event.stopPropagation()">
                     <i class="fab fa-youtube"></i> Subscribe on YouTube
                 </a>
-                <button class="btn-confirm" data-platform="youtube" disabled>
+                <button class="btn-confirm" data-platform="youtube" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
-            <div class="platform-card reveal" style="--platform-color: #E4405F;">
+            <div class="platform-card reveal" style="--platform-color: #E4405F;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-instagram"></i>
                 </div>
@@ -649,15 +867,15 @@
                         <div class="stat-label">Reels</div>
                     </div>
                 </div>
-                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram">
+                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram" onclick="event.stopPropagation()">
                     <i class="fab fa-instagram"></i> Follow on Instagram
                 </a>
-                <button class="btn-confirm" data-platform="instagram" disabled>
+                <button class="btn-confirm" data-platform="instagram" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
-            <div class="platform-card reveal" style="--platform-color: #FF4500;">
+            <div class="platform-card reveal" style="--platform-color: #FF4500;" data-interactive>
                 <div class="platform-icon">
                     <i class="fab fa-reddit"></i>
                 </div>
@@ -673,25 +891,25 @@
                         <div class="stat-label">Advice</div>
                     </div>
                 </div>
-                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit">
+                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit" onclick="event.stopPropagation()">
                     <i class="fab fa-reddit"></i> Join on Reddit
                 </a>
-                <button class="btn-confirm" data-platform="reddit" disabled>
+                <button class="btn-confirm" data-platform="reddit" disabled onclick="event.stopPropagation()">
                     <i class="fas fa-check"></i> <span>I've followed (10s)</span>
                 </button>
             </div>
 
         </div>
 
-        <div class="download-section reveal" id="downloadSection" style="display: none;">
+        <div class="download-section reveal" id="downloadSection" style="display: none;" data-interactive>
             <h3>🎉 Congratulations! Download Unlocked</h3>
             <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
-            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download" onclick="event.stopPropagation()">
                 <i class="fas fa-download"></i> Download Starter Kit
             </a>
         </div>
 
-        <div class="reward-section reveal" id="rewardSection">
+        <div class="reward-section reveal" id="rewardSection" data-interactive>
             <div class="reward-icon">
                 <i class="fas fa-gift"></i>
             </div>
@@ -702,6 +920,31 @@
                 <br>✅ Project Health Checklist (50 Points)
                 <br>✅ EVM Basics Quick-Reference Guide
             </p>
+        </div>
+
+        <div class="hub-section reveal" data-interactive>
+            <div class="hub-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="hub-title"> Community Hub - Connect & Share</h3>
+            <p class="hub-description">Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+            <div class="hub-stats">
+                <div class="hub-stat">
+                    <div class="hub-stat-value">LIVE</div>
+                    <div class="hub-stat-label">Discussions</div>
+                </div>
+                <div class="hub-stat">
+                    <div class="hub-stat-value">JOBS</div>
+                    <div class="hub-stat-label">Board</div>
+                </div>
+                <div class="hub-stat">
+                    <div class="hub-stat-value">ADS</div>
+                    <div class="hub-stat-label">Marketplace</div>
+                </div>
+            </div>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
+                <i class="fas fa-arrow-right"></i> Enter Community Hub
+            </a>
         </div>
 
     </section>
@@ -1040,6 +1283,32 @@
                 console.error('Error:', error);
             }
         }
+
+        document.querySelectorAll('[data-interactive]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                
+                const wasActive = this.classList.contains('active');
+                
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    if (el !== this) el.classList.remove('active');
+                });
+                
+                this.classList.toggle('active');
+                
+                if (!wasActive) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('[data-interactive]')) {
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             initABTest();
