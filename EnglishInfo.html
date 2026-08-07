@@ -35,6 +35,8 @@
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --hub-color: #9b59b6;
+            --hub-color-light: #bb8fce;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -220,6 +222,17 @@
             background: linear-gradient(135deg, #4A90E2 0%, #3A7BC8 100%);
         }
         
+        .btn-hub {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        }
+        .btn-hub:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
+            background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+        }
+        
         .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
         .avatar-wrapper { position: relative; width: 320px; height: 320px; border-radius: 50%; background: var(--gradient); padding: 5px; animation: pulse 3s infinite; }
         .avatar-wrapper::before { content: ''; position: absolute; inset: -15px; border-radius: 50%; border: 2px dashed var(--accent); opacity: 0.3; animation: rotate 20s linear infinite; }
@@ -245,23 +258,174 @@
         
         #skills { background: var(--bg-secondary); }
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .skill-card { background: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s; display: flex; align-items: flex-start; gap: 1rem; }
-        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .skill-icon { width: 45px; height: 45px; min-width: 45px; border-radius: 10px; background: rgba(212, 175, 55, 0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-        .skill-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .skill-card { 
+            background: var(--bg-card); 
+            padding: 1.8rem; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+        .skill-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent); 
+            box-shadow: var(--shadow); 
+        }
+        .skill-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            z-index: 10;
+        }
+        .skill-card.active .skill-icon {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        .skill-card.active h3 {
+            color: var(--accent-light);
+        }
+        .skill-icon { 
+            width: 45px; 
+            height: 45px; 
+            min-width: 45px; 
+            border-radius: 10px; 
+            background: rgba(212, 175, 55, 0.1); 
+            color: var(--accent); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-card h3 { 
+            font-size: 1.1rem; 
+            margin-bottom: 0.3rem;
+            transition: color 0.3s ease;
+        }
         .skill-card p { color: var(--text-secondary); font-size: 0.9rem; }
         
-        .edu-card { max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 2rem; border-radius: 15px; border: 1px solid var(--border); text-align: center; transition: all 0.3s; }
-        .edu-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .edu-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient); color: var(--bg-primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem; }
-        .edu-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .edu-card { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: var(--bg-card); 
+            padding: 2rem; 
+            border-radius: 15px; 
+            border: 1px solid var(--border); 
+            text-align: center; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .edu-card:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-5px); 
+        }
+        .edu-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+        }
+        .edu-card.active .edu-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+        .edu-card.active h3 {
+            color: var(--accent-light);
+        }
+        .edu-icon { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            background: var(--gradient); 
+            color: var(--bg-primary); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .edu-card h3 { 
+            font-size: 1.4rem; 
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
         .edu-card .degree { color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
         .edu-card .uni { color: var(--text-secondary); font-size: 1rem; }
         
-        .products-cta { max-width: 700px; margin: 0 auto; text-align: center; background: var(--bg-card); padding: 3rem 2rem; border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; }
-        .products-cta::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
-        .products-cta i { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
-        .products-cta h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .products-cta { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            text-align: center; 
+            background: var(--bg-card); 
+            padding: 3rem 2rem; 
+            border-radius: 20px; 
+            border: 1px solid var(--border); 
+            position: relative; 
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .products-cta::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: var(--gradient);
+            transition: height 0.4s ease;
+        }
+        .products-cta:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .products-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+        .products-cta.active::before {
+            height: 6px;
+            background: linear-gradient(90deg, #d4af37, #f4d06f, #d4af37);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        .products-cta.active i {
+            transform: scale(1.15);
+            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5));
+        }
+        .products-cta.active h3 {
+            color: var(--accent-light);
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .products-cta i { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .products-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
         .products-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
         
         #products { background: var(--bg-primary); }
@@ -279,6 +443,8 @@
             border: 2px solid var(--accent); 
             position: relative; 
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .community-cta::before { 
             content: ''; 
@@ -287,10 +453,47 @@
             left: 0; 
             width: 100%; 
             height: 4px; 
-            background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71); 
+            background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71);
+            transition: height 0.4s ease;
         }
-        .community-cta i { font-size: 3rem; color: var(--accent); margin-bottom: 1.5rem; }
-        .community-cta h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .community-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2);
+        }
+        .community-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(91, 155, 213, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(91, 155, 213, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .community-cta.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .community-cta.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6));
+        }
+        .community-cta.active h3 {
+            color: var(--accent-light);
+        }
+        .community-cta.active .community-stat-value {
+            color: var(--accent-light);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        .community-cta i { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .community-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
         .community-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
         .community-stats {
             display: flex;
@@ -307,8 +510,96 @@
             font-size: 2rem;
             font-weight: 700;
             color: var(--accent);
+            transition: all 0.3s ease;
         }
         .community-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #hub { background: var(--bg-secondary); }
+        .hub-cta { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            text-align: center; 
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            padding: 3rem 2rem; 
+            border-radius: 20px; 
+            border: 2px solid var(--hub-color); 
+            position: relative; 
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .hub-cta::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5);
+            transition: height 0.4s ease;
+        }
+        .hub-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2);
+        }
+        .hub-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--hub-color-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .hub-cta.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .hub-cta.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6));
+        }
+        .hub-cta.active h3 {
+            color: var(--hub-color-light);
+        }
+        .hub-cta.active .hub-stat-value {
+            color: var(--hub-color-light);
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        .hub-cta i { 
+            font-size: 3rem; 
+            color: var(--hub-color); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .hub-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .hub-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .hub-stat {
+            text-align: center;
+        }
+        .hub-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--hub-color);
+            transition: all 0.3s ease;
+        }
+        .hub-stat-label {
             font-size: 0.85rem;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -352,14 +643,46 @@
             border: 1px solid var(--border); 
             text-decoration: none; 
             color: var(--text-primary); 
-            transition: all 0.3s; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer;
             justify-content: flex-start;
+            position: relative;
         }
-        .contact-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
-        .contact-item i { color: var(--accent); font-size: 1.3rem; min-width: 24px; }
-        .contact-item span { font-weight: 500; font-size: 1rem; line-height: 1.4; }
+        .contact-item:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-3px); 
+            box-shadow: var(--shadow); 
+        }
+        .contact-item.active {
+            transform: scale(1.05) translateY(-3px);
+            border-width: 2px;
+            z-index: 10;
+        }
+        .contact-item.active i {
+            transform: scale(1.2);
+        }
+        .contact-item.active span {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+        .contact-item i { 
+            color: var(--accent); 
+            font-size: 1.3rem; 
+            min-width: 24px;
+            transition: all 0.3s ease;
+        }
+        .contact-item span { 
+            font-weight: 500; 
+            font-size: 1rem; 
+            line-height: 1.4;
+            transition: all 0.3s ease;
+        }
         
+        .contact-item-instagram.active {
+            border-color: #e1306c;
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.2) 0%, rgba(131, 58, 180, 0.2) 100%);
+            box-shadow: 0 15px 40px rgba(225, 48, 108, 0.35);
+        }
         .contact-item-instagram {
             background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
             border: 1px solid rgba(225, 48, 108, 0.3);
@@ -377,6 +700,11 @@
             background-clip: text;
         }
         
+        .contact-item-telegram.active {
+            border-color: #0088cc;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, rgba(0, 136, 204, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(0, 136, 204, 0.35);
+        }
         .contact-item-telegram {
             background: linear-gradient(135deg, rgba(0, 136, 204, 0.1) 0%, rgba(0, 136, 204, 0.05) 100%);
             border: 1px solid rgba(0, 136, 204, 0.3);
@@ -388,6 +716,11 @@
         }
         .contact-item-telegram i { color: #0088cc; }
         
+        .contact-item-facebook.active {
+            border-color: #3b5998;
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.2) 0%, rgba(59, 89, 152, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(59, 89, 152, 0.35);
+        }
         .contact-item-facebook {
             background: linear-gradient(135deg, rgba(59, 89, 152, 0.1) 0%, rgba(59, 89, 152, 0.05) 100%);
             border: 1px solid rgba(59, 89, 152, 0.3);
@@ -399,6 +732,11 @@
         }
         .contact-item-facebook i { color: #3b5998; }
         
+        .contact-item-reddit.active {
+            border-color: #ff4500;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.2) 0%, rgba(255, 69, 0, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.35);
+        }
         .contact-item-reddit {
             background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
             border: 1px solid rgba(255, 69, 0, 0.3);
@@ -410,6 +748,11 @@
         }
         .contact-item-reddit i { color: #ff4500; }
         
+        .contact-item-medium.active {
+            border-color: #00ab00;
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.2) 0%, rgba(0, 171, 0, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(0, 171, 0, 0.35);
+        }
         .contact-item-medium {
             background: linear-gradient(135deg, rgba(0, 171, 0, 0.1) 0%, rgba(0, 171, 0, 0.05) 100%);
             border: 1px solid rgba(0, 171, 0, 0.3);
@@ -475,8 +818,14 @@
             }
             .contact-grid { grid-template-columns: 1fr; }
             .about-text p { text-align: center; }
-            .community-stats { gap: 1rem; }
-            .community-stat-value { font-size: 1.5rem; }
+            .community-stats, .hub-stats { gap: 1rem; }
+            .community-stat-value, .hub-stat-value { font-size: 1.5rem; }
+            .skill-card.active, .edu-card.active, .products-cta.active, .community-cta.active, .hub-cta.active {
+                transform: scale(1.02) translateY(-3px);
+            }
+            .contact-item.active {
+                transform: scale(1.03) translateY(-2px);
+            }
         }
         
         @media (max-width: 480px) {
@@ -542,6 +891,7 @@
                 <li><a href="#products">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/index.html">Articles</a></li>
                 <li><a href="#community">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -562,6 +912,9 @@
                     </a>
                     <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn btn-community">
                         <i class="fas fa-users"></i> Join Community
+                    </a>
+                    <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn btn-hub">
+                        <i class="fas fa-comments"></i> Community Hub
                     </a>
                     <a href="#contact" class="btn btn-outline">
                         <i class="fas fa-envelope"></i> Get in Touch
@@ -605,49 +958,49 @@
                 <div class="section-divider"></div>
             </div>
             <div class="skills-grid">
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-calendar-alt"></i></div>
                     <div>
                         <h3>Primavera P6</h3>
                         <p>Advanced scheduling, resource loading, and baseline management.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-tasks"></i></div>
                     <div>
                         <h3>MS Project</h3>
                         <p>Comprehensive project planning and tracking for mid-to-large scale projects.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-chart-pie"></i></div>
                     <div>
                         <h3>Earned Value Management</h3>
                         <p>Performance measurement, CPI/SPI analysis, and forecasting.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
                     <div>
                         <h3>Risk Management</h3>
                         <p>Quantitative and qualitative risk analysis, mitigation planning.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-wave-square"></i></div>
                     <div>
                         <h3>S-Curve Analysis</h3>
                         <p>Progress tracking, manpower histograms, and cash flow analysis.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-balance-scale"></i></div>
                     <div>
                         <h3>Resource Leveling</h3>
                         <p>Optimizing resource allocation to prevent bottlenecks and overallocation.</p>
                     </div>
                 </div>
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" data-interactive>
                     <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
                     <div>
                         <h3>CPM Management</h3>
@@ -665,7 +1018,7 @@
                 <h2 class="section-title">Education & <span>Credentials</span></h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="edu-card reveal">
+            <div class="edu-card reveal" data-interactive>
                 <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
                 <h3>Master of Science (M.Sc.)</h3>
                 <p class="degree">Industrial Engineering</p>
@@ -681,11 +1034,11 @@
                 <h2 class="section-title">Professional <span>Products</span></h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="products-cta reveal">
+            <div class="products-cta reveal" data-interactive>
                 <i class="fas fa-box-open"></i>
                 <h3>Explore My Products & Templates</h3>
                 <p>Access professional project planning templates, specialized tools, and educational resources designed to streamline your project control processes. From WBS tools to EVMS dashboards and EOT claim support.</p>
-                <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary">
+                <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary" onclick="event.stopPropagation()">
                     <i class="fas fa-external-link-alt"></i> View Products Catalog
                 </a>
             </div>
@@ -699,11 +1052,11 @@
                 <h2 class="section-title">Professional <span>Articles</span></h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="products-cta reveal">
+            <div class="products-cta reveal" data-interactive>
                 <i class="fas fa-newspaper"></i>
                 <h3>Explore My Professional Articles</h3>
                 <p>In-depth guides on Primavera P6, Project Controls, EVM, Risk Management, and more. Access the complete knowledge library with downloadable PDFs and expert insights.</p>
-                <a href="https://sbmousavices.github.io/Articles/index.html" class="btn btn-primary">
+                <a href="https://sbmousavices.github.io/Articles/index.html" class="btn btn-primary" onclick="event.stopPropagation()">
                     <i class="fas fa-book-reader"></i> View All Articles
                 </a>
             </div>
@@ -717,7 +1070,7 @@
                 <h2 class="section-title">Professional <span>Community</span></h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="community-cta reveal">
+            <div class="community-cta reveal" data-interactive>
                 <i class="fas fa-users"></i>
                 <h3>Connect with 500+ Industry Professionals</h3>
                 <p>Join our exclusive community of project planners and industrial engineers. Get access to free tools, real-world insights, and networking opportunities across multiple platforms.</p>
@@ -735,8 +1088,40 @@
                         <div class="community-stat-label">Starter Kit</div>
                     </div>
                 </div>
-                <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn btn-community">
+                <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn btn-community" onclick="event.stopPropagation()">
                     <i class="fas fa-user-plus"></i> Join Community Now
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="hub">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Interactive Platform</p>
+                <h2 class="section-title">Community <span>Hub</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="hub-cta reveal" data-interactive>
+                <i class="fas fa-comments"></i>
+                <h3>Connect, Share & Grow Together</h3>
+                <p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+                <div class="hub-stats">
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">LIVE</div>
+                        <div class="hub-stat-label">Discussions</div>
+                    </div>
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">JOBS</div>
+                        <div class="hub-stat-label">Board</div>
+                    </div>
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">ADS</div>
+                        <div class="hub-stat-label">Marketplace</div>
+                    </div>
+                </div>
+                <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn btn-hub" onclick="event.stopPropagation()">
+                    <i class="fas fa-arrow-right"></i> Enter Community Hub
                 </a>
             </div>
         </div>
@@ -754,7 +1139,7 @@
                 
                 <div class="contact-label">E-Mail</div>
                 <div class="contact-grid">
-                    <a href="mailto:sbmousavi@proton.me" class="contact-item">
+                    <a href="mailto:sbmousavi@proton.me" class="contact-item" data-interactive>
                         <i class="fas fa-envelope"></i>
                         <span>sbmousavi@proton.me</span>
                     </a>
@@ -762,23 +1147,23 @@
                 
                 <div class="contact-label">Other Platforms</div>
                 <div class="contact-grid">
-                    <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram">
+                    <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram" data-interactive>
                         <i class="fa-brands fa-instagram"></i>
                         <span>@industrial.planning.tools</span>
                     </a>
-                    <a href="https://t.me/PlanningUser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-telegram">
+                    <a href="https://t.me/PlanningUser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-telegram" data-interactive>
                         <i class="fa-brands fa-telegram"></i>
                         <span>@PlanningUser</span>
                     </a>
-                    <a href="https://www.facebook.com/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-facebook">
+                    <a href="https://www.facebook.com/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-facebook" data-interactive>
                         <i class="fa-brands fa-facebook"></i>
                         <span>Facebook.com/<br>planninguser</span>
                     </a>
-                    <a href="https://www.reddit.com/user/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-reddit">
+                    <a href="https://www.reddit.com/user/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-reddit" data-interactive>
                         <i class="fa-brands fa-reddit"></i>
                         <span>u/planninguser</span>
                     </a>
-                    <a href="https://medium.com/@sbmousavi" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-medium">
+                    <a href="https://medium.com/@sbmousavi" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-medium" data-interactive>
                         <i class="fa-brands fa-medium"></i>
                         <span>@sbmousavi</span>
                     </a>
@@ -1019,6 +1404,32 @@
         function downloadResume() {
             downloadFile('https://sbmousavices.github.io/Industrial-Tools/Resume.pdf', 'Behzad_Mousavi_Resume.pdf', event.target.closest('button'), 'Resume Downloaded!');
         }
+        
+        document.querySelectorAll('[data-interactive]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                const wasActive = this.classList.contains('active');
+                
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    if (el !== this) el.classList.remove('active');
+                });
+                
+                this.classList.toggle('active');
+                
+                if (!wasActive) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('[data-interactive]')) {
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        });
         
         document.addEventListener('DOMContentLoaded', async () => {
             loadLocalStats();
