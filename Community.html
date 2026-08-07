@@ -288,6 +288,71 @@
             line-height: 1.5;
         }
 
+        .otp-section {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .otp-section.active {
+            display: block;
+        }
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .otp-inputs input {
+            width: 45px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--accent);
+        }
+        .otp-inputs input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn-verify {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-verify:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        .btn-verify:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .resend-timer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .resend-link {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
         .progress-bar {
             background: var(--bg-primary);
             border-radius: 10px;
@@ -387,6 +452,7 @@
         @media (max-width: 600px) {
             .nav-links { display: none; }
             .platforms-grid { grid-template-columns: 1fr; }
+            .otp-inputs input { width: 40px; height: 45px; }
         }
     </style>
 </head>
@@ -416,7 +482,6 @@
 
     <section class="community-container">
         
-        <!-- Signup Form -->
         <div class="signup-section reveal">
             <h3>📝 Step 1: Register Your Information</h3>
             <form id="signupForm">
@@ -433,10 +498,25 @@
                     <label for="consent">I agree to receive occasional newsletters and promotional emails. I can unsubscribe at any time.</label>
                 </div>
                 <div id="formMessage"></div>
+                
+                <div class="otp-section" id="otpSection">
+                    <p style="text-align: center; margin-bottom: 1rem;">We sent a 6-digit code to your email. Please enter it below:</p>
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" class="otp-input" data-index="0">
+                        <input type="text" maxlength="1" class="otp-input" data-index="1">
+                        <input type="text" maxlength="1" class="otp-input" data-index="2">
+                        <input type="text" maxlength="1" class="otp-input" data-index="3">
+                        <input type="text" maxlength="1" class="otp-input" data-index="4">
+                        <input type="text" maxlength="1" class="otp-input" data-index="5">
+                    </div>
+                    <button type="button" class="btn-verify" id="verifyBtn">Verify Email</button>
+                    <div class="resend-timer" id="resendTimer">
+                        Resend code in <span id="countdown">60</span>s
+                    </div>
+                </div>
             </form>
         </div>
 
-        <!-- Progress Tracker -->
         <div class="progress-bar reveal">
             <div class="progress-text">Step 2: Follow Our Platforms (Complete all 6 to unlock download)</div>
             <div class="progress-dots">
@@ -457,7 +537,6 @@
 
         <div class="platforms-grid">
 
-            <!-- Medium -->
             <div class="platform-card reveal" style="--platform-color: #00AB6C;">
                 <div class="platform-icon">
                     <i class="fab fa-medium"></i>
@@ -482,7 +561,6 @@
                 </button>
             </div>
 
-            <!-- GitHub -->
             <div class="platform-card reveal" style="--platform-color: #f0f0f0;">
                 <div class="platform-icon">
                     <i class="fab fa-github"></i>
@@ -507,7 +585,6 @@
                 </button>
             </div>
 
-            <!-- Facebook -->
             <div class="platform-card reveal" style="--platform-color: #1877F2;">
                 <div class="platform-icon">
                     <i class="fab fa-facebook"></i>
@@ -532,7 +609,6 @@
                 </button>
             </div>
 
-            <!-- YouTube -->
             <div class="platform-card reveal" style="--platform-color: #FF0000;">
                 <div class="platform-icon">
                     <i class="fab fa-youtube"></i>
@@ -557,7 +633,6 @@
                 </button>
             </div>
 
-            <!-- Instagram -->
             <div class="platform-card reveal" style="--platform-color: #E4405F;">
                 <div class="platform-icon">
                     <i class="fab fa-instagram"></i>
@@ -582,7 +657,6 @@
                 </button>
             </div>
 
-            <!-- Reddit -->
             <div class="platform-card reveal" style="--platform-color: #FF4500;">
                 <div class="platform-icon">
                     <i class="fab fa-reddit"></i>
@@ -609,22 +683,20 @@
 
         </div>
 
-        <!-- Download Section (Hidden initially) -->
         <div class="download-section reveal" id="downloadSection" style="display: none;">
             <h3>🎉 Congratulations! Download Unlocked</h3>
             <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
-            <a href="mailto:sbmousavi@proton.me?subject=Starter Kit Request&body=Hello,%0A%0AI have successfully joined your community on all platforms.%0A%0APlease send me the free Starter Kit.%0A%0AThank you!" class="btn-download">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download">
                 <i class="fas fa-download"></i> Download Starter Kit
             </a>
         </div>
 
-        <!-- Reward Section (Original) -->
         <div class="reward-section reveal" id="rewardSection">
             <div class="reward-icon">
                 <i class="fas fa-gift"></i>
             </div>
             <h3 class="reward-title">🎁 Exclusive Community Reward</h3>
-            <p class="reward-description">
+            <p class="reward-description" id="rewardDescription">
                 After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:
                 <br>✅ Professional WBS Template (Excel)
                 <br>✅ Project Health Checklist (50 Points)
@@ -639,13 +711,44 @@
     </footer>
 
     <script>
-        // ===== CONFIGURATION =====
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPMHmXYbfg8pHyy1yssKjCC5nDUolrtmGEyjJSk-DHO9kcqOZPAag8VVqxAYuJAv8TpA/exec';
-        const DOWNLOAD_LINK = 'mailto:sbmousavi@proton.me?subject=Starter Kit Request&body=Hello,%0A%0AI have successfully joined your community on all platforms.%0A%0APlease send me the free Starter Kit.%0A%0AThank you!';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        const DOWNLOAD_LINK = 'https://sbmousavices.github.io/Industrial-Tools/Community.rar';
+        const STORAGE_KEY = 'community_signup_progress';
         
-        // ===== STATE MANAGEMENT =====
-        const state = {
+        const AB_VARIANTS = {
+            A: {
+                title: '🎁 Exclusive Community Reward',
+                description: 'After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:<br>✅ Professional WBS Template (Excel)<br>✅ Project Health Checklist (50 Points)<br>✅ EVM Basics Quick-Reference Guide'
+            },
+            B: {
+                title: '🚀 Unlock Premium Tools',
+                description: 'Join our community and get instant access to <strong>$500 worth of templates</strong> that top engineers use:<br>✅ Advanced WBS Builder (Excel)<br>✅ Risk Assessment Matrix<br>✅ Cash Flow Dashboard<br>✅ Delay Analysis Tool'
+            }
+        };
+
+        function trackEvent(eventName, eventData = {}) {
+            const timestamp = new Date().toISOString();
+            const event = {
+                event: eventName,
+                timestamp: timestamp,
+                data: eventData
+            };
+            
+            console.log('📊 Analytics Event:', event);
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventData);
+            }
+            
+            const analyticsLog = JSON.parse(localStorage.getItem('analytics_log') || '[]');
+            analyticsLog.push(event);
+            localStorage.setItem('analytics_log', JSON.stringify(analyticsLog.slice(-100)));
+        }
+
+        const defaultState = {
             formData: { name: '', email: '', consent: false },
+            emailVerified: false,
+            otpCode: null,
             platforms: {
                 medium: { opened: false, confirmed: false },
                 github: { opened: false, confirmed: false },
@@ -653,25 +756,209 @@
                 youtube: { opened: false, confirmed: false },
                 instagram: { opened: false, confirmed: false },
                 reddit: { opened: false, confirmed: false }
-            }
+            },
+            abVariant: null
         };
 
-        // ===== SCROLL REVEAL =====
+        let state = loadState();
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                return { ...defaultState, ...parsed };
+            }
+            return { ...defaultState };
+        }
+
+        function initABTest() {
+            if (!state.abVariant) {
+                state.abVariant = Math.random() < 0.5 ? 'A' : 'B';
+                saveState();
+                trackEvent('ab_test_assigned', { variant: state.abVariant });
+            }
+            
+            const variant = AB_VARIANTS[state.abVariant];
+            document.querySelector('#rewardSection .reward-title').textContent = variant.title;
+            document.getElementById('rewardDescription').innerHTML = variant.description;
+        }
+
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    trackEvent('section_viewed', { section: entry.target.className });
                 }
             });
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // ===== PLATFORM TRACKING =====
+        const form = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+
+        function restoreFormData() {
+            if (state.formData.name) document.getElementById('name').value = state.formData.name;
+            if (state.formData.email) document.getElementById('email').value = state.formData.email;
+            if (state.formData.consent) document.getElementById('consent').checked = true;
+            
+            if (state.emailVerified) {
+                document.getElementById('otpSection').classList.add('active');
+                document.getElementById('verifyBtn').textContent = '✓ Email Verified';
+                document.getElementById('verifyBtn').disabled = true;
+            }
+        }
+
+        form.addEventListener('input', function() {
+            state.formData.name = document.getElementById('name').value;
+            state.formData.email = document.getElementById('email').value;
+            state.formData.consent = document.getElementById('consent').checked;
+            saveState();
+            
+            checkAllConfirmed();
+        });
+
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const otpSection = document.getElementById('otpSection');
+        let resendCountdown = 60;
+        let resendTimer = null;
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+                if (value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        verifyBtn.addEventListener('click', async function() {
+            const enteredCode = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (enteredCode.length !== 6) {
+                formMessage.innerHTML = '<div class="message error">Please enter the complete 6-digit code.</div>';
+                return;
+            }
+
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = 'Verifying...';
+
+            try {
+                const payload = {
+                    name: state.formData.name,
+                    email: state.formData.email,
+                    otpCode: enteredCode,
+                    action: 'verify_otp'
+                };
+
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                state.emailVerified = true;
+                saveState();
+                
+                verifyBtn.textContent = '✓ Email Verified';
+                formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
+                
+                trackEvent('email_verified', { email: state.formData.email });
+                checkAllConfirmed();
+            } catch (error) {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'Verify Email';
+                formMessage.innerHTML = '<div class="message error">Error verifying email. Please try again.</div>';
+                console.error('Error:', error);
+            }
+        });
+
+        async function sendOTP() {
+            if (!state.formData.email) {
+                formMessage.innerHTML = '<div class="message error">Please enter your email first.</div>';
+                return;
+            }
+
+            try {
+                const payload = {
+                    email: state.formData.email,
+                    action: 'send_otp'
+                };
+
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+                saveState();
+                
+                trackEvent('otp_sent', { email: state.formData.email });
+                
+                otpSection.classList.add('active');
+                startResendTimer();
+            } catch (error) {
+                formMessage.innerHTML = '<div class="message error">Error sending OTP. Please try again.</div>';
+                console.error('Error:', error);
+            }
+        }
+
+        function startResendTimer() {
+            resendCountdown = 60;
+            const countdownSpan = document.getElementById('countdown');
+            const timerDiv = document.getElementById('resendTimer');
+            
+            if (resendTimer) clearInterval(resendTimer);
+            
+            resendTimer = setInterval(() => {
+                resendCountdown--;
+                countdownSpan.textContent = resendCountdown;
+                
+                if (resendCountdown <= 0) {
+                    clearInterval(resendTimer);
+                    timerDiv.innerHTML = '<span class="resend-link" onclick="sendOTP()">Resend Code</span>';
+                }
+            }, 1000);
+        }
+
+        document.getElementById('consent').addEventListener('change', function() {
+            if (this.checked && state.formData.email && !state.emailVerified) {
+                setTimeout(() => {
+                    sendOTP();
+                }, 500);
+            }
+        });
+
         document.querySelectorAll('.btn-follow').forEach(btn => {
+            const platform = btn.dataset.platform;
+            if (state.platforms[platform].confirmed) {
+                const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
+                confirmBtn.classList.add('confirmed');
+                confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
+                const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
+                dot.classList.add('active');
+            }
+            
             btn.addEventListener('click', function(e) {
                 const platform = this.dataset.platform;
                 state.platforms[platform].opened = true;
+                saveState();
+                
+                trackEvent('platform_clicked', { platform: platform });
                 
                 const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
                 let countdown = 10;
@@ -695,6 +982,9 @@
             btn.addEventListener('click', function() {
                 const platform = this.dataset.platform;
                 state.platforms[platform].confirmed = true;
+                saveState();
+                
+                trackEvent('platform_confirmed', { platform: platform });
                 
                 this.classList.add('confirmed');
                 this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
@@ -709,25 +999,18 @@
         function checkAllConfirmed() {
             const allConfirmed = Object.values(state.platforms).every(p => p.confirmed);
             
-            if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email) {
+            if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
                 document.getElementById('downloadSection').style.display = 'block';
                 document.getElementById('rewardSection').style.display = 'none';
+                
+                trackEvent('download_unlocked', { 
+                    email: state.formData.email,
+                    abVariant: state.abVariant 
+                });
                 
                 submitData();
             }
         }
-
-        // ===== FORM HANDLING =====
-        const form = document.getElementById('signupForm');
-        const formMessage = document.getElementById('formMessage');
-
-        form.addEventListener('input', function() {
-            state.formData.name = document.getElementById('name').value;
-            state.formData.email = document.getElementById('email').value;
-            state.formData.consent = document.getElementById('consent').checked;
-            
-            checkAllConfirmed();
-        });
 
         async function submitData() {
             const followed = Object.entries(state.platforms)
@@ -737,7 +1020,8 @@
             const payload = {
                 name: state.formData.name,
                 email: state.formData.email,
-                followed: followed
+                followed: followed,
+                abVariant: state.abVariant
             };
 
             try {
@@ -756,6 +1040,13 @@
                 console.error('Error:', error);
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initABTest();
+            restoreFormData();
+            
+            trackEvent('page_view', { page: 'community' });
+        });
     </script>
 </body>
 </html>
