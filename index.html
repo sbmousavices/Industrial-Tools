@@ -70,7 +70,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
         }
@@ -81,7 +80,6 @@
         .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
 
-        /* Navigation - Same as Articles & Main */
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
@@ -90,21 +88,18 @@
         .nav-links a:hover { color: var(--accent); }
         .nav-links .active { color: var(--accent); font-weight: 600; }
 
-        /* Page Header */
         .page-header { padding: 9rem 5% 3rem; text-align: center; position: relative; }
         .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
         .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
 
-        /* Stats Strip */
         .stats-strip { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; padding: 1.5rem; background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border); flex-wrap: wrap; }
         .stat-box { text-align: center; }
         .stat-box i { color: var(--accent); font-size: 1.5rem; margin-bottom: 0.3rem; display: block; }
         .stat-box .stat-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
         .stat-box .stat-label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Products Container */
         .products-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
         .section-header { text-align: center; margin-bottom: 3rem; }
         .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
@@ -112,7 +107,6 @@
         .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
 
-        /* Products Grid */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
 
         .product-card {
@@ -262,7 +256,6 @@
         }
         .btn-purchase:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
 
-        /* Payment Section */
         .payment-section {
             max-width: 1200px;
             margin: 4rem auto;
@@ -336,7 +329,6 @@
             font-size: 0.85rem;
         }
 
-        /* Purchase CTA */
         .purchase-cta {
             max-width: 800px;
             margin: 3rem auto;
@@ -362,7 +354,80 @@
         }
         .btn-email:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
 
-        /* About Section */
+        .community-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .community-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71);
+        }
+        .community-section i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .community-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .community-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .community-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .community-stat {
+            text-align: center;
+        }
+        .community-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .community-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-community {
+            background: linear-gradient(135deg, #5B9BD5 0%, #4A90E2 100%);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(91, 155, 213, 0.3);
+        }
+        .btn-community:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(91, 155, 213, 0.5);
+        }
+
         .about-section {
             max-width: 900px;
             margin: 4rem auto;
@@ -404,15 +469,12 @@
             font-size: 1rem;
         }
 
-        /* Footer */
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* Scroll Reveal */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Highlight Animation for Payment Section */
         @keyframes highlight-section {
             0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
@@ -422,13 +484,14 @@
             animation: highlight-section 1.5s ease-out;
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .nav-links { gap: 1rem; }
             .nav-links a { font-size: 0.85rem; }
             .stats-strip { gap: 1.5rem; padding: 1rem; }
             .stat-box .stat-number { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
+            .community-stats { gap: 1rem; }
+            .community-stat-value { font-size: 1.4rem; }
         }
         @media (max-width: 600px) {
             .nav-links { display: none; }
@@ -440,7 +503,6 @@
 <body>
     <div class="bg-shapes"></div>
 
-    <!-- Navigation - Same as Articles & Main -->
     <nav>
         <div class="nav-container">
             <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
@@ -450,12 +512,12 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <p class="greeting">Macro-Enabled Solutions</p>
         <h1>Industrial Project <span>Planning Tools</span></h1>
@@ -469,7 +531,6 @@
         </div>
     </section>
 
-    <!-- Products Section -->
     <section class="products-container">
         <div class="section-header reveal">
             <p class="section-subtitle">Available Solutions</p>
@@ -479,7 +540,6 @@
 
         <div class="products-grid">
 
-            <!-- PRODUCT 1: FREE DEMO -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
                     <span class="product-badge product-badge-free">FREE DEMO</span>
@@ -506,7 +566,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 2: WBS Grouping Tool -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
                     <span class="product-badge">INTRO PRICE</span>
@@ -531,7 +590,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 3: Executive Monthly Action Plan -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
                     <span class="product-badge">INTRO PRICE</span>
@@ -556,7 +614,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 4: Manpower Data Bank -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
                     <span class="product-badge">INTRO PRICE</span>
@@ -581,7 +638,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 5: EVMS -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
                     <span class="product-badge">INTRO PRICE</span>
@@ -606,7 +662,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 6: Executive Dashboard -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM</span>
@@ -631,7 +686,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 7: PMS -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
@@ -656,7 +710,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 8: Project Time Schedule -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
@@ -681,7 +734,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 9: EOT Support -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM CLAIM</span>
@@ -706,7 +758,6 @@
                 </div>
             </div>
 
-            <!-- PRODUCT 10: Claim Package -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%);">
                     <span class="product-badge">FULL PACKAGE</span>
@@ -731,7 +782,6 @@
         </div>
     </section>
 
-    <!-- Payment & Contact Section -->
     <section class="payment-section" id="payment-section">
         <div class="section-header reveal">
             <p class="section-subtitle">How to Purchase</p>
@@ -769,7 +819,31 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <section class="products-container">
+        <div class="community-section reveal">
+            <i class="fas fa-users"></i>
+            <h3>Join Our Professional Community</h3>
+            <p>Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
+            <div class="community-stats">
+                <div class="community-stat">
+                    <div class="community-stat-value">500+</div>
+                    <div class="community-stat-label">Members</div>
+                </div>
+                <div class="community-stat">
+                    <div class="community-stat-value">6</div>
+                    <div class="community-stat-label">Platforms</div>
+                </div>
+                <div class="community-stat">
+                    <div class="community-stat-value">FREE</div>
+                    <div class="community-stat-label">Starter Kit</div>
+                </div>
+            </div>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn-community">
+                <i class="fas fa-user-plus"></i> Join Community Now
+            </a>
+        </div>
+    </section>
+
     <section class="about-section">
         <div class="about-card reveal">
             <i class="fas fa-user-tie about-icon"></i>
@@ -778,13 +852,11 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
     </footer>
 
     <script>
-        // Copy to Clipboard Function
         function copyText(id, messageId) {
             const element = document.getElementById(id);
             const text = element.innerText || element.textContent;
@@ -800,7 +872,6 @@
             });
         }
 
-        // Scroll Reveal Animation
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -811,7 +882,6 @@
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Highlight Payment Section when scrolled to
         document.querySelectorAll('a[href="#payment-section"]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
