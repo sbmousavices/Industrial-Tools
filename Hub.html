@@ -1,0 +1,264 @@
+const SHEET_NAME = 'CommunitySignups';
+const OTP_SHEET_NAME = 'OTPCodes';
+const POSTS_SHEET_NAME = 'HubPosts';
+const ONLINE_SHEET_NAME = 'OnlineUsers';
+const LIKES_SHEET_NAME = 'HubLikes';
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const action = data.action || 'signup';
+    
+    switch(action) {
+      case 'send_otp': return handleSendOTP(data.email);
+      case 'verify_otp': return handleVerifyOTP(data.email, data.otpCode);
+      case 'create_post': return handleCreatePost(data);
+      case 'like_post': return handleLikePost(data);
+      case 'heartbeat': return handleHeartbeat(data);
+      default: return handleSignup(data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return jsonResponse({ result: 'error', message: error.toString() });
+  }
+}
+
+function doGet(e) {
+  const action = e.parameter.action;
+  
+  if (action === 'get_posts') {
+    return handleGetPosts(e.parameter.limit);
+  } else if (action === 'get_online') {
+    return handleGetOnline();
+  }
+  
+  return ContentService.createTextOutput('OK');
+}
+
+function handleCreatePost(data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(POSTS_SHEET_NAME);
+  
+  if (!sheet) {
+    sheet = ss.insertSheet(POSTS_SHEET_NAME);
+    sheet.appendRow(['ID', 'Timestamp', 'AuthorEmail', 'AuthorName', 'Type', 'Title', 'Content', 'Company', 'Location', 'Salary', 'Price', 'Contact', 'Likes', 'Comments', 'Status']);
+    sheet.setFrozenRows(1);
+  }
+  
+  const id = Utilities.getUuid();
+  const timestamp = new Date().toISOString();
+  
+  sheet.appendRow([
+    id,
+    timestamp,
+    data.authorEmail || '',
+    data.authorName || 'Anonymous',
+    data.type || 'discussion',
+    data.title || '',
+    data.content || '',
+    data.company || '',
+    data.location || '',
+    data.salary || '',
+    data.price || '',
+    data.contact || '',
+    0,
+    0,
+    'approved'
+  ]);
+  
+  return jsonResponse({ result: 'success', postId: id });
+}
+
+function handleGetPosts(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(POSTS_SHEET_NAME);
+  
+  if (!sheet) {
+    return jsonResponse({ result: 'success', posts: [] });
+  }
+  
+  const rows = sheet.getDataRange().getValues();
+  const posts = [];
+  
+  for (let i = rows.length - 1; i >= 1; i--) {
+    const row = rows[i];
+    if (row[14] === 'approved') {
+      posts.push({
+        id: row[0],
+        timestamp: row[1],
+        authorEmail: row[2],
+        authorName: row[3],
+        type: row[4],
+        title: row[5],
+        content: row[6],
+        company: row[7],
+        location: row[8],
+        salary: row[9],
+        price: row[10],
+        contact: row[11],
+        likes: row[12],
+        comments: row[13]
+      });
+    }
+    if (posts.length >= parseInt(limit || 50)) break;
+  }
+  
+  return jsonResponse({ result: 'success', posts: posts });
+}
+
+function handleLikePost(data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(LIKES_SHEET_NAME);
+  
+  if (!sheet) {
+    sheet = ss.insertSheet(LIKES_SHEET_NAME);
+    sheet.appendRow(['PostID', 'UserEmail', 'Timestamp']);
+  }
+  
+  sheet.appendRow([data.postId, data.userEmail, new Date().toISOString()]);
+  
+  const postsSheet = ss.getSheetByName(POSTS_SHEET_NAME);
+  if (postsSheet) {
+    const rows = postsSheet.getDataRange().getValues();
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][0] === data.postId) {
+        const currentLikes = rows[i][12] || 0;
+        postsSheet.getRange(i + 1, 13).setValue(currentLikes + 1);
+        break;
+      }
+    }
+  }
+  
+  return jsonResponse({ result: 'success' });
+}
+
+function handleHeartbeat(data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(ONLINE_SHEET_NAME);
+  
+  if (!sheet) {
+    sheet = ss.insertSheet(ONLINE_SHEET_NAME);
+    sheet.appendRow(['SessionID', 'Email', 'Name', 'LastActive']);
+  }
+  
+  const rows = sheet.getDataRange().getValues();
+  let found = false;
+  
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i][0] === data.sessionId) {
+      sheet.getRange(i + 1, 4).setValue(new Date().toISOString());
+      found = true;
+      break;
+    }
+  }
+  
+  if (!found) {
+    sheet.appendRow([data.sessionId, data.email, data.name, new Date().toISOString()]);
+  }
+  
+  return jsonResponse({ result: 'success' });
+}
+
+function handleGetOnline() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(ONLINE_SHEET_NAME);
+  
+  if (!sheet) {
+    return jsonResponse({ result: 'success', count: 0 });
+  }
+  
+  const rows = sheet.getDataRange().getValues();
+  const now = Date.now();
+  const fiveMinutesAgo = now - (5 * 60 * 1000);
+  let count = 0;
+  
+  for (let i = 1; i < rows.length; i++) {
+    const lastActive = new Date(rows[i][3]).getTime();
+    if (lastActive >= fiveMinutesAgo) {
+      count++;
+    }
+  }
+  
+  return jsonResponse({ result: 'success', count: count });
+}
+
+function handleSendOTP(email) {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const timestamp = new Date().toISOString();
+  
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(OTP_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(OTP_SHEET_NAME);
+    sheet.appendRow(['Email', 'OTP', 'Timestamp', 'Used']);
+  }
+  sheet.appendRow([email, otp, timestamp, false]);
+  
+  const htmlBody = '<div style="font-family: Arial; padding: 20px; background: #0a1628; color: #e8eef7;">' +
+    '<h2 style="color: #d4af37;">🔐 Verify Your Email</h2>' +
+    '<p>Your verification code is:</p>' +
+    '<div style="font-size: 32px; font-weight: bold; color: #d4af37; letter-spacing: 8px; margin: 20px 0; text-align: center;">' + otp + '</div>' +
+    '<p>This code expires in 10 minutes.</p>' +
+    '<hr style="border-color: rgba(212,175,55,0.3);">' +
+    '<p style="font-size: 12px; color: #a0aec0;">Industrial Project Planning Community<br>Behzad Mousavi</p></div>';
+  
+  MailApp.sendEmail({
+    to: email,
+    subject: 'Your Verification Code - Industrial Tools Community',
+    htmlBody: htmlBody
+  });
+  
+  return jsonResponse({ result: 'success', message: 'OTP sent' });
+}
+
+function handleVerifyOTP(email, enteredCode) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(OTP_SHEET_NAME);
+  
+  if (!sheet) {
+    return jsonResponse({ result: 'error', message: 'No OTP records found' });
+  }
+  
+  const rows = sheet.getDataRange().getValues();
+  let valid = false;
+  
+  for (let i = rows.length - 1; i >= 1; i--) {
+    const row = rows[i];
+    if (row[0] === email && row[1].toString() === enteredCode && !row[3]) {
+      const tenMinAgo = Date.now() - (10 * 60 * 1000);
+      if (new Date(row[2]).getTime() >= tenMinAgo) {
+        sheet.getRange(i + 1, 4).setValue(true);
+        valid = true;
+        break;
+      }
+    }
+  }
+  
+  return jsonResponse({ result: valid ? 'success' : 'error', message: valid ? 'Verified' : 'Invalid or expired code' });
+}
+
+function handleSignup(data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow(['Timestamp', 'Name', 'Email', 'Platforms Followed', 'AB Variant', 'Source']);
+    sheet.setFrozenRows(1);
+  }
+  
+  sheet.appendRow([
+    new Date(),
+    data.name || '',
+    data.email || '',
+    (data.followed || []).join(', '),
+    data.abVariant || 'N/A',
+    'community.html'
+  ]);
+  
+  return jsonResponse({ result: 'success' });
+}
+
+function jsonResponse(data) {
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
