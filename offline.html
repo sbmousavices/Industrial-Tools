@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline | BM Planning</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a1628;
+            color: #e8eef7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container { max-width: 400px; }
+        .icon { font-size: 5rem; margin-bottom: 1.5rem; }
+        h1 { font-size: 1.8rem; margin-bottom: 1rem; color: #d4af37; }
+        p { color: #a0aec0; margin-bottom: 2rem; line-height: 1.6; }
+        .btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            color: #0a1628;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .btn:hover { transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📡</div>
+        <h1>You're Offline</h1>
+        <p>It seems you've lost internet connection. Don't worry, you can still access previously viewed content.</p>
+        <a href="/Industrial-Tools/" class="btn">Try Again</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "name": "Behzad Mousavi - Project Planning Tools",
+  "short_name": "BM Planning",
+  "description": "Professional project planning tools, articles, and community for industrial engineers",
+  "start_url": "/Industrial-Tools/",
+  "scope": "/Industrial-Tools/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a1628",
+  "theme_color": "#d4af37",
+  "categories": ["business", "productivity", "education"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://sbmousavices.github.io/Industrial-Tools/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Community Hub",
+      "short_name": "Hub",
+      "description": "Join discussions and job board",
+      "url": "/Industrial-Tools/hub.html",
+      "icons": [{ "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Products",
+      "short_name": "Tools",
+      "description": "Browse planning tools",
+      "url": "/Industrial-Tools/",
+      "icons": [{ "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Articles",
+      "short_name": "Articles",
+      "description": "Read professional guides",
+      "url": "/Industrial-Tools/Articles/",
+      "icons": [{ "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
