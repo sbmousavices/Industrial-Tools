@@ -11,6 +11,19 @@
     <meta name="author" content="Behzad Mousavi">
     <meta name="robots" content="index, follow">
     
+    <!-- ✅ PWA Manifest -->
+    <link rel="manifest" href="/Industrial-Tools/manifest.json">
+    
+    <!-- ✅ iOS Safari Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BM Planning">
+    <link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
+    
+    <!-- ✅ Theme Color -->
+    <meta name="theme-color" content="#d4af37">
+    <meta name="msapplication-TileColor" content="#d4af37">
+    
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Behzad Mousavi | Planning & Project Control Manager">
     <meta property="og:description" content="Precision Planning. Powerful Control. Proven Results.">
@@ -22,6 +35,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- ✅ Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/Industrial-Tools/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed', error);
+                    });
+            });
+        }
+    </script>
     
     <style>
         :root {
