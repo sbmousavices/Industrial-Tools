@@ -52,6 +52,17 @@
         }
     </script>
 
+    <!-- ✅ GoatCounter Analytics -->
+    <script data-goatcounter="https://bmousavi.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    <script>
+        function trackGoatEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
+        }
+    </script>
+
     <style>
         :root {
             --bg-primary: #0a1628;
@@ -1013,7 +1024,7 @@
         <div class="download-section reveal" id="downloadSection" style="display: none;" data-interactive>
             <h3>🎉 Congratulations! Download Unlocked</h3>
             <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
-            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download" onclick="event.stopPropagation()">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download" onclick="event.stopPropagation(); trackGoatEvent('/starter-kit-download', 'Downloaded Starter Kit')">
                 <i class="fas fa-download"></i> Download Starter Kit
             </a>
         </div>
@@ -1065,6 +1076,13 @@
                 description: 'Join our community and get instant access to <strong>$500 worth of templates</strong> that top engineers use:<br>✅ Advanced WBS Builder (Excel)<br>✅ Risk Assessment Matrix<br>✅ Cash Flow Dashboard<br>✅ Delay Analysis Tool'
             }
         };
+
+        // ✅ GoatCounter tracking function
+        function trackGoatEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
+        }
 
         function trackEvent(eventName, eventData = {}) {
             const timestamp = new Date().toISOString();
@@ -1124,6 +1142,10 @@
         function clearAllSessions() {
             localStorage.removeItem(GLOBAL_SESSION_KEY);
             localStorage.removeItem(STORAGE_KEY);
+            
+            // ✅ Track Sign Out
+            trackGoatEvent('/sign-out', 'User signed out');
+            
             location.reload();
         }
         
@@ -1199,6 +1221,9 @@
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveGlobalSession(user);
                 
+                // ✅ Track Sign In
+                trackGoatEvent('/sign-in', 'User signed in');
+                
                 // Pre-fill community form
                 state.formData.email = email;
                 state.formData.name = user.name;
@@ -1245,6 +1270,9 @@
                 const user = { email, name, loggedInAt: Date.now() };
                 saveGlobalSession(user);
                 
+                // ✅ Track Sign Up
+                trackGoatEvent('/sign-up', 'New user registered');
+                
                 state.formData.email = email;
                 state.formData.name = name;
                 state.emailVerified = true;
@@ -1271,13 +1299,11 @@
         function checkRewardStatus() {
             const user = getCurrentGlobalUser();
             if (user && user.rewardClaimed) {
-                // User already claimed reward previously
                 state.emailVerified = true;
                 state.formData.email = user.email;
                 state.formData.name = user.name;
                 state.formData.consent = true;
                 
-                // Mark all platforms as confirmed
                 Object.keys(state.platforms).forEach(p => {
                     state.platforms[p].confirmed = true;
                     state.platforms[p].opened = true;
@@ -1406,7 +1432,6 @@
                 state.emailVerified = true;
                 saveState();
                 
-                // Also sync to global session
                 const user = getCurrentGlobalUser();
                 if (user) {
                     user.email = state.formData.email;
@@ -1416,6 +1441,10 @@
                 
                 verifyBtn.textContent = '✓ Email Verified';
                 formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
+                
+                // ✅ Track Email Verified
+                trackGoatEvent('/email-verified', 'Email verified: ' + state.formData.email);
+                
                 trackEvent('email_verified', { email: state.formData.email });
                 checkAllConfirmed();
             } catch (error) {
@@ -1438,6 +1467,10 @@
                 });
                 state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
                 saveState();
+                
+                // ✅ Track OTP Sent
+                trackGoatEvent('/otp-sent', 'OTP sent to: ' + state.formData.email);
+                
                 trackEvent('otp_sent', { email: state.formData.email });
                 otpSection.classList.add('active');
                 startResendTimer();
@@ -1472,6 +1505,10 @@
                 const platform = this.dataset.platform;
                 state.platforms[platform].opened = true;
                 saveState();
+                
+                // ✅ Track Follow Click
+                trackGoatEvent('/follow-click-' + platform, 'Clicked follow: ' + platform);
+                
                 trackEvent('platform_clicked', { platform });
                 
                 const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
@@ -1495,6 +1532,10 @@
                 const platform = this.dataset.platform;
                 state.platforms[platform].confirmed = true;
                 saveState();
+                
+                // ✅ Track Follow Confirmed
+                trackGoatEvent('/follow-confirmed-' + platform, 'Confirmed follow: ' + platform);
+                
                 trackEvent('platform_confirmed', { platform });
                 this.classList.add('confirmed');
                 this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
@@ -1509,13 +1550,16 @@
             
             if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
                 showDownloadSection(false);
+                
+                // ✅ Track Download Unlocked
+                trackGoatEvent('/download-unlocked', 'Download unlocked: ' + state.formData.email);
+                
                 trackEvent('download_unlocked', { email: state.formData.email, abVariant: state.abVariant });
                 submitData();
             }
         }
 
         async function submitData() {
-            // ✅ PREVENT DUPLICATE SUBMISSION IF ALREADY CLAIMED
             const user = getCurrentGlobalUser();
             if (user && user.rewardClaimed) return;
             
@@ -1535,7 +1579,6 @@
                     })
                 });
 
-                // ✅ MARK REWARD AS CLAIMED IN GLOBAL SESSION
                 markRewardAsClaimed();
                 
                 formMessage.innerHTML = '<div class="message success">✓ Your information has been saved successfully!</div>';
@@ -1566,7 +1609,7 @@
             initABTest();
             restoreFormData();
             restorePlatformStates();
-            checkRewardStatus(); // ✅ CHECK IF ALREADY CLAIMED
+            checkRewardStatus();
             trackEvent('page_view', { page: 'community' });
         });
     </script>
