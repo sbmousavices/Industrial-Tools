@@ -68,6 +68,7 @@
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             --hub-color: #9b59b6;
             --hub-color-light: #bb8fce;
+            --danger: #e74c3c;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -80,6 +81,88 @@
             line-height: 1.7;
             overflow-x: hidden;
         }
+
+        /* --- UNIFIED AUTH MODAL STYLES --- */
+        .auth-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .auth-modal-overlay.active { display: flex; opacity: 1; }
+        .auth-modal {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
+            position: relative; transform: translateY(20px); transition: transform 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
+        .auth-close {
+            position: absolute; top: 1.2rem; right: 1.5rem;
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+        }
+        .auth-close:hover { color: var(--accent); }
+        .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
+        .auth-tab {
+            flex: 1; padding: 0.8rem; background: none; border: none;
+            color: var(--text-secondary); font-family: inherit; font-size: 1rem;
+            font-weight: 600; cursor: pointer; transition: all 0.3s;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+        }
+        .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
+        .auth-field { margin-bottom: 1.2rem; text-align: left; }
+        .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
+        .auth-field input {
+            width: 100%; padding: 0.85rem 1.2rem; background: var(--bg-primary);
+            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
+            font-family: inherit; font-size: 1rem; transition: all 0.3s;
+        }
+        .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+        .btn-auth-submit {
+            width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
+            border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; font-family: inherit;
+        }
+        .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
+        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
+        
+        /* NAV AUTH BUTTON & DROPDOWN */
+        .nav-auth-btn {
+            padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid var(--accent); color: var(--accent); background: transparent;
+            font-family: inherit; text-decoration: none; white-space: nowrap;
+        }
+        .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
+        .nav-auth-btn.logged-in { border-color: var(--accent-green); color: var(--accent-green); }
+        .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
+        .user-dropdown { position: relative; display: none; }
+        .user-dropdown.active { display: inline-flex; }
+        .user-menu {
+            position: absolute; top: calc(100% + 10px); right: 0;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; min-width: 200px; padding: 0.5rem;
+            box-shadow: var(--shadow); display: none; z-index: 1001;
+        }
+        .user-menu.show { display: block; animation: fadeInAuth 0.2s ease; }
+        .user-menu-item {
+            display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem;
+            color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
+            border-radius: 8px; transition: all 0.2s; border: none; background: none;
+            width: 100%; font-family: inherit; text-decoration: none;
+        }
+        .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
+        .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+        .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
+        @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
+        /* --- END AUTH STYLES --- */
 
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
@@ -94,7 +177,7 @@
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
         .nav-links .active { color: var(--accent); font-weight: 600; }
@@ -698,11 +781,57 @@
             .nav-links { display: none; }
             .platforms-grid { grid-template-columns: 1fr; }
             .otp-inputs input { width: 40px; height: 45px; }
+            .auth-modal { padding: 1.8rem; width: 95%; }
         }
     </style>
 </head>
 <body>
     <div class="bg-shapes"></div>
+
+    <!-- ✅ UNIFIED AUTH MODAL -->
+    <div class="auth-modal-overlay" id="authModalOverlay">
+        <div class="auth-modal">
+            <button class="auth-close" id="authClose">&times;</button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="signin">Sign In</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <form class="auth-form active" id="signinForm">
+                <div id="signinMessage" class="auth-message"></div>
+                <div class="auth-field">
+                    <label for="signinEmail">Email Address</label>
+                    <input type="email" id="signinEmail" placeholder="name@company.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signinPassword">Password</label>
+                    <input type="password" id="signinPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-auth-submit" id="btnSignin">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+            
+            <form class="auth-form" id="signupFormModal">
+                <div id="signupMessage" class="auth-message"></div>
+                <div class="auth-field">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="e.g. Behzad Mousavi" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="name@company.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required minlength="6">
+                </div>
+                <button type="submit" class="btn-auth-submit" id="btnSignup">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+        </div>
+    </div>
 
     <nav>
         <div class="nav-container">
@@ -716,6 +845,30 @@
                 <li><a href="community.html" class="active">Community</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+                
+                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
+                <li>
+                    <button class="nav-auth-btn" id="navAuthBtn">
+                        <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <button class="nav-auth-btn logged-in" id="navUserBtn">
+                            <i class="fas fa-user-circle"></i> <span id="navUserName">User</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i>
+                        </button>
+                        <div class="user-menu" id="userMenu">
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+                                <i class="fas fa-comments"></i> Go to Hub
+                            </a>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/" class="user-menu-item">
+                                <i class="fas fa-box-open"></i> Products
+                            </a>
+                            <div class="user-menu-divider"></div>
+                            <button class="user-menu-item danger" id="btnLogout">
+                                <i class="fas fa-sign-out-alt"></i> Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -784,147 +937,75 @@
         <div class="platforms-grid">
 
             <div class="platform-card reveal" style="--platform-color: #00AB6C;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-medium"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-medium"></i></div>
                 <h3 class="platform-name">Medium</h3>
                 <p class="platform-description">In-depth articles about project planning, EVM, delay analysis, and practical insights from 25+ years of field experience.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">Weekly</div>
-                        <div class="stat-label">Articles</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Free</div>
-                        <div class="stat-label">Content</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">Weekly</div><div class="stat-label">Articles</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Content</div></div>
                 </div>
-                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium" onclick="event.stopPropagation()">
-                    <i class="fab fa-medium"></i> Follow on Medium
-                </a>
-                <button class="btn-confirm" data-platform="medium" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium" onclick="event.stopPropagation()"><i class="fab fa-medium"></i> Follow on Medium</a>
+                <button class="btn-confirm" data-platform="medium" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
             <div class="platform-card reveal" style="--platform-color: #f0f0f0;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-github"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-github"></i></div>
                 <h3 class="platform-name">GitHub</h3>
                 <p class="platform-description">Open-source Excel tools, macros, and VBA scripts for project planning and control. Free resources for engineers.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">20+</div>
-                        <div class="stat-label">Repos</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Free</div>
-                        <div class="stat-label">Tools</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">20+</div><div class="stat-label">Repos</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Tools</div></div>
                 </div>
-                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github" onclick="event.stopPropagation()">
-                    <i class="fab fa-github"></i> Star on GitHub
-                </a>
-                <button class="btn-confirm" data-platform="github" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> Star on GitHub</a>
+                <button class="btn-confirm" data-platform="github" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
             <div class="platform-card reveal" style="--platform-color: #1877F2;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-facebook"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-facebook"></i></div>
                 <h3 class="platform-name">Facebook</h3>
                 <p class="platform-description">Project management discussions, success stories, and behind-the-scenes of tool development.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">Active</div>
-                        <div class="stat-label">Community</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Daily</div>
-                        <div class="stat-label">Posts</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">Active</div><div class="stat-label">Community</div></div>
+                    <div class="platform-stat"><div class="stat-value">Daily</div><div class="stat-label">Posts</div></div>
                 </div>
-                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook" onclick="event.stopPropagation()">
-                    <i class="fab fa-facebook"></i> Follow on Facebook
-                </a>
-                <button class="btn-confirm" data-platform="facebook" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook" onclick="event.stopPropagation()"><i class="fab fa-facebook"></i> Follow on Facebook</a>
+                <button class="btn-confirm" data-platform="facebook" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
             <div class="platform-card reveal" style="--platform-color: #FF0000;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-youtube"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-youtube"></i></div>
                 <h3 class="platform-name">YouTube</h3>
                 <p class="platform-description">Tutorial videos, software demos, and deep-dive explanations of EVM, WBS, and project scheduling concepts.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">HD</div>
-                        <div class="stat-label">Quality</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Free</div>
-                        <div class="stat-label">Tutorials</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">HD</div><div class="stat-label">Quality</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Tutorials</div></div>
                 </div>
-                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube" onclick="event.stopPropagation()">
-                    <i class="fab fa-youtube"></i> Subscribe on YouTube
-                </a>
-                <button class="btn-confirm" data-platform="youtube" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube" onclick="event.stopPropagation()"><i class="fab fa-youtube"></i> Subscribe on YouTube</a>
+                <button class="btn-confirm" data-platform="youtube" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
             <div class="platform-card reveal" style="--platform-color: #E4405F;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-instagram"></i></div>
                 <h3 class="platform-name">Instagram</h3>
                 <p class="platform-description">Visual tips, infographics, reels about industrial planning tools, and quick project management insights.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">Visual</div>
-                        <div class="stat-label">Content</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Daily</div>
-                        <div class="stat-label">Reels</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">Visual</div><div class="stat-label">Content</div></div>
+                    <div class="platform-stat"><div class="stat-value">Daily</div><div class="stat-label">Reels</div></div>
                 </div>
-                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram" onclick="event.stopPropagation()">
-                    <i class="fab fa-instagram"></i> Follow on Instagram
-                </a>
-                <button class="btn-confirm" data-platform="instagram" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i> Follow on Instagram</a>
+                <button class="btn-confirm" data-platform="instagram" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
             <div class="platform-card reveal" style="--platform-color: #FF4500;" data-interactive>
-                <div class="platform-icon">
-                    <i class="fab fa-reddit"></i>
-                </div>
+                <div class="platform-icon"><i class="fab fa-reddit"></i></div>
                 <h3 class="platform-name">Reddit</h3>
                 <p class="platform-description">Join discussions on project management, share experiences, and get answers to your planning challenges.</p>
                 <div class="platform-stats">
-                    <div class="platform-stat">
-                        <div class="stat-value">Open</div>
-                        <div class="stat-label">Discussions</div>
-                    </div>
-                    <div class="platform-stat">
-                        <div class="stat-value">Expert</div>
-                        <div class="stat-label">Advice</div>
-                    </div>
+                    <div class="platform-stat"><div class="stat-value">Open</div><div class="stat-label">Discussions</div></div>
+                    <div class="platform-stat"><div class="stat-value">Expert</div><div class="stat-label">Advice</div></div>
                 </div>
-                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit" onclick="event.stopPropagation()">
-                    <i class="fab fa-reddit"></i> Join on Reddit
-                </a>
-                <button class="btn-confirm" data-platform="reddit" disabled onclick="event.stopPropagation()">
-                    <i class="fas fa-check"></i> <span>I've followed (10s)</span>
-                </button>
+                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit" onclick="event.stopPropagation()"><i class="fab fa-reddit"></i> Join on Reddit</a>
+                <button class="btn-confirm" data-platform="reddit" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
             </div>
 
         </div>
@@ -938,9 +1019,7 @@
         </div>
 
         <div class="reward-section reveal" id="rewardSection" data-interactive>
-            <div class="reward-icon">
-                <i class="fas fa-gift"></i>
-            </div>
+            <div class="reward-icon"><i class="fas fa-gift"></i></div>
             <h3 class="reward-title">🎁 Exclusive Community Reward</h3>
             <p class="reward-description" id="rewardDescription">
                 After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:
@@ -951,24 +1030,13 @@
         </div>
 
         <div class="hub-section reveal" data-interactive>
-            <div class="hub-icon">
-                <i class="fas fa-comments"></i>
-            </div>
+            <div class="hub-icon"><i class="fas fa-comments"></i></div>
             <h3 class="hub-title"> Community Hub - Connect & Share</h3>
             <p class="hub-description">Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
             <div class="hub-stats">
-                <div class="hub-stat">
-                    <div class="hub-stat-value">LIVE</div>
-                    <div class="hub-stat-label">Discussions</div>
-                </div>
-                <div class="hub-stat">
-                    <div class="hub-stat-value">JOBS</div>
-                    <div class="hub-stat-label">Board</div>
-                </div>
-                <div class="hub-stat">
-                    <div class="hub-stat-value">ADS</div>
-                    <div class="hub-stat-label">Marketplace</div>
-                </div>
+                <div class="hub-stat"><div class="hub-stat-value">LIVE</div><div class="hub-stat-label">Discussions</div></div>
+                <div class="hub-stat"><div class="hub-stat-value">JOBS</div><div class="hub-stat-label">Board</div></div>
+                <div class="hub-stat"><div class="hub-stat-value">ADS</div><div class="hub-stat-label">Marketplace</div></div>
             </div>
             <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
                 <i class="fas fa-arrow-right"></i> Enter Community Hub
@@ -985,6 +1053,7 @@
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
         const DOWNLOAD_LINK = 'https://sbmousavices.github.io/Industrial-Tools/Community.rar';
         const STORAGE_KEY = 'community_signup_progress';
+        const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
         
         const AB_VARIANTS = {
             A: {
@@ -999,18 +1068,9 @@
 
         function trackEvent(eventName, eventData = {}) {
             const timestamp = new Date().toISOString();
-            const event = {
-                event: eventName,
-                timestamp: timestamp,
-                data: eventData
-            };
-            
+            const event = { event: eventName, timestamp, data: eventData };
             console.log('📊 Analytics Event:', event);
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', eventName, eventData);
-            }
-            
+            if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
             const analyticsLog = JSON.parse(localStorage.getItem('analytics_log') || '[]');
             analyticsLog.push(event);
             localStorage.setItem('analytics_log', JSON.stringify(analyticsLog.slice(-100)));
@@ -1046,13 +1106,218 @@
             return { ...defaultState };
         }
 
+        // =============================================
+        // ✅ UNIFIED AUTH SYSTEM
+        // =============================================
+        function getCurrentGlobalUser() {
+            try {
+                const saved = localStorage.getItem(GLOBAL_SESSION_KEY);
+                return saved ? JSON.parse(saved) : null;
+            } catch { return null; }
+        }
+        
+        function saveGlobalSession(user) {
+            localStorage.setItem(GLOBAL_SESSION_KEY, JSON.stringify(user));
+            updateNavAuthUI();
+        }
+        
+        function clearAllSessions() {
+            localStorage.removeItem(GLOBAL_SESSION_KEY);
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        }
+        
+        function updateNavAuthUI() {
+            const user = getCurrentGlobalUser();
+            const authBtn = document.getElementById('navAuthBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            const userNameSpan = document.getElementById('navUserName');
+            
+            if (user && user.email) {
+                authBtn.style.display = 'none';
+                userDropdown.classList.add('active');
+                userNameSpan.textContent = user.name ? user.name.split(' ')[0] : 'User';
+            } else {
+                authBtn.style.display = 'inline-flex';
+                userDropdown.classList.remove('active');
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        }
+        
+        // Modal Controls
+        const modalOverlay = document.getElementById('authModalOverlay');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        
+        function openModal(tab = 'signin') {
+            modalOverlay.classList.add('active');
+            switchTab(tab);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+        }
+        function switchTab(tabName) {
+            authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+            authForms.forEach(f => f.classList.remove('active'));
+            document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupFormModal').classList.add('active');
+            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+        }
+        
+        document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
+        document.getElementById('authClose').addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+        authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+        
+        document.getElementById('navUserBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('userMenu').classList.toggle('show');
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
+        });
+        
+        // Sign In via Modal
+        document.getElementById('signinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('signinEmail').value.trim();
+            const msgDiv = document.getElementById('signinMessage');
+            const btn = document.getElementById('btnSignin');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
+                });
+                
+                const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
+                saveGlobalSession(user);
+                
+                // Pre-fill community form
+                state.formData.email = email;
+                state.formData.name = user.name;
+                state.emailVerified = true;
+                saveState();
+                restoreFormData();
+                
+                msgDiv.className = 'auth-message success';
+                msgDiv.textContent = '✓ Welcome back! Checking reward status...';
+                setTimeout(() => { closeModal(); checkRewardStatus(); }, 1000);
+            } catch (error) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Sign in failed.';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            }
+        });
+        
+        // Sign Up via Modal
+        document.getElementById('signupFormModal').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const msgDiv = document.getElementById('signupMessage');
+            const btn = document.getElementById('btnSignup');
+            
+            if (document.getElementById('signupPassword').value.length < 6) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Password must be at least 6 characters.';
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
+                });
+                
+                const user = { email, name, loggedInAt: Date.now() };
+                saveGlobalSession(user);
+                
+                state.formData.email = email;
+                state.formData.name = name;
+                state.emailVerified = true;
+                saveState();
+                restoreFormData();
+                
+                msgDiv.className = 'auth-message success';
+                msgDiv.textContent = '✓ Account created! You can now participate.';
+                setTimeout(closeModal, 1200);
+            } catch (error) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Registration failed.';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+        });
+        
+        document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
+        
+        // =============================================
+        // ✅ ONE-TIME REWARD LOGIC
+        // =============================================
+        function checkRewardStatus() {
+            const user = getCurrentGlobalUser();
+            if (user && user.rewardClaimed) {
+                // User already claimed reward previously
+                state.emailVerified = true;
+                state.formData.email = user.email;
+                state.formData.name = user.name;
+                state.formData.consent = true;
+                
+                // Mark all platforms as confirmed
+                Object.keys(state.platforms).forEach(p => {
+                    state.platforms[p].confirmed = true;
+                    state.platforms[p].opened = true;
+                });
+                saveState();
+                
+                restoreFormData();
+                restorePlatformStates();
+                showDownloadSection(true);
+            }
+        }
+        
+        function markRewardAsClaimed() {
+            const user = getCurrentGlobalUser();
+            if (user && !user.rewardClaimed) {
+                user.rewardClaimed = true;
+                user.claimedAt = new Date().toISOString();
+                saveGlobalSession(user);
+            }
+        }
+        
+        function showDownloadSection(alreadyClaimed = false) {
+            document.getElementById('downloadSection').style.display = 'block';
+            document.getElementById('rewardSection').style.display = 'none';
+            
+            if (alreadyClaimed) {
+                document.querySelector('#downloadSection h3').textContent = '🎁 Your Reward is Ready';
+                document.querySelector('#downloadSection p').textContent = 'Welcome back! You have already unlocked the Project Planning Starter Kit. Download it anytime.';
+            }
+        }
+
+        // =============================================
+        // COMMUNITY PAGE LOGIC
+        // =============================================
         function initABTest() {
             if (!state.abVariant) {
                 state.abVariant = Math.random() < 0.5 ? 'A' : 'B';
                 saveState();
                 trackEvent('ab_test_assigned', { variant: state.abVariant });
             }
-            
             const variant = AB_VARIANTS[state.abVariant];
             document.querySelector('#rewardSection .reward-title').textContent = variant.title;
             document.getElementById('rewardDescription').innerHTML = variant.description;
@@ -1083,13 +1348,26 @@
                 document.getElementById('verifyBtn').disabled = true;
             }
         }
+        
+        function restorePlatformStates() {
+            Object.entries(state.platforms).forEach(([platform, data]) => {
+                if (data.confirmed) {
+                    const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
+                    if (confirmBtn) {
+                        confirmBtn.classList.add('confirmed');
+                        confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
+                    }
+                    const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
+                    if (dot) dot.classList.add('active');
+                }
+            });
+        }
 
         form.addEventListener('input', function() {
             state.formData.name = document.getElementById('name').value;
             state.formData.email = document.getElementById('email').value;
             state.formData.consent = document.getElementById('consent').checked;
             saveState();
-            
             checkAllConfirmed();
         });
 
@@ -1101,22 +1379,15 @@
 
         otpInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
-                const value = e.target.value;
-                if (value && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
+                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
             });
-            
             input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !input.value && index > 0) {
-                    otpInputs[index - 1].focus();
-                }
+                if (e.key === 'Backspace' && !input.value && index > 0) otpInputs[index - 1].focus();
             });
         });
 
         verifyBtn.addEventListener('click', async function() {
             const enteredCode = Array.from(otpInputs).map(input => input.value).join('');
-            
             if (enteredCode.length !== 6) {
                 formMessage.innerHTML = '<div class="message error">Please enter the complete 6-digit code.</div>';
                 return;
@@ -1126,33 +1397,31 @@
             verifyBtn.textContent = 'Verifying...';
 
             try {
-                const payload = {
-                    name: state.formData.name,
-                    email: state.formData.email,
-                    otpCode: enteredCode,
-                    action: 'verify_otp'
-                };
-
                 await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
+                    method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ name: state.formData.name, email: state.formData.email, otpCode: enteredCode, action: 'verify_otp' })
                 });
 
                 state.emailVerified = true;
                 saveState();
                 
+                // Also sync to global session
+                const user = getCurrentGlobalUser();
+                if (user) {
+                    user.email = state.formData.email;
+                    user.name = state.formData.name;
+                    saveGlobalSession(user);
+                }
+                
                 verifyBtn.textContent = '✓ Email Verified';
                 formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
-                
                 trackEvent('email_verified', { email: state.formData.email });
                 checkAllConfirmed();
             } catch (error) {
                 verifyBtn.disabled = false;
                 verifyBtn.textContent = 'Verify Email';
-                formMessage.innerHTML = '<div class="message error">Error verifying email. Please try again.</div>';
-                console.error('Error:', error);
+                formMessage.innerHTML = '<div class="message error">Error verifying email.</div>';
             }
         });
 
@@ -1161,30 +1430,19 @@
                 formMessage.innerHTML = '<div class="message error">Please enter your email first.</div>';
                 return;
             }
-
             try {
-                const payload = {
-                    email: state.formData.email,
-                    action: 'send_otp'
-                };
-
                 await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
+                    method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ email: state.formData.email, action: 'send_otp' })
                 });
-
                 state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
                 saveState();
-                
                 trackEvent('otp_sent', { email: state.formData.email });
-                
                 otpSection.classList.add('active');
                 startResendTimer();
             } catch (error) {
-                formMessage.innerHTML = '<div class="message error">Error sending OTP. Please try again.</div>';
-                console.error('Error:', error);
+                formMessage.innerHTML = '<div class="message error">Error sending OTP.</div>';
             }
         }
 
@@ -1192,13 +1450,10 @@
             resendCountdown = 60;
             const countdownSpan = document.getElementById('countdown');
             const timerDiv = document.getElementById('resendTimer');
-            
             if (resendTimer) clearInterval(resendTimer);
-            
             resendTimer = setInterval(() => {
                 resendCountdown--;
                 countdownSpan.textContent = resendCountdown;
-                
                 if (resendCountdown <= 0) {
                     clearInterval(resendTimer);
                     timerDiv.innerHTML = '<span class="resend-link" onclick="sendOTP()">Resend Code</span>';
@@ -1208,38 +1463,24 @@
 
         document.getElementById('consent').addEventListener('change', function() {
             if (this.checked && state.formData.email && !state.emailVerified) {
-                setTimeout(() => {
-                    sendOTP();
-                }, 500);
+                setTimeout(sendOTP, 500);
             }
         });
 
         document.querySelectorAll('.btn-follow').forEach(btn => {
-            const platform = btn.dataset.platform;
-            if (state.platforms[platform].confirmed) {
-                const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
-                confirmBtn.classList.add('confirmed');
-                confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
-                const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
-                dot.classList.add('active');
-            }
-            
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function() {
                 const platform = this.dataset.platform;
                 state.platforms[platform].opened = true;
                 saveState();
-                
-                trackEvent('platform_clicked', { platform: platform });
+                trackEvent('platform_clicked', { platform });
                 
                 const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
                 let countdown = 10;
                 const span = confirmBtn.querySelector('span');
-                
                 confirmBtn.disabled = true;
                 const timer = setInterval(() => {
                     countdown--;
                     span.textContent = `I've followed (${countdown}s)`;
-                    
                     if (countdown <= 0) {
                         clearInterval(timer);
                         confirmBtn.disabled = false;
@@ -1254,15 +1495,11 @@
                 const platform = this.dataset.platform;
                 state.platforms[platform].confirmed = true;
                 saveState();
-                
-                trackEvent('platform_confirmed', { platform: platform });
-                
+                trackEvent('platform_confirmed', { platform });
                 this.classList.add('confirmed');
                 this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
-                
                 const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
                 dot.classList.add('active');
-                
                 checkAllConfirmed();
             });
         });
@@ -1271,77 +1508,65 @@
             const allConfirmed = Object.values(state.platforms).every(p => p.confirmed);
             
             if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
-                document.getElementById('downloadSection').style.display = 'block';
-                document.getElementById('rewardSection').style.display = 'none';
-                
-                trackEvent('download_unlocked', { 
-                    email: state.formData.email,
-                    abVariant: state.abVariant 
-                });
-                
+                showDownloadSection(false);
+                trackEvent('download_unlocked', { email: state.formData.email, abVariant: state.abVariant });
                 submitData();
             }
         }
 
         async function submitData() {
+            // ✅ PREVENT DUPLICATE SUBMISSION IF ALREADY CLAIMED
+            const user = getCurrentGlobalUser();
+            if (user && user.rewardClaimed) return;
+            
             const followed = Object.entries(state.platforms)
                 .filter(([_, data]) => data.confirmed)
                 .map(([platform]) => platform);
 
-            const payload = {
-                name: state.formData.name,
-                email: state.formData.email,
-                followed: followed,
-                abVariant: state.abVariant
-            };
-
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: state.formData.name,
+                        email: state.formData.email,
+                        followed,
+                        abVariant: state.abVariant
+                    })
                 });
 
+                // ✅ MARK REWARD AS CLAIMED IN GLOBAL SESSION
+                markRewardAsClaimed();
+                
                 formMessage.innerHTML = '<div class="message success">✓ Your information has been saved successfully!</div>';
             } catch (error) {
-                formMessage.innerHTML = '<div class="message error">Error saving data. Please try again.</div>';
-                console.error('Error:', error);
+                formMessage.innerHTML = '<div class="message error">Error saving data.</div>';
             }
         }
 
+        // Interactive Cards
         document.querySelectorAll('[data-interactive]').forEach(element => {
             element.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
-                
                 const wasActive = this.classList.contains('active');
-                
-                document.querySelectorAll('[data-interactive].active').forEach(el => {
-                    if (el !== this) el.classList.remove('active');
-                });
-                
+                document.querySelectorAll('[data-interactive].active').forEach(el => { if (el !== this) el.classList.remove('active'); });
                 this.classList.toggle('active');
-                
-                if (!wasActive) {
-                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+                if (!wasActive) this.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
         });
 
         document.addEventListener('click', function(e) {
             if (!e.target.closest('[data-interactive]')) {
-                document.querySelectorAll('[data-interactive].active').forEach(el => {
-                    el.classList.remove('active');
-                });
+                document.querySelectorAll('[data-interactive].active').forEach(el => el.classList.remove('active'));
             }
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            updateNavAuthUI();
             initABTest();
             restoreFormData();
-            
+            restorePlatformStates();
+            checkRewardStatus(); // ✅ CHECK IF ALREADY CLAIMED
             trackEvent('page_view', { page: 'community' });
         });
     </script>
