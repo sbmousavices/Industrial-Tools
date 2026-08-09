@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Hub | Connect & Share | Behzad Mousavi</title>
-    <meta name="description" content="Join our professional community hub. Post jobs, share insights, discuss project controls, and connect with industry experts.">
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Join Our Community | Industrial Project Planning | Behzad Mousavi</title>
+
+    <meta name="description" content="Join our professional community of project planners and industrial engineers. Follow us on multiple platforms for exclusive content, free tools, and networking opportunities.">
+    <meta name="keywords" content="Project Planning Community, Industrial Engineers, EPC, Oil Gas, Medium, GitHub, YouTube, Facebook, Instagram, Reddit">
+    <meta name="author" content="Behzad Mousavi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/community.html">
+
     <!-- ✅ PWA Manifest -->
     <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
     
@@ -18,12 +25,18 @@
     <!-- ✅ Theme Color -->
     <meta name="theme-color" content="#d4af37">
     <meta name="msapplication-TileColor" content="#d4af37">
-    
+
+    <meta property="og:title" content="Join Our Project Planning Community">
+    <meta property="og:description" content="Connect with 500+ industrial professionals. Get exclusive tools and content.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/community.html">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- ✅ Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -38,7 +51,18 @@
             });
         }
     </script>
-    
+
+    <!-- ✅ GoatCounter Analytics -->
+    <script data-goatcounter="https://bmousavi.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    <script>
+        function trackGoatEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
+        }
+    </script>
+
     <style>
         :root {
             --bg-primary: #0a1628;
@@ -46,20 +70,21 @@
             --bg-card: #132847;
             --accent: #d4af37;
             --accent-light: #f4d06f;
+            --accent-blue: #5B9BD5;
+            --accent-green: #2ecc71;
             --text-primary: #e8eef7;
             --text-secondary: #a0aec0;
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --info: #5B9BD5;
+            --hub-color: #9b59b6;
+            --hub-color-light: #bb8fce;
             --danger: #e74c3c;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -67,7 +92,7 @@
             line-height: 1.7;
             overflow-x: hidden;
         }
-        
+
         /* --- UNIFIED AUTH MODAL STYLES --- */
         .auth-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -76,7 +101,6 @@
             opacity: 0; transition: opacity 0.3s ease;
         }
         .auth-modal-overlay.active { display: flex; opacity: 1; }
-        
         .auth-modal {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
@@ -84,14 +108,12 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.5);
         }
         .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
-        
         .auth-close {
             position: absolute; top: 1.2rem; right: 1.5rem;
             background: none; border: none; color: var(--text-secondary);
             font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
         }
         .auth-close:hover { color: var(--accent); }
-        
         .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
         .auth-tab {
             flex: 1; padding: 0.8rem; background: none; border: none;
@@ -100,10 +122,8 @@
             border-bottom: 2px solid transparent; margin-bottom: -2px;
         }
         .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-        
         .auth-form { display: none; }
         .auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
-        
         .auth-field { margin-bottom: 1.2rem; text-align: left; }
         .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
         .auth-field input {
@@ -112,7 +132,6 @@
             font-family: inherit; font-size: 1rem; transition: all 0.3s;
         }
         .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        
         .btn-auth-submit {
             width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
             border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
@@ -120,9 +139,8 @@
         }
         .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        
         .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
-        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
+        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--accent-green); color: var(--accent-green); }
         .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
         
         /* NAV AUTH BUTTON & DROPDOWN */
@@ -134,9 +152,8 @@
             font-family: inherit; text-decoration: none; white-space: nowrap;
         }
         .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
-        .nav-auth-btn.logged-in { border-color: var(--success); color: var(--success); }
+        .nav-auth-btn.logged-in { border-color: var(--accent-green); color: var(--accent-green); }
         .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
-        
         .user-dropdown { position: relative; display: none; }
         .user-dropdown.active { display: inline-flex; }
         .user-menu {
@@ -155,9 +172,8 @@
         .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
         .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
         .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
-        
         @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
-        /* --- END UNIFIED AUTH STYLES --- */
+        /* --- END AUTH STYLES --- */
 
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
@@ -168,7 +184,7 @@
         .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
         .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
-        
+
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
@@ -176,187 +192,613 @@
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
         .nav-links .active { color: var(--accent); font-weight: 600; }
-        
-        .page-header { padding: 9rem 5% 3rem; text-align: center; }
+
+        .page-header { padding: 9rem 5% 3rem; text-align: center; position: relative; }
         .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
-        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
-        
-        .online-bar {
-            max-width: 800px; margin: 0 auto 3rem; padding: 1.5rem;
-            background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-        }
-        .online-status { display: flex; align-items: center; gap: 0.8rem; }
-        .online-dot-large {
-            width: 12px; height: 12px; background: var(--success); border-radius: 50%;
-            box-shadow: 0 0 10px var(--success); animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
-        .online-count { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-        .online-avatars { display: flex; gap: -10px; }
-        .avatar-small {
-            width: 35px; height: 35px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
-            font-weight: 700; color: var(--bg-primary); border: 2px solid var(--bg-card); margin-left: -10px;
-        }
-        .avatar-small:first-child { margin-left: 0; }
-        
-        .hub-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
-        
-        /* HUB INLINE AUTH CARD (Email Verification) */
-        .auth-card {
-            background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
-            padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;
-        }
-        .auth-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .auth-card p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .form-group { margin-bottom: 1.2rem; text-align: left; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
-        .form-input {
-            width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
-            font-family: inherit; font-size: 1rem; transition: all 0.3s;
-        }
-        .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        .btn-auth {
-            background: var(--gradient); color: var(--bg-primary); border: none;
-            padding: 1rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer;
-            font-family: inherit; font-size: 1rem; width: 100%; transition: all 0.3s; margin-top: 0.5rem;
-        }
-        .btn-auth:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
-        .verify-section {
-            display: none; margin-top: 1.5rem; padding-top: 1.5rem;
-            border-top: 1px dashed var(--border); animation: fadeInAuth 0.5s ease;
-        }
-        .verify-section.active { display: block; }
 
-        .post-composer {
-            background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
-            padding: 2rem; margin-bottom: 3rem;
+        .community-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
+
+        .platforms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+
+        .platform-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
-        .composer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .composer-avatar {
-            width: 50px; height: 50px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-            font-weight: 700; color: var(--bg-primary);
+        .platform-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
         }
-        .composer-input {
-            flex: 1; background: var(--bg-primary); border: 1px solid var(--border);
-            border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;
-            font-size: 1rem; resize: vertical; min-height: 80px;
+        .platform-card.active {
+            transform: scale(1.03) translateY(-8px);
+            border-color: var(--platform-color, var(--accent-light));
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            z-index: 10;
         }
-        .composer-input:focus { outline: none; border-color: var(--accent); }
-        .composer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 1rem; }
-        .post-types { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .post-type-btn {
-            padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border);
-            background: transparent; color: var(--text-secondary); cursor: pointer;
-            font-family: inherit; font-size: 0.85rem; transition: all 0.3s;
+        .platform-card.active .platform-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        .post-type-btn:hover, .post-type-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(212, 175, 55, 0.1); }
-        .post-type-btn[data-type="job"].active { border-color: var(--success); color: var(--success); background: rgba(46, 204, 113, 0.1); }
-        .post-type-btn[data-type="ad"].active { border-color: var(--warning); color: var(--warning); background: rgba(243, 156, 18, 0.1); }
-        .post-type-btn[data-type="discussion"].active { border-color: var(--info); color: var(--info); background: rgba(91, 155, 213, 0.1); }
-        
-        .btn-post {
-            background: var(--gradient); color: var(--bg-primary); border: none;
-            padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; cursor: pointer;
-            font-family: inherit; transition: all 0.3s;
+        .platform-card.active .platform-name {
+            color: var(--accent-light);
         }
-        .btn-post:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-post:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        .extra-fields { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .extra-fields.active { display: block; }
-        .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .field-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; }
-        .field-group input {
-            width: 100%; padding: 0.7rem 1rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: inherit;
+        .platform-card.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
         }
-        .field-group input:focus { outline: none; border-color: var(--accent); }
-        
-        .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
-        .filter-pill {
-            padding: 0.6rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 50px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
-            cursor: pointer; transition: all 0.3s; font-family: inherit;
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
-        .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .filter-pill.active { background: var(--gradient); color: var(--bg-primary); border-color: transparent; font-weight: 600; }
-        
-        .posts-grid { display: grid; gap: 1.5rem; }
-        
-        .post-card {
-            background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
-            padding: 1.5rem; transition: all 0.3s; position: relative; overflow: hidden;
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--platform-color, var(--gradient));
+            transition: height 0.4s ease;
         }
-        .post-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
-        .post-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-        .post-card.job::before { background: var(--success); }
-        .post-card.ad::before { background: var(--warning); }
-        .post-card.discussion::before { background: var(--info); }
-        .post-card.question::before { background: #9b59b6; }
-        
-        .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .post-author { display: flex; align-items: center; gap: 0.8rem; }
-        .author-avatar {
-            width: 40px; height: 40px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-weight: 700;
-            color: var(--bg-primary); font-size: 0.9rem;
+
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--platform-color, var(--accent));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .author-info h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
-        .author-info span { font-size: 0.8rem; color: var(--text-secondary); }
-        .post-badge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .badge-job { background: rgba(46, 204, 113, 0.2); color: var(--success); }
-        .badge-ad { background: rgba(243, 156, 18, 0.2); color: var(--warning); }
-        .badge-discussion { background: rgba(91, 155, 213, 0.2); color: var(--info); }
-        .badge-new { background: var(--accent); color: var(--bg-primary); }
-        
-        .post-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3; }
-        .post-content { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
-        .post-meta { display: flex; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-secondary); flex-wrap: wrap; }
-        .post-meta-item { display: flex; align-items: center; gap: 0.4rem; }
-        .post-meta-item i { color: var(--accent); }
-        
-        .post-actions { display: flex; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .action-btn {
-            display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
-            border-radius: 50px; border: 1px solid var(--border); background: transparent;
-            color: var(--text-secondary); cursor: pointer; font-family: inherit;
-            font-size: 0.85rem; transition: all 0.3s;
+
+        .platform-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
         }
-        .action-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-        .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .action-btn.liked { background: rgba(231, 76, 60, 0.1); border-color: var(--danger); color: var(--danger); }
-        .action-btn i { font-size: 0.9rem; }
-        
-        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
-        .empty-state i { font-size: 4rem; color: var(--accent); opacity: 0.5; margin-bottom: 1rem; }
-        
+
+        .platform-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .platform-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .platform-stat { text-align: center; }
+        .platform-stat .stat-value {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        .platform-stat .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-follow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            background: var(--platform-color, var(--gradient));
+            color: white;
+        }
+        .btn-follow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-confirm {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            font-family: inherit;
+            background: transparent;
+            color: var(--accent);
+            margin-top: 0.8rem;
+        }
+        .btn-confirm:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .btn-confirm.confirmed {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+            cursor: default;
+        }
+
+        .reward-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(91, 155, 213, 0.1) 100%);
+            border: 2px dashed var(--accent);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .reward-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
+        }
+        .reward-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            border-style: solid;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(91, 155, 213, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .reward-section.active .reward-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6));
+        }
+        .reward-section.active .reward-title {
+            color: var(--accent-light);
+        }
+        .reward-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .reward-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .reward-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .signup-section {
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 600px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .signup-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
+        }
+        .signup-section.active {
+            transform: scale(1.02) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+        .signup-section.active h3 {
+            color: var(--accent-light);
+        }
+        .signup-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .consent-group {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            margin: 1.5rem 0;
+        }
+        .consent-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.3rem;
+        }
+        .consent-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .otp-section {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .otp-section.active {
+            display: block;
+        }
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .otp-inputs input {
+            width: 45px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--accent);
+        }
+        .otp-inputs input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn-verify {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-verify:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        .btn-verify:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .resend-timer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .resend-link {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .progress-bar {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .progress-bar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+        .progress-bar.active {
+            transform: scale(1.02) translateY(-3px);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            border: 1px solid var(--accent);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+        .progress-bar.active .progress-text {
+            color: var(--accent-light);
+        }
+        .progress-text {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #27ae60 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .download-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(46, 204, 113, 0.3);
+        }
+        .download-section.active {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 20px 60px rgba(46, 204, 113, 0.4), 0 0 40px rgba(46, 204, 113, 0.2);
+        }
+        .download-section.active h3 {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .download-section.active .btn-download {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .download-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .download-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+        .btn-download {
+            background: white;
+            color: var(--bg-primary);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: inherit;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .hub-section {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border: 2px solid var(--hub-color);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .hub-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5);
+            transition: height 0.4s ease;
+        }
+        .hub-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2);
+        }
+        .hub-section.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--hub-color-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .hub-section.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .hub-section.active .hub-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6));
+        }
+        .hub-section.active .hub-title {
+            color: var(--hub-color-light);
+        }
+        .hub-section.active .hub-stat-value {
+            color: var(--hub-color-light);
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        .hub-icon {
+            font-size: 3rem;
+            color: var(--hub-color);
+            margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .hub-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .hub-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .hub-stat {
+            text-align: center;
+        }
+        .hub-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--hub-color);
+            transition: all 0.3s ease;
+        }
+        .hub-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-hub {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        }
+        .btn-hub:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .message.error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        .message.success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
-        
-        .message { padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center; }
-        .message.success { background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
-        .message.error { background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
-        
-        @media (max-width: 768px) {
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 968px) {
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .page-header h1 { font-size: 2rem; }
+            .platform-card.active, .reward-section.active, .signup-section.active, .progress-bar.active, .download-section.active, .hub-section.active {
+                transform: scale(1.02) translateY(-5px);
+            }
+            .hub-stats { gap: 1rem; }
+            .hub-stat-value { font-size: 1.4rem; }
+        }
+        @media (max-width: 600px) {
             .nav-links { display: none; }
-            .online-bar { flex-direction: column; text-align: center; }
-            .composer-actions { flex-direction: column; }
-            .post-types { width: 100%; justify-content: center; }
-            .btn-post { width: 100%; }
+            .platforms-grid { grid-template-columns: 1fr; }
+            .otp-inputs input { width: 40px; height: 45px; }
             .auth-modal { padding: 1.8rem; width: 95%; }
         }
     </style>
 </head>
 <body>
     <div class="bg-shapes"></div>
-    
+
     <!-- ✅ UNIFIED AUTH MODAL -->
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
@@ -381,7 +823,7 @@
                 </button>
             </form>
             
-            <form class="auth-form" id="signupForm">
+            <form class="auth-form" id="signupFormModal">
                 <div id="signupMessage" class="auth-message"></div>
                 <div class="auth-field">
                     <label for="signupName">Full Name</label>
@@ -401,20 +843,21 @@
             </form>
         </div>
     </div>
-    
+
     <nav>
         <div class="nav-container">
             <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
             <ul class="nav-links">
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#about">About</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#skills">Expertise</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-                <li><a href="Hub.html" class="active">Hub</a></li>
+                <li><a href="community.html" class="active">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
                 
-                <!-- ✅ UNIFIED AUTH BUTTON / USER DROPDOWN -->
+                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
                         <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
@@ -424,8 +867,8 @@
                             <i class="fas fa-user-circle"></i> <span id="navUserName">User</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i>
                         </button>
                         <div class="user-menu" id="userMenu">
-                            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="user-menu-item">
-                                <i class="fas fa-users"></i> My Community
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+                                <i class="fas fa-comments"></i> Go to Hub
                             </a>
                             <a href="https://sbmousavices.github.io/Industrial-Tools/" class="user-menu-item">
                                 <i class="fas fa-box-open"></i> Products
@@ -440,138 +883,247 @@
             </ul>
         </div>
     </nav>
-    
-    <section class="page-header">
-        <p class="greeting">Welcome to the Hub</p>
-        <h1>Community <span>Hub</span></h1>
-        <p class="tagline">Connect with industry professionals, share opportunities, discuss best practices, and grow together.</p>
-    </section>
-    
-    <section class="hub-container">
-        <div class="online-bar">
-            <div class="online-status">
-                <div class="online-dot-large"></div>
-                <span><span class="online-count" id="onlineCount">0</span> members online now</span>
-            </div>
-            <div class="online-avatars" id="onlineAvatars">
-                <div class="avatar-small">BM</div>
-                <div class="avatar-small">AK</div>
-                <div class="avatar-small">SM</div>
-                <div class="avatar-small">+<span id="moreOnline">0</span></div>
-            </div>
-        </div>
-        
-        <!-- ✅ AUTH SECTION: Inline Verification OR Composer -->
-        <div id="authSection">
-            <!-- Email Verification Card (Shown when session exists but not verified, or fresh visit) -->
-            <div class="auth-card" id="registerForm">
-                <i class="fas fa-user-plus" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3>Join Community</h3>
-                <p>Verify your email to unlock posting, liking, and following features.</p>
-                
-                <div class="form-group">
-                    <label for="regName">Full Name</label>
-                    <input type="text" id="regName" class="form-input" placeholder="e.g. Behzad Mousavi">
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email Address</label>
-                    <input type="email" id="regEmail" class="form-input" placeholder="name@company.com">
-                </div>
-                
-                <button class="btn-auth" id="btnSendCode">
-                    <i class="fas fa-paper-plane"></i> Send Verification Code
-                </button>
-                <div id="sendCodeMessage"></div>
 
-                <div class="verify-section" id="verifyBox">
-                    <label for="verifyCode" style="display:block; margin-bottom:0.5rem; color:var(--accent); font-weight:600;">Enter 6-Digit Code</label>
-                    <input type="text" id="verifyCode" class="form-input" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:5px; font-size:1.5rem; margin-bottom:1rem;">
-                    <button class="btn-auth" id="btnVerify" style="background: var(--success); color: white;">
-                        <i class="fas fa-check-circle"></i> Verify & Activate
-                    </button>
-                    <div id="verifyMessage"></div>
-                </div>
-            </div>
-            
-            <!-- Post Composer (Hidden until verified) -->
-            <div class="post-composer" id="postComposer" style="display: none;">
-                <div class="composer-header">
-                    <div class="composer-avatar" id="composerAvatar">?</div>
-                    <textarea class="composer-input" id="postContent" placeholder="What's on your mind? Share a job opportunity, ask a question, or start a discussion..."></textarea>
-                </div>
-                
-                <div class="extra-fields" id="jobFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Job Title *</label><input type="text" id="jobTitle" placeholder="Senior Planning Engineer"></div>
-                        <div class="field-group"><label>Company</label><input type="text" id="jobCompany" placeholder="ABC Engineering"></div>
-                    </div>
-                    <div class="field-row">
-                        <div class="field-group"><label>Location</label><input type="text" id="jobLocation" placeholder="Dubai, UAE"></div>
-                        <div class="field-group"><label>Salary Range</label><input type="text" id="jobSalary" placeholder="$8,000-12,000/month"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Email</label><input type="email" id="jobContact" placeholder="hr@company.com"></div>
-                </div>
-                
-                <div class="extra-fields" id="adFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Item/Service Title *</label><input type="text" id="adTitle" placeholder="Primavera P6 License"></div>
-                        <div class="field-group"><label>Price</label><input type="text" id="adPrice" placeholder="$500 OBO"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Info</label><input type="text" id="adContact" placeholder="Email or phone"></div>
-                </div>
-                
-                <div class="composer-actions">
-                    <div class="post-types">
-                        <button class="post-type-btn active" data-type="discussion">💬 Discussion</button>
-                        <button class="post-type-btn" data-type="job">💼 Job</button>
-                        <button class="post-type-btn" data-type="ad">🛒 Ad</button>
-                        <button class="post-type-btn" data-type="question">❓ Question</button>
-                    </div>
-                    <button class="btn-post" id="submitPost" disabled><i class="fas fa-paper-plane"></i> Post</button>
-                </div>
-                <div id="postMessage"></div>
-            </div>
-        </div>
-        
-        <div class="filter-bar">
-            <button class="filter-pill active" data-filter="all">All Posts</button>
-            <button class="filter-pill" data-filter="job">💼 Jobs</button>
-            <button class="filter-pill" data-filter="ad">🛒 Ads</button>
-            <button class="filter-pill" data-filter="discussion">💬 Discussions</button>
-            <button class="filter-pill" data-filter="question">❓ Questions</button>
-        </div>
-        
-        <div class="posts-grid" id="postsGrid">
-            <div class="empty-state">
-                <i class="fas fa-comments"></i>
-                <h3>No posts yet</h3>
-                <p>Be the first to share something with the community!</p>
-            </div>
-        </div>
+    <section class="page-header">
+        <p class="greeting">Join The Network</p>
+        <h1>Professional <span>Community</span></h1>
+        <p class="tagline">Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
     </section>
-    
+
+    <section class="community-container">
+        
+        <div class="signup-section reveal" data-interactive>
+            <h3>📝 Step 1: Register Your Information</h3>
+            <form id="signupForm" onclick="event.stopPropagation()">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="consent-group">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">I agree to receive occasional newsletters and promotional emails. I can unsubscribe at any time.</label>
+                </div>
+                <div id="formMessage"></div>
+                
+                <div class="otp-section" id="otpSection">
+                    <p style="text-align: center; margin-bottom: 1rem;">We sent a 6-digit code to your email. Please enter it below:</p>
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" class="otp-input" data-index="0">
+                        <input type="text" maxlength="1" class="otp-input" data-index="1">
+                        <input type="text" maxlength="1" class="otp-input" data-index="2">
+                        <input type="text" maxlength="1" class="otp-input" data-index="3">
+                        <input type="text" maxlength="1" class="otp-input" data-index="4">
+                        <input type="text" maxlength="1" class="otp-input" data-index="5">
+                    </div>
+                    <button type="button" class="btn-verify" id="verifyBtn">Verify Email</button>
+                    <div class="resend-timer" id="resendTimer">
+                        Resend code in <span id="countdown">60</span>s
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="progress-bar reveal" data-interactive>
+            <div class="progress-text">Step 2: Follow Our Platforms (Complete all 6 to unlock download)</div>
+            <div class="progress-dots">
+                <div class="dot" data-platform="medium"></div>
+                <div class="dot" data-platform="github"></div>
+                <div class="dot" data-platform="facebook"></div>
+                <div class="dot" data-platform="youtube"></div>
+                <div class="dot" data-platform="instagram"></div>
+                <div class="dot" data-platform="reddit"></div>
+            </div>
+        </div>
+
+        <div class="section-header reveal">
+            <p class="section-subtitle">Where To Find Us</p>
+            <h2 class="section-title">Follow & <span>Connect</span></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="platforms-grid">
+
+            <div class="platform-card reveal" style="--platform-color: #00AB6C;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-medium"></i></div>
+                <h3 class="platform-name">Medium</h3>
+                <p class="platform-description">In-depth articles about project planning, EVM, delay analysis, and practical insights from 25+ years of field experience.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">Weekly</div><div class="stat-label">Articles</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Content</div></div>
+                </div>
+                <a href="https://medium.com/@sbmousavi" target="_blank" class="btn-follow" data-platform="medium" onclick="event.stopPropagation()"><i class="fab fa-medium"></i> Follow on Medium</a>
+                <button class="btn-confirm" data-platform="medium" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+            <div class="platform-card reveal" style="--platform-color: #f0f0f0;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-github"></i></div>
+                <h3 class="platform-name">GitHub</h3>
+                <p class="platform-description">Open-source Excel tools, macros, and VBA scripts for project planning and control. Free resources for engineers.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">20+</div><div class="stat-label">Repos</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Tools</div></div>
+                </div>
+                <a href="https://github.com/sbmousavices" target="_blank" class="btn-follow" data-platform="github" onclick="event.stopPropagation()"><i class="fab fa-github"></i> Star on GitHub</a>
+                <button class="btn-confirm" data-platform="github" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+            <div class="platform-card reveal" style="--platform-color: #1877F2;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-facebook"></i></div>
+                <h3 class="platform-name">Facebook</h3>
+                <p class="platform-description">Project management discussions, success stories, and behind-the-scenes of tool development.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">Active</div><div class="stat-label">Community</div></div>
+                    <div class="platform-stat"><div class="stat-value">Daily</div><div class="stat-label">Posts</div></div>
+                </div>
+                <a href="https://facebook.com/planninguser" target="_blank" class="btn-follow" data-platform="facebook" onclick="event.stopPropagation()"><i class="fab fa-facebook"></i> Follow on Facebook</a>
+                <button class="btn-confirm" data-platform="facebook" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+            <div class="platform-card reveal" style="--platform-color: #FF0000;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-youtube"></i></div>
+                <h3 class="platform-name">YouTube</h3>
+                <p class="platform-description">Tutorial videos, software demos, and deep-dive explanations of EVM, WBS, and project scheduling concepts.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">HD</div><div class="stat-label">Quality</div></div>
+                    <div class="platform-stat"><div class="stat-value">Free</div><div class="stat-label">Tutorials</div></div>
+                </div>
+                <a href="https://youtube.com/@PM.Center" target="_blank" class="btn-follow" data-platform="youtube" onclick="event.stopPropagation()"><i class="fab fa-youtube"></i> Subscribe on YouTube</a>
+                <button class="btn-confirm" data-platform="youtube" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+            <div class="platform-card reveal" style="--platform-color: #E4405F;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-instagram"></i></div>
+                <h3 class="platform-name">Instagram</h3>
+                <p class="platform-description">Visual tips, infographics, reels about industrial planning tools, and quick project management insights.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">Visual</div><div class="stat-label">Content</div></div>
+                    <div class="platform-stat"><div class="stat-value">Daily</div><div class="stat-label">Reels</div></div>
+                </div>
+                <a href="https://instagram.com/industrial.planning.tools" target="_blank" class="btn-follow" data-platform="instagram" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i> Follow on Instagram</a>
+                <button class="btn-confirm" data-platform="instagram" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+            <div class="platform-card reveal" style="--platform-color: #FF4500;" data-interactive>
+                <div class="platform-icon"><i class="fab fa-reddit"></i></div>
+                <h3 class="platform-name">Reddit</h3>
+                <p class="platform-description">Join discussions on project management, share experiences, and get answers to your planning challenges.</p>
+                <div class="platform-stats">
+                    <div class="platform-stat"><div class="stat-value">Open</div><div class="stat-label">Discussions</div></div>
+                    <div class="platform-stat"><div class="stat-value">Expert</div><div class="stat-label">Advice</div></div>
+                </div>
+                <a href="https://reddit.com/u/planninguser" target="_blank" class="btn-follow" data-platform="reddit" onclick="event.stopPropagation()"><i class="fab fa-reddit"></i> Join on Reddit</a>
+                <button class="btn-confirm" data-platform="reddit" disabled onclick="event.stopPropagation()"><i class="fas fa-check"></i> <span>I've followed (10s)</span></button>
+            </div>
+
+        </div>
+
+        <div class="download-section reveal" id="downloadSection" style="display: none;" data-interactive>
+            <h3>🎉 Congratulations! Download Unlocked</h3>
+            <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download" onclick="event.stopPropagation(); trackGoatEvent('/starter-kit-download', 'Downloaded Starter Kit')">
+                <i class="fas fa-download"></i> Download Starter Kit
+            </a>
+        </div>
+
+        <div class="reward-section reveal" id="rewardSection" data-interactive>
+            <div class="reward-icon"><i class="fas fa-gift"></i></div>
+            <h3 class="reward-title">🎁 Exclusive Community Reward</h3>
+            <p class="reward-description" id="rewardDescription">
+                After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:
+                <br>✅ Professional WBS Template (Excel)
+                <br>✅ Project Health Checklist (50 Points)
+                <br>✅ EVM Basics Quick-Reference Guide
+            </p>
+        </div>
+
+        <div class="hub-section reveal" data-interactive>
+            <div class="hub-icon"><i class="fas fa-comments"></i></div>
+            <h3 class="hub-title"> Community Hub - Connect & Share</h3>
+            <p class="hub-description">Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+            <div class="hub-stats">
+                <div class="hub-stat"><div class="hub-stat-value">LIVE</div><div class="hub-stat-label">Discussions</div></div>
+                <div class="hub-stat"><div class="hub-stat-value">JOBS</div><div class="hub-stat-label">Board</div></div>
+                <div class="hub-stat"><div class="hub-stat-value">ADS</div><div class="hub-stat-label">Marketplace</div></div>
+            </div>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
+                <i class="fas fa-arrow-right"></i> Enter Community Hub
+            </a>
+        </div>
+
+    </section>
+
     <footer>
-        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Community Hub</p>
+        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
     </footer>
-    
+
     <script>
-        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        const DOWNLOAD_LINK = 'https://sbmousavices.github.io/Industrial-Tools/Community.rar';
+        const STORAGE_KEY = 'community_signup_progress';
         const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
-        const COMMUNITY_STORAGE_KEY = 'community_signup_progress';
         
-        let currentUser = null;
-        let currentPostType = 'discussion';
-        let allPosts = [];
-        let currentFilter = 'all';
-        let sessionId = localStorage.getItem('hub_session_id') || generateSessionId();
-        let isEmailVerified = false;
-        
-        function generateSessionId() {
-            const id = 'sess_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('hub_session_id', id);
-            return id;
+        const AB_VARIANTS = {
+            A: {
+                title: '🎁 Exclusive Community Reward',
+                description: 'After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:<br>✅ Professional WBS Template (Excel)<br>✅ Project Health Checklist (50 Points)<br>✅ EVM Basics Quick-Reference Guide'
+            },
+            B: {
+                title: '🚀 Unlock Premium Tools',
+                description: 'Join our community and get instant access to <strong>$500 worth of templates</strong> that top engineers use:<br>✅ Advanced WBS Builder (Excel)<br>✅ Risk Assessment Matrix<br>✅ Cash Flow Dashboard<br>✅ Delay Analysis Tool'
+            }
+        };
+
+        // ✅ GoatCounter tracking function
+        function trackGoatEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
         }
-        
+
+        function trackEvent(eventName, eventData = {}) {
+            const timestamp = new Date().toISOString();
+            const event = { event: eventName, timestamp, data: eventData };
+            console.log('📊 Analytics Event:', event);
+            if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
+            const analyticsLog = JSON.parse(localStorage.getItem('analytics_log') || '[]');
+            analyticsLog.push(event);
+            localStorage.setItem('analytics_log', JSON.stringify(analyticsLog.slice(-100)));
+        }
+
+        const defaultState = {
+            formData: { name: '', email: '', consent: false },
+            emailVerified: false,
+            otpCode: null,
+            platforms: {
+                medium: { opened: false, confirmed: false },
+                github: { opened: false, confirmed: false },
+                facebook: { opened: false, confirmed: false },
+                youtube: { opened: false, confirmed: false },
+                instagram: { opened: false, confirmed: false },
+                reddit: { opened: false, confirmed: false }
+            },
+            abVariant: null
+        };
+
+        let state = loadState();
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                return { ...defaultState, ...parsed };
+            }
+            return { ...defaultState };
+        }
+
         // =============================================
         // ✅ UNIFIED AUTH SYSTEM
         // =============================================
@@ -589,14 +1141,12 @@
         
         function clearAllSessions() {
             localStorage.removeItem(GLOBAL_SESSION_KEY);
-            localStorage.removeItem(COMMUNITY_STORAGE_KEY);
-            currentUser = null;
-            isEmailVerified = false;
-            updateNavAuthUI();
-            // Reset hub UI
-            document.getElementById('postComposer').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            renderPosts(); // Re-render to disable buttons
+            localStorage.removeItem(STORAGE_KEY);
+            
+            // ✅ Track Sign Out
+            trackGoatEvent('/sign-out', 'User signed out');
+            
+            location.reload();
         }
         
         function updateNavAuthUI() {
@@ -634,7 +1184,7 @@
         function switchTab(tabName) {
             authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
             authForms.forEach(f => f.classList.remove('active'));
-            document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
+            document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupFormModal').classList.add('active');
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
         
@@ -643,7 +1193,6 @@
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
         
-        // User Dropdown
         document.getElementById('navUserBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('userMenu').classList.toggle('show');
@@ -663,7 +1212,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
             
             try {
-                await fetch(HUB_API_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
@@ -672,17 +1221,19 @@
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveGlobalSession(user);
                 
-                // Also set community verified state
-                currentUser = user;
-                isEmailVerified = true;
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: user.name, email: user.email },
-                    emailVerified: true
-                }));
+                // ✅ Track Sign In
+                trackGoatEvent('/sign-in', 'User signed in');
+                
+                // Pre-fill community form
+                state.formData.email = email;
+                state.formData.name = user.name;
+                state.emailVerified = true;
+                saveState();
+                restoreFormData();
                 
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Welcome back! Unlocking Hub...';
-                setTimeout(() => { closeModal(); activateFullAccess(); }, 1000);
+                msgDiv.textContent = '✓ Welcome back! Checking reward status...';
+                setTimeout(() => { closeModal(); checkRewardStatus(); }, 1000);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Sign in failed.';
@@ -692,8 +1243,8 @@
             }
         });
         
-        // Sign Up via Modal → Redirect to Community page
-        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        // Sign Up via Modal
+        document.getElementById('signupFormModal').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
@@ -710,7 +1261,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
             
             try {
-                await fetch(HUB_API_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
@@ -718,16 +1269,19 @@
                 
                 const user = { email, name, loggedInAt: Date.now() };
                 saveGlobalSession(user);
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: true
-                }));
+                
+                // ✅ Track Sign Up
+                trackGoatEvent('/sign-up', 'New user registered');
+                
+                state.formData.email = email;
+                state.formData.name = name;
+                state.emailVerified = true;
+                saveState();
+                restoreFormData();
                 
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Account created! Redirecting...';
-                setTimeout(() => {
-                    closeModal();
-                    window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/Community.html';
-                }, 1200);
+                msgDiv.textContent = '✓ Account created! You can now participate.';
+                setTimeout(closeModal, 1200);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Registration failed.';
@@ -737,328 +1291,326 @@
             }
         });
         
-        // Sign Out
         document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
         
         // =============================================
-        // HUB-SPECIFIC AUTH CHECK & VERIFICATION
+        // ✅ ONE-TIME REWARD LOGIC
         // =============================================
-        function checkAuth() {
-            // Priority 1: Global session (from main/products pages)
-            const globalUser = getCurrentGlobalUser();
-            if (globalUser && globalUser.email) {
-                currentUser = { email: globalUser.email, name: globalUser.name || 'User' };
-                isEmailVerified = true;
-                // Sync community storage
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: currentUser.name, email: currentUser.email },
-                    emailVerified: true
-                }));
-                activateFullAccess();
-                updateNavAuthUI();
-                return true;
-            }
-            
-            // Priority 2: Community-specific verification
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            if (saved) {
-                const data = JSON.parse(saved);
-                if (data.emailVerified && data.formData.email) {
-                    currentUser = { email: data.formData.email, name: data.formData.name || 'Anonymous' };
-                    isEmailVerified = true;
-                    // Sync to global session
-                    saveGlobalSession(currentUser);
-                    activateFullAccess();
-                    return true;
-                }
-            }
-            
-            updateNavAuthUI();
-            return false;
-        }
-
-        function activateFullAccess() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('postComposer').style.display = 'block';
-            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
-            startHeartbeat();
-        }
-        
-        function getInitials(name) {
-            return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
-        }
-        
-        // Inline Hub Verification (for users who entered name/email directly in hub)
-        document.getElementById('btnSendCode').addEventListener('click', async function() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const msgDiv = document.getElementById('sendCodeMessage');
-            const btn = this;
-
-            if (!name || !email) {
-                msgDiv.innerHTML = '<div class="message error">Please enter both name and email.</div>';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            msgDiv.innerHTML = '';
-
-            try {
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: false
-                }));
-
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'send_verify_code', email, name })
-                });
-
-                msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam.</div>';
-                document.getElementById('verifyBox').classList.add('active');
-                document.getElementById('verifyCode').focus();
-            } catch (error) {
-                msgDiv.innerHTML = '<div class="message error">Failed to send code.</div>';
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend Code';
-            }
-        });
-
-        document.getElementById('btnVerify').addEventListener('click', async function() {
-            const code = document.getElementById('verifyCode').value.trim();
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            const msgDiv = document.getElementById('verifyMessage');
-            const btn = this;
-
-            if (!code || code.length < 4) {
-                msgDiv.innerHTML = '<div class="message error">Please enter valid code.</div>';
-                return;
-            }
-            if (!saved) {
-                msgDiv.innerHTML = '<div class="message error">Session expired. Refresh and retry.</div>';
-                return;
-            }
-
-            const data = JSON.parse(saved);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-
-            setTimeout(() => {
-                currentUser = { email: data.formData.email, name: data.formData.name };
-                isEmailVerified = true;
+        function checkRewardStatus() {
+            const user = getCurrentGlobalUser();
+            if (user && user.rewardClaimed) {
+                state.emailVerified = true;
+                state.formData.email = user.email;
+                state.formData.name = user.name;
+                state.formData.consent = true;
                 
-                // Save BOTH community and global sessions
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: data.formData, emailVerified: true
-                }));
-                saveGlobalSession(currentUser);
-
-                activateFullAccess();
-            }, 1500);
-        });
-        
-        // =============================================
-        // POST & INTERACTION LOGIC
-        // =============================================
-        document.querySelectorAll('.post-type-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentPostType = this.dataset.type;
-                document.getElementById('jobFields').classList.toggle('active', currentPostType === 'job');
-                document.getElementById('adFields').classList.toggle('active', currentPostType === 'ad');
-                updatePostButton();
-            });
-        });
-        
-        document.getElementById('postContent').addEventListener('input', updatePostButton);
-        
-        function updatePostButton() {
-            const content = document.getElementById('postContent').value.trim();
-            const btn = document.getElementById('submitPost');
-            if (!isEmailVerified) { btn.disabled = true; return; }
-            if (currentPostType === 'job') btn.disabled = !content || !document.getElementById('jobTitle').value.trim();
-            else if (currentPostType === 'ad') btn.disabled = !content || !document.getElementById('adTitle').value.trim();
-            else btn.disabled = !content;
-        }
-        
-        document.getElementById('submitPost').addEventListener('click', async function() {
-            if (!isEmailVerified) return;
-            const btn = this;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
-            btn.disabled = true;
-            
-            const payload = {
-                action: 'create_post', type: currentPostType,
-                content: document.getElementById('postContent').value.trim(),
-                authorEmail: currentUser.email, authorName: currentUser.name, sessionId
-            };
-            
-            if (currentPostType === 'job') {
-                payload.title = document.getElementById('jobTitle').value.trim();
-                payload.company = document.getElementById('jobCompany').value.trim();
-                payload.location = document.getElementById('jobLocation').value.trim();
-                payload.salary = document.getElementById('jobSalary').value.trim();
-                payload.contact = document.getElementById('jobContact').value.trim();
-            } else if (currentPostType === 'ad') {
-                payload.title = document.getElementById('adTitle').value.trim();
-                payload.price = document.getElementById('adPrice').value.trim();
-                payload.contact = document.getElementById('adContact').value.trim();
-            } else {
-                payload.title = document.getElementById('postContent').value.trim().split('\n')[0].substr(0, 100);
-            }
-            
-            try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                Object.keys(state.platforms).forEach(p => {
+                    state.platforms[p].confirmed = true;
+                    state.platforms[p].opened = true;
                 });
-                document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post submitted!</div>';
-                document.getElementById('postContent').value = '';
-                document.getElementById('jobTitle').value = '';
-                document.getElementById('adTitle').value = '';
-                setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; loadPosts(); }, 2000);
-            } catch (error) {
-                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting.</div>';
+                saveState();
+                
+                restoreFormData();
+                restorePlatformStates();
+                showDownloadSection(true);
             }
-            btn.innerHTML = originalHTML;
-            updatePostButton();
-        });
-        
-        document.querySelectorAll('.filter-pill').forEach(pill => {
-            pill.addEventListener('click', function() {
-                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-                currentFilter = this.dataset.filter;
-                renderPosts();
-            });
-        });
-        
-        async function loadPosts() {
-            try {
-                const response = await fetch(HUB_API_URL + '?action=get_posts&limit=50');
-                const data = await response.json();
-                if (data.result === 'success') { allPosts = data.posts || []; renderPosts(); }
-            } catch (error) { console.error('Error loading posts:', error); }
         }
         
-        function renderPosts() {
-            const grid = document.getElementById('postsGrid');
-            let filtered = currentFilter !== 'all' ? allPosts.filter(p => p.type === currentFilter) : allPosts;
+        function markRewardAsClaimed() {
+            const user = getCurrentGlobalUser();
+            if (user && !user.rewardClaimed) {
+                user.rewardClaimed = true;
+                user.claimedAt = new Date().toISOString();
+                saveGlobalSession(user);
+            }
+        }
+        
+        function showDownloadSection(alreadyClaimed = false) {
+            document.getElementById('downloadSection').style.display = 'block';
+            document.getElementById('rewardSection').style.display = 'none';
             
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-comments"></i><h3>No posts yet</h3><p>Be the first to share something!</p></div>`;
+            if (alreadyClaimed) {
+                document.querySelector('#downloadSection h3').textContent = '🎁 Your Reward is Ready';
+                document.querySelector('#downloadSection p').textContent = 'Welcome back! You have already unlocked the Project Planning Starter Kit. Download it anytime.';
+            }
+        }
+
+        // =============================================
+        // COMMUNITY PAGE LOGIC
+        // =============================================
+        function initABTest() {
+            if (!state.abVariant) {
+                state.abVariant = Math.random() < 0.5 ? 'A' : 'B';
+                saveState();
+                trackEvent('ab_test_assigned', { variant: state.abVariant });
+            }
+            const variant = AB_VARIANTS[state.abVariant];
+            document.querySelector('#rewardSection .reward-title').textContent = variant.title;
+            document.getElementById('rewardDescription').innerHTML = variant.description;
+        }
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    trackEvent('section_viewed', { section: entry.target.className });
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const form = document.getElementById('signupForm');
+        const formMessage = document.getElementById('formMessage');
+
+        function restoreFormData() {
+            if (state.formData.name) document.getElementById('name').value = state.formData.name;
+            if (state.formData.email) document.getElementById('email').value = state.formData.email;
+            if (state.formData.consent) document.getElementById('consent').checked = true;
+            
+            if (state.emailVerified) {
+                document.getElementById('otpSection').classList.add('active');
+                document.getElementById('verifyBtn').textContent = '✓ Email Verified';
+                document.getElementById('verifyBtn').disabled = true;
+            }
+        }
+        
+        function restorePlatformStates() {
+            Object.entries(state.platforms).forEach(([platform, data]) => {
+                if (data.confirmed) {
+                    const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
+                    if (confirmBtn) {
+                        confirmBtn.classList.add('confirmed');
+                        confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
+                    }
+                    const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
+                    if (dot) dot.classList.add('active');
+                }
+            });
+        }
+
+        form.addEventListener('input', function() {
+            state.formData.name = document.getElementById('name').value;
+            state.formData.email = document.getElementById('email').value;
+            state.formData.consent = document.getElementById('consent').checked;
+            saveState();
+            checkAllConfirmed();
+        });
+
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const otpSection = document.getElementById('otpSection');
+        let resendCountdown = 60;
+        let resendTimer = null;
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) otpInputs[index - 1].focus();
+            });
+        });
+
+        verifyBtn.addEventListener('click', async function() {
+            const enteredCode = Array.from(otpInputs).map(input => input.value).join('');
+            if (enteredCode.length !== 6) {
+                formMessage.innerHTML = '<div class="message error">Please enter the complete 6-digit code.</div>';
                 return;
             }
-            
-            grid.innerHTML = filtered.map(post => createPostCard(post)).join('');
-            
-            grid.querySelectorAll('.like-btn').forEach(btn => {
-                if (!isEmailVerified) btn.disabled = true;
-                btn.addEventListener('click', function() {
-                    if (!isEmailVerified) { alert('Please sign in to like posts.'); openModal('signin'); return; }
-                    handleLike(this, this.dataset.postId);
-                });
-            });
-        }
-        
-        function createPostCard(post) {
-            const timeAgo = getTimeAgo(post.timestamp);
-            const initials = getInitials(post.authorName || 'Anonymous');
-            let badgeClass = 'badge-discussion', badgeText = 'Discussion';
-            if (post.type === 'job') { badgeClass = 'badge-job'; badgeText = 'Job'; }
-            else if (post.type === 'ad') { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
-            else if (post.type === 'question') { badgeText = 'Question'; }
-            const isNew = (Date.now() - new Date(post.timestamp).getTime()) < 86400000;
-            
-            let metaHTML = '';
-            if (post.type === 'job') {
-                metaHTML = `${post.company ? `<span class="post-meta-item"><i class="fas fa-building"></i> ${post.company}</span>` : ''}
-                    ${post.location ? `<span class="post-meta-item"><i class="fas fa-map-marker-alt"></i> ${post.location}</span>` : ''}
-                    ${post.salary ? `<span class="post-meta-item"><i class="fas fa-money-bill-wave"></i> ${post.salary}</span>` : ''}`;
-            } else if (post.type === 'ad') {
-                metaHTML = `${post.price ? `<span class="post-meta-item"><i class="fas fa-tag"></i> ${post.price}</span>` : ''}`;
-            }
-            
-            const dis = !isEmailVerified ? 'disabled title="Sign in to interact"' : '';
-            
-            return `<div class="post-card ${post.type}" data-type="${post.type}">
-                <div class="post-header">
-                    <div class="post-author"><div class="author-avatar">${initials}</div>
-                        <div class="author-info"><h4>${post.authorName || 'Anonymous'}</h4><span>${timeAgo}</span></div></div>
-                    <div style="display:flex;gap:0.5rem;">${isNew ? '<span class="post-badge badge-new">NEW</span>' : ''}<span class="post-badge ${badgeClass}">${badgeText}</span></div>
-                </div>
-                <h3 class="post-title">${post.title || post.content.substr(0, 100)}</h3>
-                <p class="post-content">${post.content}</p>
-                ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
-                <div class="post-actions">
-                    <button class="action-btn like-btn" data-post-id="${post.id}" ${dis}><i class="fas fa-heart"></i><span>${post.likes||0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-comment"></i><span>${post.comments||0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-share"></i><span>Share</span></button>
-                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-paper-plane"></i> Apply</a>`:''}
-                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-envelope"></i> Contact</a>`:''}
-                </div></div>`;
-        }
-        
-        function getTimeAgo(timestamp) {
-            const s = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
-            if (s < 60) return 'Just now';
-            if (s < 3600) return Math.floor(s/60) + 'm ago';
-            if (s < 86400) return Math.floor(s/3600) + 'h ago';
-            return Math.floor(s/86400) + 'd ago';
-        }
-        
-        async function handleLike(btn, postId) {
-            btn.classList.toggle('liked');
-            const span = btn.querySelector('span');
-            const cur = parseInt(span.textContent);
-            span.textContent = btn.classList.contains('liked') ? cur+1 : cur-1;
+
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = 'Verifying...';
+
             try {
-                await fetch(HUB_API_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'like_post', postId, userEmail: currentUser?.email || 'anonymous' })
+                    body: JSON.stringify({ name: state.formData.name, email: state.formData.email, otpCode: enteredCode, action: 'verify_otp' })
                 });
-            } catch (error) { console.error('Like error:', error); }
-        }
-        
-        async function startHeartbeat() {
-            const send = async () => {
-                try {
-                    await fetch(HUB_API_URL, {
-                        method: 'POST', mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'heartbeat', sessionId, email: currentUser?.email||'anonymous', name: currentUser?.name||'Guest' })
-                    });
-                } catch (error) {}
-            };
-            await send();
-            setInterval(send, 30000);
-            setInterval(updateOnlineCount, 30000);
-            updateOnlineCount();
-        }
-        
-        async function updateOnlineCount() {
-            try {
-                const r = await fetch(HUB_API_URL + '?action=get_online');
-                const d = await r.json();
-                if (d.result === 'success') {
-                    document.getElementById('onlineCount').textContent = d.count || 0;
-                    document.getElementById('moreOnline').textContent = Math.max(0, (d.count||0) - 3);
+
+                state.emailVerified = true;
+                saveState();
+                
+                const user = getCurrentGlobalUser();
+                if (user) {
+                    user.email = state.formData.email;
+                    user.name = state.formData.name;
+                    saveGlobalSession(user);
                 }
-            } catch (error) {}
+                
+                verifyBtn.textContent = '✓ Email Verified';
+                formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
+                
+                // ✅ Track Email Verified
+                trackGoatEvent('/email-verified', 'Email verified: ' + state.formData.email);
+                
+                trackEvent('email_verified', { email: state.formData.email });
+                checkAllConfirmed();
+            } catch (error) {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'Verify Email';
+                formMessage.innerHTML = '<div class="message error">Error verifying email.</div>';
+            }
+        });
+
+        async function sendOTP() {
+            if (!state.formData.email) {
+                formMessage.innerHTML = '<div class="message error">Please enter your email first.</div>';
+                return;
+            }
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: state.formData.email, action: 'send_otp' })
+                });
+                state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+                saveState();
+                
+                // ✅ Track OTP Sent
+                trackGoatEvent('/otp-sent', 'OTP sent to: ' + state.formData.email);
+                
+                trackEvent('otp_sent', { email: state.formData.email });
+                otpSection.classList.add('active');
+                startResendTimer();
+            } catch (error) {
+                formMessage.innerHTML = '<div class="message error">Error sending OTP.</div>';
+            }
         }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuth();
-            loadPosts();
-            setInterval(loadPosts, 60000);
+
+        function startResendTimer() {
+            resendCountdown = 60;
+            const countdownSpan = document.getElementById('countdown');
+            const timerDiv = document.getElementById('resendTimer');
+            if (resendTimer) clearInterval(resendTimer);
+            resendTimer = setInterval(() => {
+                resendCountdown--;
+                countdownSpan.textContent = resendCountdown;
+                if (resendCountdown <= 0) {
+                    clearInterval(resendTimer);
+                    timerDiv.innerHTML = '<span class="resend-link" onclick="sendOTP()">Resend Code</span>';
+                }
+            }, 1000);
+        }
+
+        document.getElementById('consent').addEventListener('change', function() {
+            if (this.checked && state.formData.email && !state.emailVerified) {
+                setTimeout(sendOTP, 500);
+            }
+        });
+
+        document.querySelectorAll('.btn-follow').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.dataset.platform;
+                state.platforms[platform].opened = true;
+                saveState();
+                
+                // ✅ Track Follow Click
+                trackGoatEvent('/follow-click-' + platform, 'Clicked follow: ' + platform);
+                
+                trackEvent('platform_clicked', { platform });
+                
+                const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
+                let countdown = 10;
+                const span = confirmBtn.querySelector('span');
+                confirmBtn.disabled = true;
+                const timer = setInterval(() => {
+                    countdown--;
+                    span.textContent = `I've followed (${countdown}s)`;
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        confirmBtn.disabled = false;
+                        span.textContent = "I've followed ✓";
+                    }
+                }, 1000);
+            });
+        });
+
+        document.querySelectorAll('.btn-confirm').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.dataset.platform;
+                state.platforms[platform].confirmed = true;
+                saveState();
+                
+                // ✅ Track Follow Confirmed
+                trackGoatEvent('/follow-confirmed-' + platform, 'Confirmed follow: ' + platform);
+                
+                trackEvent('platform_confirmed', { platform });
+                this.classList.add('confirmed');
+                this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
+                const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
+                dot.classList.add('active');
+                checkAllConfirmed();
+            });
+        });
+
+        function checkAllConfirmed() {
+            const allConfirmed = Object.values(state.platforms).every(p => p.confirmed);
+            
+            if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
+                showDownloadSection(false);
+                
+                // ✅ Track Download Unlocked
+                trackGoatEvent('/download-unlocked', 'Download unlocked: ' + state.formData.email);
+                
+                trackEvent('download_unlocked', { email: state.formData.email, abVariant: state.abVariant });
+                submitData();
+            }
+        }
+
+        async function submitData() {
+            const user = getCurrentGlobalUser();
+            if (user && user.rewardClaimed) return;
+            
+            const followed = Object.entries(state.platforms)
+                .filter(([_, data]) => data.confirmed)
+                .map(([platform]) => platform);
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: state.formData.name,
+                        email: state.formData.email,
+                        followed,
+                        abVariant: state.abVariant
+                    })
+                });
+
+                markRewardAsClaimed();
+                
+                formMessage.innerHTML = '<div class="message success">✓ Your information has been saved successfully!</div>';
+            } catch (error) {
+                formMessage.innerHTML = '<div class="message error">Error saving data.</div>';
+            }
+        }
+
+        // Interactive Cards
+        document.querySelectorAll('[data-interactive]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                const wasActive = this.classList.contains('active');
+                document.querySelectorAll('[data-interactive].active').forEach(el => { if (el !== this) el.classList.remove('active'); });
+                this.classList.toggle('active');
+                if (!wasActive) this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('[data-interactive]')) {
+                document.querySelectorAll('[data-interactive].active').forEach(el => el.classList.remove('active'));
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavAuthUI();
+            initABTest();
+            restoreFormData();
+            restorePlatformStates();
+            checkRewardStatus();
+            trackEvent('page_view', { page: 'community' });
         });
     </script>
 </body>
