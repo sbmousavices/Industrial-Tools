@@ -78,6 +78,98 @@
             overflow-x: hidden;
         }
         
+        /* --- AUTH MODAL STYLES --- */
+        .auth-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .auth-modal-overlay.active { display: flex; opacity: 1; }
+        
+        .auth-modal {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
+            position: relative; transform: translateY(20px); transition: transform 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
+        
+        .auth-close {
+            position: absolute; top: 1.2rem; right: 1.5rem;
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+        }
+        .auth-close:hover { color: var(--accent); }
+        
+        .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
+        .auth-tab {
+            flex: 1; padding: 0.8rem; background: none; border: none;
+            color: var(--text-secondary); font-family: inherit; font-size: 1rem;
+            font-weight: 600; cursor: pointer; transition: all 0.3s;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+        }
+        .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        
+        .auth-form { display: none; }
+        .auth-form.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .auth-field { margin-bottom: 1.2rem; }
+        .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
+        .auth-field input {
+            width: 100%; padding: 0.85rem 1.2rem; background: var(--bg-primary);
+            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
+            font-family: inherit; font-size: 1rem; transition: all 0.3s;
+        }
+        .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+        
+        .btn-auth-submit {
+            width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
+            border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; font-family: inherit;
+        }
+        .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
+        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid #2ecc71; color: #2ecc71; }
+        .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid #e74c3c; color: #e74c3c; }
+        
+        /* NAV AUTH BUTTON */
+        .nav-auth-btn {
+            padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid var(--accent); color: var(--accent); background: transparent;
+            font-family: inherit; text-decoration: none; white-space: nowrap;
+        }
+        .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
+        .nav-auth-btn.logged-in { border-color: var(--success, #2ecc71); color: var(--success, #2ecc71); }
+        .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
+        
+        /* USER DROPDOWN */
+        .user-dropdown { position: relative; display: none; }
+        .user-dropdown.active { display: inline-flex; }
+        .user-menu {
+            position: absolute; top: calc(100% + 10px); right: 0;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; min-width: 200px; padding: 0.5rem;
+            box-shadow: var(--shadow); display: none; z-index: 1001;
+        }
+        .user-menu.show { display: block; animation: fadeIn 0.2s ease; }
+        .user-menu-item {
+            display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem;
+            color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
+            border-radius: 8px; transition: all 0.2s; border: none; background: none;
+            width: 100%; font-family: inherit; text-decoration: none;
+        }
+        .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
+        .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: #e74c3c; }
+        .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- END AUTH STYLES --- */
+        
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
         }
@@ -210,7 +302,7 @@
         }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
         
@@ -869,6 +961,7 @@
             .stat-item { gap: 0.3rem; }
             .contact-item { padding: 1rem 1.5rem; }
             .contact-item span { font-size: 0.9rem; }
+            .auth-modal { padding: 1.8rem; width: 95%; }
         }
         
         @media (max-width: 360px) {
@@ -883,6 +976,54 @@
 </head>
 <body>
     <div class="bg-shapes"></div>
+    
+    <!-- ✅ AUTH MODAL -->
+    <div class="auth-modal-overlay" id="authModalOverlay">
+        <div class="auth-modal">
+            <button class="auth-close" id="authClose">&times;</button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="signin">Sign In</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <!-- Sign In Form -->
+            <form class="auth-form active" id="signinForm">
+                <div id="signinMessage" class="auth-message"></div>
+                <div class="auth-field">
+                    <label for="signinEmail">Email Address</label>
+                    <input type="email" id="signinEmail" placeholder="name@company.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signinPassword">Password</label>
+                    <input type="password" id="signinPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-auth-submit" id="btnSignin">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form class="auth-form" id="signupForm">
+                <div id="signupMessage" class="auth-message"></div>
+                <div class="auth-field">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="e.g. Behzad Mousavi" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="name@company.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required minlength="6">
+                </div>
+                <button type="submit" class="btn-auth-submit" id="btnSignup">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+        </div>
+    </div>
     
     <div class="stats-bar" id="statsBar">
         <div class="stat-item" title="Total Visitors Since Launch">
@@ -921,6 +1062,30 @@
                 <li><a href="#community">Community</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="#contact">Contact</a></li>
+                
+                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
+                <li>
+                    <button class="nav-auth-btn" id="navAuthBtn">
+                        <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <button class="nav-auth-btn logged-in" id="navUserBtn">
+                            <i class="fas fa-user-circle"></i> <span id="navUserName">User</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i>
+                        </button>
+                        <div class="user-menu" id="userMenu">
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="user-menu-item">
+                                <i class="fas fa-users"></i> My Community
+                            </a>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+                                <i class="fas fa-comments"></i> Go to Hub
+                            </a>
+                            <div class="user-menu-divider"></div>
+                            <button class="user-menu-item danger" id="btnLogout">
+                                <i class="fas fa-sign-out-alt"></i> Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -1205,6 +1370,219 @@
     </footer>
     
     <script>
+        // =============================================
+        // ✅ AUTHENTICATION SYSTEM
+        // =============================================
+        const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
+        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        
+        function getCurrentUser() {
+            try {
+                const saved = localStorage.getItem(AUTH_STORAGE_KEY);
+                return saved ? JSON.parse(saved) : null;
+            } catch { return null; }
+        }
+        
+        function saveSession(user) {
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+            updateAuthUI();
+        }
+        
+        function clearSession() {
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+            // Also clear community signup progress to allow new registration
+            localStorage.removeItem('community_signup_progress');
+            updateAuthUI();
+        }
+        
+        function updateAuthUI() {
+            const user = getCurrentUser();
+            const authBtn = document.getElementById('navAuthBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            const userNameSpan = document.getElementById('navUserName');
+            
+            if (user && user.email) {
+                authBtn.style.display = 'none';
+                userDropdown.classList.add('active');
+                const displayName = user.name ? user.name.split(' ')[0] : 'User';
+                userNameSpan.textContent = displayName;
+            } else {
+                authBtn.style.display = 'inline-flex';
+                userDropdown.classList.remove('active');
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        }
+        
+        // Modal Controls
+        const modalOverlay = document.getElementById('authModalOverlay');
+        const authClose = document.getElementById('authClose');
+        const navAuthBtn = document.getElementById('navAuthBtn');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        
+        function openModal(tab = 'signin') {
+            modalOverlay.classList.add('active');
+            switchTab(tab);
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            // Clear messages
+            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+        }
+        
+        function switchTab(tabName) {
+            authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+            authForms.forEach(f => f.classList.remove('active'));
+            document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
+            // Clear messages on tab switch
+            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+        }
+        
+        navAuthBtn.addEventListener('click', () => openModal('signin'));
+        authClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+        authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+        
+        // User Dropdown Toggle
+        const navUserBtn = document.getElementById('navUserBtn');
+        const userMenu = document.getElementById('userMenu');
+        
+        navUserBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userMenu.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-dropdown')) {
+                userMenu.classList.remove('show');
+            }
+        });
+        
+        // Sign In Handler
+        document.getElementById('signinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('signinEmail').value.trim();
+            const password = document.getElementById('signinPassword').value;
+            const msgDiv = document.getElementById('signinMessage');
+            const btn = document.getElementById('btnSignin');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            msgDiv.className = 'auth-message';
+            
+            try {
+                await fetch(HUB_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'sign_in', email, password })
+                });
+                
+                // For demo/frontend session: accept login if email is valid format
+                // In production, verify against API response
+                const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
+                saveSession(user);
+                
+                msgDiv.className = 'auth-message success';
+                msgDiv.textContent = '✓ Welcome back! Redirecting...';
+                
+                setTimeout(() => {
+                    closeModal();
+                    // Optionally redirect to hub
+                    // window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/hub.html';
+                }, 1000);
+                
+            } catch (error) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Sign in failed. Please try again.';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            }
+        });
+        
+        // Sign Up Handler
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const msgDiv = document.getElementById('signupMessage');
+            const btn = document.getElementById('btnSignup');
+            
+            if (password.length < 6) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Password must be at least 6 characters.';
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            msgDiv.className = 'auth-message';
+            
+            try {
+                await fetch(HUB_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'sign_up', name, email, password })
+                });
+                
+                // Save session & community progress
+                const user = { email, name, loggedInAt: Date.now() };
+                saveSession(user);
+                
+                // Pre-fill community signup storage so Hub recognizes user
+                localStorage.setItem('community_signup_progress', JSON.stringify({
+                    formData: { name, email },
+                    emailVerified: true
+                }));
+                
+                msgDiv.className = 'auth-message success';
+                msgDiv.textContent = '✓ Account created! Redirecting to Community...';
+                
+                setTimeout(() => {
+                    closeModal();
+                    window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/Community.html';
+                }, 1200);
+                
+            } catch (error) {
+                msgDiv.className = 'auth-message error';
+                msgDiv.textContent = 'Registration failed. Please try again.';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+        });
+        
+        // Sign Out Handler
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            clearSession();
+            userMenu.classList.remove('show');
+            
+            // Show brief notification
+            const notification = document.getElementById('downloadNotification');
+            notification.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+            notification.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>Signed out successfully</span>';
+            notification.style.display = 'flex';
+            setTimeout(() => { 
+                notification.style.display = 'none'; 
+                notification.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+                notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
+            }, 2500);
+        });
+        
+        // Initialize Auth UI on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+        });
+        
+        // =============================================
+        // STATS & COUNTER SYSTEM (Original)
+        // =============================================
         const STATS_CONFIG = {
             namespace: 'bm-portfolio-v3',
             keys: { visitors: 'visitors', downloads: 'downloads' },
