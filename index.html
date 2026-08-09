@@ -76,97 +76,6 @@
     <script>
         function trackEvent(path, title) {
             if (window.goatcounter) {
-                window.goatcounter.count({ path: path,کد کامل صفحه فروش با GoatCounter Analytics و رویدادهای سفارشی آماده شد. تغییرات اعمال شده:
-
-1.  **بلوک GoatCounter** قبل از `</head>` اضافه شد
-2.  **تابع `trackEvent()`** برای ارسال رویدادهای سفارشی
-3.  **رویداد Sign In** → `/sign-in`
-4.  **رویداد Sign Up** → `/sign-up`
-5.  **رویداد Sign Out** → `/sign-out`
-6.  **رویداد Copy Wallet** → `/copy-wallet`
-7.  **رویداد Copy Email** → `/copy-email`
-8.  **رویداد Purchase Click** → `/purchase-click`
-9.  **رویداد Demo Download** → `/demo-download`
-
-```html
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
-
-    <meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
-    <meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
-    <meta name="author" content="Behzad Mousavi">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
-
-    <!-- ✅ PWA Manifest -->
-    <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
-    
-    <!-- ✅ iOS Safari Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="BM Planning">
-    <link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
-    
-    <!-- ✅ Theme Color -->
-    <meta name="theme-color" content="#d4af37">
-    <meta name="msapplication-TileColor" content="#d4af37">
-
-    <meta property="og:title" content="Industrial Project Planning Tools">
-    <meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Industrial Project Planning Tools by Behzad Mousavi",
-      "description": "Professional project planning and control tools for industrial engineers.",
-      "url": "https://sbmousavices.github.io/Industrial-Tools/",
-      "sameAs": ["https://github.com/sbmousavices"],
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "79",
-        "highPrice": "3000",
-        "priceCurrency": "USD",
-        "offerCount": "10"
-      }
-    }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- ✅ Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registered', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed', error);
-                    });
-            });
-        }
-    </script>
-
-    <!-- ✅ GoatCounter Analytics -->
-    <script data-goatcounter="https://bmousavi.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script>
-    <script>
-        function trackEvent(path, title) {
-            if (window.goatcounter) {
                 window.goatcounter.count({ path: path, title: title || path, event: true });
             }
         }
@@ -1159,7 +1068,8 @@
         // ✅ UNIFIED AUTHENTICATION SYSTEM
         // =============================================
         const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
-        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        // ✅ UPDATED API URL - New Google Apps Script
+        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
         
         function getCurrentUser() {
             try {
@@ -1260,7 +1170,6 @@
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveSession(user);
                 
-                // ✅ Track Sign In
                 trackEvent('/sign-in', 'User signed in');
                 
                 msgDiv.className = 'auth-message success';
@@ -1306,7 +1215,6 @@
                     formData: { name, email }, emailVerified: true
                 }));
                 
-                // ✅ Track Sign Up
                 trackEvent('/sign-up', 'New user registered');
                 
                 msgDiv.className = 'auth-message success';
@@ -1327,12 +1235,9 @@
         document.getElementById('btnLogout').addEventListener('click', function() {
             clearSession();
             userMenu.classList.remove('show');
-            
-            // ✅ Track Sign Out
             trackEvent('/sign-out', 'User signed out');
         });
         
-        // Initialize Auth on Load
         updateAuthUI();
 
         // =============================================
@@ -1346,7 +1251,6 @@
                 message.innerHTML = '<i class="fas fa-check-circle"></i> Copied successfully!';
                 setTimeout(function() { message.innerHTML = ""; }, 2500);
                 
-                // ✅ Track Copy Events
                 if (id === 'walletAddress') {
                     trackEvent('/copy-wallet', 'Copied wallet address');
                 } else if (id === 'emailAddress') {
