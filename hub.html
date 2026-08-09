@@ -29,13 +29,20 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registered', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed', error);
-                    });
+                    .then(registration => { console.log('ServiceWorker registered', registration.scope); })
+                    .catch(error => { console.log('ServiceWorker registration failed', error); });
             });
+        }
+    </script>
+
+    <!-- ✅ GoatCounter Analytics -->
+    <script data-goatcounter="https://bmousavi.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    <script>
+        function trackGoatEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
         }
     </script>
 
@@ -76,7 +83,6 @@
             opacity: 0; transition: opacity 0.3s ease;
         }
         .auth-modal-overlay.active { display: flex; opacity: 1; }
-        
         .auth-modal {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
@@ -84,14 +90,12 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.5);
         }
         .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
-        
         .auth-close {
             position: absolute; top: 1.2rem; right: 1.5rem;
             background: none; border: none; color: var(--text-secondary);
             font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
         }
         .auth-close:hover { color: var(--accent); }
-        
         .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
         .auth-tab {
             flex: 1; padding: 0.8rem; background: none; border: none;
@@ -100,10 +104,8 @@
             border-bottom: 2px solid transparent; margin-bottom: -2px;
         }
         .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-        
         .auth-form { display: none; }
         .auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
-        
         .auth-field { margin-bottom: 1.2rem; text-align: left; }
         .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
         .auth-field input {
@@ -112,7 +114,6 @@
             font-family: inherit; font-size: 1rem; transition: all 0.3s;
         }
         .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        
         .btn-auth-submit {
             width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
             border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
@@ -120,11 +121,10 @@
         }
         .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        
         .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
         .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
         .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
-        
+
         /* NAV AUTH BUTTON & DROPDOWN */
         .nav-auth-btn {
             padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
@@ -136,7 +136,6 @@
         .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
         .nav-auth-btn.logged-in { border-color: var(--success); color: var(--success); }
         .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
-        
         .user-dropdown { position: relative; display: none; }
         .user-dropdown.active { display: inline-flex; }
         .user-menu {
@@ -155,9 +154,7 @@
         .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
         .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
         .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
-        
         @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
-        /* --- END UNIFIED AUTH STYLES --- */
 
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
@@ -172,7 +169,6 @@
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
@@ -185,67 +181,19 @@
         .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
 
         .online-bar {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            padding: 1.5rem;
-            background: var(--bg-card);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .online-status {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
             max-width: 800px; margin: 0 auto 3rem; padding: 1.5rem;
             background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
         }
         .online-status { display: flex; align-items: center; gap: 0.8rem; }
         .online-dot-large {
-            width: 12px;
-            height: 12px;
-            background: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--success);
-            animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(2.5); opacity: 0; }
-        }
-        .online-count {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        .online-avatars {
-            display: flex;
-            gap: -10px;
             width: 12px; height: 12px; background: var(--success); border-radius: 50%;
             box-shadow: 0 0 10px var(--success); animation: pulse-dot 2s infinite;
         }
         @keyframes pulse-dot { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
         .online-count { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-        .online-avatars { display: flex; gap: -10px; }
+        .online-avatars { display: flex; }
         .avatar-small {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--bg-primary);
-            border: 2px solid var(--bg-card);
-            margin-left: -10px;
             width: 35px; height: 35px; border-radius: 50%; background: var(--gradient);
             display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
             font-weight: 700; color: var(--bg-primary); border: 2px solid var(--bg-card); margin-left: -10px;
@@ -254,37 +202,7 @@
 
         .hub-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
 
-        /* --- NEW AUTH FORM STYLES --- */
-        /* HUB INLINE AUTH CARD (Email Verification) */
         .auth-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 2.5rem;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            text-align: center;
-        }
-        .auth-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-        .auth-card p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-        .form-group {
-            margin-bottom: 1.2rem;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
             background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
             padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;
         }
@@ -293,46 +211,12 @@
         .form-group { margin-bottom: 1.2rem; text-align: left; }
         .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
         .form-input {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
             width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-primary);
             border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
             font-family: inherit; font-size: 1rem; transition: all 0.3s;
         }
         .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
         .btn-auth {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 0.5rem;
-        }
-        .btn-auth:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-        }
-        .btn-auth:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
             background: var(--gradient); color: var(--bg-primary); border: none;
             padding: 1rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer;
             font-family: inherit; font-size: 1rem; width: 100%; transition: all 0.3s; margin-top: 0.5rem;
@@ -340,78 +224,22 @@
         .btn-auth:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
         .verify-section {
-            display: none; /* Hidden initially until code sent */
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed var(--border);
-            animation: fadeIn 0.5s ease;
             display: none; margin-top: 1.5rem; padding-top: 1.5rem;
             border-top: 1px dashed var(--border); animation: fadeInAuth 0.5s ease;
         }
         .verify-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* --- END NEW AUTH STYLES --- */
 
         .post-composer {
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 2rem;
-            margin-bottom: 3rem;
-        }
-        .composer-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
             background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
             padding: 2rem; margin-bottom: 3rem;
         }
         .composer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .composer-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--bg-primary);
             width: 50px; height: 50px; border-radius: 50%; background: var(--gradient);
             display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
             font-weight: 700; color: var(--bg-primary);
         }
         .composer-input {
-            flex: 1;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 80px;
-        }
-        .composer-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .composer-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .post-types {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
             flex: 1; background: var(--bg-primary); border: 1px solid var(--border);
             border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;
             font-size: 1rem; resize: vertical; min-height: 80px;
@@ -420,20 +248,6 @@
         .composer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 1rem; }
         .post-types { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .post-type-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        .post-type-btn:hover, .post-type-btn.active {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(212, 175, 55, 0.1);
             padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border);
             background: transparent; color: var(--text-secondary); cursor: pointer;
             font-family: inherit; font-size: 0.85rem; transition: all 0.3s;
@@ -444,23 +258,6 @@
         .post-type-btn[data-type="discussion"].active { border-color: var(--info); color: var(--info); background: rgba(91, 155, 213, 0.1); }
 
         .btn-post {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-        .btn-post:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-        }
-        .btn-post:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
             background: var(--gradient); color: var(--bg-primary); border: none;
             padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; cursor: pointer;
             font-family: inherit; transition: all 0.3s;
@@ -468,64 +265,18 @@
         .btn-post:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .btn-post:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .extra-fields {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
         .extra-fields { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
         .extra-fields.active { display: block; }
-        .field-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .field-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
         .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
         .field-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; }
         .field-group input {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: inherit;
-        }
-        .field-group input:focus {
-            outline: none;
-            border-color: var(--accent);
             width: 100%; padding: 0.7rem 1rem; background: var(--bg-primary);
             border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: inherit;
         }
         .field-group input:focus { outline: none; border-color: var(--accent); }
 
-        .filter-bar {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
         .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
         .filter-pill {
-            padding: 0.6rem 1.3rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
             padding: 0.6rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 50px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
             cursor: pointer; transition: all 0.3s; font-family: inherit;
@@ -533,33 +284,9 @@
         .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
         .filter-pill.active { background: var(--gradient); color: var(--bg-primary); border-color: transparent; font-weight: 600; }
 
-        .posts-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
         .posts-grid { display: grid; gap: 1.5rem; }
 
         .post-card {
-            background: var(--bg-card);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .post-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-        .post-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
             background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
             padding: 1.5rem; transition: all 0.3s; position: relative; overflow: hidden;
         }
@@ -570,45 +297,9 @@
         .post-card.discussion::before { background: var(--info); }
         .post-card.question::before { background: #9b59b6; }
 
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-        .post-author {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
         .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
         .post-author { display: flex; align-items: center; gap: 0.8rem; }
         .author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--bg-primary);
-            font-size: 0.9rem;
-        }
-        .author-info h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.2rem;
-        }
-        .author-info span {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        .post-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
             width: 40px; height: 40px; border-radius: 50%; background: var(--gradient);
             display: flex; align-items: center; justify-content: center; font-weight: 700;
             color: var(--bg-primary); font-size: 0.9rem;
@@ -621,70 +312,14 @@
         .badge-discussion { background: rgba(91, 155, 213, 0.2); color: var(--info); }
         .badge-new { background: var(--accent); color: var(--bg-primary); }
 
-        .post-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.3;
-        }
-        .post-content {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        .post-meta {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            flex-wrap: wrap;
-        }
-        .post-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
         .post-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3; }
         .post-content { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
         .post-meta { display: flex; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-secondary); flex-wrap: wrap; }
         .post-meta-item { display: flex; align-items: center; gap: 0.4rem; }
         .post-meta-item i { color: var(--accent); }
 
-        .post-actions {
-            display: flex;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
         .post-actions { display: flex; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
         .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        .action-btn:hover:not(:disabled) {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        .action-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .action-btn.liked {
-            background: rgba(231, 76, 60, 0.1);
-            border-color: var(--danger);
-            color: var(--danger);
-        }
             display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
             border-radius: 50px; border: 1px solid var(--border); background: transparent;
             color: var(--text-secondary); cursor: pointer; font-family: inherit;
@@ -695,29 +330,12 @@
         .action-btn.liked { background: rgba(231, 76, 60, 0.1); border-color: var(--danger); color: var(--danger); }
         .action-btn i { font-size: 0.9rem; }
 
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-secondary);
-        }
-        .empty-state i {
-            font-size: 4rem;
-            color: var(--accent);
-            opacity: 0.5;
-            margin-bottom: 1rem;
-        }
         .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
         .empty-state i { font-size: 4rem; color: var(--accent); opacity: 0.5; margin-bottom: 1rem; }
 
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
 
-        .message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            text-align: center;
-        }
         .message { padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center; }
         .message.success { background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
         .message.error { background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
@@ -743,7 +361,6 @@
                 <button class="auth-tab active" data-tab="signin">Sign In</button>
                 <button class="auth-tab" data-tab="signup">Sign Up</button>
             </div>
-            
             <form class="auth-form active" id="signinForm">
                 <div id="signinMessage" class="auth-message"></div>
                 <div class="auth-field">
@@ -758,7 +375,6 @@
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </button>
             </form>
-            
             <form class="auth-form" id="signupForm">
                 <div id="signupMessage" class="auth-message"></div>
                 <div class="auth-field">
@@ -779,7 +395,7 @@
             </form>
         </div>
     </div>
-    
+
     <nav>
         <div class="nav-container">
             <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
@@ -791,8 +407,6 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
                 <li><a href="Hub.html" class="active">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
-                
-                <!-- ✅ UNIFIED AUTH BUTTON / USER DROPDOWN -->
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
                         <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
@@ -839,16 +453,11 @@
             </div>
         </div>
 
-        <!-- ✅ NEW INTEGRATED AUTH SECTION -->
-        <!-- ✅ AUTH SECTION: Inline Verification OR Composer -->
         <div id="authSection">
-            <!-- Registration / Verification Form (Visible Initially) -->
-            <!-- Email Verification Card (Shown when session exists but not verified, or fresh visit) -->
             <div class="auth-card" id="registerForm">
                 <i class="fas fa-user-plus" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
                 <h3>Join Community</h3>
                 <p>Verify your email to unlock posting, liking, and following features.</p>
-
                 <div class="form-group">
                     <label for="regName">Full Name</label>
                     <input type="text" id="regName" class="form-input" placeholder="e.g. Behzad Mousavi">
@@ -857,13 +466,10 @@
                     <label for="regEmail">Email Address</label>
                     <input type="email" id="regEmail" class="form-input" placeholder="name@company.com">
                 </div>
-
                 <button class="btn-auth" id="btnSendCode">
                     <i class="fas fa-paper-plane"></i> Send Verification Code
                 </button>
                 <div id="sendCodeMessage"></div>
-
-                <!-- Verification Box (Always Visible Structure, Content Toggles) -->
                 <div class="verify-section" id="verifyBox">
                     <label for="verifyCode" style="display:block; margin-bottom:0.5rem; color:var(--accent); font-weight:600;">Enter 6-Digit Code</label>
                     <input type="text" id="verifyCode" class="form-input" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:5px; font-size:1.5rem; margin-bottom:1rem;">
@@ -874,65 +480,29 @@
                 </div>
             </div>
 
-            <!-- Post Composer (Hidden until verified) -->
             <div class="post-composer" id="postComposer" style="display: none;">
                 <div class="composer-header">
                     <div class="composer-avatar" id="composerAvatar">?</div>
                     <textarea class="composer-input" id="postContent" placeholder="What's on your mind? Share a job opportunity, ask a question, or start a discussion..."></textarea>
                 </div>
-
                 <div class="extra-fields" id="jobFields">
                     <div class="field-row">
-                        <div class="field-group">
-                            <label>Job Title *</label>
-                            <input type="text" id="jobTitle" placeholder="Senior Planning Engineer">
-                        </div>
-                        <div class="field-group">
-                            <label>Company</label>
-                            <input type="text" id="jobCompany" placeholder="ABC Engineering">
-                        </div>
                         <div class="field-group"><label>Job Title *</label><input type="text" id="jobTitle" placeholder="Senior Planning Engineer"></div>
                         <div class="field-group"><label>Company</label><input type="text" id="jobCompany" placeholder="ABC Engineering"></div>
                     </div>
                     <div class="field-row">
-                        <div class="field-group">
-                            <label>Location</label>
-                            <input type="text" id="jobLocation" placeholder="Dubai, UAE">
-                        </div>
-                        <div class="field-group">
-                            <label>Salary Range</label>
-                            <input type="text" id="jobSalary" placeholder="$8,000-12,000/month">
-                        </div>
-                    </div>
-                    <div class="field-group">
-                        <label>Contact Email</label>
-                        <input type="email" id="jobContact" placeholder="hr@company.com">
                         <div class="field-group"><label>Location</label><input type="text" id="jobLocation" placeholder="Dubai, UAE"></div>
                         <div class="field-group"><label>Salary Range</label><input type="text" id="jobSalary" placeholder="$8,000-12,000/month"></div>
                     </div>
                     <div class="field-group"><label>Contact Email</label><input type="email" id="jobContact" placeholder="hr@company.com"></div>
                 </div>
-
                 <div class="extra-fields" id="adFields">
                     <div class="field-row">
-                        <div class="field-group">
-                            <label>Item/Service Title *</label>
-                            <input type="text" id="adTitle" placeholder="Primavera P6 License">
-                        </div>
-                        <div class="field-group">
-                            <label>Price</label>
-                            <input type="text" id="adPrice" placeholder="$500 OBO">
-                        </div>
-                    </div>
-                    <div class="field-group">
-                        <label>Contact Info</label>
-                        <input type="text" id="adContact" placeholder="Email or phone">
                         <div class="field-group"><label>Item/Service Title *</label><input type="text" id="adTitle" placeholder="Primavera P6 License"></div>
                         <div class="field-group"><label>Price</label><input type="text" id="adPrice" placeholder="$500 OBO"></div>
                     </div>
                     <div class="field-group"><label>Contact Info</label><input type="text" id="adContact" placeholder="Email or phone"></div>
                 </div>
-
                 <div class="composer-actions">
                     <div class="post-types">
                         <button class="post-type-btn active" data-type="discussion">💬 Discussion</button>
@@ -940,9 +510,6 @@
                         <button class="post-type-btn" data-type="ad">🛒 Ad</button>
                         <button class="post-type-btn" data-type="question">❓ Question</button>
                     </div>
-                    <button class="btn-post" id="submitPost" disabled>
-                        <i class="fas fa-paper-plane"></i> Post
-                    </button>
                     <button class="btn-post" id="submitPost" disabled><i class="fas fa-paper-plane"></i> Post</button>
                 </div>
                 <div id="postMessage"></div>
@@ -980,7 +547,6 @@
         let allPosts = [];
         let currentFilter = 'all';
         let sessionId = localStorage.getItem('hub_session_id') || generateSessionId();
-        let isEmailVerified = false; // Global flag for UI state
         let isEmailVerified = false;
 
         function generateSessionId() {
@@ -989,7 +555,6 @@
             return id;
         }
 
-        // ✅ CHECK AUTH STATUS ON LOAD
         // =============================================
         // ✅ UNIFIED AUTH SYSTEM
         // =============================================
@@ -999,30 +564,32 @@
                 return saved ? JSON.parse(saved) : null;
             } catch { return null; }
         }
-        
+
         function saveGlobalSession(user) {
             localStorage.setItem(GLOBAL_SESSION_KEY, JSON.stringify(user));
             updateNavAuthUI();
         }
-        
+
         function clearAllSessions() {
+            // ✅ Track Sign Out
+            trackGoatEvent('/sign-out', 'User signed out from Hub');
+
             localStorage.removeItem(GLOBAL_SESSION_KEY);
             localStorage.removeItem(COMMUNITY_STORAGE_KEY);
             currentUser = null;
             isEmailVerified = false;
             updateNavAuthUI();
-            // Reset hub UI
             document.getElementById('postComposer').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
-            renderPosts(); // Re-render to disable buttons
+            renderPosts();
         }
-        
+
         function updateNavAuthUI() {
             const user = getCurrentGlobalUser();
             const authBtn = document.getElementById('navAuthBtn');
             const userDropdown = document.getElementById('userDropdown');
             const userNameSpan = document.getElementById('navUserName');
-            
+
             if (user && user.email) {
                 authBtn.style.display = 'none';
                 userDropdown.classList.add('active');
@@ -1033,12 +600,12 @@
                 document.getElementById('userMenu').classList.remove('show');
             }
         }
-        
+
         // Modal Controls
         const modalOverlay = document.getElementById('authModalOverlay');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
-        
+
         function openModal(tab = 'signin') {
             modalOverlay.classList.add('active');
             switchTab(tab);
@@ -1055,13 +622,12 @@
             document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
-        
+
         document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
         document.getElementById('authClose').addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-        
-        // User Dropdown
+
         document.getElementById('navUserBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('userMenu').classList.toggle('show');
@@ -1069,35 +635,37 @@
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
         });
-        
+
         // Sign In via Modal
         document.getElementById('signinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('signinEmail').value.trim();
             const msgDiv = document.getElementById('signinMessage');
             const btn = document.getElementById('btnSignin');
-            
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-            
+
             try {
                 await fetch(HUB_API_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
                 });
-                
+
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveGlobalSession(user);
-                
-                // Also set community verified state
+
+                // ✅ Track Sign In
+                trackGoatEvent('/sign-in', 'User signed in via Hub');
+
                 currentUser = user;
                 isEmailVerified = true;
                 localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
                     formData: { name: user.name, email: user.email },
                     emailVerified: true
                 }));
-                
+
                 msgDiv.className = 'auth-message success';
                 msgDiv.textContent = '✓ Welcome back! Unlocking Hub...';
                 setTimeout(() => { closeModal(); activateFullAccess(); }, 1000);
@@ -1109,37 +677,41 @@
                 btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
             }
         });
-        
-        // Sign Up via Modal → Redirect to Community page
+
+        // Sign Up via Modal
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const msgDiv = document.getElementById('signupMessage');
             const btn = document.getElementById('btnSignup');
-            
+
             if (document.getElementById('signupPassword').value.length < 6) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Password must be at least 6 characters.';
                 return;
             }
-            
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
-            
+
             try {
                 await fetch(HUB_API_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
                 });
-                
+
                 const user = { email, name, loggedInAt: Date.now() };
                 saveGlobalSession(user);
+
+                // ✅ Track Sign Up
+                trackGoatEvent('/sign-up', 'New user registered via Hub');
+
                 localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
                     formData: { name, email }, emailVerified: true
                 }));
-                
+
                 msgDiv.className = 'auth-message success';
                 msgDiv.textContent = '✓ Account created! Redirecting...';
                 setTimeout(() => {
@@ -1154,20 +726,17 @@
                 btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
         });
-        
-        // Sign Out
+
         document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
-        
+
         // =============================================
         // HUB-SPECIFIC AUTH CHECK & VERIFICATION
         // =============================================
         function checkAuth() {
-            // Priority 1: Global session (from main/products pages)
             const globalUser = getCurrentGlobalUser();
             if (globalUser && globalUser.email) {
                 currentUser = { email: globalUser.email, name: globalUser.name || 'User' };
                 isEmailVerified = true;
-                // Sync community storage
                 localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
                     formData: { name: currentUser.name, email: currentUser.email },
                     emailVerified: true
@@ -1176,38 +745,28 @@
                 updateNavAuthUI();
                 return true;
             }
-            
-            // Priority 2: Community-specific verification
+
             const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
             if (saved) {
                 const data = JSON.parse(saved);
                 if (data.emailVerified && data.formData.email) {
-                    currentUser = {
-                        email: data.formData.email,
-                        name: data.formData.name || 'Anonymous'
-                    };
                     currentUser = { email: data.formData.email, name: data.formData.name || 'Anonymous' };
                     isEmailVerified = true;
-                    // Sync to global session
                     saveGlobalSession(currentUser);
                     activateFullAccess();
                     return true;
                 }
             }
-            
+
             updateNavAuthUI();
             return false;
         }
 
-        // ✅ UNLOCK ALL FEATURES AFTER VERIFICATION
         function activateFullAccess() {
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('postComposer').style.display = 'block';
             document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-            
-            // Enable interaction buttons in existing posts
             document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
-            
             startHeartbeat();
         }
 
@@ -1215,8 +774,7 @@
             return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
         }
 
-        // --- AUTHENTICATION LOGIC ---
-        // Inline Hub Verification (for users who entered name/email directly in hub)
+        // Inline Hub Verification
         document.getElementById('btnSendCode').addEventListener('click', async function() {
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -1233,29 +791,23 @@
             msgDiv.innerHTML = '';
 
             try {
-                // Save progress locally first
                 localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email },
-                    emailVerified: false
                     formData: { name, email }, emailVerified: false
                 }));
 
                 await fetch(HUB_API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'send_verify_code', email: email, name: name })
                     body: JSON.stringify({ action: 'send_verify_code', email, name })
                 });
 
-                msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam folder.</div>';
+                // ✅ Track OTP Sent
+                trackGoatEvent('/otp-sent-hub', 'Verification code sent from Hub');
+
                 msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam.</div>';
                 document.getElementById('verifyBox').classList.add('active');
                 document.getElementById('verifyCode').focus();
-                
             } catch (error) {
-                msgDiv.innerHTML = '<div class="message error">Failed to send code. Please try again.</div>';
                 msgDiv.innerHTML = '<div class="message error">Failed to send code.</div>';
             } finally {
                 btn.disabled = false;
@@ -1270,12 +822,10 @@
             const btn = this;
 
             if (!code || code.length < 4) {
-                msgDiv.innerHTML = '<div class="message error">Please enter the valid code.</div>';
                 msgDiv.innerHTML = '<div class="message error">Please enter valid code.</div>';
                 return;
             }
             if (!saved) {
-                msgDiv.innerHTML = '<div class="message error">Session expired. Please refresh and try again.</div>';
                 msgDiv.innerHTML = '<div class="message error">Session expired. Refresh and retry.</div>';
                 return;
             }
@@ -1284,48 +834,22 @@
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
-            try {
-                // Note: In a real scenario, you'd verify against the API response. 
-                // Since we use no-cors, we assume success if no network error, 
-                // OR your backend handles setting a cookie/token. 
-                // For this frontend demo, we simulate successful verification flow:
-                
-                // TODO: Replace with actual API verification call that returns success/fail
-                // const res = await fetch(...); 
             setTimeout(() => {
                 currentUser = { email: data.formData.email, name: data.formData.name };
                 isEmailVerified = true;
 
-                // Simulating success for UI demonstration:
-                setTimeout(() => {
-                    currentUser = { email: data.formData.email, name: data.formData.name };
-                    isEmailVerified = true;
-                    
-                    // Update local storage to verified
-                    localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                        formData: data.formData,
-                        emailVerified: true
-                    }));
-
-                    activateFullAccess();
-                }, 1500);
-                // Save BOTH community and global sessions
                 localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
                     formData: data.formData, emailVerified: true
                 }));
                 saveGlobalSession(currentUser);
 
-            } catch (error) {
-                msgDiv.innerHTML = '<div class="message error">Invalid code or server error.</div>';
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify & Activate';
-            }
+                // ✅ Track Email Verified
+                trackGoatEvent('/email-verified-hub', 'Email verified from Hub: ' + data.formData.email);
+
                 activateFullAccess();
             }, 1500);
         });
-        // ----------------------------
 
-        
         // =============================================
         // POST & INTERACTION LOGIC
         // =============================================
@@ -1334,10 +858,8 @@
                 document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentPostType = this.dataset.type;
-                
                 document.getElementById('jobFields').classList.toggle('active', currentPostType === 'job');
                 document.getElementById('adFields').classList.toggle('active', currentPostType === 'ad');
-                
                 updatePostButton();
             });
         });
@@ -1347,22 +869,6 @@
         function updatePostButton() {
             const content = document.getElementById('postContent').value.trim();
             const btn = document.getElementById('submitPost');
-            
-            // ✅ DOUBLE CHECK: Never enable post button if not verified
-            if (!isEmailVerified) {
-                btn.disabled = true;
-                return;
-            }
-
-            if (currentPostType === 'job') {
-                const title = document.getElementById('jobTitle').value.trim();
-                btn.disabled = !content || !title;
-            } else if (currentPostType === 'ad') {
-                const title = document.getElementById('adTitle').value.trim();
-                btn.disabled = !content || !title;
-            } else {
-                btn.disabled = !content;
-            }
             if (!isEmailVerified) { btn.disabled = true; return; }
             if (currentPostType === 'job') btn.disabled = !content || !document.getElementById('jobTitle').value.trim();
             else if (currentPostType === 'ad') btn.disabled = !content || !document.getElementById('adTitle').value.trim();
@@ -1370,8 +876,6 @@
         }
 
         document.getElementById('submitPost').addEventListener('click', async function() {
-            if (!isEmailVerified) return; // Safety check
-            
             if (!isEmailVerified) return;
             const btn = this;
             const originalHTML = btn.innerHTML;
@@ -1379,13 +883,8 @@
             btn.disabled = true;
 
             const payload = {
-                action: 'create_post',
-                type: currentPostType,
                 action: 'create_post', type: currentPostType,
                 content: document.getElementById('postContent').value.trim(),
-                authorEmail: currentUser.email,
-                authorName: currentUser.name,
-                sessionId: sessionId
                 authorEmail: currentUser.email, authorName: currentUser.name, sessionId
             };
 
@@ -1405,30 +904,24 @@
 
             try {
                 await fetch(HUB_API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
-                document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post submitted successfully!</div>';
+
+                // ✅ Track Post Created
+                trackGoatEvent('/post-created-' + currentPostType, 'New ' + currentPostType + ' post created');
+
                 document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post submitted!</div>';
                 document.getElementById('postContent').value = '';
                 document.getElementById('jobTitle').value = '';
                 document.getElementById('adTitle').value = '';
-                
-                setTimeout(() => {
-                    document.getElementById('postMessage').innerHTML = '';
-                    loadPosts();
-                }, 2000);
-                
+
                 setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; loadPosts(); }, 2000);
             } catch (error) {
-                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting. Please try again.</div>';
                 document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting.</div>';
             }
-            
+
             btn.innerHTML = originalHTML;
             updatePostButton();
         });
@@ -1446,48 +939,24 @@
             try {
                 const response = await fetch(HUB_API_URL + '?action=get_posts&limit=50');
                 const data = await response.json();
-                if (data.result === 'success') {
-                    allPosts = data.posts || [];
-                    renderPosts();
-                }
-            } catch (error) {
-                console.error('Error loading posts:', error);
-            }
                 if (data.result === 'success') { allPosts = data.posts || []; renderPosts(); }
             } catch (error) { console.error('Error loading posts:', error); }
         }
 
         function renderPosts() {
             const grid = document.getElementById('postsGrid');
-            let filtered = allPosts;
-            
-            if (currentFilter !== 'all') {
-                filtered = allPosts.filter(p => p.type === currentFilter);
-            }
             let filtered = currentFilter !== 'all' ? allPosts.filter(p => p.type === currentFilter) : allPosts;
 
             if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-comments"></i>
-                        <h3>No posts yet</h3>
-                        <p>Be the first to share something with the community!</p>
-                    </div>
-                `;
                 grid.innerHTML = `<div class="empty-state"><i class="fas fa-comments"></i><h3>No posts yet</h3><p>Be the first to share something!</p></div>`;
                 return;
             }
 
             grid.innerHTML = filtered.map(post => createPostCard(post)).join('');
 
-            // ✅ ATTACH LIKE HANDLERS WITH VERIFICATION CHECK
             grid.querySelectorAll('.like-btn').forEach(btn => {
                 if (!isEmailVerified) btn.disabled = true;
                 btn.addEventListener('click', function() {
-                    if (!isEmailVerified) {
-                        alert('Please verify your email first to like posts.');
-                        return;
-                    }
                     if (!isEmailVerified) { alert('Please sign in to like posts.'); openModal('signin'); return; }
                     handleLike(this, this.dataset.postId);
                 });
@@ -1495,20 +964,9 @@
         }
 
         function createPostCard(post) {
-            const isJob = post.type === 'job';
-            const isAd = post.type === 'ad';
-            const isDiscussion = post.type === 'discussion';
-            const isQuestion = post.type === 'question';
-            
             const timeAgo = getTimeAgo(post.timestamp);
             const initials = getInitials(post.authorName || 'Anonymous');
-            
-            let badgeClass = 'badge-discussion';
-            let badgeText = 'Discussion';
-            if (isJob) { badgeClass = 'badge-job'; badgeText = 'Job'; }
-            else if (isAd) { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
-            else if (isQuestion) { badgeClass = 'badge-discussion'; badgeText = 'Question'; }
-            
+
             let badgeClass = 'badge-discussion', badgeText = 'Discussion';
             if (post.type === 'job') { badgeClass = 'badge-job'; badgeText = 'Job'; }
             else if (post.type === 'ad') { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
@@ -1516,71 +974,22 @@
             const isNew = (Date.now() - new Date(post.timestamp).getTime()) < 86400000;
 
             let metaHTML = '';
-            if (isJob) {
-                metaHTML = `
-                    ${post.company ? `<span class="post-meta-item"><i class="fas fa-building"></i> ${post.company}</span>` : ''}
             if (post.type === 'job') {
                 metaHTML = `${post.company ? `<span class="post-meta-item"><i class="fas fa-building"></i> ${post.company}</span>` : ''}
                     ${post.location ? `<span class="post-meta-item"><i class="fas fa-map-marker-alt"></i> ${post.location}</span>` : ''}
-                    ${post.salary ? `<span class="post-meta-item"><i class="fas fa-money-bill-wave"></i> ${post.salary}</span>` : ''}
-                `;
-            } else if (isAd) {
-                metaHTML = `
-                    ${post.price ? `<span class="post-meta-item"><i class="fas fa-tag"></i> ${post.price}</span>` : ''}
-                `;
                     ${post.salary ? `<span class="post-meta-item"><i class="fas fa-money-bill-wave"></i> ${post.salary}</span>` : ''}`;
             } else if (post.type === 'ad') {
                 metaHTML = `${post.price ? `<span class="post-meta-item"><i class="fas fa-tag"></i> ${post.price}</span>` : ''}`;
             }
 
-            // ✅ DISABLE INTERACTION BUTTONS IF NOT VERIFIED
-            const disabledAttr = !isEmailVerified ? 'disabled title="Verify email to interact"' : '';
             const dis = !isEmailVerified ? 'disabled title="Sign in to interact"' : '';
 
-            return `
-                <div class="post-card ${post.type}" data-type="${post.type}">
-                    <div class="post-header">
-                        <div class="post-author">
-                            <div class="author-avatar">${initials}</div>
-                            <div class="author-info">
-                                <h4>${post.authorName || 'Anonymous'}</h4>
-                                <span>${timeAgo}</span>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            ${isNew ? '<span class="post-badge badge-new">NEW</span>' : ''}
-                            <span class="post-badge ${badgeClass}">${badgeText}</span>
-                        </div>
-                    </div>
-                    
-                    <h3 class="post-title">${post.title || post.content.substr(0, 100)}</h3>
-                    <p class="post-content">${post.content}</p>
-                    
-                    ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
-                    
-                    <div class="post-actions">
-                        <button class="action-btn like-btn" data-post-id="${post.id}" ${disabledAttr}>
-                            <i class="fas fa-heart"></i>
-                            <span>${post.likes || 0}</span>
-                        </button>
-                        <button class="action-btn" ${disabledAttr}>
-                            <i class="fas fa-comment"></i>
-                            <span>${post.comments || 0}</span>
-                        </button>
-                        <button class="action-btn" ${disabledAttr}>
-                            <i class="fas fa-share"></i>
-                            <span>Share</span>
-                        </button>
-                        ${isJob && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--success); color: white; border-color: var(--success);" ${!isEmailVerified ? 'onclick="event.preventDefault(); alert(\'Verify email first\');"' : ''}><i class="fas fa-paper-plane"></i> Apply</a>` : ''}
-                        ${isAd && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--warning); color: white; border-color: var(--warning);" ${!isEmailVerified ? 'onclick="event.preventDefault(); alert(\'Verify email first\');"' : ''}><i class="fas fa-envelope"></i> Contact</a>` : ''}
-                    </div>
             return `<div class="post-card ${post.type}" data-type="${post.type}">
                 <div class="post-header">
                     <div class="post-author"><div class="author-avatar">${initials}</div>
                         <div class="author-info"><h4>${post.authorName || 'Anonymous'}</h4><span>${timeAgo}</span></div></div>
                     <div style="display:flex;gap:0.5rem;">${isNew ? '<span class="post-badge badge-new">NEW</span>' : ''}<span class="post-badge ${badgeClass}">${badgeText}</span></div>
                 </div>
-            `;
                 <h3 class="post-title">${post.title || post.content.substr(0, 100)}</h3>
                 <p class="post-content">${post.content}</p>
                 ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
@@ -1594,11 +1003,6 @@
         }
 
         function getTimeAgo(timestamp) {
-            const seconds = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
-            if (seconds < 60) return 'Just now';
-            if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
-            if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
-            return Math.floor(seconds / 86400) + 'd ago';
             const s = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
             if (s < 60) return 'Just now';
             if (s < 3600) return Math.floor(s/60) + 'm ago';
@@ -1609,54 +1013,31 @@
         async function handleLike(btn, postId) {
             btn.classList.toggle('liked');
             const span = btn.querySelector('span');
-            const currentLikes = parseInt(span.textContent);
-            const newLikes = btn.classList.contains('liked') ? currentLikes + 1 : currentLikes - 1;
-            span.textContent = newLikes;
-            
             const cur = parseInt(span.textContent);
             span.textContent = btn.classList.contains('liked') ? cur+1 : cur-1;
+
+            // ✅ Track Like
+            trackGoatEvent('/post-liked', 'Post liked: ' + postId);
+
             try {
                 await fetch(HUB_API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'like_post',
-                        postId: postId,
-                        userEmail: currentUser?.email || 'anonymous'
-                    })
                     body: JSON.stringify({ action: 'like_post', postId, userEmail: currentUser?.email || 'anonymous' })
                 });
-            } catch (error) {
-                console.error('Like error:', error);
-            }
             } catch (error) { console.error('Like error:', error); }
         }
 
         async function startHeartbeat() {
-            const sendHeartbeat = async () => {
             const send = async () => {
                 try {
                     await fetch(HUB_API_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
                         method: 'POST', mode: 'no-cors',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            action: 'heartbeat',
-                            sessionId: sessionId,
-                            email: currentUser?.email || 'anonymous',
-                            name: currentUser?.name || 'Guest'
-                        })
                         body: JSON.stringify({ action: 'heartbeat', sessionId, email: currentUser?.email||'anonymous', name: currentUser?.name||'Guest' })
                     });
                 } catch (error) {}
             };
-            
-            await sendHeartbeat();
-            setInterval(sendHeartbeat, 30000);
-            
             await send();
             setInterval(send, 30000);
             setInterval(updateOnlineCount, 30000);
@@ -1665,12 +1046,6 @@
 
         async function updateOnlineCount() {
             try {
-                const response = await fetch(HUB_API_URL + '?action=get_online');
-                const data = await response.json();
-                if (data.result === 'success') {
-                    const count = data.count || 0;
-                    document.getElementById('onlineCount').textContent = count;
-                    document.getElementById('moreOnline').textContent = Math.max(0, count - 3);
                 const r = await fetch(HUB_API_URL + '?action=get_online');
                 const d = await r.json();
                 if (d.result === 'success') {
@@ -1682,15 +1057,9 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            const isAuthenticated = checkAuth();
             checkAuth();
             loadPosts();
             setInterval(loadPosts, 60000);
-            
-            // If user was already verified, hide register form immediately
-            if (isAuthenticated) {
-                document.getElementById('registerForm').style.display = 'none';
-            }
         });
     </script>
 </body>
