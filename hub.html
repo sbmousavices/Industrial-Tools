@@ -3,49 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Hub | Connect & Share | Behzad Mousavi</title>
-    <meta name="description" content="Join our professional community hub. Post jobs, share insights, discuss project controls, and connect with industry experts.">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Behzad Mousavi | Planning & Project Control Manager</title>
+    <meta name="description" content="Professional Planning & Project Control Manager specializing in Primavera P6, MS Project, EVM, and Risk Management. Delivering complex projects with precision and proven results.">
+    <meta name="keywords" content="Behzad Mousavi, Project Control Manager, Planning Engineer, Primavera P6, Earned Value Management, Industrial Engineering">
+    <meta name="author" content="Behzad Mousavi">
+    <meta name="robots" content="index, follow">
+    
     <!-- ✅ PWA Manifest -->
     <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
-
+    
     <!-- ✅ iOS Safari Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BM Planning">
     <link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
-
+    
     <!-- ✅ Theme Color -->
     <meta name="theme-color" content="#d4af37">
     <meta name="msapplication-TileColor" content="#d4af37">
-
+    
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Behzad Mousavi | Planning & Project Control Manager">
+    <meta property="og:description" content="Precision Planning. Powerful Control. Proven Results.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- ✅ PERSON SCHEMA MARKUP FOR SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Behzad Mousavi",
+      "jobTitle": "Planning & Project Control Manager",
+      "description": "Professional Planning & Project Control Manager with 25+ years of experience in oil & gas, EPC, and industrial projects.",
+      "url": "https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html",
+      "image": "https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg",
+      "sameAs": [
+        "https://github.com/sbmousavices",
+        "https://medium.com/@sbmousavi",
+        "https://www.instagram.com/industrial.planning.tools",
+        "https://t.me/PlanningUser",
+        "https://www.facebook.com/planninguser",
+        "https://www.reddit.com/user/planninguser",
+        "https://youtube.com/@PM.Center"
+      ],
+      "knowsAbout": [
+        "Project Controls",
+        "Primavera P6",
+        "Earned Value Management",
+        "Critical Path Method",
+        "Risk Management",
+        "EPC Planning",
+        "Schedule Delay Analysis"
+      ]
+    }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    
     <!-- ✅ Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => { console.log('ServiceWorker registered', registration.scope); })
-                    .catch(error => { console.log('ServiceWorker registration failed', error); });
+                    .then(registration => {
+                        console.log('ServiceWorker registered', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed', error);
+                    });
             });
         }
     </script>
-
+    
     <!-- ✅ GoatCounter Analytics -->
     <script data-goatcounter="https://bmousavi.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
     <script>
-        function trackGoatEvent(path, title) {
+        function trackEvent(path, title) {
             if (window.goatcounter) {
                 window.goatcounter.count({ path: path, title: title || path, event: true });
             }
         }
     </script>
-
+    
     <style>
         :root {
             --bg-primary: #0a1628;
@@ -58,15 +105,13 @@
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --info: #5B9BD5;
-            --danger: #e74c3c;
+            --hub-color: #9b59b6;
+            --hub-color-light: #bb8fce;
         }
-
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
+        
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -74,8 +119,8 @@
             line-height: 1.7;
             overflow-x: hidden;
         }
-
-        /* --- UNIFIED AUTH MODAL STYLES --- */
+        
+        /* --- AUTH MODAL STYLES --- */
         .auth-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
@@ -83,6 +128,7 @@
             opacity: 0; transition: opacity 0.3s ease;
         }
         .auth-modal-overlay.active { display: flex; opacity: 1; }
+        
         .auth-modal {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
@@ -90,12 +136,14 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.5);
         }
         .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
+        
         .auth-close {
             position: absolute; top: 1.2rem; right: 1.5rem;
             background: none; border: none; color: var(--text-secondary);
             font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
         }
         .auth-close:hover { color: var(--accent); }
+        
         .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
         .auth-tab {
             flex: 1; padding: 0.8rem; background: none; border: none;
@@ -104,9 +152,11 @@
             border-bottom: 2px solid transparent; margin-bottom: -2px;
         }
         .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        
         .auth-form { display: none; }
-        .auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
-        .auth-field { margin-bottom: 1.2rem; text-align: left; }
+        .auth-form.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .auth-field { margin-bottom: 1.2rem; }
         .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
         .auth-field input {
             width: 100%; padding: 0.85rem 1.2rem; background: var(--bg-primary);
@@ -114,6 +164,7 @@
             font-family: inherit; font-size: 1rem; transition: all 0.3s;
         }
         .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+        
         .btn-auth-submit {
             width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
             border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
@@ -121,11 +172,12 @@
         }
         .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        
         .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
-        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
-        .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
-
-        /* NAV AUTH BUTTON & DROPDOWN */
+        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid #2ecc71; color: #2ecc71; }
+        .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid #e74c3c; color: #e74c3c; }
+        
+        /* NAV AUTH BUTTON */
         .nav-auth-btn {
             padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
             font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
@@ -134,8 +186,10 @@
             font-family: inherit; text-decoration: none; white-space: nowrap;
         }
         .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
-        .nav-auth-btn.logged-in { border-color: var(--success); color: var(--success); }
+        .nav-auth-btn.logged-in { border-color: var(--success, #2ecc71); color: var(--success, #2ecc71); }
         .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
+        
+        /* USER DROPDOWN */
         .user-dropdown { position: relative; display: none; }
         .user-dropdown.active { display: inline-flex; }
         .user-menu {
@@ -144,7 +198,7 @@
             border-radius: 12px; min-width: 200px; padding: 0.5rem;
             box-shadow: var(--shadow); display: none; z-index: 1001;
         }
-        .user-menu.show { display: block; animation: fadeInAuth 0.2s ease; }
+        .user-menu.show { display: block; animation: fadeIn 0.2s ease; }
         .user-menu-item {
             display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem;
             color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
@@ -152,10 +206,12 @@
             width: 100%; font-family: inherit; text-decoration: none;
         }
         .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
-        .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+        .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: #e74c3c; }
         .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
-        @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
-
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- END AUTH STYLES --- */
+        
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
         }
@@ -164,203 +220,816 @@
         }
         .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
         .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
-
-        nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        .stats-bar {
+            position: fixed;
+            top: 65px;
+            right: max(5vw, calc((100vw - 1200px) / 2));
+            z-index: 999;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(19, 40, 71, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInRight 0.8s 0.3s forwards;
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translate(20px, -20px); }
+            to { opacity: 1; transform: translate(0, 0); }
+        }
+        
+        .stats-bar:hover {
+            background: rgba(19, 40, 71, 0.95);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .stat-item i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .stat-value {
+            color: var(--text-primary);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            min-width: 30px;
+            display: inline-block;
+        }
+        
+        .stat-separator {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+        
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+        
+        .online-dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #2ecc71;
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        
+        .stat-value { transition: transform 0.3s ease; }
+        
+        .stat-value.updated {
+            animation: counter-bump 0.5s ease;
+        }
+        
+        @keyframes counter-bump {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--accent); }
+        }
+        
+        .stat-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.9);
+            backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border);
+        }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
-        .nav-links .active { color: var(--accent); font-weight: 600; }
-
-        .page-header { padding: 9rem 5% 3rem; text-align: center; }
-        .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
-        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
-        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
-
-        .online-bar {
-            max-width: 800px; margin: 0 auto 3rem; padding: 1.5rem;
-            background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 5% 2rem; }
+        .hero-content { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero-text .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: fadeInUp 0.8s forwards; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; opacity: 0; animation: fadeInUp 0.8s 0.2s forwards; }
+        .hero-text h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-text .tagline { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; opacity: 0; animation: fadeInUp 0.8s 0.4s forwards; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeInUp 0.8s 0.6s forwards; }
+        
+        .btn { padding: 0.9rem 2rem; border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; border: none; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .btn-primary { background: var(--gradient); color: var(--bg-primary); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
+        .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+        
+        .btn-resume {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
         }
-        .online-status { display: flex; align-items: center; gap: 0.8rem; }
-        .online-dot-large {
-            width: 12px; height: 12px; background: var(--success); border-radius: 50%;
-            box-shadow: 0 0 10px var(--success); animation: pulse-dot 2s infinite;
+        .btn-resume:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.5);
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
         }
-        @keyframes pulse-dot { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
-        .online-count { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-        .online-avatars { display: flex; }
-        .avatar-small {
-            width: 35px; height: 35px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
-            font-weight: 700; color: var(--bg-primary); border: 2px solid var(--bg-card); margin-left: -10px;
+        
+        .btn-community {
+            background: linear-gradient(135deg, #5B9BD5 0%, #4A90E2 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(91, 155, 213, 0.3);
         }
-        .avatar-small:first-child { margin-left: 0; }
-
-        .hub-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
-
-        .auth-card {
-            background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
-            padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;
+        .btn-community:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(91, 155, 213, 0.5);
+            background: linear-gradient(135deg, #4A90E2 0%, #3A7BC8 100%);
         }
-        .auth-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .auth-card p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .form-group { margin-bottom: 1.2rem; text-align: left; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
-        .form-input {
-            width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
-            font-family: inherit; font-size: 1rem; transition: all 0.3s;
+        
+        .btn-hub {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
         }
-        .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        .btn-auth {
-            background: var(--gradient); color: var(--bg-primary); border: none;
-            padding: 1rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer;
-            font-family: inherit; font-size: 1rem; width: 100%; transition: all 0.3s; margin-top: 0.5rem;
+        .btn-hub:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
+            background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
         }
-        .btn-auth:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
-        .verify-section {
-            display: none; margin-top: 1.5rem; padding-top: 1.5rem;
-            border-top: 1px dashed var(--border); animation: fadeInAuth 0.5s ease;
+        
+        .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
+        .avatar-wrapper { position: relative; width: 320px; height: 320px; border-radius: 50%; background: var(--gradient); padding: 5px; animation: pulse 3s infinite; }
+        .avatar-wrapper::before { content: ''; position: absolute; inset: -15px; border-radius: 50%; border: 2px dashed var(--accent); opacity: 0.3; animation: rotate 20s linear infinite; }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+        .avatar-fallback { font-size: 7rem; color: var(--accent); display: none; }
+        
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 50% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        section { padding: 5rem 5%; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
+        
+        .about-content { max-width: 900px; margin: 0 auto; }
+        .about-text p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.9; text-align: center; }
+        
+        #skills { background: var(--bg-secondary); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .skill-card { 
+            background: var(--bg-card); 
+            padding: 1.8rem; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 1rem;
+            cursor: pointer;
+            position: relative;
         }
-        .verify-section.active { display: block; }
-
-        .post-composer {
-            background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
-            padding: 2rem; margin-bottom: 3rem;
+        .skill-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--accent); 
+            box-shadow: var(--shadow); 
         }
-        .composer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .composer-avatar {
-            width: 50px; height: 50px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-            font-weight: 700; color: var(--bg-primary);
+        .skill-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
+            z-index: 10;
         }
-        .composer-input {
-            flex: 1; background: var(--bg-primary); border: 1px solid var(--border);
-            border-radius: 12px; padding: 1rem; color: var(--text-primary); font-family: inherit;
-            font-size: 1rem; resize: vertical; min-height: 80px;
+        .skill-card.active .skill-icon {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
         }
-        .composer-input:focus { outline: none; border-color: var(--accent); }
-        .composer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 1rem; }
-        .post-types { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .post-type-btn {
-            padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border);
-            background: transparent; color: var(--text-secondary); cursor: pointer;
-            font-family: inherit; font-size: 0.85rem; transition: all 0.3s;
+        .skill-card.active h3 {
+            color: var(--accent-light);
         }
-        .post-type-btn:hover, .post-type-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(212, 175, 55, 0.1); }
-        .post-type-btn[data-type="job"].active { border-color: var(--success); color: var(--success); background: rgba(46, 204, 113, 0.1); }
-        .post-type-btn[data-type="ad"].active { border-color: var(--warning); color: var(--warning); background: rgba(243, 156, 18, 0.1); }
-        .post-type-btn[data-type="discussion"].active { border-color: var(--info); color: var(--info); background: rgba(91, 155, 213, 0.1); }
-
-        .btn-post {
-            background: var(--gradient); color: var(--bg-primary); border: none;
-            padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; cursor: pointer;
-            font-family: inherit; transition: all 0.3s;
+        .skill-icon { 
+            width: 45px; 
+            height: 45px; 
+            min-width: 45px; 
+            border-radius: 10px; 
+            background: rgba(212, 175, 55, 0.1); 
+            color: var(--accent); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-post:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-post:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .extra-fields { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .extra-fields.active { display: block; }
-        .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .field-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; }
-        .field-group input {
-            width: 100%; padding: 0.7rem 1rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: inherit;
+        .skill-card h3 { 
+            font-size: 1.1rem; 
+            margin-bottom: 0.3rem;
+            transition: color 0.3s ease;
         }
-        .field-group input:focus { outline: none; border-color: var(--accent); }
-
-        .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
-        .filter-pill {
-            padding: 0.6rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 50px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
-            cursor: pointer; transition: all 0.3s; font-family: inherit;
+        .skill-card p { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        .edu-card { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: var(--bg-card); 
+            padding: 2rem; 
+            border-radius: 15px; 
+            border: 1px solid var(--border); 
+            text-align: center; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
-        .filter-pill.active { background: var(--gradient); color: var(--bg-primary); border-color: transparent; font-weight: 600; }
-
-        .posts-grid { display: grid; gap: 1.5rem; }
-
-        .post-card {
-            background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
-            padding: 1.5rem; transition: all 0.3s; position: relative; overflow: hidden;
+        .edu-card:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-5px); 
         }
-        .post-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
-        .post-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-        .post-card.job::before { background: var(--success); }
-        .post-card.ad::before { background: var(--warning); }
-        .post-card.discussion::before { background: var(--info); }
-        .post-card.question::before { background: #9b59b6; }
-
-        .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .post-author { display: flex; align-items: center; gap: 0.8rem; }
-        .author-avatar {
-            width: 40px; height: 40px; border-radius: 50%; background: var(--gradient);
-            display: flex; align-items: center; justify-content: center; font-weight: 700;
-            color: var(--bg-primary); font-size: 0.9rem;
+        .edu-card.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
         }
-        .author-info h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
-        .author-info span { font-size: 0.8rem; color: var(--text-secondary); }
-        .post-badge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .badge-job { background: rgba(46, 204, 113, 0.2); color: var(--success); }
-        .badge-ad { background: rgba(243, 156, 18, 0.2); color: var(--warning); }
-        .badge-discussion { background: rgba(91, 155, 213, 0.2); color: var(--info); }
-        .badge-new { background: var(--accent); color: var(--bg-primary); }
-
-        .post-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3; }
-        .post-content { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
-        .post-meta { display: flex; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-secondary); flex-wrap: wrap; }
-        .post-meta-item { display: flex; align-items: center; gap: 0.4rem; }
-        .post-meta-item i { color: var(--accent); }
-
-        .post-actions { display: flex; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .action-btn {
-            display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
-            border-radius: 50px; border: 1px solid var(--border); background: transparent;
-            color: var(--text-secondary); cursor: pointer; font-family: inherit;
-            font-size: 0.85rem; transition: all 0.3s;
+        .edu-card.active .edu-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
         }
-        .action-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-        .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .action-btn.liked { background: rgba(231, 76, 60, 0.1); border-color: var(--danger); color: var(--danger); }
-        .action-btn i { font-size: 0.9rem; }
-
-        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
-        .empty-state i { font-size: 4rem; color: var(--accent); opacity: 0.5; margin-bottom: 1rem; }
-
+        .edu-card.active h3 {
+            color: var(--accent-light);
+        }
+        .edu-icon { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            background: var(--gradient); 
+            color: var(--bg-primary); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .edu-card h3 { 
+            font-size: 1.4rem; 
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .edu-card .degree { color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+        .edu-card .uni { color: var(--text-secondary); font-size: 1rem; }
+        
+        .products-cta { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            text-align: center; 
+            background: var(--bg-card); 
+            padding: 3rem 2rem; 
+            border-radius: 20px; 
+            border: 1px solid var(--border); 
+            position: relative; 
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .products-cta::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: var(--gradient);
+            transition: height 0.4s ease;
+        }
+        .products-cta:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .products-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 2px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+        }
+        .products-cta.active::before {
+            height: 6px;
+            background: linear-gradient(90deg, #d4af37, #f4d06f, #d4af37);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        .products-cta.active i {
+            transform: scale(1.15);
+            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5));
+        }
+        .products-cta.active h3 {
+            color: var(--accent-light);
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .products-cta i { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .products-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .products-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        
+        #products { background: var(--bg-primary); }
+        
+        #articles { background: var(--bg-secondary); }
+        
+        #community { background: var(--bg-primary); }
+        .community-cta { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            text-align: center; 
+            background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            padding: 3rem 2rem; 
+            border-radius: 20px; 
+            border: 2px solid var(--accent); 
+            position: relative; 
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .community-cta::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71);
+            transition: height 0.4s ease;
+        }
+        .community-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2);
+        }
+        .community-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(91, 155, 213, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(91, 155, 213, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .community-cta.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .community-cta.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6));
+        }
+        .community-cta.active h3 {
+            color: var(--accent-light);
+        }
+        .community-cta.active .community-stat-value {
+            color: var(--accent-light);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+        .community-cta i { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .community-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .community-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        .community-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .community-stat {
+            text-align: center;
+        }
+        .community-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        .community-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #hub { background: var(--bg-secondary); }
+        .hub-cta { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            text-align: center; 
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+            padding: 3rem 2rem; 
+            border-radius: 20px; 
+            border: 2px solid var(--hub-color); 
+            position: relative; 
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .hub-cta::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5);
+            transition: height 0.4s ease;
+        }
+        .hub-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2);
+        }
+        .hub-cta.active {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--hub-color-light);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        .hub-cta.active::before {
+            height: 6px;
+            animation: shimmer 2s infinite;
+        }
+        .hub-cta.active i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6));
+        }
+        .hub-cta.active h3 {
+            color: var(--hub-color-light);
+        }
+        .hub-cta.active .hub-stat-value {
+            color: var(--hub-color-light);
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        .hub-cta i { 
+            font-size: 3rem; 
+            color: var(--hub-color); 
+            margin-bottom: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        .hub-cta h3 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+        .hub-cta p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        .hub-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .hub-stat {
+            text-align: center;
+        }
+        .hub-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--hub-color);
+            transition: all 0.3s ease;
+        }
+        .hub-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .contact-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        
+        .contact-label {
+            text-align: left;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 2rem 0 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .contact-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .contact-label:first-of-type { margin-top: 0.5rem; }
+        
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 1rem; 
+        }
+        .contact-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 1rem; 
+            padding: 1.2rem 2rem; 
+            background: var(--bg-card); 
+            border-radius: 50px; 
+            border: 1px solid var(--border); 
+            text-decoration: none; 
+            color: var(--text-primary); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer;
+            justify-content: flex-start;
+            position: relative;
+        }
+        .contact-item:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-3px); 
+            box-shadow: var(--shadow); 
+        }
+        .contact-item.active {
+            transform: scale(1.05) translateY(-3px);
+            border-width: 2px;
+            z-index: 10;
+        }
+        .contact-item.active i {
+            transform: scale(1.2);
+        }
+        .contact-item.active span {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+        .contact-item i { 
+            color: var(--accent); 
+            font-size: 1.3rem; 
+            min-width: 24px;
+            transition: all 0.3s ease;
+        }
+        .contact-item span { 
+            font-weight: 500; 
+            font-size: 1rem; 
+            line-height: 1.4;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item-instagram.active {
+            border-color: #e1306c;
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.2) 0%, rgba(131, 58, 180, 0.2) 100%);
+            box-shadow: 0 15px 40px rgba(225, 48, 108, 0.35);
+        }
+        .contact-item-instagram {
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.1) 0%, rgba(131, 58, 180, 0.1) 100%);
+            border: 1px solid rgba(225, 48, 108, 0.3);
+        }
+        .contact-item-instagram:hover {
+            border-color: #e1306c;
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.15) 0%, rgba(131, 58, 180, 0.15) 100%);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+        .contact-item-instagram i {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .contact-item-telegram.active {
+            border-color: #0088cc;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, rgba(0, 136, 204, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(0, 136, 204, 0.35);
+        }
+        .contact-item-telegram {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.1) 0%, rgba(0, 136, 204, 0.05) 100%);
+            border: 1px solid rgba(0, 136, 204, 0.3);
+        }
+        .contact-item-telegram:hover {
+            border-color: #0088cc;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.15) 0%, rgba(0, 136, 204, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-telegram i { color: #0088cc; }
+        
+        .contact-item-facebook.active {
+            border-color: #3b5998;
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.2) 0%, rgba(59, 89, 152, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(59, 89, 152, 0.35);
+        }
+        .contact-item-facebook {
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.1) 0%, rgba(59, 89, 152, 0.05) 100%);
+            border: 1px solid rgba(59, 89, 152, 0.3);
+        }
+        .contact-item-facebook:hover {
+            border-color: #3b5998;
+            background: linear-gradient(135deg, rgba(59, 89, 152, 0.15) 0%, rgba(59, 89, 152, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-facebook i { color: #3b5998; }
+        
+        .contact-item-reddit.active {
+            border-color: #ff4500;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.2) 0%, rgba(255, 69, 0, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.35);
+        }
+        .contact-item-reddit {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 69, 0, 0.3);
+        }
+        .contact-item-reddit:hover {
+            border-color: #ff4500;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(255, 69, 0, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-reddit i { color: #ff4500; }
+        
+        .contact-item-medium.active {
+            border-color: #00ab00;
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.2) 0%, rgba(0, 171, 0, 0.15) 100%);
+            box-shadow: 0 15px 40px rgba(0, 171, 0, 0.35);
+        }
+        .contact-item-medium {
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.1) 0%, rgba(0, 171, 0, 0.05) 100%);
+            border: 1px solid rgba(0, 171, 0, 0.3);
+        }
+        .contact-item-medium:hover {
+            border-color: #00ab00;
+            background: linear-gradient(135deg, rgba(0, 171, 0, 0.15) 0%, rgba(0, 171, 0, 0.1) 100%);
+            box-shadow: var(--shadow);
+        }
+        .contact-item-medium i { color: #00ab00; }
+        
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
-
-        .message { padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center; }
-        .message.success { background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
-        .message.error { background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
-
-        @media (max-width: 768px) {
+        
+        .download-notification {
+            position: fixed;
+            top: 130px;
+            right: 20px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        @media (max-width: 1280px) {
+            .stats-bar { right: 5vw; }
+        }
+        
+        @media (max-width: 968px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .hero-image { order: -1; }
+            .avatar-wrapper { width: 240px; height: 240px; margin: 0 auto; }
+            .hero-buttons { justify-content: center; }
             .nav-links { display: none; }
-            .online-bar { flex-direction: column; text-align: center; }
-            .composer-actions { flex-direction: column; }
-            .post-types { width: 100%; justify-content: center; }
-            .btn-post { width: 100%; }
+            .stats-bar {
+                gap: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+                top: 60px;
+                right: 10px;
+            }
+            .stat-value { font-size: 0.9rem; }
+            .download-notification {
+                top: 110px;
+                right: 10px;
+                font-size: 0.9rem;
+                padding: 0.8rem 1.2rem;
+            }
+            .contact-grid { grid-template-columns: 1fr; }
+            .about-text p { text-align: center; }
+            .community-stats, .hub-stats { gap: 1rem; }
+            .community-stat-value, .hub-stat-value { font-size: 1.5rem; }
+            .skill-card.active, .edu-card.active, .products-cta.active, .community-cta.active, .hub-cta.active {
+                transform: scale(1.02) translateY(-3px);
+            }
+            .contact-item.active {
+                transform: scale(1.03) translateY(-2px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-bar {
+                gap: 0.7rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.7rem;
+                top: 60px;
+                right: 10px;
+                max-width: calc(100% - 20px);
+            }
+            .stat-separator { display: none; }
+            .stat-item { gap: 0.3rem; }
+            .contact-item { padding: 1rem 1.5rem; }
+            .contact-item span { font-size: 0.9rem; }
             .auth-modal { padding: 1.8rem; width: 95%; }
+        }
+        
+        @media (max-width: 360px) {
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.5rem;
+                border-radius: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="bg-shapes"></div>
-
-    <!-- ✅ UNIFIED AUTH MODAL -->
+    
+    <!-- ✅ AUTH MODAL -->
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
             <button class="auth-close" id="authClose">&times;</button>
+            
             <div class="auth-tabs">
                 <button class="auth-tab active" data-tab="signin">Sign In</button>
                 <button class="auth-tab" data-tab="signup">Sign Up</button>
             </div>
+            
+            <!-- Sign In Form -->
             <form class="auth-form active" id="signinForm">
                 <div id="signinMessage" class="auth-message"></div>
                 <div class="auth-field">
@@ -375,6 +1044,8 @@
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </button>
             </form>
+            
+            <!-- Sign Up Form -->
             <form class="auth-form" id="signupForm">
                 <div id="signupMessage" class="auth-message"></div>
                 <div class="auth-field">
@@ -395,18 +1066,46 @@
             </form>
         </div>
     </div>
-
+    
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-item" title="Total Visitors Since Launch">
+            <i class="fas fa-eye"></i>
+            <span>Visitors:</span>
+            <span class="stat-value" id="totalVisitors"><span class="stat-loading"></span></span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item" title="Currently Online">
+            <span class="online-dot"></span>
+            <span>Online:</span>
+            <span class="stat-value" id="onlineUsers"><span class="stat-loading"></span></span>
+        </div>
+        <div class="stat-separator"></div>
+        <div class="stat-item" title="Total Downloads">
+            <i class="fas fa-download"></i>
+            <span>Downloads:</span>
+            <span class="stat-value" id="totalDownloads"><span class="stat-loading"></span></span>
+        </div>
+    </div>
+    
+    <div class="download-notification" id="downloadNotification">
+        <i class="fas fa-download"></i>
+        <span>Downloading...</span>
+    </div>
+    
     <nav>
         <div class="nav-container">
-            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
+            <a href="#" class="logo">Home</a>
             <ul class="nav-links">
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#about">About</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#skills">Expertise</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
-                <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-                <li><a href="Hub.html" class="active">Hub</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Expertise</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="https://sbmousavices.github.io/Articles/index.html">Articles</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
+                <li><a href="#contact">Contact</a></li>
+                
+                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
                         <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
@@ -419,8 +1118,8 @@
                             <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="user-menu-item">
                                 <i class="fas fa-users"></i> My Community
                             </a>
-                            <a href="https://sbmousavices.github.io/Industrial-Tools/" class="user-menu-item">
-                                <i class="fas fa-box-open"></i> Products
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+                                <i class="fas fa-comments"></i> Go to Hub
                             </a>
                             <div class="user-menu-divider"></div>
                             <button class="user-menu-item danger" id="btnLogout">
@@ -432,634 +1131,794 @@
             </ul>
         </div>
     </nav>
-
-    <section class="page-header">
-        <p class="greeting">Welcome to the Hub</p>
-        <h1>Community <span>Hub</span></h1>
-        <p class="tagline">Connect with industry professionals, share opportunities, discuss best practices, and grow together.</p>
-    </section>
-
-    <section class="hub-container">
-        <div class="online-bar">
-            <div class="online-status">
-                <div class="online-dot-large"></div>
-                <span><span class="online-count" id="onlineCount">0</span> members online now</span>
-            </div>
-            <div class="online-avatars" id="onlineAvatars">
-                <div class="avatar-small">BM</div>
-                <div class="avatar-small">AK</div>
-                <div class="avatar-small">SM</div>
-                <div class="avatar-small">+<span id="moreOnline">0</span></div>
-            </div>
-        </div>
-
-        <div id="authSection">
-            <div class="auth-card" id="registerForm">
-                <i class="fas fa-user-plus" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3>Join Community</h3>
-                <p>Verify your email to unlock posting, liking, and following features.</p>
-                <div class="form-group">
-                    <label for="regName">Full Name</label>
-                    <input type="text" id="regName" class="form-input" placeholder="e.g. Behzad Mousavi">
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email Address</label>
-                    <input type="email" id="regEmail" class="form-input" placeholder="name@company.com">
-                </div>
-                <button class="btn-auth" id="btnSendCode">
-                    <i class="fas fa-paper-plane"></i> Send Verification Code
-                </button>
-                <div id="sendCodeMessage"></div>
-                <div class="verify-section" id="verifyBox">
-                    <label for="verifyCode" style="display:block; margin-bottom:0.5rem; color:var(--accent); font-weight:600;">Enter 6-Digit Code</label>
-                    <input type="text" id="verifyCode" class="form-input" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:5px; font-size:1.5rem; margin-bottom:1rem;">
-                    <button class="btn-auth" id="btnVerify" style="background: var(--success); color: white;">
-                        <i class="fas fa-check-circle"></i> Verify & Activate
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="greeting">Professional Portfolio</p>
+                <h1>Behzad <span>Mousavi</span></h1>
+                <p class="tagline">Planning & Project Control Manager<br>Precision Planning. Powerful Control. Proven Results.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-resume" onclick="downloadResume()">
+                        <i class="fas fa-file-pdf"></i> Download Resume
                     </button>
-                    <div id="verifyMessage"></div>
+                    <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary">
+                        <i class="fas fa-box-open"></i> View Products
+                    </a>
+                    <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn btn-community">
+                        <i class="fas fa-users"></i> Join Community
+                    </a>
+                    <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn btn-hub">
+                        <i class="fas fa-comments"></i> Community Hub
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <i class="fas fa-envelope"></i> Get in Touch
+                    </a>
                 </div>
             </div>
-
-            <div class="post-composer" id="postComposer" style="display: none;">
-                <div class="composer-header">
-                    <div class="composer-avatar" id="composerAvatar">?</div>
-                    <textarea class="composer-input" id="postContent" placeholder="What's on your mind? Share a job opportunity, ask a question, or start a discussion..."></textarea>
-                </div>
-                <div class="extra-fields" id="jobFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Job Title *</label><input type="text" id="jobTitle" placeholder="Senior Planning Engineer"></div>
-                        <div class="field-group"><label>Company</label><input type="text" id="jobCompany" placeholder="ABC Engineering"></div>
+            <div class="hero-image">
+                <div class="avatar-wrapper">
+                    <div class="avatar">
+                        <img src="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg" 
+                             alt="Behzad Mousavi - Planning & Project Control Manager" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'; console.log('Image failed to load');">
+                        <i class="fas fa-user-tie avatar-fallback"></i>
                     </div>
-                    <div class="field-row">
-                        <div class="field-group"><label>Location</label><input type="text" id="jobLocation" placeholder="Dubai, UAE"></div>
-                        <div class="field-group"><label>Salary Range</label><input type="text" id="jobSalary" placeholder="$8,000-12,000/month"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Email</label><input type="email" id="jobContact" placeholder="hr@company.com"></div>
                 </div>
-                <div class="extra-fields" id="adFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Item/Service Title *</label><input type="text" id="adTitle" placeholder="Primavera P6 License"></div>
-                        <div class="field-group"><label>Price</label><input type="text" id="adPrice" placeholder="$500 OBO"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Info</label><input type="text" id="adContact" placeholder="Email or phone"></div>
-                </div>
-                <div class="composer-actions">
-                    <div class="post-types">
-                        <button class="post-type-btn active" data-type="discussion">💬 Discussion</button>
-                        <button class="post-type-btn" data-type="job">💼 Job</button>
-                        <button class="post-type-btn" data-type="ad">🛒 Ad</button>
-                        <button class="post-type-btn" data-type="question">❓ Question</button>
-                    </div>
-                    <button class="btn-post" id="submitPost" disabled><i class="fas fa-paper-plane"></i> Post</button>
-                </div>
-                <div id="postMessage"></div>
-            </div>
-        </div>
-
-        <div class="filter-bar">
-            <button class="filter-pill active" data-filter="all">All Posts</button>
-            <button class="filter-pill" data-filter="job">💼 Jobs</button>
-            <button class="filter-pill" data-filter="ad">🛒 Ads</button>
-            <button class="filter-pill" data-filter="discussion">💬 Discussions</button>
-            <button class="filter-pill" data-filter="question">❓ Questions</button>
-        </div>
-
-        <div class="posts-grid" id="postsGrid">
-            <div class="empty-state">
-                <i class="fas fa-comments"></i>
-                <h3>No posts yet</h3>
-                <p>Be the first to share something with the community!</p>
             </div>
         </div>
     </section>
-
+    
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">About Me</p>
+                <h2 class="section-title">Driving Project <span>Excellence</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p>As a dedicated Planning and Project Control Manager with a Master of Science in Industrial Engineering, I specialize in transforming complex project requirements into structured, achievable milestones.</p>
+                    <p>My expertise lies in leveraging advanced scheduling tools and analytical methodologies to ensure projects are delivered on time, within scope, and under budget. I am committed to driving operational excellence through meticulous Earned Value Management, risk mitigation, and resource optimization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Core Competencies</p>
+                <h2 class="section-title">Technical <span>Expertise</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div>
+                        <h3>Primavera P6</h3>
+                        <p>Advanced scheduling, resource loading, and baseline management.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-tasks"></i></div>
+                    <div>
+                        <h3>MS Project</h3>
+                        <p>Comprehensive project planning and tracking for mid-to-large scale projects.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div>
+                        <h3>Earned Value Management</h3>
+                        <p>Performance measurement, CPI/SPI analysis, and forecasting.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h3>Risk Management</h3>
+                        <p>Quantitative and qualitative risk analysis, mitigation planning.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-wave-square"></i></div>
+                    <div>
+                        <h3>S-Curve Analysis</h3>
+                        <p>Progress tracking, manpower histograms, and cash flow analysis.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-balance-scale"></i></div>
+                    <div>
+                        <h3>Resource Leveling</h3>
+                        <p>Optimizing resource allocation to prevent bottlenecks and overallocation.</p>
+                    </div>
+                </div>
+                <div class="skill-card reveal" data-interactive>
+                    <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
+                    <div>
+                        <h3>CPM Management</h3>
+                        <p>Critical Path Method analysis, float management, and schedule optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Academic Background</p>
+                <h2 class="section-title">Education & <span>Credentials</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="edu-card reveal" data-interactive>
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Master of Science (M.Sc.)</h3>
+                <p class="degree">Industrial Engineering</p>
+                <p class="uni">Specialized in Project Planning, Optimization, and Systems Analysis</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="products">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Resources & Tools</p>
+                <h2 class="section-title">Professional <span>Products</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="products-cta reveal" data-interactive>
+                <i class="fas fa-box-open"></i>
+                <h3>Explore My Products & Templates</h3>
+                <p>Access professional project planning templates, specialized tools, and educational resources designed to streamline your project control processes. From WBS tools to EVMS dashboards and EOT claim support.</p>
+                <a href="https://sbmousavices.github.io/Industrial-Tools/" class="btn btn-primary" onclick="event.stopPropagation()">
+                    <i class="fas fa-external-link-alt"></i> View Products Catalog
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="articles">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Knowledge Sharing</p>
+                <h2 class="section-title">Professional <span>Articles</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="products-cta reveal" data-interactive>
+                <i class="fas fa-newspaper"></i>
+                <h3>Explore My Professional Articles</h3>
+                <p>In-depth guides on Primavera P6, Project Controls, EVM, Risk Management, and more. Access the complete knowledge library with downloadable PDFs and expert insights.</p>
+                <a href="https://sbmousavices.github.io/Articles/index.html" class="btn btn-primary" onclick="event.stopPropagation()">
+                    <i class="fas fa-book-reader"></i> View All Articles
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="community">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Join The Network</p>
+                <h2 class="section-title">Professional <span>Community</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="community-cta reveal" data-interactive>
+                <i class="fas fa-users"></i>
+                <h3>Connect with 500+ Industry Professionals</h3>
+                <p>Join our exclusive community of project planners and industrial engineers. Get access to free tools, real-world insights, and networking opportunities across multiple platforms.</p>
+                <div class="community-stats">
+                    <div class="community-stat">
+                        <div class="community-stat-value">500+</div>
+                        <div class="community-stat-label">Members</div>
+                    </div>
+                    <div class="community-stat">
+                        <div class="community-stat-value">6</div>
+                        <div class="community-stat-label">Platforms</div>
+                    </div>
+                    <div class="community-stat">
+                        <div class="community-stat-value">FREE</div>
+                        <div class="community-stat-label">Starter Kit</div>
+                    </div>
+                </div>
+                <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn btn-community" onclick="event.stopPropagation()">
+                    <i class="fas fa-user-plus"></i> Join Community Now
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="hub">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Interactive Platform</p>
+                <h2 class="section-title">Community <span>Hub</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="hub-cta reveal" data-interactive>
+                <i class="fas fa-comments"></i>
+                <h3>Connect, Share & Grow Together</h3>
+                <p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+                <div class="hub-stats">
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">LIVE</div>
+                        <div class="hub-stat-label">Discussions</div>
+                    </div>
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">JOBS</div>
+                        <div class="hub-stat-label">Board</div>
+                    </div>
+                    <div class="hub-stat">
+                        <div class="hub-stat-value">ADS</div>
+                        <div class="hub-stat-label">Marketplace</div>
+                    </div>
+                </div>
+                <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn btn-hub" onclick="event.stopPropagation()">
+                    <i class="fas fa-arrow-right"></i> Enter Community Hub
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Get in Touch</p>
+                <h2 class="section-title">Let's <span>Connect</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="contact-container reveal">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Ready to bring precision and control to your next project? Reach out via email or connect with me on social platforms.</p>
+                
+                <div class="contact-label">E-Mail</div>
+                <div class="contact-grid">
+                    <a href="mailto:sbmousavi@proton.me" class="contact-item" data-interactive>
+                        <i class="fas fa-envelope"></i>
+                        <span>sbmousavi@proton.me</span>
+                    </a>
+                </div>
+                
+                <div class="contact-label">Other Platforms</div>
+                <div class="contact-grid">
+                    <a href="https://www.instagram.com/industrial.planning.tools" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-instagram" data-interactive>
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@industrial.planning.tools</span>
+                    </a>
+                    <a href="https://t.me/PlanningUser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-telegram" data-interactive>
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>@PlanningUser</span>
+                    </a>
+                    <a href="https://www.facebook.com/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-facebook" data-interactive>
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>Facebook.com/<br>planninguser</span>
+                    </a>
+                    <a href="https://www.reddit.com/user/planninguser" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-reddit" data-interactive>
+                        <i class="fa-brands fa-reddit"></i>
+                        <span>u/planninguser</span>
+                    </a>
+                    <a href="https://medium.com/@sbmousavi" target="_blank" rel="noopener noreferrer" class="contact-item contact-item-medium" data-interactive>
+                        <i class="fa-brands fa-medium"></i>
+                        <span>@sbmousavi</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <footer>
-        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Community Hub</p>
+        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
     </footer>
-
+    
     <script>
-        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
-        const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
-        const COMMUNITY_STORAGE_KEY = 'community_signup_progress';
-
-        let currentUser = null;
-        let currentPostType = 'discussion';
-        let allPosts = [];
-        let currentFilter = 'all';
-        let sessionId = localStorage.getItem('hub_session_id') || generateSessionId();
-        let isEmailVerified = false;
-
-        function generateSessionId() {
-            const id = 'sess_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('hub_session_id', id);
-            return id;
+        // =============================================
+        // ✅ GOATCOUNTER CUSTOM EVENT TRACKING
+        // =============================================
+        function trackEvent(path, title) {
+            if (window.goatcounter) {
+                window.goatcounter.count({ path: path, title: title || path, event: true });
+            }
         }
-
+        
         // =============================================
-        // ✅ UNIFIED AUTH SYSTEM
+        // ✅ AUTHENTICATION SYSTEM
         // =============================================
-        function getCurrentGlobalUser() {
+        const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
+        // ✅ UPDATED API URL - New Google Apps Script
+        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
+        
+        function getCurrentUser() {
             try {
-                const saved = localStorage.getItem(GLOBAL_SESSION_KEY);
+                const saved = localStorage.getItem(AUTH_STORAGE_KEY);
                 return saved ? JSON.parse(saved) : null;
             } catch { return null; }
         }
-
-        function saveGlobalSession(user) {
-            localStorage.setItem(GLOBAL_SESSION_KEY, JSON.stringify(user));
-            updateNavAuthUI();
+        
+        function saveSession(user) {
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+            updateAuthUI();
         }
-
-        function clearAllSessions() {
-            // ✅ Track Sign Out
-            trackGoatEvent('/sign-out', 'User signed out from Hub');
-
-            localStorage.removeItem(GLOBAL_SESSION_KEY);
-            localStorage.removeItem(COMMUNITY_STORAGE_KEY);
-            currentUser = null;
-            isEmailVerified = false;
-            updateNavAuthUI();
-            document.getElementById('postComposer').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            renderPosts();
+        
+        function clearSession() {
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+            localStorage.removeItem('community_signup_progress');
+            updateAuthUI();
         }
-
-        function updateNavAuthUI() {
-            const user = getCurrentGlobalUser();
+        
+        function updateAuthUI() {
+            const user = getCurrentUser();
             const authBtn = document.getElementById('navAuthBtn');
             const userDropdown = document.getElementById('userDropdown');
             const userNameSpan = document.getElementById('navUserName');
-
+            
             if (user && user.email) {
                 authBtn.style.display = 'none';
                 userDropdown.classList.add('active');
-                userNameSpan.textContent = user.name ? user.name.split(' ')[0] : 'User';
+                const displayName = user.name ? user.name.split(' ')[0] : 'User';
+                userNameSpan.textContent = displayName;
             } else {
                 authBtn.style.display = 'inline-flex';
                 userDropdown.classList.remove('active');
                 document.getElementById('userMenu').classList.remove('show');
             }
         }
-
+        
         // Modal Controls
         const modalOverlay = document.getElementById('authModalOverlay');
+        const authClose = document.getElementById('authClose');
+        const navAuthBtn = document.getElementById('navAuthBtn');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
-
+        
         function openModal(tab = 'signin') {
             modalOverlay.classList.add('active');
             switchTab(tab);
             document.body.style.overflow = 'hidden';
         }
+        
         function closeModal() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
+        
         function switchTab(tabName) {
             authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
             authForms.forEach(f => f.classList.remove('active'));
             document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
-
-        document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
-        document.getElementById('authClose').addEventListener('click', closeModal);
+        
+        navAuthBtn.addEventListener('click', () => openModal('signin'));
+        authClose.addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-
-        document.getElementById('navUserBtn').addEventListener('click', (e) => {
+        
+        // User Dropdown Toggle
+        const navUserBtn = document.getElementById('navUserBtn');
+        const userMenu = document.getElementById('userMenu');
+        
+        navUserBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            document.getElementById('userMenu').classList.toggle('show');
+            userMenu.classList.toggle('show');
         });
+        
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
+            if (!e.target.closest('.user-dropdown')) {
+                userMenu.classList.remove('show');
+            }
         });
-
-        // Sign In via Modal
+        
+        // Sign In Handler
         document.getElementById('signinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('signinEmail').value.trim();
+            const password = document.getElementById('signinPassword').value;
             const msgDiv = document.getElementById('signinMessage');
             const btn = document.getElementById('btnSignin');
-
+            
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-
+            msgDiv.className = 'auth-message';
+            
             try {
                 await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
+                    method: 'POST',
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
+                    body: JSON.stringify({ action: 'sign_in', email, password })
                 });
-
+                
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
-                saveGlobalSession(user);
-
+                saveSession(user);
+                
                 // ✅ Track Sign In
-                trackGoatEvent('/sign-in', 'User signed in via Hub');
-
-                currentUser = user;
-                isEmailVerified = true;
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: user.name, email: user.email },
-                    emailVerified: true
-                }));
-
+                trackEvent('/sign-in', 'User signed in');
+                
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Welcome back! Unlocking Hub...';
-                setTimeout(() => { closeModal(); activateFullAccess(); }, 1000);
+                msgDiv.textContent = '✓ Welcome back!';
+                
+                setTimeout(() => {
+                    closeModal();
+                }, 1000);
+                
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Sign in failed.';
+                msgDiv.textContent = 'Sign in failed. Please try again.';
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
             }
         });
-
-        // Sign Up via Modal
+        
+        // Sign Up Handler
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
             const msgDiv = document.getElementById('signupMessage');
             const btn = document.getElementById('btnSignup');
-
-            if (document.getElementById('signupPassword').value.length < 6) {
+            
+            if (password.length < 6) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Password must be at least 6 characters.';
                 return;
             }
-
+            
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
-
+            msgDiv.className = 'auth-message';
+            
             try {
                 await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
+                    method: 'POST',
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
+                    body: JSON.stringify({ action: 'sign_up', name, email, password })
                 });
-
+                
                 const user = { email, name, loggedInAt: Date.now() };
-                saveGlobalSession(user);
-
-                // ✅ Track Sign Up
-                trackGoatEvent('/sign-up', 'New user registered via Hub');
-
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: true
+                saveSession(user);
+                
+                localStorage.setItem('community_signup_progress', JSON.stringify({
+                    formData: { name, email },
+                    emailVerified: true
                 }));
-
+                
+                // ✅ Track Sign Up
+                trackEvent('/sign-up', 'New user registered');
+                
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Account created! Redirecting...';
+                msgDiv.textContent = '✓ Account created! Redirecting to Community...';
+                
                 setTimeout(() => {
                     closeModal();
                     window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/Community.html';
                 }, 1200);
+                
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Registration failed.';
+                msgDiv.textContent = 'Registration failed. Please try again.';
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
         });
-
-        document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
-
+        
+        // Sign Out Handler
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            clearSession();
+            userMenu.classList.remove('show');
+            
+            // ✅ Track Sign Out
+            trackEvent('/sign-out', 'User signed out');
+            
+            const notification = document.getElementById('downloadNotification');
+            notification.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+            notification.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>Signed out successfully</span>';
+            notification.style.display = 'flex';
+            setTimeout(() => { 
+                notification.style.display = 'none'; 
+                notification.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+                notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
+            }, 2500);
+        });
+        
+        // Initialize Auth UI on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+        });
+        
         // =============================================
-        // HUB-SPECIFIC AUTH CHECK & VERIFICATION
+        // STATS & COUNTER SYSTEM
         // =============================================
-        function checkAuth() {
-            const globalUser = getCurrentGlobalUser();
-            if (globalUser && globalUser.email) {
-                currentUser = { email: globalUser.email, name: globalUser.name || 'User' };
-                isEmailVerified = true;
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: currentUser.name, email: currentUser.email },
-                    emailVerified: true
-                }));
-                activateFullAccess();
-                updateNavAuthUI();
-                return true;
+        const STATS_CONFIG = {
+            namespace: 'bm-portfolio-v3',
+            keys: { visitors: 'visitors', downloads: 'downloads' },
+            initialValues: { visitors: 1247, downloads: 342 }
+        };
+        
+        const COUNTER_SERVICES = [
+            { name: 'Abacus', hit: (ns, key) => `https://abacus.jasoncameron.dev/hit/${ns}/${key}`, get: (ns, key) => `https://abacus.jasoncameron.dev/get/${ns}/${key}`, add: (ns, key, amount) => `https://abacus.jasoncameron.dev/add/${ns}/${key}/${amount}`, parse: (data) => data.value },
+            { name: 'CountAPI', hit: (ns, key) => `https://api.countapi.xyz/hit/${ns}/${key}`, get: (ns, key) => `https://api.countapi.xyz/get/${ns}/${key}`, add: null, parse: (data) => data.value },
+            { name: 'CounterAPI', hit: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}/up`, get: (ns, key) => `https://api.counterapi.dev/v1/${ns}/${key}`, add: null, parse: (data) => data.count }
+        ];
+        
+        let activeService = null;
+        let localStats = { visitors: STATS_CONFIG.initialValues.visitors, downloads: STATS_CONFIG.initialValues.downloads };
+        
+        function loadLocalStats() { const saved = localStorage.getItem('bm_stats_local_v3'); if (saved) localStats = JSON.parse(saved); }
+        function saveLocalStats() { localStorage.setItem('bm_stats_local_v3', JSON.stringify(localStats)); }
+        
+        async function findWorkingService() {
+            for (const service of COUNTER_SERVICES) {
+                try {
+                    const testUrl = service.get(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors);
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 5000);
+                    const response = await fetch(testUrl, { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (response.ok) {
+                        const data = await response.json();
+                        const value = service.parse(data);
+                        if (typeof value === 'number' && !isNaN(value)) {
+                            activeService = service;
+                            console.log(`Using counter service: ${service.name}`);
+                            return true;
+                        }
+                    }
+                } catch (e) { console.log(`Service ${service.name} failed, trying next...`); continue; }
             }
-
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            if (saved) {
-                const data = JSON.parse(saved);
-                if (data.emailVerified && data.formData.email) {
-                    currentUser = { email: data.formData.email, name: data.formData.name || 'Anonymous' };
-                    isEmailVerified = true;
-                    saveGlobalSession(currentUser);
-                    activateFullAccess();
-                    return true;
-                }
-            }
-
-            updateNavAuthUI();
+            console.log('All counter services failed, using local storage');
             return false;
         }
-
-        function activateFullAccess() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('postComposer').style.display = 'block';
-            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
-            startHeartbeat();
-        }
-
-        function getInitials(name) {
-            return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
-        }
-
-        // Inline Hub Verification
-        document.getElementById('btnSendCode').addEventListener('click', async function() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const msgDiv = document.getElementById('sendCodeMessage');
-            const btn = this;
-
-            if (!name || !email) {
-                msgDiv.innerHTML = '<div class="message error">Please enter both name and email.</div>';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            msgDiv.innerHTML = '';
-
+        
+        async function initializeCounters() {
+            if (!activeService) return;
             try {
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: false
-                }));
-
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'send_verify_code', email, name })
-                });
-
-                // ✅ Track OTP Sent
-                trackGoatEvent('/otp-sent-hub', 'Verification code sent from Hub');
-
-                msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam.</div>';
-                document.getElementById('verifyBox').classList.add('active');
-                document.getElementById('verifyCode').focus();
-            } catch (error) {
-                msgDiv.innerHTML = '<div class="message error">Failed to send code.</div>';
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend Code';
-            }
-        });
-
-        document.getElementById('btnVerify').addEventListener('click', async function() {
-            const code = document.getElementById('verifyCode').value.trim();
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            const msgDiv = document.getElementById('verifyMessage');
-            const btn = this;
-
-            if (!code || code.length < 4) {
-                msgDiv.innerHTML = '<div class="message error">Please enter valid code.</div>';
-                return;
-            }
-            if (!saved) {
-                msgDiv.innerHTML = '<div class="message error">Session expired. Refresh and retry.</div>';
-                return;
-            }
-
-            const data = JSON.parse(saved);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-
-            setTimeout(() => {
-                currentUser = { email: data.formData.email, name: data.formData.name };
-                isEmailVerified = true;
-
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: data.formData, emailVerified: true
-                }));
-                saveGlobalSession(currentUser);
-
-                // ✅ Track Email Verified
-                trackGoatEvent('/email-verified-hub', 'Email verified from Hub: ' + data.formData.email);
-
-                activateFullAccess();
-            }, 1500);
-        });
-
-        // =============================================
-        // POST & INTERACTION LOGIC
-        // =============================================
-        document.querySelectorAll('.post-type-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentPostType = this.dataset.type;
-                document.getElementById('jobFields').classList.toggle('active', currentPostType === 'job');
-                document.getElementById('adFields').classList.toggle('active', currentPostType === 'ad');
-                updatePostButton();
-            });
-        });
-
-        document.getElementById('postContent').addEventListener('input', updatePostButton);
-
-        function updatePostButton() {
-            const content = document.getElementById('postContent').value.trim();
-            const btn = document.getElementById('submitPost');
-            if (!isEmailVerified) { btn.disabled = true; return; }
-            if (currentPostType === 'job') btn.disabled = !content || !document.getElementById('jobTitle').value.trim();
-            else if (currentPostType === 'ad') btn.disabled = !content || !document.getElementById('adTitle').value.trim();
-            else btn.disabled = !content;
+                const createUrls = [
+                    `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.visitors}/${STATS_CONFIG.initialValues.visitors}`,
+                    `https://abacus.jasoncameron.dev/create/${STATS_CONFIG.namespace}/${STATS_CONFIG.keys.downloads}/${STATS_CONFIG.initialValues.downloads}`
+                ];
+                for (const url of createUrls) { try { await fetch(url); } catch (e) {} }
+            } catch (e) { console.log('Counter initialization skipped'); }
         }
-
-        document.getElementById('submitPost').addEventListener('click', async function() {
-            if (!isEmailVerified) return;
-            const btn = this;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
-            btn.disabled = true;
-
-            const payload = {
-                action: 'create_post', type: currentPostType,
-                content: document.getElementById('postContent').value.trim(),
-                authorEmail: currentUser.email, authorName: currentUser.name, sessionId
-            };
-
-            if (currentPostType === 'job') {
-                payload.title = document.getElementById('jobTitle').value.trim();
-                payload.company = document.getElementById('jobCompany').value.trim();
-                payload.location = document.getElementById('jobLocation').value.trim();
-                payload.salary = document.getElementById('jobSalary').value.trim();
-                payload.contact = document.getElementById('jobContact').value.trim();
-            } else if (currentPostType === 'ad') {
-                payload.title = document.getElementById('adTitle').value.trim();
-                payload.price = document.getElementById('adPrice').value.trim();
-                payload.contact = document.getElementById('adContact').value.trim();
-            } else {
-                payload.title = document.getElementById('postContent').value.trim().split('\n')[0].substr(0, 100);
-            }
-
-            try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                // ✅ Track Post Created
-                trackGoatEvent('/post-created-' + currentPostType, 'New ' + currentPostType + ' post created');
-
-                document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post submitted!</div>';
-                document.getElementById('postContent').value = '';
-                document.getElementById('jobTitle').value = '';
-                document.getElementById('adTitle').value = '';
-
-                setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; loadPosts(); }, 2000);
-            } catch (error) {
-                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting.</div>';
-            }
-
-            btn.innerHTML = originalHTML;
-            updatePostButton();
-        });
-
-        document.querySelectorAll('.filter-pill').forEach(pill => {
-            pill.addEventListener('click', function() {
-                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-                this.classList.add('active');
-                currentFilter = this.dataset.filter;
-                renderPosts();
-            });
-        });
-
-        async function loadPosts() {
-            try {
-                const response = await fetch(HUB_API_URL + '?action=get_posts&limit=50');
-                const data = await response.json();
-                if (data.result === 'success') { allPosts = data.posts || []; renderPosts(); }
-            } catch (error) { console.error('Error loading posts:', error); }
+        
+        function estimateOnlineUsers() {
+            const hour = new Date().getHours();
+            let base = 30;
+            if (hour >= 9 && hour <= 12) base = 38;
+            else if (hour >= 14 && hour <= 18) base = 42;
+            else if (hour >= 20 && hour <= 23) base = 36;
+            else if (hour >= 0 && hour <= 6) base = 30;
+            return base + Math.floor(Math.random() * 16);
         }
-
-        function renderPosts() {
-            const grid = document.getElementById('postsGrid');
-            let filtered = currentFilter !== 'all' ? allPosts.filter(p => p.type === currentFilter) : allPosts;
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-comments"></i><h3>No posts yet</h3><p>Be the first to share something!</p></div>`;
-                return;
-            }
-
-            grid.innerHTML = filtered.map(post => createPostCard(post)).join('');
-
-            grid.querySelectorAll('.like-btn').forEach(btn => {
-                if (!isEmailVerified) btn.disabled = true;
-                btn.addEventListener('click', function() {
-                    if (!isEmailVerified) { alert('Please sign in to like posts.'); openModal('signin'); return; }
-                    handleLike(this, this.dataset.postId);
-                });
-            });
-        }
-
-        function createPostCard(post) {
-            const timeAgo = getTimeAgo(post.timestamp);
-            const initials = getInitials(post.authorName || 'Anonymous');
-
-            let badgeClass = 'badge-discussion', badgeText = 'Discussion';
-            if (post.type === 'job') { badgeClass = 'badge-job'; badgeText = 'Job'; }
-            else if (post.type === 'ad') { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
-            else if (post.type === 'question') { badgeText = 'Question'; }
-            const isNew = (Date.now() - new Date(post.timestamp).getTime()) < 86400000;
-
-            let metaHTML = '';
-            if (post.type === 'job') {
-                metaHTML = `${post.company ? `<span class="post-meta-item"><i class="fas fa-building"></i> ${post.company}</span>` : ''}
-                    ${post.location ? `<span class="post-meta-item"><i class="fas fa-map-marker-alt"></i> ${post.location}</span>` : ''}
-                    ${post.salary ? `<span class="post-meta-item"><i class="fas fa-money-bill-wave"></i> ${post.salary}</span>` : ''}`;
-            } else if (post.type === 'ad') {
-                metaHTML = `${post.price ? `<span class="post-meta-item"><i class="fas fa-tag"></i> ${post.price}</span>` : ''}`;
-            }
-
-            const dis = !isEmailVerified ? 'disabled title="Sign in to interact"' : '';
-
-            return `<div class="post-card ${post.type}" data-type="${post.type}">
-                <div class="post-header">
-                    <div class="post-author"><div class="author-avatar">${initials}</div>
-                        <div class="author-info"><h4>${post.authorName || 'Anonymous'}</h4><span>${timeAgo}</span></div></div>
-                    <div style="display:flex;gap:0.5rem;">${isNew ? '<span class="post-badge badge-new">NEW</span>' : ''}<span class="post-badge ${badgeClass}">${badgeText}</span></div>
-                </div>
-                <h3 class="post-title">${post.title || post.content.substr(0, 100)}</h3>
-                <p class="post-content">${post.content}</p>
-                ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
-                <div class="post-actions">
-                    <button class="action-btn like-btn" data-post-id="${post.id}" ${dis}><i class="fas fa-heart"></i><span>${post.likes||0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-comment"></i><span>${post.comments||0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-share"></i><span>Share</span></button>
-                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-paper-plane"></i> Apply</a>`:''}
-                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-envelope"></i> Contact</a>`:''}
-                </div></div>`;
-        }
-
-        function getTimeAgo(timestamp) {
-            const s = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
-            if (s < 60) return 'Just now';
-            if (s < 3600) return Math.floor(s/60) + 'm ago';
-            if (s < 86400) return Math.floor(s/3600) + 'h ago';
-            return Math.floor(s/86400) + 'd ago';
-        }
-
-        async function handleLike(btn, postId) {
-            btn.classList.toggle('liked');
-            const span = btn.querySelector('span');
-            const cur = parseInt(span.textContent);
-            span.textContent = btn.classList.contains('liked') ? cur+1 : cur-1;
-
-            // ✅ Track Like
-            trackGoatEvent('/post-liked', 'Post liked: ' + postId);
-
-            try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'like_post', postId, userEmail: currentUser?.email || 'anonymous' })
-                });
-            } catch (error) { console.error('Like error:', error); }
-        }
-
-        async function startHeartbeat() {
-            const send = async () => {
+        
+        async function trackVisit() {
+            const onlineCount = estimateOnlineUsers();
+            if (activeService) {
                 try {
-                    await fetch(HUB_API_URL, {
-                        method: 'POST', mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'heartbeat', sessionId, email: currentUser?.email||'anonymous', name: currentUser?.name||'Guest' })
-                    });
-                } catch (error) {}
-            };
-            await send();
-            setInterval(send, 30000);
-            setInterval(updateOnlineCount, 30000);
-            updateOnlineCount();
+                    if (activeService.add) {
+                        const url = activeService.add(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors, onlineCount);
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        const value = activeService.parse(data);
+                        if (typeof value === 'number' && !isNaN(value)) { animateCounter('totalVisitors', value); return value; }
+                    }
+                    let finalValue = 0;
+                    const batchSize = Math.min(onlineCount, 50);
+                    for (let i = 0; i < batchSize; i++) {
+                        const url = activeService.hit(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors);
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        finalValue = activeService.parse(data);
+                    }
+                    if (typeof finalValue === 'number' && !isNaN(finalValue)) { animateCounter('totalVisitors', finalValue); return finalValue; }
+                } catch (e) { console.error('Visit tracking failed:', e); }
+            }
+            localStats.visitors += onlineCount;
+            saveLocalStats();
+            animateCounter('totalVisitors', localStats.visitors);
+            return localStats.visitors;
         }
-
-        async function updateOnlineCount() {
-            try {
-                const r = await fetch(HUB_API_URL + '?action=get_online');
-                const d = await r.json();
-                if (d.result === 'success') {
-                    document.getElementById('onlineCount').textContent = d.count || 0;
-                    document.getElementById('moreOnline').textContent = Math.max(0, (d.count||0) - 3);
+        
+        async function simulateDownloads() {
+            const downloadCount = Math.floor(Math.random() * 4) + 2;
+            
+            if (activeService) {
+                try {
+                    let finalValue = 0;
+                    for (let i = 0; i < downloadCount; i++) {
+                        const url = activeService.hit(STATS_CONFIG.namespace, STATS_CONFIG.keys.downloads);
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        finalValue = activeService.parse(data);
+                    }
+                    if (typeof finalValue === 'number' && !isNaN(finalValue)) {
+                        animateCounter('totalDownloads', finalValue);
+                        return finalValue;
+                    }
+                } catch (e) {
+                    console.error('Download simulation failed:', e);
                 }
-            } catch (error) {}
+            }
+            
+            localStats.downloads += downloadCount;
+            saveLocalStats();
+            animateCounter('totalDownloads', localStats.downloads);
+            return localStats.downloads;
         }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuth();
-            loadPosts();
-            setInterval(loadPosts, 60000);
+        
+        async function trackDownload() {
+            if (activeService) {
+                try {
+                    const url = activeService.hit(STATS_CONFIG.namespace, STATS_CONFIG.keys.downloads);
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    const value = activeService.parse(data);
+                    if (typeof value === 'number' && !isNaN(value)) { animateCounter('totalDownloads', value); return value; }
+                } catch (e) { console.error('Download tracking failed:', e); }
+            }
+            localStats.downloads++;
+            saveLocalStats();
+            animateCounter('totalDownloads', localStats.downloads);
+            return localStats.downloads;
+        }
+        
+        async function getVisitorCount() {
+            if (activeService) {
+                try {
+                    const url = activeService.get(STATS_CONFIG.namespace, STATS_CONFIG.keys.visitors);
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    const value = activeService.parse(data);
+                    if (typeof value === 'number' && !isNaN(value)) return value;
+                } catch (e) { console.error('Get visitor count failed:', e); }
+            }
+            return localStats.visitors;
+        }
+        
+        async function getDownloadCount() {
+            if (activeService) {
+                try {
+                    const url = activeService.get(STATS_CONFIG.namespace, STATS_CONFIG.keys.downloads);
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    const value = activeService.parse(data);
+                    if (typeof value === 'number' && !isNaN(value)) return value;
+                } catch (e) { console.error('Get download count failed:', e); }
+            }
+            return localStats.downloads;
+        }
+        
+        function updateOnlineUsers() { animateCounter('onlineUsers', estimateOnlineUsers()); }
+        
+        function animateCounter(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            const currentValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
+            if (currentValue === value) return;
+            const duration = 1000, steps = 30, increment = (value - currentValue) / steps;
+            let current = currentValue, step = 0;
+            const timer = setInterval(() => {
+                step++;
+                current += increment;
+                if (step >= steps) { current = value; clearInterval(timer); }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, duration / steps);
+            element.classList.add('updated');
+            setTimeout(() => element.classList.remove('updated'), 500);
+        }
+        
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) { nav.style.padding = '0.7rem 5%'; nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)'; }
+            else { nav.style.padding = '1rem 5%'; nav.style.boxShadow = 'none'; }
+        });
+        
+        function downloadFile(url, fileName, buttonElement, successMessage) {
+            const notification = document.getElementById('downloadNotification');
+            notification.style.display = 'flex';
+            notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
+            if (buttonElement) {
+                const originalHTML = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                buttonElement.disabled = true;
+                fetch(url)
+                    .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.blob(); })
+                    .then(blob => {
+                        const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: blob.type }));
+                        const link = document.createElement('a');
+                        link.href = blobUrl; link.download = fileName;
+                        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+                        window.URL.revokeObjectURL(blobUrl);
+                        notification.innerHTML = `<i class="fas fa-check-circle"></i><span>${successMessage}</span>`;
+                        setTimeout(() => { notification.style.display = 'none'; }, 3000);
+                        buttonElement.innerHTML = originalHTML;
+                        buttonElement.disabled = false;
+                        trackDownload();
+                        
+                        // ✅ Track Resume Download
+                        if (fileName.includes('Resume')) {
+                            trackEvent('/resume-download', 'Resume downloaded');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Download error:', error);
+                        window.open(url, '_blank');
+                        notification.innerHTML = '<i class="fas fa-info-circle"></i><span>Opened in new tab</span>';
+                        setTimeout(() => { notification.style.display = 'none'; }, 3000);
+                        buttonElement.innerHTML = originalHTML;
+                        buttonElement.disabled = false;
+                        trackDownload();
+                    });
+            }
+        }
+        
+        function downloadResume() {
+            downloadFile('https://sbmousavices.github.io/Industrial-Tools/Resume.pdf', 'Behzad_Mousavi_Resume.pdf', event.target.closest('button'), 'Resume Downloaded!');
+        }
+        
+        document.querySelectorAll('[data-interactive]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                const wasActive = this.classList.contains('active');
+                
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    if (el !== this) el.classList.remove('active');
+                });
+                
+                this.classList.toggle('active');
+                
+                if (!wasActive) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('[data-interactive]')) {
+                document.querySelectorAll('[data-interactive].active').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            loadLocalStats();
+            await findWorkingService();
+            if (activeService) await initializeCounters();
+            
+            await trackVisit();
+            
+            const visitorCount = await getVisitorCount();
+            animateCounter('totalVisitors', visitorCount);
+            
+            const downloadCount = await getDownloadCount();
+            animateCounter('totalDownloads', downloadCount);
+            
+            updateOnlineUsers();
+            
+            setTimeout(async () => {
+                await simulateDownloads();
+            }, 2000);
+            
+            setInterval(updateOnlineUsers, 30000);
+            setInterval(async () => {
+                const visitors = await getVisitorCount();
+                const downloads = await getDownloadCount();
+                animateCounter('totalVisitors', visitors);
+                animateCounter('totalDownloads', downloads);
+            }, 60000);
         });
     </script>
 </body>
