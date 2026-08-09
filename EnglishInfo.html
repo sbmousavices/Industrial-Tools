@@ -209,6 +209,69 @@
         .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: #e74c3c; }
         .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
         
+        /* ✅ CONTACT SECTION SIGN IN BUTTON */
+        .contact-auth-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            font-family: inherit;
+            text-decoration: none;
+        }
+        .contact-auth-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+        .contact-auth-btn.logged-in {
+            border-color: var(--success, #2ecc71);
+            color: var(--success, #2ecc71);
+        }
+        .contact-auth-btn.logged-in:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success, #2ecc71);
+        }
+
+        /* ✅ FLOATING MOBILE SIGN IN BUTTON */
+        .mobile-auth-float {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .mobile-auth-float:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        .mobile-auth-float.logged-in {
+            border-color: var(--success, #2ecc71);
+            color: var(--success, #2ecc71);
+        }
+        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         /* --- END AUTH STYLES --- */
         
@@ -964,6 +1027,8 @@
             .avatar-wrapper { width: 240px; height: 240px; margin: 0 auto; }
             .hero-buttons { justify-content: center; }
             .nav-links { display: none; }
+            /* ✅ Show floating auth button on mobile */
+            .mobile-auth-float { display: inline-flex; }
             .stats-bar {
                 gap: 1rem;
                 padding: 0.5rem 1rem;
@@ -1067,6 +1132,11 @@
         </div>
     </div>
     
+    <!-- ✅ FLOATING MOBILE SIGN IN BUTTON -->
+    <button class="mobile-auth-float" id="mobileAuthFloat" onclick="openModal('signin')">
+        <i class="fas fa-user"></i> <span id="mobileAuthText">Sign In</span>
+    </button>
+    
     <div class="stats-bar" id="statsBar">
         <div class="stat-item" title="Total Visitors Since Launch">
             <i class="fas fa-eye"></i>
@@ -1105,7 +1175,7 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="#contact">Contact</a></li>
                 
-                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
+                <!-- ✅ AUTH BUTTON / USER DROPDOWN (Desktop) -->
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
                         <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
@@ -1372,6 +1442,14 @@
             <div class="contact-container reveal">
                 <p style="color: var(--text-secondary); margin-bottom: 1rem;">Ready to bring precision and control to your next project? Reach out via email or connect with me on social platforms.</p>
                 
+                <!-- ✅ SIGN IN BUTTON IN CONTACT SECTION -->
+                <div class="contact-label">Account</div>
+                <div class="contact-grid">
+                    <button class="contact-auth-btn" id="contactAuthBtn" onclick="openModal('signin')">
+                        <i class="fas fa-user"></i> <span id="contactAuthText">Sign In / Sign Up</span>
+                    </button>
+                </div>
+                
                 <div class="contact-label">E-Mail</div>
                 <div class="contact-grid">
                     <a href="mailto:sbmousavi@proton.me" class="contact-item" data-interactive>
@@ -1425,7 +1503,7 @@
         // ✅ AUTHENTICATION SYSTEM
         // =============================================
         const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
-        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
         
         function getCurrentUser() {
             try {
@@ -1450,16 +1528,39 @@
             const authBtn = document.getElementById('navAuthBtn');
             const userDropdown = document.getElementById('userDropdown');
             const userNameSpan = document.getElementById('navUserName');
+            const mobileAuthFloat = document.getElementById('mobileAuthFloat');
+            const mobileAuthText = document.getElementById('mobileAuthText');
+            const contactAuthBtn = document.getElementById('contactAuthBtn');
+            const contactAuthText = document.getElementById('contactAuthText');
             
             if (user && user.email) {
+                // Desktop nav
                 authBtn.style.display = 'none';
                 userDropdown.classList.add('active');
                 const displayName = user.name ? user.name.split(' ')[0] : 'User';
                 userNameSpan.textContent = displayName;
+                // Mobile float
+                mobileAuthFloat.classList.add('logged-in');
+                mobileAuthText.textContent = displayName;
+                // Contact section
+                contactAuthBtn.classList.add('logged-in');
+                contactAuthText.textContent = '✓ Signed in as ' + displayName;
+                contactAuthBtn.onclick = function() {
+                    document.getElementById('userMenu').classList.toggle('show');
+                };
             } else {
+                // Desktop nav
                 authBtn.style.display = 'inline-flex';
                 userDropdown.classList.remove('active');
                 document.getElementById('userMenu').classList.remove('show');
+                // Mobile float
+                mobileAuthFloat.classList.remove('logged-in');
+                mobileAuthText.textContent = 'Sign In';
+                mobileAuthFloat.onclick = function() { openModal('signin'); };
+                // Contact section
+                contactAuthBtn.classList.remove('logged-in');
+                contactAuthText.textContent = 'Sign In / Sign Up';
+                contactAuthBtn.onclick = function() { openModal('signin'); };
             }
         }
         
@@ -1532,7 +1633,6 @@
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveSession(user);
                 
-                // ✅ Track Sign In
                 trackEvent('/sign-in', 'User signed in');
                 
                 msgDiv.className = 'auth-message success';
@@ -1586,7 +1686,6 @@
                     emailVerified: true
                 }));
                 
-                // ✅ Track Sign Up
                 trackEvent('/sign-up', 'New user registered');
                 
                 msgDiv.className = 'auth-message success';
@@ -1611,7 +1710,6 @@
             clearSession();
             userMenu.classList.remove('show');
             
-            // ✅ Track Sign Out
             trackEvent('/sign-out', 'User signed out');
             
             const notification = document.getElementById('downloadNotification');
@@ -1845,7 +1943,6 @@
                         buttonElement.disabled = false;
                         trackDownload();
                         
-                        // ✅ Track Resume Download
                         if (fileName.includes('Resume')) {
                             trackEvent('/resume-download', 'Resume downloaded');
                         }
