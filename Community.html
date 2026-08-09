@@ -1061,7 +1061,8 @@
     </footer>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRtM6t2abe0VRL7AlbwkOj5qAO09uaDtYQDVG0cYfcYPK4kA162FXxsUhqvgea0_gjCA/exec';
+        // ✅ UPDATED API URL - New Google Apps Script
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
         const DOWNLOAD_LINK = 'https://sbmousavices.github.io/Industrial-Tools/Community.rar';
         const STORAGE_KEY = 'community_signup_progress';
         const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
@@ -1143,7 +1144,6 @@
             localStorage.removeItem(GLOBAL_SESSION_KEY);
             localStorage.removeItem(STORAGE_KEY);
             
-            // ✅ Track Sign Out
             trackGoatEvent('/sign-out', 'User signed out');
             
             location.reload();
@@ -1221,10 +1221,8 @@
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveGlobalSession(user);
                 
-                // ✅ Track Sign In
                 trackGoatEvent('/sign-in', 'User signed in');
                 
-                // Pre-fill community form
                 state.formData.email = email;
                 state.formData.name = user.name;
                 state.emailVerified = true;
@@ -1270,7 +1268,6 @@
                 const user = { email, name, loggedInAt: Date.now() };
                 saveGlobalSession(user);
                 
-                // ✅ Track Sign Up
                 trackGoatEvent('/sign-up', 'New user registered');
                 
                 state.formData.email = email;
@@ -1442,7 +1439,6 @@
                 verifyBtn.textContent = '✓ Email Verified';
                 formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
                 
-                // ✅ Track Email Verified
                 trackGoatEvent('/email-verified', 'Email verified: ' + state.formData.email);
                 
                 trackEvent('email_verified', { email: state.formData.email });
@@ -1468,7 +1464,6 @@
                 state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
                 saveState();
                 
-                // ✅ Track OTP Sent
                 trackGoatEvent('/otp-sent', 'OTP sent to: ' + state.formData.email);
                 
                 trackEvent('otp_sent', { email: state.formData.email });
@@ -1506,7 +1501,6 @@
                 state.platforms[platform].opened = true;
                 saveState();
                 
-                // ✅ Track Follow Click
                 trackGoatEvent('/follow-click-' + platform, 'Clicked follow: ' + platform);
                 
                 trackEvent('platform_clicked', { platform });
@@ -1533,7 +1527,6 @@
                 state.platforms[platform].confirmed = true;
                 saveState();
                 
-                // ✅ Track Follow Confirmed
                 trackGoatEvent('/follow-confirmed-' + platform, 'Confirmed follow: ' + platform);
                 
                 trackEvent('platform_confirmed', { platform });
@@ -1551,7 +1544,6 @@
             if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
                 showDownloadSection(false);
                 
-                // ✅ Track Download Unlocked
                 trackGoatEvent('/download-unlocked', 'Download unlocked: ' + state.formData.email);
                 
                 trackEvent('download_unlocked', { email: state.formData.email, abVariant: state.abVariant });
