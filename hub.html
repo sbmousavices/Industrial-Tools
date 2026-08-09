@@ -150,6 +150,87 @@
         
         .hub-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
         
+        /* --- NEW AUTH FORM STYLES --- */
+        .auth-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        .auth-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        .auth-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        .btn-auth {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        .btn-auth:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        .btn-auth:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .verify-section {
+            display: none; /* Hidden initially until code sent */
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--border);
+            animation: fadeIn 0.5s ease;
+        }
+        .verify-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* --- END NEW AUTH STYLES --- */
+
         .post-composer {
             background: var(--bg-card);
             border-radius: 20px;
@@ -235,7 +316,7 @@
             font-family: inherit;
             transition: all 0.3s;
         }
-        .btn-post:hover {
+        .btn-post:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
         }
@@ -420,9 +501,13 @@
             font-size: 0.85rem;
             transition: all 0.3s;
         }
-        .action-btn:hover {
+        .action-btn:hover:not(:disabled) {
             border-color: var(--accent);
             color: var(--accent);
+        }
+        .action-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
         .action-btn.liked {
             background: rgba(231, 76, 60, 0.1);
@@ -441,45 +526,6 @@
             color: var(--accent);
             opacity: 0.5;
             margin-bottom: 1rem;
-        }
-        
-        .login-prompt {
-            background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
-            border: 2px dashed var(--accent);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin: 2rem 0;
-        }
-        .login-prompt i {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-        .login-prompt h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .login-prompt p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-        .btn-login {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-        }
-        .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
         }
         
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
@@ -541,16 +587,40 @@
             </div>
         </div>
         
+        <!-- ✅ NEW INTEGRATED AUTH SECTION -->
         <div id="authSection">
-            <div class="login-prompt" id="loginPrompt">
-                <i class="fas fa-lock"></i>
-                <h3>Join the Conversation</h3>
-                <p>Sign in to post jobs, share insights, and connect with the community.</p>
-                <a href="Community.html" class="btn-login">
-                    <i class="fas fa-sign-in-alt"></i> Sign In / Register
-                </a>
+            <!-- Registration / Verification Form (Visible Initially) -->
+            <div class="auth-card" id="registerForm">
+                <i class="fas fa-user-plus" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Join Community</h3>
+                <p>Verify your email to unlock posting, liking, and following features.</p>
+                
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" class="form-input" placeholder="e.g. Behzad Mousavi">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" class="form-input" placeholder="name@company.com">
+                </div>
+                
+                <button class="btn-auth" id="btnSendCode">
+                    <i class="fas fa-paper-plane"></i> Send Verification Code
+                </button>
+                <div id="sendCodeMessage"></div>
+
+                <!-- Verification Box (Always Visible Structure, Content Toggles) -->
+                <div class="verify-section" id="verifyBox">
+                    <label for="verifyCode" style="display:block; margin-bottom:0.5rem; color:var(--accent); font-weight:600;">Enter 6-Digit Code</label>
+                    <input type="text" id="verifyCode" class="form-input" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:5px; font-size:1.5rem; margin-bottom:1rem;">
+                    <button class="btn-auth" id="btnVerify" style="background: var(--success); color: white;">
+                        <i class="fas fa-check-circle"></i> Verify & Activate
+                    </button>
+                    <div id="verifyMessage"></div>
+                </div>
             </div>
             
+            <!-- Post Composer (Hidden until verified) -->
             <div class="post-composer" id="postComposer" style="display: none;">
                 <div class="composer-header">
                     <div class="composer-avatar" id="composerAvatar">?</div>
@@ -646,6 +716,7 @@
         let allPosts = [];
         let currentFilter = 'all';
         let sessionId = localStorage.getItem('hub_session_id') || generateSessionId();
+        let isEmailVerified = false; // Global flag for UI state
         
         function generateSessionId() {
             const id = 'sess_' + Math.random().toString(36).substr(2, 9);
@@ -653,6 +724,7 @@
             return id;
         }
         
+        // ✅ CHECK AUTH STATUS ON LOAD
         function checkAuth() {
             const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
             if (saved) {
@@ -662,20 +734,122 @@
                         email: data.formData.email,
                         name: data.formData.name || 'Anonymous'
                     };
-                    document.getElementById('loginPrompt').style.display = 'none';
-                    document.getElementById('postComposer').style.display = 'block';
-                    document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-                    startHeartbeat();
+                    isEmailVerified = true;
+                    activateFullAccess();
                     return true;
                 }
             }
             return false;
+        }
+
+        // ✅ UNLOCK ALL FEATURES AFTER VERIFICATION
+        function activateFullAccess() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('postComposer').style.display = 'block';
+            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
+            
+            // Enable interaction buttons in existing posts
+            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
+            
+            startHeartbeat();
         }
         
         function getInitials(name) {
             return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
         }
         
+        // --- AUTHENTICATION LOGIC ---
+        document.getElementById('btnSendCode').addEventListener('click', async function() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const msgDiv = document.getElementById('sendCodeMessage');
+            const btn = this;
+
+            if (!name || !email) {
+                msgDiv.innerHTML = '<div class="message error">Please enter both name and email.</div>';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            msgDiv.innerHTML = '';
+
+            try {
+                // Save progress locally first
+                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
+                    formData: { name, email },
+                    emailVerified: false
+                }));
+
+                await fetch(HUB_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'send_verify_code', email: email, name: name })
+                });
+
+                msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam folder.</div>';
+                document.getElementById('verifyBox').classList.add('active');
+                document.getElementById('verifyCode').focus();
+                
+            } catch (error) {
+                msgDiv.innerHTML = '<div class="message error">Failed to send code. Please try again.</div>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend Code';
+            }
+        });
+
+        document.getElementById('btnVerify').addEventListener('click', async function() {
+            const code = document.getElementById('verifyCode').value.trim();
+            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
+            const msgDiv = document.getElementById('verifyMessage');
+            const btn = this;
+
+            if (!code || code.length < 4) {
+                msgDiv.innerHTML = '<div class="message error">Please enter the valid code.</div>';
+                return;
+            }
+            if (!saved) {
+                msgDiv.innerHTML = '<div class="message error">Session expired. Please refresh and try again.</div>';
+                return;
+            }
+
+            const data = JSON.parse(saved);
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+            try {
+                // Note: In a real scenario, you'd verify against the API response. 
+                // Since we use no-cors, we assume success if no network error, 
+                // OR your backend handles setting a cookie/token. 
+                // For this frontend demo, we simulate successful verification flow:
+                
+                // TODO: Replace with actual API verification call that returns success/fail
+                // const res = await fetch(...); 
+                
+                // Simulating success for UI demonstration:
+                setTimeout(() => {
+                    currentUser = { email: data.formData.email, name: data.formData.name };
+                    isEmailVerified = true;
+                    
+                    // Update local storage to verified
+                    localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
+                        formData: data.formData,
+                        emailVerified: true
+                    }));
+
+                    activateFullAccess();
+                }, 1500);
+
+            } catch (error) {
+                msgDiv.innerHTML = '<div class="message error">Invalid code or server error.</div>';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify & Activate';
+            }
+        });
+        // ----------------------------
+
         document.querySelectorAll('.post-type-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
@@ -695,6 +869,12 @@
             const content = document.getElementById('postContent').value.trim();
             const btn = document.getElementById('submitPost');
             
+            // ✅ DOUBLE CHECK: Never enable post button if not verified
+            if (!isEmailVerified) {
+                btn.disabled = true;
+                return;
+            }
+
             if (currentPostType === 'job') {
                 const title = document.getElementById('jobTitle').value.trim();
                 btn.disabled = !content || !title;
@@ -707,6 +887,8 @@
         }
         
         document.getElementById('submitPost').addEventListener('click', async function() {
+            if (!isEmailVerified) return; // Safety check
+            
             const btn = this;
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
@@ -758,7 +940,6 @@
             }
             
             btn.innerHTML = originalHTML;
-            btn.disabled = false;
             updatePostButton();
         });
         
@@ -805,8 +986,14 @@
             
             grid.innerHTML = filtered.map(post => createPostCard(post)).join('');
             
+            // ✅ ATTACH LIKE HANDLERS WITH VERIFICATION CHECK
             grid.querySelectorAll('.like-btn').forEach(btn => {
+                if (!isEmailVerified) btn.disabled = true;
                 btn.addEventListener('click', function() {
+                    if (!isEmailVerified) {
+                        alert('Please verify your email first to like posts.');
+                        return;
+                    }
                     handleLike(this, this.dataset.postId);
                 });
             });
@@ -842,6 +1029,9 @@
                 `;
             }
             
+            // ✅ DISABLE INTERACTION BUTTONS IF NOT VERIFIED
+            const disabledAttr = !isEmailVerified ? 'disabled title="Verify email to interact"' : '';
+            
             return `
                 <div class="post-card ${post.type}" data-type="${post.type}">
                     <div class="post-header">
@@ -864,20 +1054,20 @@
                     ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
                     
                     <div class="post-actions">
-                        <button class="action-btn like-btn" data-post-id="${post.id}">
+                        <button class="action-btn like-btn" data-post-id="${post.id}" ${disabledAttr}>
                             <i class="fas fa-heart"></i>
                             <span>${post.likes || 0}</span>
                         </button>
-                        <button class="action-btn">
+                        <button class="action-btn" ${disabledAttr}>
                             <i class="fas fa-comment"></i>
                             <span>${post.comments || 0}</span>
                         </button>
-                        <button class="action-btn">
+                        <button class="action-btn" ${disabledAttr}>
                             <i class="fas fa-share"></i>
                             <span>Share</span>
                         </button>
-                        ${isJob && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--success); color: white; border-color: var(--success);"><i class="fas fa-paper-plane"></i> Apply</a>` : ''}
-                        ${isAd && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--warning); color: white; border-color: var(--warning);"><i class="fas fa-envelope"></i> Contact</a>` : ''}
+                        ${isJob && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--success); color: white; border-color: var(--success);" ${!isEmailVerified ? 'onclick="event.preventDefault(); alert(\'Verify email first\');"' : ''}><i class="fas fa-paper-plane"></i> Apply</a>` : ''}
+                        ${isAd && post.contact ? `<a href="mailto:${post.contact}" class="action-btn" style="margin-left: auto; background: var(--warning); color: white; border-color: var(--warning);" ${!isEmailVerified ? 'onclick="event.preventDefault(); alert(\'Verify email first\');"' : ''}><i class="fas fa-envelope"></i> Contact</a>` : ''}
                     </div>
                 </div>
             `;
@@ -951,9 +1141,14 @@
         }
         
         document.addEventListener('DOMContentLoaded', () => {
-            checkAuth();
+            const isAuthenticated = checkAuth();
             loadPosts();
             setInterval(loadPosts, 60000);
+            
+            // If user was already verified, hide register form immediately
+            if (isAuthenticated) {
+                document.getElementById('registerForm').style.display = 'none';
+            }
         });
     </script>
 </body>
