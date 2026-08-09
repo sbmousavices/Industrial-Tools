@@ -30,6 +30,37 @@
     <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
     <meta property="og:locale" content="en_US">
     
+    <!-- ✅ PERSON SCHEMA MARKUP FOR SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Behzad Mousavi",
+      "jobTitle": "Planning & Project Control Manager",
+      "description": "Professional Planning & Project Control Manager with 25+ years of experience in oil & gas, EPC, and industrial projects.",
+      "url": "https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html",
+      "image": "https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg",
+      "sameAs": [
+        "https://github.com/sbmousavices",
+        "https://medium.com/@sbmousavi",
+        "https://www.instagram.com/industrial.planning.tools",
+        "https://t.me/PlanningUser",
+        "https://www.facebook.com/planninguser",
+        "https://www.reddit.com/user/planninguser",
+        "https://youtube.com/@PM.Center"
+      ],
+      "knowsAbout": [
+        "Project Controls",
+        "Primavera P6",
+        "Earned Value Management",
+        "Critical Path Method",
+        "Risk Management",
+        "EPC Planning",
+        "Schedule Delay Analysis"
+      ]
+    }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -1390,7 +1421,6 @@
         
         function clearSession() {
             localStorage.removeItem(AUTH_STORAGE_KEY);
-            // Also clear community signup progress to allow new registration
             localStorage.removeItem('community_signup_progress');
             updateAuthUI();
         }
@@ -1429,7 +1459,6 @@
         function closeModal() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
-            // Clear messages
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
         
@@ -1437,7 +1466,6 @@
             authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
             authForms.forEach(f => f.classList.remove('active'));
             document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
-            // Clear messages on tab switch
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
         
@@ -1481,8 +1509,6 @@
                     body: JSON.stringify({ action: 'sign_in', email, password })
                 });
                 
-                // For demo/frontend session: accept login if email is valid format
-                // In production, verify against API response
                 const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
                 saveSession(user);
                 
@@ -1491,8 +1517,6 @@
                 
                 setTimeout(() => {
                     closeModal();
-                    // Optionally redirect to hub
-                    // window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/hub.html';
                 }, 1000);
                 
             } catch (error) {
@@ -1531,11 +1555,9 @@
                     body: JSON.stringify({ action: 'sign_up', name, email, password })
                 });
                 
-                // Save session & community progress
                 const user = { email, name, loggedInAt: Date.now() };
                 saveSession(user);
                 
-                // Pre-fill community signup storage so Hub recognizes user
                 localStorage.setItem('community_signup_progress', JSON.stringify({
                     formData: { name, email },
                     emailVerified: true
@@ -1563,7 +1585,6 @@
             clearSession();
             userMenu.classList.remove('show');
             
-            // Show brief notification
             const notification = document.getElementById('downloadNotification');
             notification.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
             notification.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>Signed out successfully</span>';
@@ -1581,7 +1602,7 @@
         });
         
         // =============================================
-        // STATS & COUNTER SYSTEM (Original)
+        // STATS & COUNTER SYSTEM
         // =============================================
         const STATS_CONFIG = {
             namespace: 'bm-portfolio-v3',
