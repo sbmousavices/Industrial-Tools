@@ -12,7 +12,6 @@
     <meta name="robots" content="index, follow">
     
     <!-- ✅ CRITICAL PRELOADS FOR SPEED -->
-    <!-- FIXED: Changed Profile.webP to Profile.webp -->
     <link rel="preload" href="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.webp" as="image" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +41,6 @@
     <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html">
     <meta property="og:title" content="Behzad Mousavi | Planning & Project Control Manager">
     <meta property="og:description" content="Precision Planning. Powerful Control. Proven Results. Expert in Primavera P6, EVM, and Risk Management.">
-    <!-- FIXED: Changed Profile.webP to Profile.webp -->
     <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -54,7 +52,6 @@
     <meta name="twitter:url" content="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html">
     <meta name="twitter:title" content="Behzad Mousavi | Planning & Project Control Manager">
     <meta name="twitter:description" content="Precision Planning. Powerful Control. Proven Results.">
-    <!-- FIXED: Changed Profile.webP to Profile.webp -->
     <meta name="twitter:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.webp">
     
     <!-- ✅ PERSON SCHEMA MARKUP FOR SEO -->
@@ -1011,6 +1008,62 @@
             box-shadow: var(--shadow);
         }
         .contact-item-medium i { color: #00ab00; }
+
+        /* ✅ SHARE BUTTONS STYLES */
+        .share-section {
+            padding: 3rem 5%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .share-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .share-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        /* Brand Colors */
+        .share-linkedin { background: #0077b5; }
+        .share-telegram { background: #0088cc; }
+        .share-twitter { background: #000000; } /* X / Twitter */
+        .share-whatsapp { background: #25D366; }
+        .share-email { background: var(--accent); color: var(--bg-primary); }
+        .share-copy { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); }
+        .share-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+        @media (max-width: 480px) {
+            .share-btn { width: 45px; height: 45px; font-size: 1rem; }
+            .share-title { font-size: 1.2rem; }
+        }
         
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
@@ -1511,6 +1564,33 @@
             </div>
         </div>
     </section>
+
+    <!-- ✅ SHARE SECTION -->
+    <section class="share-section">
+        <div class="share-container reveal">
+            <h3 class="share-title">Share This Portfolio</h3>
+            <div class="share-buttons">
+                <button class="share-btn share-linkedin" onclick="shareOn('linkedin')" title="Share on LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </button>
+                <button class="share-btn share-telegram" onclick="shareOn('telegram')" title="Share on Telegram">
+                    <i class="fa-brands fa-telegram-plane"></i>
+                </button>
+                <button class="share-btn share-twitter" onclick="shareOn('twitter')" title="Share on X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </button>
+                <button class="share-btn share-whatsapp" onclick="shareOn('whatsapp')" title="Share on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </button>
+                <button class="share-btn share-email" onclick="shareOn('email')" title="Share via Email">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button class="share-btn share-copy" onclick="copyLink()" title="Copy Link">
+                    <i class="fas fa-link"></i>
+                </button>
+            </div>
+        </div>
+    </section>
     
     <footer>
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
@@ -1989,6 +2069,67 @@
         
         function downloadResume() {
             downloadFile('https://sbmousavices.github.io/Industrial-Tools/Resume.pdf', 'Behzad_Mousavi_Resume.pdf', event.target.closest('button'), 'Resume Downloaded!');
+        }
+
+        // =============================================
+        // ✅ SHARE FUNCTIONALITY
+        // =============================================
+        function shareOn(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            const text = encodeURIComponent("Check out Behzad Mousavi's Professional Portfolio - Planning & Project Control Manager");
+            
+            let shareUrl = '';
+
+            switch(platform) {
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${title}&body=${text} ${url}`;
+                    break;
+            }
+
+            if (shareUrl) {
+                if (platform === 'email') {
+                    window.location.href = shareUrl;
+                } else {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+                
+                // Track share event
+                trackEvent(`/share-${platform}`, `Shared on ${platform}`);
+            }
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                // Show feedback
+                const notification = document.getElementById('downloadNotification');
+                notification.style.background = 'linear-gradient(135deg, #d4af37 0%, #f4d06f 100%)';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i><span>Link Copied!</span>';
+                notification.style.display = 'flex';
+                
+                setTimeout(() => { 
+                    notification.style.display = 'none'; 
+                    notification.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
+                    notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
+                }, 2000);
+
+                trackEvent('/share-copy', 'Link copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         }
         
         document.querySelectorAll('[data-interactive]').forEach(element => {
