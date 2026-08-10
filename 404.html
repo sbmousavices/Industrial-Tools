@@ -1,0 +1,217 @@
+!DOCTYPE html
+html lang=en dir=ltr
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titlePage Not Found  Behzad Mousavititle
+    meta name=description content=The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+    meta name=robots content=noindex, follow
+    
+    !-- ✅ Theme Color matching main site --
+    meta name=theme-color content=#d4af37
+    
+    !-- ✅ Fonts --
+    link rel=preconnect href=httpsfonts.googleapis.com
+    link rel=preconnect href=httpsfonts.gstatic.com crossorigin
+    link href=httpsfonts.googleapis.comcss2family=Interwght@400;600;700&family=Playfair+Displaywght@700;900&display=swap rel=stylesheet
+    
+    !-- ✅ Icons --
+    link rel=stylesheet href=httpscdnjs.cloudflare.comajaxlibsfont-awesome6.5.1cssall.min.css
+    
+    style
+        root {
+            --bg-primary #0a1628;
+            --bg-secondary #0f1f38;
+            --accent #d4af37;
+            --accent-light #f4d06f;
+            --text-primary #e8eef7;
+            --text-secondary #a0aec0;
+            --gradient linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+        }
+        
+         { margin 0; padding 0; box-sizing border-box; }
+        
+        body {
+            font-family 'Inter', sans-serif;
+            background var(--bg-primary);
+            color var(--text-primary);
+            min-height 100vh;
+            display flex;
+            align-items center;
+            justify-content center;
+            overflow hidden;
+            position relative;
+        }
+        
+         Background Shapes Animation 
+        .bg-shapes {
+            position absolute;
+            top 0; left 0; width 100%; height 100%;
+            z-index -1;
+            overflow hidden;
+        }
+        .bg-shapesbefore, .bg-shapesafter {
+            content '';
+            position absolute;
+            border-radius 50%;
+            filter blur(100px);
+            opacity 0.15;
+            animation float 20s infinite ease-in-out;
+        }
+        .bg-shapesbefore {
+            width 500px; height 500px;
+            background var(--accent);
+            top -100px; right -100px;
+        }
+        .bg-shapesafter {
+            width 600px; height 600px;
+            background #4a90e2;
+            bottom -200px; left -200px;
+            animation-delay -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform translate(0, 0) scale(1); }
+            50% { transform translate(50px, 50px) scale(1.1); }
+        }
+        
+        .container {
+            text-align center;
+            padding 2rem;
+            max-width 600px;
+            z-index 1;
+            animation fadeInUp 0.8s ease forwards;
+        }
+        
+        .error-code {
+            font-family 'Playfair Display', serif;
+            font-size clamp(6rem, 15vw, 10rem);
+            font-weight 900;
+            line-height 1;
+            margin-bottom 1rem;
+            background var(--gradient);
+            -webkit-background-clip text;
+            -webkit-text-fill-color transparent;
+            background-clip text;
+            position relative;
+            display inline-block;
+        }
+        
+        .error-codeafter {
+            content '';
+            position absolute;
+            bottom 10px;
+            left 50%;
+            transform translateX(-50%);
+            width 60%;
+            height 4px;
+            background var(--gradient);
+            border-radius 2px;
+            opacity 0.5;
+        }
+        
+        h1 {
+            font-family 'Playfair Display', serif;
+            font-size clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom 1rem;
+            color var(--text-primary);
+        }
+        
+        p {
+            color var(--text-secondary);
+            font-size 1.1rem;
+            line-height 1.6;
+            margin-bottom 2.5rem;
+        }
+        
+        .btn-home {
+            display inline-flex;
+            align-items center;
+            gap 0.8rem;
+            padding 1rem 2.5rem;
+            background var(--gradient);
+            color var(--bg-primary);
+            text-decoration none;
+            font-weight 700;
+            font-size 1rem;
+            border-radius 50px;
+            transition all 0.3s ease;
+            box-shadow 0 5px 20px rgba(212, 175, 55, 0.3);
+            border none;
+            cursor pointer;
+            font-family inherit;
+        }
+        
+        .btn-homehover {
+            transform translateY(-3px);
+            box-shadow 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .btn-home i {
+            font-size 1.1rem;
+        }
+        
+        .icon-float {
+            font-size 4rem;
+            color var(--accent);
+            margin-bottom 1.5rem;
+            opacity 0.8;
+            animation pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform scale(1); opacity 0.8; }
+            50% { transform scale(1.1); opacity 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity 0; transform translateY(30px); }
+            to { opacity 1; transform translateY(0); }
+        }
+        
+         Footer 
+        footer {
+            position absolute;
+            bottom 2rem;
+            width 100%;
+            text-align center;
+            color var(--text-secondary);
+            font-size 0.85rem;
+            opacity 0.7;
+        }
+    style
+head
+body
+    div class=bg-shapesdiv
+    
+    div class=container
+        div class=icon-float
+            i class=fas fa-map-marked-alti
+        div
+        
+        div class=error-code404div
+        
+        h1Lost in the Project Planh1
+        
+        p
+            It seems this page has been moved to the critical path or doesn't exist.br
+            Don't worry, let's get you back to the baseline schedule.
+        p
+        
+        a href=httpssbmousavices.github.ioIndustrial-ToolsEnglishInfo.html class=btn-home
+            i class=fas fa-arrow-lefti Return to Home
+        a
+    div
+    
+    footer
+        &copy; 2026 Behzad Mousavi. All Rights Reserved.
+    footer
+    
+    script
+         Optional Auto redirect after 10 seconds if user does nothing
+         setTimeout(() = {
+             window.location.href = httpssbmousavices.github.ioIndustrial-ToolsEnglishInfo.html;
+         }, 10000);
+    script
+body
+html
