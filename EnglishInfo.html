@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <title>Behzad Mousavi | Planning & Project Control Manager</title>
@@ -17,20 +17,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
-    <!-- ✅ FAVICON CONFIGURATION -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/Industrial-Tools/icon-192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/Industrial-Tools/icon-192.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/Industrial-Tools/icon-192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/Industrial-Tools/icon-192.png">
-    <meta name="msapplication-TileImage" content="/Industrial-Tools/icon-192.png">
+    <!-- 🛠️ FIX #1: ABSOLUTE PATHS FOR PWA ICONS (GitHub Pages requires absolute paths) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
+    <meta name="msapplication-TileImage" content="https://sbmousavices.github.io/Industrial-Tools/icon-192.png">
     
-    <!-- ✅ PWA Manifest -->
-    <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
+    <!-- 🛠️ FIX #2: ABSOLUTE PATH FOR MANIFEST (Critical for PWA install) -->
+    <link rel="manifest" href="https://sbmousavices.github.io/Industrial-Tools/manifest.json">
     
-    <!-- ✅ iOS Safari Meta Tags -->
+    <!-- ✅ iOS Safari Meta Tags - OPTIMIZED FOR PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BM Planning">
+    <meta name="application-name" content="BM Planning">
     
     <!-- ✅ Theme Color -->
     <meta name="theme-color" content="#d4af37">
@@ -98,13 +103,22 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
     </noscript>
     
-    <!-- ✅ Service Worker Registration (Deferred) -->
+    <!-- 🛠️ FIX #3: SERVICE WORKER WITH CACHE BUSTING (Unregister old SW first) -->
     <script>
         window.addEventListener('load', () => {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => console.log('ServiceWorker registered'))
-                    .catch(error => console.log('ServiceWorker registration failed'));
+                // Unregister all existing service workers to force fresh install
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    registrations.forEach(reg => reg.unregister());
+                    console.log('Old Service Workers unregistered');
+                });
+                
+                // Register new SW with version parameter to bypass cache
+                setTimeout(() => {
+                    navigator.serviceWorker.register('https://sbmousavices.github.io/Industrial-Tools/sw.js?v=2')
+                        .then(registration => console.log('ServiceWorker registered v2'))
+                        .catch(error => console.log('ServiceWorker registration failed:', error));
+                }, 1000);
             }
         });
     </script>
@@ -127,9 +141,11 @@
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             --hub-color: #9b59b6;
             --hub-color-light: #bb8fce;
+            --success: #2ecc71;
+            --danger: #e74c3c;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         
         body {
@@ -249,10 +265,10 @@
             font-family: inherit; text-decoration: none; white-space: nowrap;
         }
         .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
-        .nav-auth-btn.logged-in { border-color: var(--success, #2ecc71); color: var(--success, #2ecc71); }
+        .nav-auth-btn.logged-in { border-color: var(--success); color: var(--success); }
         .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
         
-        /* USER DROPDOWN */
+        /* USER DROPDOWN (Desktop) */
         .user-dropdown { position: relative; display: none; }
         .user-dropdown.active { display: inline-flex; }
         .user-menu {
@@ -296,21 +312,24 @@
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
         .contact-auth-btn.logged-in {
-            border-color: var(--success, #2ecc71);
-            color: var(--success, #2ecc71);
+            border-color: var(--success);
+            color: var(--success);
         }
         .contact-auth-btn.logged-in:hover {
             background: rgba(46, 204, 113, 0.1);
-            color: var(--success, #2ecc71);
+            color: var(--success);
         }
 
-        /* ✅ FLOATING MOBILE SIGN IN BUTTON */
-        .mobile-auth-float {
+        /* ✅ FLOATING MOBILE AUTH BUTTON WITH DROPDOWN */
+        .mobile-auth-container {
             display: none;
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 999;
+        }
+        
+        .mobile-auth-float {
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
@@ -325,14 +344,41 @@
             transition: all 0.3s ease;
             align-items: center;
             gap: 0.5rem;
+            display: inline-flex;
         }
         .mobile-auth-float:hover {
             background: var(--accent);
             color: var(--bg-primary);
         }
         .mobile-auth-float.logged-in {
-            border-color: var(--success, #2ecc71);
-            color: var(--success, #2ecc71);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        /* 🛠️ FIX #4: MOBILE USER MENU - Higher z-index + touch optimization */
+        .mobile-user-menu {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            min-width: 180px;
+            padding: 0.5rem;
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 10000; /* Increased from 1000 to ensure visibility */
+        }
+        .mobile-user-menu.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+        .mobile-user-menu .user-menu-item {
+            padding: 0.6rem 0.8rem;
+            font-size: 0.85rem;
+            min-height: 44px; /* iOS minimum touch target */
+            display: flex;
+            align-items: center;
         }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -1165,7 +1211,10 @@
             .avatar-wrapper { width: 240px; height: 240px; margin: 0 auto; }
             .hero-buttons { justify-content: center; }
             .nav-links { display: none; }
-            .mobile-auth-float { display: inline-flex; }
+            
+            /* ✅ SHOW MOBILE AUTH CONTAINER */
+            .mobile-auth-container { display: block; }
+            
             .stats-bar {
                 gap: 1rem;
                 padding: 0.5rem 1rem;
@@ -1280,10 +1329,24 @@
         </div>
     </div>
     
-    <!-- ✅ FLOATING MOBILE SIGN IN BUTTON -->
-    <button class="mobile-auth-float" id="mobileAuthFloat" onclick="openModal('signin')">
-        <i class="fas fa-user"></i> <span id="mobileAuthText">Sign In</span>
-    </button>
+    <!-- ✅ FLOATING MOBILE AUTH BUTTON WITH DROPDOWN MENU -->
+    <div class="mobile-auth-container" id="mobileAuthContainer">
+        <button class="mobile-auth-float" id="mobileAuthFloat">
+            <i class="fas fa-user"></i> <span id="mobileAuthText">Sign In</span>
+        </button>
+        <div class="mobile-user-menu" id="mobileUserMenu">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="user-menu-item">
+                <i class="fas fa-users"></i> My Community
+            </a>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+                <i class="fas fa-comments"></i> Go to Hub
+            </a>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item danger" id="mobileBtnLogout">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+        </div>
+    </div>
     
     <div class="stats-bar" id="statsBar">
         <div class="stat-item" title="Total Visitors Since Launch">
@@ -1783,6 +1846,7 @@
             const userNameSpan = document.getElementById('navUserName');
             const mobileAuthFloat = document.getElementById('mobileAuthFloat');
             const mobileAuthText = document.getElementById('mobileAuthText');
+            const mobileUserMenu = document.getElementById('mobileUserMenu');
             const contactAuthBtn = document.getElementById('contactAuthBtn');
             const contactAuthText = document.getElementById('contactAuthText');
             
@@ -1792,9 +1856,22 @@
                 userDropdown.classList.add('active');
                 const displayName = user.name ? user.name.split(' ')[0] : 'User';
                 userNameSpan.textContent = displayName;
-                // Mobile float
+                
+                // Mobile float - LOGGED IN STATE
                 mobileAuthFloat.classList.add('logged-in');
                 mobileAuthText.textContent = displayName;
+                // 🛠️ FIX #5: Use touchend for mobile + click for desktop
+                mobileAuthFloat.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    mobileUserMenu.classList.toggle('show');
+                };
+                mobileAuthFloat.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    mobileUserMenu.classList.toggle('show');
+                }, { passive: false });
+                
                 // Contact section
                 contactAuthBtn.classList.add('logged-in');
                 contactAuthText.textContent = '✓ Signed in as ' + displayName;
@@ -1806,10 +1883,20 @@
                 authBtn.style.display = 'inline-flex';
                 userDropdown.classList.remove('active');
                 document.getElementById('userMenu').classList.remove('show');
-                // Mobile float
+                
+                // Mobile float - LOGGED OUT STATE
                 mobileAuthFloat.classList.remove('logged-in');
                 mobileAuthText.textContent = 'Sign In';
-                mobileAuthFloat.onclick = function() { openModal('signin'); };
+                mobileAuthFloat.onclick = function(e) {
+                    e.preventDefault();
+                    openModal('signin');
+                };
+                mobileAuthFloat.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    openModal('signin');
+                }, { passive: false });
+                mobileUserMenu.classList.remove('show');
+                
                 // Contact section
                 contactAuthBtn.classList.remove('logged-in');
                 contactAuthText.textContent = 'Sign In / Sign Up';
@@ -1848,7 +1935,7 @@
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
         
-        // User Dropdown Toggle
+        // User Dropdown Toggle (Desktop)
         const navUserBtn = document.getElementById('navUserBtn');
         const userMenu = document.getElementById('userMenu');
         
@@ -1857,11 +1944,24 @@
             userMenu.classList.toggle('show');
         });
         
+        // 🛠️ FIX #6: Close menus when clicking outside - with touch support
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.user-dropdown')) {
                 userMenu.classList.remove('show');
             }
+            if (!e.target.closest('.mobile-auth-container')) {
+                document.getElementById('mobileUserMenu').classList.remove('show');
+            }
         });
+        
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('.user-dropdown')) {
+                userMenu.classList.remove('show');
+            }
+            if (!e.target.closest('.mobile-auth-container')) {
+                document.getElementById('mobileUserMenu').classList.remove('show');
+            }
+        }, { passive: true });
         
         // Sign In Handler
         document.getElementById('signinForm').addEventListener('submit', async function(e) {
@@ -1958,10 +2058,25 @@
             }
         });
         
-        // Sign Out Handler
+        // Sign Out Handler (Desktop)
         document.getElementById('btnLogout').addEventListener('click', function() {
+            performSignOut();
+        });
+        
+        // ️ FIX #7: Sign Out Handler (Mobile) - with touch support
+        document.getElementById('mobileBtnLogout').addEventListener('click', function(e) {
+            e.preventDefault();
+            performSignOut();
+        });
+        document.getElementById('mobileBtnLogout').addEventListener('touchend', function(e) {
+            e.preventDefault();
+            performSignOut();
+        }, { passive: false });
+        
+        function performSignOut() {
             clearSession();
             userMenu.classList.remove('show');
+            document.getElementById('mobileUserMenu').classList.remove('show');
             
             trackEvent('/sign-out', 'User signed out');
             
@@ -1974,7 +2089,7 @@
                 notification.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
                 notification.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
             }, 2500);
-        });
+        }
         
         // Initialize Auth UI on Load
         document.addEventListener('DOMContentLoaded', () => {
