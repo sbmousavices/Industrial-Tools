@@ -2522,5 +2522,296 @@
             }, 60000);
         });
     </script>
+<!-- ========================================= -->
+<!-- ✅ EMAIL MARKETING LEAD CAPTURE SYSTEM    -->
+<!-- ========================================= -->
+
+<!-- Lead Magnet Styles -->
+<style>
+    /* Lead Magnet Overlay */
+    .lm-overlay {
+        position: fixed; inset: 0; background: rgba(10, 22, 40, 0.9);
+        backdrop-filter: blur(12px); z-index: 3000;
+        display: none; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.4s ease;
+    }
+    .lm-overlay.active { display: flex; opacity: 1; }
+    
+    /* Lead Magnet Card */
+    .lm-card {
+        background: var(--bg-card); border: 1px solid var(--accent);
+        border-radius: 24px; padding: 3rem 2.5rem; width: 90%; max-width: 520px;
+        position: relative; text-align: center;
+        transform: translateY(30px) scale(0.95); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.1);
+    }
+    .lm-overlay.active .lm-card { transform: translateY(0) scale(1); }
+    
+    .lm-close {
+        position: absolute; top: 1rem; right: 1.2rem;
+        background: none; border: none; color: var(--text-secondary);
+        font-size: 1.8rem; cursor: pointer; transition: all 0.3s;
+        line-height: 1; width: 40px; height: 40px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .lm-close:hover { color: var(--accent); background: rgba(212,175,55,0.1); }
+    
+    .lm-badge {
+        display: inline-block; padding: 0.4rem 1.2rem; border-radius: 50px;
+        background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(244,208,111,0.1));
+        border: 1px solid rgba(212,175,55,0.3); color: var(--accent-light);
+        font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        margin-bottom: 1.5rem;
+    }
+    
+    .lm-title {
+        font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700;
+        color: var(--text-primary); margin-bottom: 0.8rem; line-height: 1.3;
+    }
+    .lm-title span { color: var(--accent); }
+    
+    .lm-desc {
+        color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+    
+    .lm-form { display: flex; flex-direction: column; gap: 0.8rem; }
+    
+    .lm-input {
+        width: 100%; padding: 1rem 1.3rem; background: var(--bg-primary);
+        border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary);
+        font-family: inherit; font-size: 1rem; transition: all 0.3s; outline: none;
+    }
+    .lm-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+    .lm-input::placeholder { color: rgba(160,174,192,0.5); }
+    
+    .lm-submit {
+        width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
+        border: none; border-radius: 12px; font-weight: 700; font-size: 1rem;
+        cursor: pointer; transition: all 0.3s; font-family: inherit;
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .lm-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,175,55,0.4); }
+    .lm-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+    
+    .lm-privacy {
+        font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.8rem; opacity: 0.7;
+    }
+    .lm-privacy i { color: var(--success); margin-right: 4px; }
+    
+    .lm-message {
+        padding: 0.8rem; border-radius: 10px; margin-bottom: 0.8rem;
+        font-size: 0.9rem; display: none; text-align: center;
+    }
+    .lm-message.success { display: block; background: rgba(46,204,113,0.15); border: 1px solid #2ecc71; color: #2ecc71; }
+    .lm-message.error { display: block; background: rgba(231,76,60,0.15); border: 1px solid #e74c3c; color: #e74c3c; }
+    
+    /* Inline CTA in sections */
+    .lm-inline-cta {
+        max-width: 700px; margin: 3rem auto 0; text-align: center;
+        background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(244,208,111,0.03));
+        border: 1px dashed var(--border); border-radius: 16px; padding: 2rem;
+        transition: all 0.3s ease;
+    }
+    .lm-inline-cta:hover { border-color: var(--accent); border-style: solid; }
+    .lm-inline-cta h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+    .lm-inline-cta p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+    .lm-inline-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.7rem 1.8rem; border-radius: 50px; font-weight: 600;
+        font-size: 0.9rem; cursor: pointer; border: 1px solid var(--accent);
+        color: var(--accent); background: transparent; font-family: inherit;
+        transition: all 0.3s; text-decoration: none;
+    }
+    .lm-inline-btn:hover { background: var(--accent); color: var(--bg-primary); }
+    
+    @media (max-width: 480px) {
+        .lm-card { padding: 2rem 1.5rem; }
+        .lm-title { font-size: 1.4rem; }
+    }
+</style>
+
+<!-- Lead Magnet Popup -->
+<div class="lm-overlay" id="lmOverlay">
+    <div class="lm-card">
+        <button class="lm-close" id="lmClose" aria-label="Close">&times;</button>
+        
+        <div class="lm-badge"><i class="fas fa-gift"></i> Free Resource</div>
+        <h3 class="lm-title">Get the Free <span>EPC Project Control</span> Checklist</h3>
+        <p class="lm-desc">Join 500+ planning professionals. Download our comprehensive 45-point checklist used in $100M+ industrial projects. Plus weekly expert insights.</p>
+        
+        <div id="lmMessage" class="lm-message"></div>
+        
+        <form class="lm-form" id="lmForm">
+            <input type="email" class="lm-input" id="lmEmail" placeholder="Your professional email address" required autocomplete="email">
+            <button type="submit" class="lm-submit" id="lmSubmitBtn">
+                <i class="fas fa-download"></i> Get Free Checklist
+            </button>
+        </form>
+        
+        <p class="lm-privacy"><i class="fas fa-lock"></i> No spam. Unsubscribe anytime. Your data is secure.</p>
+    </div>
+</div>
+
+<!-- Inline CTA (Add this inside any section like #about or #products) -->
+<!-- Example placement: After products section -->
+<div class="lm-inline-cta reveal" id="lmInlineCta" style="display:none;">
+    <h4><i class="fas fa-envelope-open-text" style="color:var(--accent);margin-right:8px;"></i> Get Free Planning Resources</h4>
+    <p>Subscribe to receive free templates, checklists, and exclusive articles directly to your inbox.</p>
+    <button class="lm-inline-btn" onclick="openLeadMagnet()">
+        <i class="fas fa-paper-plane"></i> Subscribe & Download
+    </button>
+</div>
+
+<script>
+// =============================================
+// ✅ EMAIL LEAD CAPTURE SYSTEM
+// =============================================
+const LM_CONFIG = {
+    delayMs: 8000,           // Show after 8 seconds
+    exitIntentEnabled: true, // Show on mouse leave
+    showOncePerSession: true,
+    storageKey: 'bm_lm_dismissed',
+    apiEndpoint: 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec'
+};
+
+let lmShown = false;
+let lmTimer = null;
+
+function openLeadMagnet() {
+    const overlay = document.getElementById('lmOverlay');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('lmEmail').focus(), 400);
+}
+
+function closeLeadMagnet() {
+    const overlay = document.getElementById('lmOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (LM_CONFIG.showOncePerSession) {
+        sessionStorage.setItem(LM_CONFIG.storageKey, 'true');
+    }
+}
+
+function shouldShowLM() {
+    if (lmShown) return false;
+    if (LM_CONFIG.showOncePerSession && sessionStorage.getItem(LM_CONFIG.storageKey)) return false;
+    // Don't show if user is already logged in
+    const user = localStorage.getItem('bm_portfolio_user_session');
+    if (user) return false;
+    return true;
+}
+
+function scheduleLeadMagnet() {
+    if (!shouldShowLM()) return;
+    lmTimer = setTimeout(() => {
+        if (shouldShowLM()) {
+            openLeadMagnet();
+            lmShown = true;
+        }
+    }, LM_CONFIG.delayMs);
+}
+
+// Exit Intent Detection (Desktop only)
+function initExitIntent() {
+    if (!LM_CONFIG.exitIntentEnabled || !shouldShowLM()) return;
+    let shown = false;
+    document.addEventListener('mouseout', function(e) {
+        if (shown || !shouldShowLM()) return;
+        if (e.clientY <= 0 && e.relatedTarget == null) {
+            clearTimeout(lmTimer);
+            openLeadMagnet();
+            lmShown = true;
+            shown = true;
+        }
+    });
+}
+
+// Form Submission
+document.getElementById('lmForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('lmEmail').value.trim();
+    const msgDiv = document.getElementById('lmMessage');
+    const btn = document.getElementById('lmSubmitBtn');
+    
+    if (!email || !email.includes('@')) {
+        msgDiv.className = 'lm-message error';
+        msgDiv.textContent = 'Please enter a valid email address.';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    msgDiv.className = 'lm-message';
+    
+    try {
+        await fetch(LM_CONFIG.apiEndpoint, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                action: 'newsletter_subscribe', 
+                email: email,
+                source: 'lead_magnet_popup',
+                leadType: 'epc_checklist'
+            })
+        });
+        
+        msgDiv.className = 'lm-message success';
+        msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> Check your inbox! The checklist is on its way.';
+        btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+        
+        trackEvent('/newsletter-signup', 'Lead magnet subscribed');
+        
+        setTimeout(() => {
+            closeLeadMagnet();
+            // Reset form for next time
+            setTimeout(() => {
+                document.getElementById('lmForm').reset();
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-download"></i> Get Free Checklist';
+                msgDiv.className = 'lm-message';
+                msgDiv.textContent = '';
+            }, 500);
+        }, 2500);
+        
+    } catch (error) {
+        msgDiv.className = 'lm-message error';
+        msgDiv.textContent = 'Something went wrong. Please try again.';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-download"></i> Get Free Checklist';
+    }
+});
+
+// Close handlers
+document.getElementById('lmClose').addEventListener('click', closeLeadMagnet);
+document.getElementById('lmOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLeadMagnet();
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLeadMagnet();
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    scheduleLeadMagnet();
+    initExitIntent();
+    
+    // Show inline CTA after scroll
+    const inlineCta = document.getElementById('lmInlineCta');
+    if (inlineCta) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    inlineCta.style.display = 'block';
+                    inlineCta.classList.add('active');
+                }
+            });
+        }, { threshold: 0.2 });
+        observer.observe(inlineCta);
+    }
+});
+</script>
 </body>
 </html>
