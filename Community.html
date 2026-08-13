@@ -187,7 +187,27 @@
 
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+        
+        /* UPDATED LOGO STYLE */
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            color: var(--accent); 
+            text-decoration: none; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
         .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
@@ -846,14 +866,26 @@
 
     <nav>
         <div class="nav-container">
-            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">Home</a>
+            <!-- ✅ UPDATED HOME LINK WITH LOGO -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
+                <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="Logo" class="nav-logo-img">
+                Home
+            </a>
             <ul class="nav-links">
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#about">About</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#skills">Expertise</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                <li><a href="community.html" class="active">Community</a></li>
+                
+                <!-- ✅ UPDATED COMMUNITY LINK WITH LOGO -->
+                <li>
+                    <a href="community.html" class="active" style="display:flex; align-items:center; gap:8px;">
+                        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="Logo" class="nav-logo-img">
+                        Community
+                    </a>
+                </li>
+                
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
                 
