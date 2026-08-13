@@ -2155,55 +2155,57 @@ if(signupForm) {
 }
 
 // ✅ VERIFY CODE HANDLER
-// ✅ FIXED: VERIFY CODE HANDLER WITH IMMEDIATE UI UPDATE
 const btnVerify = document.getElementById('btnVerify');
 if(btnVerify) {
     btnVerify.addEventListener('click', function() {
-@@ -2182,23 +26,42 @@ <h3 class="share-title">Share This Portfolio</h3>
+        const inputCode = document.getElementById('verifyCode').value.trim();
+        const msgDiv = document.getElementById('verifyMessage');
+        const btn = this;
+
+        if(!tempUserData) {
+            msgDiv.className = 'auth-message error';
+            msgDiv.textContent = 'Session expired. Please sign up again.';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+        setTimeout(() => {
+            if(inputCode === tempGeneratedCode) {
+                msgDiv.className = 'auth-message success';
+                msgDiv.textContent = '✓ Email Verified! Creating account...';
+                
+                setTimeout(() => {
+                    const user = {
+                        email: tempUserData.email,
                         name: tempUserData.name,
                         loggedInAt: Date.now()
                     };
-                    
-                    // 1. Save Session
                     saveSession(user);
-                    
-                    // 2. Save Progress for Community
                     localStorage.setItem('community_signup_progress', JSON.stringify({
                         formData: { name: tempUserData.name, email: tempUserData.email },
                         emailVerified: true
                     }));
-                    
                     trackEvent('/sign-up-verified', 'New user registered & verified');
-                    
-                    // 3. 🚨 CRITICAL FIX: Force UI Update BEFORE closing modal
-                    // این خط باعث می‌شود دکمه Sign In بلافاصله به نام کاربر تغییر کند
-                    updateAuthUI(); 
-                    
-                    // 4. Close Modal
                     closeModal();
-
-                    // 5. Show Welcome Notification
+                    
                     const notif = document.getElementById('downloadNotification');
                     if(notif) {
                         notif.innerHTML = '<i class="fas fa-check-circle"></i><span>Welcome aboard!</span>';
-                        notif.innerHTML = '<i class="fas fa-check-circle"></i><span>Welcome aboard, ' + user.name.split(' ')[0] + '!</span>';
                         notif.style.display = 'flex';
                         setTimeout(() => {
                             notif.style.display = 'none';
                             notif.innerHTML = '<i class="fas fa-download"></i><span>Downloading...</span>';
                         }, 3000);
                     }
-                    
-                    // 6. 🚨 FIX: Ensure Dropdown works immediately
-                    // گاهی اوقات بعد از بسته شدن مودال، لیسنرها نیاز به ریست دارند
-                    setTimeout(() => {
-                        updateAuthUI(); // یک بار دیگر برای اطمینان کامل
-                    }, 100);
-
                 }, 1000);
             } else {
                 msgDiv.className = 'auth-message error';
-@@ -2209,364 +72,3 @@ <h3 class="share-title">Share This Portfolio</h3>
+                msgDiv.textContent = '✕ Invalid code. Please try again.';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify & Create Account';
+            }
         }, 800);
     });
 }
