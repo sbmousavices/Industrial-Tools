@@ -169,7 +169,6 @@
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         
-        /* LOGO STYLE */
         .logo { 
             font-family: 'Playfair Display', serif; 
             font-size: 1.5rem; 
@@ -221,33 +220,6 @@
         .avatar-small:first-child { margin-left: 0; }
 
         .hub-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
-
-        .auth-card {
-            background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
-            padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;
-        }
-        .auth-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
-        .auth-card p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .form-group { margin-bottom: 1.2rem; text-align: left; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
-        .form-input {
-            width: 100%; padding: 0.9rem 1.2rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
-            font-family: inherit; font-size: 1rem; transition: all 0.3s;
-        }
-        .form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        .btn-auth {
-            background: var(--gradient); color: var(--bg-primary); border: none;
-            padding: 1rem 2rem; border-radius: 50px; font-weight: 700; cursor: pointer;
-            font-family: inherit; font-size: 1rem; width: 100%; transition: all 0.3s; margin-top: 0.5rem;
-        }
-        .btn-auth:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
-        .verify-section {
-            display: none; margin-top: 1.5rem; padding-top: 1.5rem;
-            border-top: 1px dashed var(--border); animation: fadeInAuth 0.5s ease;
-        }
-        .verify-section.active { display: block; }
 
         .post-composer {
             background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border);
@@ -418,7 +390,6 @@
 
     <nav>
         <div class="nav-container">
-            <!-- ✅ HOME LINK WITH LOGO -->
             <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
                 <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="Logo" class="nav-logo-img">
                 Home
@@ -429,10 +400,7 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-                
-                <!-- ✅ HUB LINK (LOGO REMOVED) -->
                 <li><a href="Hub.html" class="active">Hub</a></li>
-                
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
@@ -481,32 +449,7 @@
         </div>
 
         <div id="authSection">
-            <div class="auth-card" id="registerForm">
-                <i class="fas fa-user-plus" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3>Join Community</h3>
-                <p>Verify your email to unlock posting, liking, and following features.</p>
-                <div class="form-group">
-                    <label for="regName">Full Name</label>
-                    <input type="text" id="regName" class="form-input" placeholder="e.g. Behzad Mousavi">
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email Address</label>
-                    <input type="email" id="regEmail" class="form-input" placeholder="name@company.com">
-                </div>
-                <button class="btn-auth" id="btnSendCode">
-                    <i class="fas fa-paper-plane"></i> Send Verification Code
-                </button>
-                <div id="sendCodeMessage"></div>
-                <div class="verify-section" id="verifyBox">
-                    <label for="verifyCode" style="display:block; margin-bottom:0.5rem; color:var(--accent); font-weight:600;">Enter 6-Digit Code</label>
-                    <input type="text" id="verifyCode" class="form-input" placeholder="000000" maxlength="6" style="text-align:center; letter-spacing:5px; font-size:1.5rem; margin-bottom:1rem;">
-                    <button class="btn-auth" id="btnVerify" style="background: var(--success); color: white;">
-                        <i class="fas fa-check-circle"></i> Verify & Activate
-                    </button>
-                    <div id="verifyMessage"></div>
-                </div>
-            </div>
-
+            <!-- Post Composer (Hidden until logged in) -->
             <div class="post-composer" id="postComposer" style="display: none;">
                 <div class="composer-header">
                     <div class="composer-avatar" id="composerAvatar">?</div>
@@ -541,6 +484,14 @@
                 </div>
                 <div id="postMessage"></div>
             </div>
+            
+            <!-- Prompt to login if not authenticated -->
+            <div class="auth-card" id="loginPrompt" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;">
+                <i class="fas fa-lock" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent);">Join the Conversation</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Sign in or create an account to post, like, and comment.</p>
+                <button class="btn-auth-submit" onclick="openModal('signin')" style="max-width: 200px; margin: 0 auto;">Sign In / Sign Up</button>
+            </div>
         </div>
 
         <div class="filter-bar">
@@ -553,9 +504,8 @@
 
         <div class="posts-grid" id="postsGrid">
             <div class="empty-state">
-                <i class="fas fa-comments"></i>
-                <h3>No posts yet</h3>
-                <p>Be the first to share something with the community!</p>
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Loading Community...</h3>
             </div>
         </div>
     </section>
@@ -564,63 +514,65 @@
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Community Hub</p>
     </footer>
 
-    <script>
-        // ✅ UPDATED API URL - New Google Apps Script
-        const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
-        const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
-        const COMMUNITY_STORAGE_KEY = 'community_signup_progress';
+    <!-- 🔥 FIREBASE SDK IMPORTS -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment, arrayUnion, arrayRemove, serverTimestamp, where, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // 🔥 FIREBASE CONFIGURATION - YOUR VALUES ALREADY INSERTED
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkgHKR08-Utf485eEVrfEoIUxosPcLlu4",
+            authDomain: "bm-hub-84230.firebaseapp.com",
+            projectId: "bm-hub-84230",
+            storageBucket: "bm-hub-84230.firebasestorage.app",
+            messagingSenderId: "200738457599",
+            appId: "1:200738457599:web:23277a9f7d0eee9bbec9ca",
+            measurementId: "G-C1M79CP9RT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global State
         let currentUser = null;
         let currentPostType = 'discussion';
         let allPosts = [];
         let currentFilter = 'all';
-        let sessionId = localStorage.getItem('hub_session_id') || generateSessionId();
-        let isEmailVerified = false;
-
-        function generateSessionId() {
-            const id = 'sess_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('hub_session_id', id);
-            return id;
-        }
 
         // =============================================
-        // ✅ UNIFIED AUTH SYSTEM
+        // AUTHENTICATION LOGIC
         // =============================================
-        function getCurrentGlobalUser() {
-            try {
-                const saved = localStorage.getItem(GLOBAL_SESSION_KEY);
-                return saved ? JSON.parse(saved) : null;
-            } catch { return null; }
-        }
-
-        function saveGlobalSession(user) {
-            localStorage.setItem(GLOBAL_SESSION_KEY, JSON.stringify(user));
+        
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || user.email.split('@')[0]
+                };
+                activateFullAccess();
+                trackGoatEvent('/sign-in', 'User active in Hub');
+            } else {
+                currentUser = null;
+                document.getElementById('postComposer').style.display = 'none';
+                document.getElementById('loginPrompt').style.display = 'block';
+                document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = true);
+            }
             updateNavAuthUI();
-        }
-
-        function clearAllSessions() {
-            trackGoatEvent('/sign-out', 'User signed out from Hub');
-
-            localStorage.removeItem(GLOBAL_SESSION_KEY);
-            localStorage.removeItem(COMMUNITY_STORAGE_KEY);
-            currentUser = null;
-            isEmailVerified = false;
-            updateNavAuthUI();
-            document.getElementById('postComposer').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            renderPosts();
-        }
+        });
 
         function updateNavAuthUI() {
-            const user = getCurrentGlobalUser();
             const authBtn = document.getElementById('navAuthBtn');
             const userDropdown = document.getElementById('userDropdown');
             const userNameSpan = document.getElementById('navUserName');
 
-            if (user && user.email) {
+            if (currentUser) {
                 authBtn.style.display = 'none';
                 userDropdown.classList.add('active');
-                userNameSpan.textContent = user.name ? user.name.split(' ')[0] : 'User';
+                userNameSpan.textContent = currentUser.name.split(' ')[0];
             } else {
                 authBtn.style.display = 'inline-flex';
                 userDropdown.classList.remove('active');
@@ -628,21 +580,35 @@
             }
         }
 
+        function activateFullAccess() {
+            document.getElementById('loginPrompt').style.display = 'none';
+            document.getElementById('postComposer').style.display = 'block';
+            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
+            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
+            startHeartbeat();
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
+        }
+
         // Modal Controls
         const modalOverlay = document.getElementById('authModalOverlay');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
 
-        function openModal(tab = 'signin') {
+        window.openModal = function(tab = 'signin') {
             modalOverlay.classList.add('active');
             switchTab(tab);
             document.body.style.overflow = 'hidden';
         }
+        
         function closeModal() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
+        
         function switchTab(tabName) {
             authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
             authForms.forEach(f => f.classList.remove('active'));
@@ -663,10 +629,11 @@
             if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
         });
 
-        // Sign In via Modal
+        // Sign In
         document.getElementById('signinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('signinEmail').value.trim();
+            const password = document.getElementById('signinPassword').value;
             const msgDiv = document.getElementById('signinMessage');
             const btn = document.getElementById('btnSignin');
 
@@ -674,45 +641,29 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
 
             try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
-                });
-
-                const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
-                saveGlobalSession(user);
-
-                trackGoatEvent('/sign-in', 'User signed in via Hub');
-
-                currentUser = user;
-                isEmailVerified = true;
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: user.name, email: user.email },
-                    emailVerified: true
-                }));
-
+                await signInWithEmailAndPassword(auth, email, password);
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Welcome back! Unlocking Hub...';
-                setTimeout(() => { closeModal(); activateFullAccess(); }, 1000);
+                msgDiv.textContent = '✓ Welcome back!';
+                setTimeout(closeModal, 1000);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Sign in failed.';
+                msgDiv.textContent = getFirebaseErrorMessage(error.code);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
             }
         });
 
-        // Sign Up via Modal
+        // Sign Up
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
             const msgDiv = document.getElementById('signupMessage');
             const btn = document.getElementById('btnSignup');
 
-            if (document.getElementById('signupPassword').value.length < 6) {
+            if (password.length < 6) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Password must be at least 6 characters.';
                 return;
@@ -722,160 +673,43 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
 
             try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
-                });
-
-                const user = { email, name, loggedInAt: Date.now() };
-                saveGlobalSession(user);
-
-                trackGoatEvent('/sign-up', 'New user registered via Hub');
-
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: true
-                }));
-
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(userCredential.user, { displayName: name });
+                
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Account created! Redirecting...';
-                setTimeout(() => {
-                    closeModal();
-                    window.location.href = 'https://sbmousavices.github.io/Industrial-Tools/Community.html';
-                }, 1200);
+                msgDiv.textContent = '✓ Account created!';
+                setTimeout(closeModal, 1000);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Registration failed.';
+                msgDiv.textContent = getFirebaseErrorMessage(error.code);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
         });
 
-        document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
-
-        // =============================================
-        // HUB-SPECIFIC AUTH CHECK & VERIFICATION
-        // =============================================
-        function checkAuth() {
-            const globalUser = getCurrentGlobalUser();
-            if (globalUser && globalUser.email) {
-                currentUser = { email: globalUser.email, name: globalUser.name || 'User' };
-                isEmailVerified = true;
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name: currentUser.name, email: currentUser.email },
-                    emailVerified: true
-                }));
-                activateFullAccess();
-                updateNavAuthUI();
-                return true;
-            }
-
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            if (saved) {
-                const data = JSON.parse(saved);
-                if (data.emailVerified && data.formData.email) {
-                    currentUser = { email: data.formData.email, name: data.formData.name || 'Anonymous' };
-                    isEmailVerified = true;
-                    saveGlobalSession(currentUser);
-                    activateFullAccess();
-                    return true;
-                }
-            }
-
-            updateNavAuthUI();
-            return false;
-        }
-
-        function activateFullAccess() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('postComposer').style.display = 'block';
-            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
-            startHeartbeat();
-        }
-
-        function getInitials(name) {
-            return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
-        }
-
-        // Inline Hub Verification
-        document.getElementById('btnSendCode').addEventListener('click', async function() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const msgDiv = document.getElementById('sendCodeMessage');
-            const btn = this;
-
-            if (!name || !email) {
-                msgDiv.innerHTML = '<div class="message error">Please enter both name and email.</div>';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            msgDiv.innerHTML = '';
-
-            try {
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: { name, email }, emailVerified: false
-                }));
-
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'send_verify_code', email, name })
-                });
-
-                trackGoatEvent('/otp-sent-hub', 'Verification code sent from Hub');
-
-                msgDiv.innerHTML = '<div class="message success">✓ Code sent! Check your inbox/spam.</div>';
-                document.getElementById('verifyBox').classList.add('active');
-                document.getElementById('verifyCode').focus();
-            } catch (error) {
-                msgDiv.innerHTML = '<div class="message error">Failed to send code.</div>';
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Resend Code';
-            }
+        // Logout
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            await signOut(auth);
+            trackGoatEvent('/sign-out', 'User signed out from Hub');
+            window.location.reload();
         });
 
-        document.getElementById('btnVerify').addEventListener('click', async function() {
-            const code = document.getElementById('verifyCode').value.trim();
-            const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
-            const msgDiv = document.getElementById('verifyMessage');
-            const btn = this;
-
-            if (!code || code.length < 4) {
-                msgDiv.innerHTML = '<div class="message error">Please enter valid code.</div>';
-                return;
+        function getFirebaseErrorMessage(code) {
+            switch(code) {
+                case 'auth/email-already-in-use': return 'This email is already registered.';
+                case 'auth/invalid-email': return 'Invalid email address.';
+                case 'auth/user-not-found': return 'No account found with this email.';
+                case 'auth/wrong-password': return 'Incorrect password.';
+                case 'auth/weak-password': return 'Password is too weak.';
+                default: return 'An error occurred. Please try again.';
             }
-            if (!saved) {
-                msgDiv.innerHTML = '<div class="message error">Session expired. Refresh and retry.</div>';
-                return;
-            }
-
-            const data = JSON.parse(saved);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-
-            setTimeout(() => {
-                currentUser = { email: data.formData.email, name: data.formData.name };
-                isEmailVerified = true;
-
-                localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify({
-                    formData: data.formData, emailVerified: true
-                }));
-                saveGlobalSession(currentUser);
-
-                trackGoatEvent('/email-verified-hub', 'Email verified from Hub: ' + data.formData.email);
-
-                activateFullAccess();
-            }, 1500);
-        });
+        }
 
         // =============================================
-        // POST & INTERACTION LOGIC
+        // POST & INTERACTION LOGIC (FIRESTORE)
         // =============================================
+        
         document.querySelectorAll('.post-type-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
@@ -892,60 +726,73 @@
         function updatePostButton() {
             const content = document.getElementById('postContent').value.trim();
             const btn = document.getElementById('submitPost');
-            if (!isEmailVerified) { btn.disabled = true; return; }
+            if (!currentUser) { btn.disabled = true; return; }
             if (currentPostType === 'job') btn.disabled = !content || !document.getElementById('jobTitle').value.trim();
             else if (currentPostType === 'ad') btn.disabled = !content || !document.getElementById('adTitle').value.trim();
             else btn.disabled = !content;
         }
 
         document.getElementById('submitPost').addEventListener('click', async function() {
-            if (!isEmailVerified) return;
+            if (!currentUser) return;
             const btn = this;
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
             btn.disabled = true;
 
-            const payload = {
-                action: 'create_post', type: currentPostType,
+            const postData = {
+                type: currentPostType,
                 content: document.getElementById('postContent').value.trim(),
-                authorEmail: currentUser.email, authorName: currentUser.name, sessionId
+                authorUid: currentUser.uid,
+                authorName: currentUser.name,
+                authorEmail: currentUser.email,
+                timestamp: serverTimestamp(),
+                likes: [],
+                commentsCount: 0
             };
 
             if (currentPostType === 'job') {
-                payload.title = document.getElementById('jobTitle').value.trim();
-                payload.company = document.getElementById('jobCompany').value.trim();
-                payload.location = document.getElementById('jobLocation').value.trim();
-                payload.salary = document.getElementById('jobSalary').value.trim();
-                payload.contact = document.getElementById('jobContact').value.trim();
+                postData.title = document.getElementById('jobTitle').value.trim();
+                postData.company = document.getElementById('jobCompany').value.trim();
+                postData.location = document.getElementById('jobLocation').value.trim();
+                postData.salary = document.getElementById('jobSalary').value.trim();
+                postData.contact = document.getElementById('jobContact').value.trim();
             } else if (currentPostType === 'ad') {
-                payload.title = document.getElementById('adTitle').value.trim();
-                payload.price = document.getElementById('adPrice').value.trim();
-                payload.contact = document.getElementById('adContact').value.trim();
+                postData.title = document.getElementById('adTitle').value.trim();
+                postData.price = document.getElementById('adPrice').value.trim();
+                postData.contact = document.getElementById('adContact').value.trim();
             } else {
-                payload.title = document.getElementById('postContent').value.trim().split('\n')[0].substr(0, 100);
+                postData.title = postData.content.split('\n')[0].substr(0, 100);
             }
 
             try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
+                await addDoc(collection(db, "posts"), postData);
                 trackGoatEvent('/post-created-' + currentPostType, 'New ' + currentPostType + ' post created');
-
-                document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post submitted!</div>';
+                
+                document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post published!</div>';
                 document.getElementById('postContent').value = '';
                 document.getElementById('jobTitle').value = '';
                 document.getElementById('adTitle').value = '';
-
-                setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; loadPosts(); }, 2000);
+                
+                setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; }, 3000);
             } catch (error) {
-                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting.</div>';
+                console.error("Error adding post: ", error);
+                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting. Check console.</div>';
             }
 
             btn.innerHTML = originalHTML;
             updatePostButton();
+        });
+
+        // Real-time Posts Listener
+        const postsGrid = document.getElementById('postsGrid');
+        const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            allPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            renderPosts();
+        }, (error) => {
+            console.error("Error fetching posts:", error);
+            postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error loading posts</h3><p>Please check Firestore security rules.</p></div>`;
         });
 
         document.querySelectorAll('.filter-pill').forEach(pill => {
@@ -957,43 +804,34 @@
             });
         });
 
-        async function loadPosts() {
-            try {
-                const response = await fetch(HUB_API_URL + '?action=get_posts&limit=50');
-                const data = await response.json();
-                if (data.result === 'success') { allPosts = data.posts || []; renderPosts(); }
-            } catch (error) { console.error('Error loading posts:', error); }
-        }
-
         function renderPosts() {
-            const grid = document.getElementById('postsGrid');
             let filtered = currentFilter !== 'all' ? allPosts.filter(p => p.type === currentFilter) : allPosts;
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-comments"></i><h3>No posts yet</h3><p>Be the first to share something!</p></div>`;
+                postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-comments"></i><h3>No posts yet</h3><p>Be the first to share something!</p></div>`;
                 return;
             }
 
-            grid.innerHTML = filtered.map(post => createPostCard(post)).join('');
+            postsGrid.innerHTML = filtered.map(post => createPostCard(post)).join('');
 
-            grid.querySelectorAll('.like-btn').forEach(btn => {
-                if (!isEmailVerified) btn.disabled = true;
+            postsGrid.querySelectorAll('.like-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    if (!isEmailVerified) { alert('Please sign in to like posts.'); openModal('signin'); return; }
+                    if (!currentUser) { openModal('signin'); return; }
                     handleLike(this, this.dataset.postId);
                 });
             });
         }
 
         function createPostCard(post) {
-            const timeAgo = getTimeAgo(post.timestamp);
+            const timeAgo = post.timestamp ? getTimeAgo(post.timestamp.toDate()) : 'Just now';
             const initials = getInitials(post.authorName || 'Anonymous');
 
             let badgeClass = 'badge-discussion', badgeText = 'Discussion';
             if (post.type === 'job') { badgeClass = 'badge-job'; badgeText = 'Job'; }
             else if (post.type === 'ad') { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
             else if (post.type === 'question') { badgeText = 'Question'; }
-            const isNew = (Date.now() - new Date(post.timestamp).getTime()) < 86400000;
+            
+            const isNew = post.timestamp && (Date.now() - post.timestamp.toDate().getTime()) < 86400000;
 
             let metaHTML = '';
             if (post.type === 'job') {
@@ -1004,7 +842,9 @@
                 metaHTML = `${post.price ? `<span class="post-meta-item"><i class="fas fa-tag"></i> ${post.price}</span>` : ''}`;
             }
 
-            const dis = !isEmailVerified ? 'disabled title="Sign in to interact"' : '';
+            const isLiked = currentUser && post.likes && post.likes.includes(currentUser.uid);
+            const likeCount = post.likes ? post.likes.length : 0;
+            const dis = !currentUser ? 'disabled title="Sign in to interact"' : '';
 
             return `<div class="post-card ${post.type}" data-type="${post.type}">
                 <div class="post-header">
@@ -1016,16 +856,16 @@
                 <p class="post-content">${post.content}</p>
                 ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
                 <div class="post-actions">
-                    <button class="action-btn like-btn" data-post-id="${post.id}" ${dis}><i class="fas fa-heart"></i><span>${post.likes||0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-comment"></i><span>${post.comments||0}</span></button>
+                    <button class="action-btn like-btn ${isLiked ? 'liked' : ''}" data-post-id="${post.id}" ${dis}><i class="fas fa-heart"></i><span>${likeCount}</span></button>
+                    <button class="action-btn" ${dis}><i class="fas fa-comment"></i><span>${post.commentsCount || 0}</span></button>
                     <button class="action-btn" ${dis}><i class="fas fa-share"></i><span>Share</span></button>
-                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-paper-plane"></i> Apply</a>`:''}
-                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);" ${!isEmailVerified?'onclick="event.preventDefault();alert(\'Sign in first\');"':''}><i class="fas fa-envelope"></i> Contact</a>`:''}
+                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);" ${!currentUser?'onclick="event.preventDefault();openModal(\'signin\');"':''}><i class="fas fa-paper-plane"></i> Apply</a>`:''}
+                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);" ${!currentUser?'onclick="event.preventDefault();openModal(\'signin\');"':''}><i class="fas fa-envelope"></i> Contact</a>`:''}
                 </div></div>`;
         }
 
-        function getTimeAgo(timestamp) {
-            const s = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
+        function getTimeAgo(date) {
+            const s = Math.floor((Date.now() - date.getTime()) / 1000);
             if (s < 60) return 'Just now';
             if (s < 3600) return Math.floor(s/60) + 'm ago';
             if (s < 86400) return Math.floor(s/3600) + 'h ago';
@@ -1033,55 +873,60 @@
         }
 
         async function handleLike(btn, postId) {
-            btn.classList.toggle('liked');
+            if (!currentUser) return;
+            
             const span = btn.querySelector('span');
             const cur = parseInt(span.textContent);
-            span.textContent = btn.classList.contains('liked') ? cur+1 : cur-1;
+            const isCurrentlyLiked = btn.classList.contains('liked');
+            
+            if (isCurrentlyLiked) {
+                btn.classList.remove('liked');
+                span.textContent = cur - 1;
+            } else {
+                btn.classList.add('liked');
+                span.textContent = cur + 1;
+            }
 
             trackGoatEvent('/post-liked', 'Post liked: ' + postId);
 
             try {
-                await fetch(HUB_API_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'like_post', postId, userEmail: currentUser?.email || 'anonymous' })
-                });
-            } catch (error) { console.error('Like error:', error); }
-        }
-
-        async function startHeartbeat() {
-            const send = async () => {
-                try {
-                    await fetch(HUB_API_URL, {
-                        method: 'POST', mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'heartbeat', sessionId, email: currentUser?.email||'anonymous', name: currentUser?.name||'Guest' })
-                    });
-                } catch (error) {}
-            };
-            await send();
-            setInterval(send, 30000);
-            setInterval(updateOnlineCount, 30000);
-            updateOnlineCount();
-        }
-
-        async function updateOnlineCount() {
-            try {
-                const r = await fetch(HUB_API_URL + '?action=get_online');
-                const d = await r.json();
-                if (d.result === 'success') {
-                    document.getElementById('onlineCount').textContent = d.count || 0;
-                    document.getElementById('moreOnline').textContent = Math.max(0, (d.count||0) - 3);
+                const postRef = doc(db, "posts", postId);
+                if (isCurrentlyLiked) {
+                    await updateDoc(postRef, { likes: arrayRemove(currentUser.uid) });
+                } else {
+                    await updateDoc(postRef, { likes: arrayUnion(currentUser.uid) });
                 }
-            } catch (error) {}
+            } catch (error) {
+                console.error("Error updating like:", error);
+                if (isCurrentlyLiked) {
+                    btn.classList.add('liked');
+                    span.textContent = cur;
+                } else {
+                    btn.classList.remove('liked');
+                    span.textContent = cur;
+                }
+            }
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuth();
-            loadPosts();
-            setInterval(loadPosts, 60000);
-        });
+        // =============================================
+        // ONLINE PRESENCE
+        // =============================================
+        async function startHeartbeat() {
+            if (!currentUser) return;
+            const presenceRef = doc(db, "presence", currentUser.uid);
+            try {
+                await setDoc(presenceRef, { 
+                    lastActive: serverTimestamp(),
+                    name: currentUser.name 
+                }, { merge: true });
+            } catch (e) { console.error("Heartbeat error", e); }
+        }
+
+        setInterval(async () => {
+            if(!currentUser) return;
+            await startHeartbeat();
+        }, 60000);
+
     </script>
 </body>
 </html>
