@@ -1358,7 +1358,7 @@ border-radius: 15px;
 <i class="fas fa-paper-plane"></i> Send Verification Code
 </button>
 </form>
-<!-- ✅ NEW: Verification Step (Hidden by default) -->
+<!-- ✅ VERIFICATION STEP WITH IMPROVED RESEND TIMER -->
 <div class="auth-form" id="verifyStep">
 <div style="text-align: center; margin-bottom: 1.5rem;">
 <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
@@ -1368,13 +1368,13 @@ border-radius: 15px;
 <div id="verifyMessage" class="auth-message"></div>
 <div class="auth-field">
 <label for="verifyCode">Verification Code</label>
-<input type="text" id="verifyCode" class="otp-input" placeholder="000000" maxlength="6" pattern="\d*" inputmode="numeric" required>
+<input type="text" id="verifyCode" class="otp-input" placeholder="000000" maxlength="6" pattern="\d*" inputmode="numeric" required autocomplete="one-time-code">
 </div>
 <button type="button" class="btn-auth-submit" id="btnVerify">
 <i class="fas fa-check-circle"></i> Verify & Create Account
 </button>
 <div style="text-align: center; margin-top: 1rem;">
-<button type="button" onclick="resendCode()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:0.85rem; text-decoration:underline;">Resend Code</button>
+<button type="button" id="btnResendCode" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:0.85rem; text-decoration:underline;">Resend Code</button>
 </div>
 </div>
 </div>
@@ -1841,7 +1841,7 @@ document.body.scrollTop = 0;
 document.documentElement.scrollTop = 0;
 }
 // =============================================
-// ✅ FIXED: AUTHENTICATION SYSTEM WITH DESKTOP SUPPORT
+// ✅ AUTHENTICATION SYSTEM WITH OTP VERIFICATION
 // =============================================
 const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
 const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
@@ -1853,6 +1853,7 @@ const EMAILJS_TEMPLATE_ID = 'template_l47fy7s';
 // Temporary storage for verification process
 let tempGeneratedCode = null;
 let tempUserData = null;
+let resendCooldownTimer = null;
 
 function getCurrentUser() {
     try {
@@ -1899,7 +1900,6 @@ function updateAuthUI() {
                 e.stopPropagation();
                 mobileUserMenu.classList.toggle('show');
             };
-            // Touch support for mobile
             mobileAuthFloat.addEventListener('touchend', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -1973,6 +1973,19 @@ function closeModal() {
         // Reset verification state
         tempGeneratedCode = null;
         tempUserData = null;
+        // Clear resend cooldown timer
+        if (resendCooldownTimer) {
+            clearInterval(resendCooldownTimer);
+            resendCooldownTimer = null;
+        }
+        // Reset resend button
+        const resendBtn = document.getElementById('btnResendCode');
+        if (resendBtn) {
+            resendBtn.disabled = false;
+            resendBtn.textContent = 'Resend Code';
+            resendBtn.style.textDecoration = 'underline';
+            resendBtn.style.color = 'var(--text-secondary)';
+        }
     }
 }
 
@@ -1986,6 +1999,11 @@ function switchTab(tabName) {
         document.getElementById('signupForm').classList.add('active');
     } else if (tabName === 'verify') {
         document.getElementById('verifyStep').classList.add('active');
+        // Auto-focus OTP input
+        setTimeout(() => {
+            const verifyInput = document.getElementById('verifyCode');
+            if(verifyInput) verifyInput.focus();
+        }, 100);
     }
     
     document.querySelectorAll('.auth-message').forEach(m => { 
@@ -2041,7 +2059,6 @@ if(signinForm) {
                 body: JSON.stringify({ action: 'sign_in', email, password })
             });
             
-            // شبیه‌سازی موفقیت (چون API واقعی ممکن است CORS داشته باشد)
             const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
             saveSession(user);
             trackEvent('/sign-in', 'User signed in');
@@ -2060,49 +2077,46 @@ if(signinForm) {
     });
 }
 
-// ✅ FIXED: SEND VERIFICATION EMAIL WITH ROBUST ERROR HANDLING
+// ✅ SEND VERIFICATION EMAIL WITH ROBUST ERROR HANDLING
 async function sendVerificationEmail(email, name, code) {
-    // چک کردن اینکه آیا EmailJS لود شده است یا خیر
     if (typeof emailjs === 'undefined') {
         console.error("EmailJS SDK not loaded!");
-        return { success: false, error: "Email service not loaded. Please refresh." };
+        return { success: false, error: "Email service not loaded. Please refresh the page." };
     }
 
     try {
-        console.log("Attempting to send email via EmailJS...");
-        
-        // ارسال ایمیل با تایم‌اوت
         const response = await Promise.race([
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 to_email: email,
                 to_name: name,
                 code: code
             }),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT')), 8000))
+            new Promise((_, reject) => setTimeout(() => reject(new Error('TIMEOUT')), 10000))
         ]);
 
-        console.log('✅ Email sent successfully:', response);
+        console.log('✅ Verification email sent successfully');
         return { success: true };
         
     } catch (err) {
         console.error('❌ EmailJS Error:', err);
         
-        let errorMsg = 'Could not send email.';
+        let errorMsg = 'Could not send verification email.';
         
-        // تشخیص دقیق نوع خطا
         if (err.message === 'TIMEOUT') {
-            errorMsg = 'Request timed out. Check your internet or AdBlocker.';
+            errorMsg = 'Request timed out. Please check your internet connection or disable AdBlocker.';
         } else if (err.status === 0 || (err.text && err.text.includes('Failed to fetch'))) {
-            errorMsg = 'Blocked by browser (AdBlock/uBlock). Please disable extensions.';
+            errorMsg = 'Blocked by browser extension (AdBlock/uBlock). Please disable and retry.';
         } else if (err.status === 400) {
-            errorMsg = 'Invalid email configuration.';
+            errorMsg = 'Invalid email configuration. Please contact support.';
+        } else if (err.status === 429) {
+            errorMsg = 'Too many requests. Please wait before trying again.';
         }
         
         return { success: false, error: errorMsg };
     }
 }
 
-// ✅ FIXED: SIGN UP HANDLER
+// ✅ SIGN UP HANDLER WITH OTP
 const signupForm = document.getElementById('signupForm');
 if(signupForm) {
     signupForm.addEventListener('submit', async function(e) {
@@ -2128,30 +2142,51 @@ if(signupForm) {
         msgDiv.className = 'auth-message';
         msgDiv.textContent = '';
 
-        // Send real email via EmailJS
         const result = await sendVerificationEmail(email, name, tempGeneratedCode);
 
         if (result.success) {
             msgDiv.className = 'auth-message success';
-            msgDiv.textContent = '✓ Code sent! Check your email.';
+            msgDiv.textContent = '✓ Code sent! Check your inbox (and spam folder).';
             switchTab('verify');
-            setTimeout(() => {
-                const verifyInput = document.getElementById('verifyCode');
-                if(verifyInput) verifyInput.focus();
-            }, 100);
+            startResendCooldown();
         } else {
             msgDiv.className = 'auth-message error';
             msgDiv.textContent = '✕ ' + result.error;
-            
-            //  DEBUG MODE: اگر ایمیل کار نکرد، برای تست اجازه دهیم کاربر手动 کد را وارد کند
-            // این فقط برای دیباگ است - در پروداکشن می‌توانید حذف کنید
-            console.warn("Desktop Debug: Email failed. Allowing manual verify for test.");
-            // switchTab('verify'); // اگر خواستید حتی با خطا هم به مرحله بعد برود، این خط را فعال کنید
         }
 
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Verification Code';
     });
+}
+
+// ✅ RESEND COOLDOWN TIMER (60 seconds)
+function startResendCooldown() {
+    const resendBtn = document.getElementById('btnResendCode');
+    if (!resendBtn) return;
+    
+    // Clear any existing timer
+    if (resendCooldownTimer) clearInterval(resendCooldownTimer);
+    
+    let seconds = 60;
+    resendBtn.disabled = true;
+    resendBtn.style.textDecoration = 'none';
+    resendBtn.style.cursor = 'not-allowed';
+    resendBtn.style.opacity = '0.6';
+    resendBtn.textContent = `Resend in ${seconds}s`;
+    
+    resendCooldownTimer = setInterval(() => {
+        seconds--;
+        resendBtn.textContent = `Resend in ${seconds}s`;
+        if (seconds <= 0) {
+            clearInterval(resendCooldownTimer);
+            resendCooldownTimer = null;
+            resendBtn.disabled = false;
+            resendBtn.textContent = 'Resend Code';
+            resendBtn.style.textDecoration = 'underline';
+            resendBtn.style.cursor = 'pointer';
+            resendBtn.style.opacity = '1';
+        }
+    }, 1000);
 }
 
 // ✅ VERIFY CODE HANDLER
@@ -2165,6 +2200,12 @@ if(btnVerify) {
         if(!tempUserData) {
             msgDiv.className = 'auth-message error';
             msgDiv.textContent = 'Session expired. Please sign up again.';
+            return;
+        }
+
+        if (!inputCode || inputCode.length !== 6) {
+            msgDiv.className = 'auth-message error';
+            msgDiv.textContent = 'Please enter the complete 6-digit code.';
             return;
         }
 
@@ -2202,7 +2243,7 @@ if(btnVerify) {
                 }, 1000);
             } else {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = '✕ Invalid code. Please try again.';
+                msgDiv.textContent = '✕ Invalid code. Please check your email and try again.';
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify & Create Account';
             }
@@ -2210,24 +2251,43 @@ if(btnVerify) {
     });
 }
 
-async function resendCode() {
-    if(!tempUserData) {
-        alert('Please start sign up process again.');
-        switchTab('signup');
-        return;
-    }
-    tempGeneratedCode = Math.floor(100000 + Math.random() * 900000).toString();
-    const result = await sendVerificationEmail(tempUserData.email, tempUserData.name, tempGeneratedCode);
-    const msgDiv = document.getElementById('verifyMessage');
-    
-    if (result.success) {
-        msgDiv.className = 'auth-message success';
-        msgDiv.textContent = '✓ New code sent!';
-    } else {
-        msgDiv.className = 'auth-message error';
-        msgDiv.textContent = '✕ ' + result.error;
-    }
-    setTimeout(() => { msgDiv.className = 'auth-message'; msgDiv.textContent = ''; }, 3000);
+// ✅ RESEND CODE HANDLER WITH COOLDOWN
+const btnResendCode = document.getElementById('btnResendCode');
+if(btnResendCode) {
+    btnResendCode.addEventListener('click', async function() {
+        if(this.disabled || !tempUserData) {
+            if(!tempUserData) {
+                alert('Session expired. Please start sign up again.');
+                switchTab('signup');
+            }
+            return;
+        }
+        
+        // Generate new code
+        tempGeneratedCode = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        const msgDiv = document.getElementById('verifyMessage');
+        msgDiv.className = 'auth-message';
+        msgDiv.textContent = 'Sending new code...';
+        
+        const result = await sendVerificationEmail(tempUserData.email, tempUserData.name, tempGeneratedCode);
+        
+        if (result.success) {
+            msgDiv.className = 'auth-message success';
+            msgDiv.textContent = '✓ New code sent! Check your inbox.';
+            startResendCooldown();
+        } else {
+            msgDiv.className = 'auth-message error';
+            msgDiv.textContent = '✕ ' + result.error;
+        }
+        
+        setTimeout(() => { 
+            if(msgDiv.classList.contains('auth-message') && !msgDiv.classList.contains('success') && !msgDiv.classList.contains('error')) {
+                msgDiv.className = 'auth-message'; 
+                msgDiv.textContent = ''; 
+            }
+        }, 5000);
+    });
 }
 
 // Sign Out Handlers
@@ -2504,14 +2564,12 @@ window.location.href = shareUrl;
 } else {
 window.open(shareUrl, '_blank', 'width=600,height=400');
 }
-// Track share event
 trackEvent(`/share-${platform}`, `Shared on ${platform}`);
 }
 }
 function copyLink() {
 const url = window.location.href;
 navigator.clipboard.writeText(url).then(() => {
-// Show feedback
 const notification = document.getElementById('downloadNotification');
 notification.style.background = 'linear-gradient(135deg, #d4af37 0%, #f4d06f 100%)';
 notification.innerHTML = '<i class="fas fa-check-circle"></i><span>Link Copied!</span>';
