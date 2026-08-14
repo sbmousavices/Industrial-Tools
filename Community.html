@@ -42,12 +42,8 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registered', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed', error);
-                    });
+                    .then(registration => { console.log('ServiceWorker registered', registration.scope); })
+                    .catch(error => { console.log('ServiceWorker registration failed', error); });
             });
         }
     </script>
@@ -55,13 +51,6 @@
     <!-- ✅ GoatCounter Analytics -->
     <script data-goatcounter="https://bmousavi.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
-    <script>
-        function trackGoatEvent(path, title) {
-            if (window.goatcounter) {
-                window.goatcounter.count({ path: path, title: title || path, event: true });
-            }
-        }
-    </script>
 
     <style>
         :root {
@@ -173,7 +162,6 @@
         .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
         .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
         @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
-        /* --- END AUTH STYLES --- */
 
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
@@ -188,7 +176,6 @@
         nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         
-        /* LOGO STYLE */
         .logo { 
             font-family: 'Playfair Display', serif; 
             font-size: 1.5rem; 
@@ -430,141 +417,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .signup-section {
-            background: var(--bg-card);
-            border: 2px solid var(--accent);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 3rem auto;
-            max-width: 600px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-        .signup-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
-        }
-        .signup-section.active {
-            transform: scale(1.02) translateY(-5px);
-            border-color: var(--accent-light);
-            border-width: 3px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
-        }
-        .signup-section.active h3 {
-            color: var(--accent-light);
-        }
-        .signup-section h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .consent-group {
-            display: flex;
-            gap: 0.8rem;
-            align-items: flex-start;
-            margin: 1.5rem 0;
-        }
-        .consent-group input[type="checkbox"] {
-            width: auto;
-            margin-top: 0.3rem;
-        }
-        .consent-group label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .otp-section {
-            display: none;
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-        .otp-section.active {
-            display: block;
-        }
-        .otp-inputs {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        .otp-inputs input {
-            width: 45px;
-            height: 50px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-primary);
-            color: var(--accent);
-        }
-        .otp-inputs input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .btn-verify {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--accent);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        .btn-verify:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
-        }
-        .btn-verify:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .resend-timer {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .resend-link {
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
         .progress-bar {
             background: var(--bg-primary);
             border-radius: 10px;
@@ -796,13 +648,13 @@
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
 
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 968px) {
             .nav-links { gap: 1rem; }
             .nav-links a { font-size: 0.85rem; }
             .page-header h1 { font-size: 2rem; }
-            .platform-card.active, .reward-section.active, .signup-section.active, .progress-bar.active, .download-section.active, .hub-section.active {
+            .platform-card.active, .reward-section.active, .progress-bar.active, .download-section.active, .hub-section.active {
                 transform: scale(1.02) translateY(-5px);
             }
             .hub-stats { gap: 1rem; }
@@ -811,7 +663,6 @@
         @media (max-width: 600px) {
             .nav-links { display: none; }
             .platforms-grid { grid-template-columns: 1fr; }
-            .otp-inputs input { width: 40px; height: 45px; }
             .auth-modal { padding: 1.8rem; width: 95%; }
         }
     </style>
@@ -819,7 +670,7 @@
 <body>
     <div class="bg-shapes"></div>
 
-    <!-- ✅ UNIFIED AUTH MODAL -->
+    <!-- ✅ UNIFIED AUTH MODAL (فقط از نوار بالا) -->
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
             <button class="auth-close" id="authClose">&times;</button>
@@ -866,7 +717,6 @@
 
     <nav>
         <div class="nav-container">
-            <!-- ✅ HOME LINK WITH LOGO -->
             <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
                 <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="Logo" class="nav-logo-img">
                 Home
@@ -877,14 +727,10 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#education">Education</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                
-                <!-- ✅ COMMUNITY LINK (LOGO REMOVED) -->
                 <li><a href="community.html" class="active">Community</a></li>
-                
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
                 
-                <!-- ✅ AUTH BUTTON / USER DROPDOWN -->
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
                         <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
@@ -919,43 +765,10 @@
 
     <section class="community-container">
         
-        <div class="signup-section reveal" data-interactive>
-            <h3>📝 Step 1: Register Your Information</h3>
-            <form id="signupForm" onclick="event.stopPropagation()">
-                <div class="form-group">
-                    <label for="name">Full Name *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="consent-group">
-                    <input type="checkbox" id="consent" required>
-                    <label for="consent">I agree to receive occasional newsletters and promotional emails. I can unsubscribe at any time.</label>
-                </div>
-                <div id="formMessage"></div>
-                
-                <div class="otp-section" id="otpSection">
-                    <p style="text-align: center; margin-bottom: 1rem;">We sent a 6-digit code to your email. Please enter it below:</p>
-                    <div class="otp-inputs">
-                        <input type="text" maxlength="1" class="otp-input" data-index="0">
-                        <input type="text" maxlength="1" class="otp-input" data-index="1">
-                        <input type="text" maxlength="1" class="otp-input" data-index="2">
-                        <input type="text" maxlength="1" class="otp-input" data-index="3">
-                        <input type="text" maxlength="1" class="otp-input" data-index="4">
-                        <input type="text" maxlength="1" class="otp-input" data-index="5">
-                    </div>
-                    <button type="button" class="btn-verify" id="verifyBtn">Verify Email</button>
-                    <div class="resend-timer" id="resendTimer">
-                        Resend code in <span id="countdown">60</span>s
-                    </div>
-                </div>
-            </form>
-        </div>
+        <!-- ✅ SIGNUP FORM REMOVED - مستقیم وارد پلتفرم‌ها می‌شویم -->
 
         <div class="progress-bar reveal" data-interactive>
-            <div class="progress-text">Step 2: Follow Our Platforms (Complete all 6 to unlock download)</div>
+            <div class="progress-text">Follow Our Platforms (Complete all 6 to unlock download)</div>
             <div class="progress-dots">
                 <div class="dot" data-platform="medium"></div>
                 <div class="dot" data-platform="github"></div>
@@ -1087,13 +900,29 @@
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
     </footer>
 
-    <script>
-        // ✅ UPDATED API URL - New Google Apps Script
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
-        const DOWNLOAD_LINK = 'https://sbmousavices.github.io/Industrial-Tools/Community.rar';
+    <!-- 🔥 FIREBASE SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkgHKR08-Utf485eEVrfEoIUxosPcLlu4",
+            authDomain: "bm-hub-84230.firebaseapp.com",
+            projectId: "bm-hub-84230",
+            storageBucket: "bm-hub-84230.firebasestorage.app",
+            messagingSenderId: "200738457599",
+            appId: "1:200738457599:web:23277a9f7d0eee9bbec9ca",
+            measurementId: "G-C1M79CP9RT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
         const STORAGE_KEY = 'community_signup_progress';
-        const GLOBAL_SESSION_KEY = 'bm_portfolio_user_session';
-        
+
         const AB_VARIANTS = {
             A: {
                 title: '🎁 Exclusive Community Reward',
@@ -1105,27 +934,16 @@
             }
         };
 
-        // ✅ GoatCounter tracking function
         function trackGoatEvent(path, title) {
             if (window.goatcounter) {
                 window.goatcounter.count({ path: path, title: title || path, event: true });
             }
         }
 
-        function trackEvent(eventName, eventData = {}) {
-            const timestamp = new Date().toISOString();
-            const event = { event: eventName, timestamp, data: eventData };
-            console.log('📊 Analytics Event:', event);
-            if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
-            const analyticsLog = JSON.parse(localStorage.getItem('analytics_log') || '[]');
-            analyticsLog.push(event);
-            localStorage.setItem('analytics_log', JSON.stringify(analyticsLog.slice(-100)));
-        }
-
+        // =============================================
+        // STATE MANAGEMENT
+        // =============================================
         const defaultState = {
-            formData: { name: '', email: '', consent: false },
-            emailVerified: false,
-            otpCode: null,
             platforms: {
                 medium: { opened: false, confirmed: false },
                 github: { opened: false, confirmed: false },
@@ -1134,71 +952,82 @@
                 instagram: { opened: false, confirmed: false },
                 reddit: { opened: false, confirmed: false }
             },
-            abVariant: null
+            abVariant: null,
+            rewardClaimed: false
         };
 
         let state = loadState();
 
-        function saveState() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        }
-
+        function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
         function loadState() {
             const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                return { ...defaultState, ...parsed };
-            }
-            return { ...defaultState };
+            return saved ? { ...defaultState, ...JSON.parse(saved) } : { ...defaultState };
         }
 
         // =============================================
-        // ✅ UNIFIED AUTH SYSTEM
+        // AUTH - فقط از نوار بالا
         // =============================================
-        function getCurrentGlobalUser() {
-            try {
-                const saved = localStorage.getItem(GLOBAL_SESSION_KEY);
-                return saved ? JSON.parse(saved) : null;
-            } catch { return null; }
-        }
-        
-        function saveGlobalSession(user) {
-            localStorage.setItem(GLOBAL_SESSION_KEY, JSON.stringify(user));
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = { uid: user.uid, email: user.email, name: user.displayName || user.email.split('@')[0] };
+                await loadUserProgress();
+            } else {
+                currentUser = null;
+            }
             updateNavAuthUI();
+            restorePlatformStates();
+            checkAllConfirmed();
+        });
+
+        async function loadUserProgress() {
+            if (!currentUser) return;
+            try {
+                const docRef = doc(db, "community_users", currentUser.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.platforms) state.platforms = data.platforms;
+                    if (data.rewardClaimed) state.rewardClaimed = true;
+                    saveState();
+                }
+            } catch (e) { console.error("Error loading progress:", e); }
         }
-        
-        function clearAllSessions() {
-            localStorage.removeItem(GLOBAL_SESSION_KEY);
-            localStorage.removeItem(STORAGE_KEY);
-            
-            trackGoatEvent('/sign-out', 'User signed out');
-            
-            location.reload();
+
+        async function saveUserProgress() {
+            if (!currentUser) return;
+            try {
+                await setDoc(doc(db, "community_users", currentUser.uid), {
+                    email: currentUser.email,
+                    name: currentUser.name,
+                    platforms: state.platforms,
+                    rewardClaimed: state.rewardClaimed,
+                    lastUpdated: serverTimestamp()
+                }, { merge: true });
+            } catch (e) { console.error("Error saving progress:", e); }
         }
-        
+
         function updateNavAuthUI() {
-            const user = getCurrentGlobalUser();
             const authBtn = document.getElementById('navAuthBtn');
             const userDropdown = document.getElementById('userDropdown');
             const userNameSpan = document.getElementById('navUserName');
-            
-            if (user && user.email) {
+
+            if (currentUser) {
                 authBtn.style.display = 'none';
                 userDropdown.classList.add('active');
-                userNameSpan.textContent = user.name ? user.name.split(' ')[0] : 'User';
+                userNameSpan.textContent = currentUser.name.split(' ')[0];
             } else {
                 authBtn.style.display = 'inline-flex';
                 userDropdown.classList.remove('active');
                 document.getElementById('userMenu').classList.remove('show');
             }
         }
-        
+
         // Modal Controls
         const modalOverlay = document.getElementById('authModalOverlay');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
-        
-        function openModal(tab = 'signin') {
+
+        window.openModal = function(tab = 'signin') {
             modalOverlay.classList.add('active');
             switchTab(tab);
             document.body.style.overflow = 'hidden';
@@ -1214,12 +1043,12 @@
             document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupFormModal').classList.add('active');
             document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
         }
-        
+
         document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
         document.getElementById('authClose').addEventListener('click', closeModal);
         modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-        
+
         document.getElementById('navUserBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('userMenu').classList.toggle('show');
@@ -1227,135 +1056,80 @@
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
         });
-        
-        // Sign In via Modal
+
+        // Sign In
         document.getElementById('signinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('signinEmail').value.trim();
+            const password = document.getElementById('signinPassword').value;
             const msgDiv = document.getElementById('signinMessage');
             const btn = document.getElementById('btnSignin');
-            
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-            
+
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
-                });
-                
-                const user = { email, name: email.split('@')[0], loggedInAt: Date.now() };
-                saveGlobalSession(user);
-                
-                trackGoatEvent('/sign-in', 'User signed in');
-                
-                state.formData.email = email;
-                state.formData.name = user.name;
-                state.emailVerified = true;
-                saveState();
-                restoreFormData();
-                
+                await signInWithEmailAndPassword(auth, email, password);
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Welcome back! Checking reward status...';
-                setTimeout(() => { closeModal(); checkRewardStatus(); }, 1000);
+                msgDiv.textContent = '✓ Welcome back!';
+                setTimeout(closeModal, 1000);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Sign in failed.';
+                msgDiv.textContent = getFirebaseErrorMessage(error.code);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
             }
         });
-        
-        // Sign Up via Modal
+
+        // Sign Up
         document.getElementById('signupFormModal').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
             const msgDiv = document.getElementById('signupMessage');
             const btn = document.getElementById('btnSignup');
-            
-            if (document.getElementById('signupPassword').value.length < 6) {
+
+            if (password.length < 6) {
                 msgDiv.className = 'auth-message error';
                 msgDiv.textContent = 'Password must be at least 6 characters.';
                 return;
             }
-            
+
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
-            
+
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
-                });
-                
-                const user = { email, name, loggedInAt: Date.now() };
-                saveGlobalSession(user);
-                
-                trackGoatEvent('/sign-up', 'New user registered');
-                
-                state.formData.email = email;
-                state.formData.name = name;
-                state.emailVerified = true;
-                saveState();
-                restoreFormData();
-                
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(userCredential.user, { displayName: name });
                 msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Account created! You can now participate.';
-                setTimeout(closeModal, 1200);
+                msgDiv.textContent = '✓ Account created!';
+                setTimeout(closeModal, 1000);
             } catch (error) {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Registration failed.';
+                msgDiv.textContent = getFirebaseErrorMessage(error.code);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
         });
-        
-        document.getElementById('btnLogout').addEventListener('click', clearAllSessions);
-        
-        // =============================================
-        // ✅ ONE-TIME REWARD LOGIC
-        // =============================================
-        function checkRewardStatus() {
-            const user = getCurrentGlobalUser();
-            if (user && user.rewardClaimed) {
-                state.emailVerified = true;
-                state.formData.email = user.email;
-                state.formData.name = user.name;
-                state.formData.consent = true;
-                
-                Object.keys(state.platforms).forEach(p => {
-                    state.platforms[p].confirmed = true;
-                    state.platforms[p].opened = true;
-                });
-                saveState();
-                
-                restoreFormData();
-                restorePlatformStates();
-                showDownloadSection(true);
-            }
-        }
-        
-        function markRewardAsClaimed() {
-            const user = getCurrentGlobalUser();
-            if (user && !user.rewardClaimed) {
-                user.rewardClaimed = true;
-                user.claimedAt = new Date().toISOString();
-                saveGlobalSession(user);
-            }
-        }
-        
-        function showDownloadSection(alreadyClaimed = false) {
-            document.getElementById('downloadSection').style.display = 'block';
-            document.getElementById('rewardSection').style.display = 'none';
-            
-            if (alreadyClaimed) {
-                document.querySelector('#downloadSection h3').textContent = '🎁 Your Reward is Ready';
-                document.querySelector('#downloadSection p').textContent = 'Welcome back! You have already unlocked the Project Planning Starter Kit. Download it anytime.';
+
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            await signOut(auth);
+            localStorage.removeItem(STORAGE_KEY);
+            trackGoatEvent('/sign-out', 'User signed out');
+            window.location.reload();
+        });
+
+        function getFirebaseErrorMessage(code) {
+            switch(code) {
+                case 'auth/email-already-in-use': return 'This email is already registered.';
+                case 'auth/invalid-email': return 'Invalid email address.';
+                case 'auth/user-not-found': return 'No account found with this email.';
+                case 'auth/wrong-password': return 'Incorrect password.';
+                case 'auth/weak-password': return 'Password is too weak.';
+                default: return 'An error occurred. Please try again.';
             }
         }
 
@@ -1366,39 +1140,20 @@
             if (!state.abVariant) {
                 state.abVariant = Math.random() < 0.5 ? 'A' : 'B';
                 saveState();
-                trackEvent('ab_test_assigned', { variant: state.abVariant });
             }
             const variant = AB_VARIANTS[state.abVariant];
             document.querySelector('#rewardSection .reward-title').textContent = variant.title;
             document.getElementById('rewardDescription').innerHTML = variant.description;
         }
 
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    trackEvent('section_viewed', { section: entry.target.className });
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        const form = document.getElementById('signupForm');
-        const formMessage = document.getElementById('formMessage');
-
-        function restoreFormData() {
-            if (state.formData.name) document.getElementById('name').value = state.formData.name;
-            if (state.formData.email) document.getElementById('email').value = state.formData.email;
-            if (state.formData.consent) document.getElementById('consent').checked = true;
-            
-            if (state.emailVerified) {
-                document.getElementById('otpSection').classList.add('active');
-                document.getElementById('verifyBtn').textContent = '✓ Email Verified';
-                document.getElementById('verifyBtn').disabled = true;
-            }
-        }
-        
         function restorePlatformStates() {
             Object.entries(state.platforms).forEach(([platform, data]) => {
                 if (data.confirmed) {
@@ -1413,125 +1168,15 @@
             });
         }
 
-        form.addEventListener('input', function() {
-            state.formData.name = document.getElementById('name').value;
-            state.formData.email = document.getElementById('email').value;
-            state.formData.consent = document.getElementById('consent').checked;
-            saveState();
-            checkAllConfirmed();
-        });
-
-        const otpInputs = document.querySelectorAll('.otp-input');
-        const verifyBtn = document.getElementById('verifyBtn');
-        const otpSection = document.getElementById('otpSection');
-        let resendCountdown = 60;
-        let resendTimer = null;
-
-        otpInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !input.value && index > 0) otpInputs[index - 1].focus();
-            });
-        });
-
-        verifyBtn.addEventListener('click', async function() {
-            const enteredCode = Array.from(otpInputs).map(input => input.value).join('');
-            if (enteredCode.length !== 6) {
-                formMessage.innerHTML = '<div class="message error">Please enter the complete 6-digit code.</div>';
-                return;
-            }
-
-            verifyBtn.disabled = true;
-            verifyBtn.textContent = 'Verifying...';
-
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: state.formData.name, email: state.formData.email, otpCode: enteredCode, action: 'verify_otp' })
-                });
-
-                state.emailVerified = true;
-                saveState();
-                
-                const user = getCurrentGlobalUser();
-                if (user) {
-                    user.email = state.formData.email;
-                    user.name = state.formData.name;
-                    saveGlobalSession(user);
-                }
-                
-                verifyBtn.textContent = '✓ Email Verified';
-                formMessage.innerHTML = '<div class="message success">✓ Email verified successfully!</div>';
-                
-                trackGoatEvent('/email-verified', 'Email verified: ' + state.formData.email);
-                
-                trackEvent('email_verified', { email: state.formData.email });
-                checkAllConfirmed();
-            } catch (error) {
-                verifyBtn.disabled = false;
-                verifyBtn.textContent = 'Verify Email';
-                formMessage.innerHTML = '<div class="message error">Error verifying email.</div>';
-            }
-        });
-
-        async function sendOTP() {
-            if (!state.formData.email) {
-                formMessage.innerHTML = '<div class="message error">Please enter your email first.</div>';
-                return;
-            }
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: state.formData.email, action: 'send_otp' })
-                });
-                state.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-                saveState();
-                
-                trackGoatEvent('/otp-sent', 'OTP sent to: ' + state.formData.email);
-                
-                trackEvent('otp_sent', { email: state.formData.email });
-                otpSection.classList.add('active');
-                startResendTimer();
-            } catch (error) {
-                formMessage.innerHTML = '<div class="message error">Error sending OTP.</div>';
-            }
-        }
-
-        function startResendTimer() {
-            resendCountdown = 60;
-            const countdownSpan = document.getElementById('countdown');
-            const timerDiv = document.getElementById('resendTimer');
-            if (resendTimer) clearInterval(resendTimer);
-            resendTimer = setInterval(() => {
-                resendCountdown--;
-                countdownSpan.textContent = resendCountdown;
-                if (resendCountdown <= 0) {
-                    clearInterval(resendTimer);
-                    timerDiv.innerHTML = '<span class="resend-link" onclick="sendOTP()">Resend Code</span>';
-                }
-            }, 1000);
-        }
-
-        document.getElementById('consent').addEventListener('change', function() {
-            if (this.checked && state.formData.email && !state.emailVerified) {
-                setTimeout(sendOTP, 500);
-            }
-        });
-
+        // Follow Buttons
         document.querySelectorAll('.btn-follow').forEach(btn => {
             btn.addEventListener('click', function() {
                 const platform = this.dataset.platform;
                 state.platforms[platform].opened = true;
                 saveState();
-                
+                saveUserProgress();
                 trackGoatEvent('/follow-click-' + platform, 'Clicked follow: ' + platform);
-                
-                trackEvent('platform_clicked', { platform });
-                
+
                 const confirmBtn = document.querySelector(`.btn-confirm[data-platform="${platform}"]`);
                 let countdown = 10;
                 const span = confirmBtn.querySelector('span');
@@ -1548,61 +1193,42 @@
             });
         });
 
+        // Confirm Buttons
         document.querySelectorAll('.btn-confirm').forEach(btn => {
             btn.addEventListener('click', function() {
                 const platform = this.dataset.platform;
                 state.platforms[platform].confirmed = true;
                 saveState();
-                
+                saveUserProgress();
                 trackGoatEvent('/follow-confirmed-' + platform, 'Confirmed follow: ' + platform);
-                
-                trackEvent('platform_confirmed', { platform });
+
                 this.classList.add('confirmed');
                 this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
                 const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
-                dot.classList.add('active');
+                if (dot) dot.classList.add('active');
                 checkAllConfirmed();
             });
         });
 
         function checkAllConfirmed() {
             const allConfirmed = Object.values(state.platforms).every(p => p.confirmed);
-            
-            if (allConfirmed && state.formData.consent && state.formData.name && state.formData.email && state.emailVerified) {
-                showDownloadSection(false);
-                
-                trackGoatEvent('/download-unlocked', 'Download unlocked: ' + state.formData.email);
-                
-                trackEvent('download_unlocked', { email: state.formData.email, abVariant: state.abVariant });
-                submitData();
+            if (allConfirmed) {
+                showDownloadSection(state.rewardClaimed);
+                if (!state.rewardClaimed) {
+                    state.rewardClaimed = true;
+                    saveState();
+                    saveUserProgress();
+                    trackGoatEvent('/download-unlocked', 'Download unlocked');
+                }
             }
         }
 
-        async function submitData() {
-            const user = getCurrentGlobalUser();
-            if (user && user.rewardClaimed) return;
-            
-            const followed = Object.entries(state.platforms)
-                .filter(([_, data]) => data.confirmed)
-                .map(([platform]) => platform);
-
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: state.formData.name,
-                        email: state.formData.email,
-                        followed,
-                        abVariant: state.abVariant
-                    })
-                });
-
-                markRewardAsClaimed();
-                
-                formMessage.innerHTML = '<div class="message success">✓ Your information has been saved successfully!</div>';
-            } catch (error) {
-                formMessage.innerHTML = '<div class="message error">Error saving data.</div>';
+        function showDownloadSection(alreadyClaimed = false) {
+            document.getElementById('downloadSection').style.display = 'block';
+            document.getElementById('rewardSection').style.display = 'none';
+            if (alreadyClaimed) {
+                document.querySelector('#downloadSection h3').textContent = '🎁 Your Reward is Ready';
+                document.querySelector('#downloadSection p').textContent = 'Welcome back! You have already unlocked the Project Planning Starter Kit. Download it anytime.';
             }
         }
 
@@ -1623,14 +1249,11 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNavAuthUI();
-            initABTest();
-            restoreFormData();
-            restorePlatformStates();
-            checkRewardStatus();
-            trackEvent('page_view', { page: 'community' });
-        });
+        // Init
+        initABTest();
+        restorePlatformStates();
+        checkAllConfirmed();
+
     </script>
 </body>
 </html>
