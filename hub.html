@@ -345,7 +345,7 @@
 <body>
     <div class="bg-shapes"></div>
 
-    <!-- ✅ UNIFIED AUTH MODAL -->
+    <!-- ✅ UNIFIED AUTH MODAL (فقط از طریق نوار بالا باز می‌شود) -->
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
             <button class="auth-close" id="authClose">&times;</button>
@@ -448,50 +448,40 @@
             </div>
         </div>
 
-        <div id="authSection">
-            <!-- Post Composer (Hidden until logged in) -->
-            <div class="post-composer" id="postComposer" style="display: none;">
-                <div class="composer-header">
-                    <div class="composer-avatar" id="composerAvatar">?</div>
-                    <textarea class="composer-input" id="postContent" placeholder="What's on your mind? Share a job opportunity, ask a question, or start a discussion..."></textarea>
-                </div>
-                <div class="extra-fields" id="jobFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Job Title *</label><input type="text" id="jobTitle" placeholder="Senior Planning Engineer"></div>
-                        <div class="field-group"><label>Company</label><input type="text" id="jobCompany" placeholder="ABC Engineering"></div>
-                    </div>
-                    <div class="field-row">
-                        <div class="field-group"><label>Location</label><input type="text" id="jobLocation" placeholder="Dubai, UAE"></div>
-                        <div class="field-group"><label>Salary Range</label><input type="text" id="jobSalary" placeholder="$8,000-12,000/month"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Email</label><input type="email" id="jobContact" placeholder="hr@company.com"></div>
-                </div>
-                <div class="extra-fields" id="adFields">
-                    <div class="field-row">
-                        <div class="field-group"><label>Item/Service Title *</label><input type="text" id="adTitle" placeholder="Primavera P6 License"></div>
-                        <div class="field-group"><label>Price</label><input type="text" id="adPrice" placeholder="$500 OBO"></div>
-                    </div>
-                    <div class="field-group"><label>Contact Info</label><input type="text" id="adContact" placeholder="Email or phone"></div>
-                </div>
-                <div class="composer-actions">
-                    <div class="post-types">
-                        <button class="post-type-btn active" data-type="discussion">💬 Discussion</button>
-                        <button class="post-type-btn" data-type="job">💼 Job</button>
-                        <button class="post-type-btn" data-type="ad">🛒 Ad</button>
-                        <button class="post-type-btn" data-type="question">❓ Question</button>
-                    </div>
-                    <button class="btn-post" id="submitPost" disabled><i class="fas fa-paper-plane"></i> Post</button>
-                </div>
-                <div id="postMessage"></div>
+        <!-- ✅ POST COMPOSER - همیشه نمایش داده می‌شود (بدون کارت ورود) -->
+        <div class="post-composer" id="postComposer">
+            <div class="composer-header">
+                <div class="composer-avatar" id="composerAvatar">?</div>
+                <textarea class="composer-input" id="postContent" placeholder="What's on your mind? Share a job opportunity, ask a question, or start a discussion..."></textarea>
             </div>
-            
-            <!-- Prompt to login if not authenticated -->
-            <div class="auth-card" id="loginPrompt" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 2.5rem; max-width: 600px; margin: 0 auto 3rem; text-align: center;">
-                <i class="fas fa-lock" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent);">Join the Conversation</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Sign in or create an account to post, like, and comment.</p>
-                <button class="btn-auth-submit" onclick="openModal('signin')" style="max-width: 200px; margin: 0 auto;">Sign In / Sign Up</button>
+            <div class="extra-fields" id="jobFields">
+                <div class="field-row">
+                    <div class="field-group"><label>Job Title *</label><input type="text" id="jobTitle" placeholder="Senior Planning Engineer"></div>
+                    <div class="field-group"><label>Company</label><input type="text" id="jobCompany" placeholder="ABC Engineering"></div>
+                </div>
+                <div class="field-row">
+                    <div class="field-group"><label>Location</label><input type="text" id="jobLocation" placeholder="Dubai, UAE"></div>
+                    <div class="field-group"><label>Salary Range</label><input type="text" id="jobSalary" placeholder="$8,000-12,000/month"></div>
+                </div>
+                <div class="field-group"><label>Contact Email</label><input type="email" id="jobContact" placeholder="hr@company.com"></div>
             </div>
+            <div class="extra-fields" id="adFields">
+                <div class="field-row">
+                    <div class="field-group"><label>Item/Service Title *</label><input type="text" id="adTitle" placeholder="Primavera P6 License"></div>
+                    <div class="field-group"><label>Price</label><input type="text" id="adPrice" placeholder="$500 OBO"></div>
+                </div>
+                <div class="field-group"><label>Contact Info</label><input type="text" id="adContact" placeholder="Email or phone"></div>
+            </div>
+            <div class="composer-actions">
+                <div class="post-types">
+                    <button class="post-type-btn active" data-type="discussion">💬 Discussion</button>
+                    <button class="post-type-btn" data-type="job">💼 Job</button>
+                    <button class="post-type-btn" data-type="ad">🛒 Ad</button>
+                    <button class="post-type-btn" data-type="question">❓ Question</button>
+                </div>
+                <button class="btn-post" id="submitPost"><i class="fas fa-paper-plane"></i> Post</button>
+            </div>
+            <div id="postMessage"></div>
         </div>
 
         <div class="filter-bar">
@@ -518,9 +508,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment, arrayUnion, arrayRemove, serverTimestamp, where, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // 🔥 FIREBASE CONFIGURATION - YOUR VALUES ALREADY INSERTED
+        // 🔥 FIREBASE CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyCkgHKR08-Utf485eEVrfEoIUxosPcLlu4",
             authDomain: "bm-hub-84230.firebaseapp.com",
@@ -531,21 +521,18 @@
             measurementId: "G-C1M79CP9RT"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Global State
         let currentUser = null;
         let currentPostType = 'discussion';
         let allPosts = [];
         let currentFilter = 'all';
 
         // =============================================
-        // AUTHENTICATION LOGIC
+        // AUTH - فقط از نوار بالا، بدون بلاک کردن صفحه
         // =============================================
-        
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUser = {
@@ -553,13 +540,11 @@
                     email: user.email,
                     name: user.displayName || user.email.split('@')[0]
                 };
-                activateFullAccess();
-                trackGoatEvent('/sign-in', 'User active in Hub');
+                document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
+                startHeartbeat();
             } else {
                 currentUser = null;
-                document.getElementById('postComposer').style.display = 'none';
-                document.getElementById('loginPrompt').style.display = 'block';
-                document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = true);
+                document.getElementById('composerAvatar').textContent = '?';
             }
             updateNavAuthUI();
         });
@@ -580,19 +565,11 @@
             }
         }
 
-        function activateFullAccess() {
-            document.getElementById('loginPrompt').style.display = 'none';
-            document.getElementById('postComposer').style.display = 'block';
-            document.getElementById('composerAvatar').textContent = getInitials(currentUser.name);
-            document.querySelectorAll('.action-btn').forEach(btn => btn.disabled = false);
-            startHeartbeat();
-        }
-
         function getInitials(name) {
             return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
         }
 
-        // Modal Controls
+        // Modal Controls - فقط از نوار بالا
         const modalOverlay = document.getElementById('authModalOverlay');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
@@ -675,7 +652,6 @@
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(userCredential.user, { displayName: name });
-                
                 msgDiv.className = 'auth-message success';
                 msgDiv.textContent = '✓ Account created!';
                 setTimeout(closeModal, 1000);
@@ -688,7 +664,6 @@
             }
         });
 
-        // Logout
         document.getElementById('btnLogout').addEventListener('click', async () => {
             await signOut(auth);
             trackGoatEvent('/sign-out', 'User signed out from Hub');
@@ -707,9 +682,8 @@
         }
 
         // =============================================
-        // POST & INTERACTION LOGIC (FIRESTORE)
+        // POST LOGIC - اگر لاگین نبود، مودال باز شود
         // =============================================
-        
         document.querySelectorAll('.post-type-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.post-type-btn').forEach(b => b.classList.remove('active'));
@@ -726,14 +700,20 @@
         function updatePostButton() {
             const content = document.getElementById('postContent').value.trim();
             const btn = document.getElementById('submitPost');
-            if (!currentUser) { btn.disabled = true; return; }
             if (currentPostType === 'job') btn.disabled = !content || !document.getElementById('jobTitle').value.trim();
             else if (currentPostType === 'ad') btn.disabled = !content || !document.getElementById('adTitle').value.trim();
             else btn.disabled = !content;
         }
 
         document.getElementById('submitPost').addEventListener('click', async function() {
-            if (!currentUser) return;
+            // اگر لاگین نبود، مودال ورود باز شود
+            if (!currentUser) {
+                openModal('signin');
+                document.getElementById('postMessage').innerHTML = '<div class="message error">Please sign in first to post.</div>';
+                setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; }, 3000);
+                return;
+            }
+
             const btn = this;
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
@@ -767,23 +747,23 @@
             try {
                 await addDoc(collection(db, "posts"), postData);
                 trackGoatEvent('/post-created-' + currentPostType, 'New ' + currentPostType + ' post created');
-                
                 document.getElementById('postMessage').innerHTML = '<div class="message success">✓ Post published!</div>';
                 document.getElementById('postContent').value = '';
                 document.getElementById('jobTitle').value = '';
                 document.getElementById('adTitle').value = '';
-                
                 setTimeout(() => { document.getElementById('postMessage').innerHTML = ''; }, 3000);
             } catch (error) {
                 console.error("Error adding post: ", error);
-                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting. Check console.</div>';
+                document.getElementById('postMessage').innerHTML = '<div class="message error">Error posting.</div>';
             }
 
             btn.innerHTML = originalHTML;
             updatePostButton();
         });
 
-        // Real-time Posts Listener
+        // =============================================
+        // REAL-TIME POSTS
+        // =============================================
         const postsGrid = document.getElementById('postsGrid');
         const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
 
@@ -792,7 +772,7 @@
             renderPosts();
         }, (error) => {
             console.error("Error fetching posts:", error);
-            postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error loading posts</h3><p>Please check Firestore security rules.</p></div>`;
+            postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error loading posts</h3></div>`;
         });
 
         document.querySelectorAll('.filter-pill').forEach(pill => {
@@ -844,7 +824,6 @@
 
             const isLiked = currentUser && post.likes && post.likes.includes(currentUser.uid);
             const likeCount = post.likes ? post.likes.length : 0;
-            const dis = !currentUser ? 'disabled title="Sign in to interact"' : '';
 
             return `<div class="post-card ${post.type}" data-type="${post.type}">
                 <div class="post-header">
@@ -856,11 +835,11 @@
                 <p class="post-content">${post.content}</p>
                 ${metaHTML ? `<div class="post-meta">${metaHTML}</div>` : ''}
                 <div class="post-actions">
-                    <button class="action-btn like-btn ${isLiked ? 'liked' : ''}" data-post-id="${post.id}" ${dis}><i class="fas fa-heart"></i><span>${likeCount}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-comment"></i><span>${post.commentsCount || 0}</span></button>
-                    <button class="action-btn" ${dis}><i class="fas fa-share"></i><span>Share</span></button>
-                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);" ${!currentUser?'onclick="event.preventDefault();openModal(\'signin\');"':''}><i class="fas fa-paper-plane"></i> Apply</a>`:''}
-                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);" ${!currentUser?'onclick="event.preventDefault();openModal(\'signin\');"':''}><i class="fas fa-envelope"></i> Contact</a>`:''}
+                    <button class="action-btn like-btn ${isLiked ? 'liked' : ''}" data-post-id="${post.id}"><i class="fas fa-heart"></i><span>${likeCount}</span></button>
+                    <button class="action-btn"><i class="fas fa-comment"></i><span>${post.commentsCount || 0}</span></button>
+                    <button class="action-btn"><i class="fas fa-share"></i><span>Share</span></button>
+                    ${post.type==='job'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--success);color:white;border-color:var(--success);"><i class="fas fa-paper-plane"></i> Apply</a>`:''}
+                    ${post.type==='ad'&&post.contact?`<a href="mailto:${post.contact}" class="action-btn" style="margin-left:auto;background:var(--warning);color:white;border-color:var(--warning);"><i class="fas fa-envelope"></i> Contact</a>`:''}
                 </div></div>`;
         }
 
@@ -873,7 +852,7 @@
         }
 
         async function handleLike(btn, postId) {
-            if (!currentUser) return;
+            if (!currentUser) { openModal('signin'); return; }
             
             const span = btn.querySelector('span');
             const cur = parseInt(span.textContent);
@@ -887,8 +866,6 @@
                 span.textContent = cur + 1;
             }
 
-            trackGoatEvent('/post-liked', 'Post liked: ' + postId);
-
             try {
                 const postRef = doc(db, "posts", postId);
                 if (isCurrentlyLiked) {
@@ -898,13 +875,8 @@
                 }
             } catch (error) {
                 console.error("Error updating like:", error);
-                if (isCurrentlyLiked) {
-                    btn.classList.add('liked');
-                    span.textContent = cur;
-                } else {
-                    btn.classList.remove('liked');
-                    span.textContent = cur;
-                }
+                if (isCurrentlyLiked) { btn.classList.add('liked'); span.textContent = cur; }
+                else { btn.classList.remove('liked'); span.textContent = cur; }
             }
         }
 
@@ -915,15 +887,12 @@
             if (!currentUser) return;
             const presenceRef = doc(db, "presence", currentUser.uid);
             try {
-                await setDoc(presenceRef, { 
-                    lastActive: serverTimestamp(),
-                    name: currentUser.name 
-                }, { merge: true });
+                await setDoc(presenceRef, { lastActive: serverTimestamp(), name: currentUser.name }, { merge: true });
             } catch (e) { console.error("Heartbeat error", e); }
         }
 
         setInterval(async () => {
-            if(!currentUser) return;
+            if (!currentUser) return;
             await startHeartbeat();
         }, 60000);
 
