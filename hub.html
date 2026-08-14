@@ -345,7 +345,7 @@
 <body>
     <div class="bg-shapes"></div>
 
-    <!-- ✅ UNIFIED AUTH MODAL (فقط از طریق نوار بالا باز می‌شود) -->
+    <!-- ✅ UNIFIED AUTH MODAL -->
     <div class="auth-modal-overlay" id="authModalOverlay">
         <div class="auth-modal">
             <button class="auth-close" id="authClose">&times;</button>
@@ -400,7 +400,7 @@
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
                 <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-                <li><a href="Hub.html" class="active">Hub</a></li>
+                <li><a href="hub.html" class="active">Hub</a></li>
                 <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
                 <li>
                     <button class="nav-auth-btn" id="navAuthBtn">
@@ -448,7 +448,7 @@
             </div>
         </div>
 
-        <!-- ✅ POST COMPOSER - همیشه نمایش داده می‌شود (بدون کارت ورود) -->
+        <!-- ✅ POST COMPOSER - همیشه نمایش داده می‌شود -->
         <div class="post-composer" id="postComposer">
             <div class="composer-header">
                 <div class="composer-avatar" id="composerAvatar">?</div>
@@ -508,7 +508,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, limit, onSnapshot, doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // 🔥 FIREBASE CONFIGURATION
         const firebaseConfig = {
@@ -531,7 +531,7 @@
         let currentFilter = 'all';
 
         // =============================================
-        // AUTH - فقط از نوار بالا، بدون بلاک کردن صفحه
+        // AUTH - فقط از نوار بالا
         // =============================================
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -569,7 +569,7 @@
             return name.split(' ').map(n => n[0]).join('').toUpperCase().substr(0, 2);
         }
 
-        // Modal Controls - فقط از نوار بالا
+        // Modal Controls
         const modalOverlay = document.getElementById('authModalOverlay');
         const authTabs = document.querySelectorAll('.auth-tab');
         const authForms = document.querySelectorAll('.auth-form');
@@ -682,7 +682,7 @@
         }
 
         // =============================================
-        // POST LOGIC - اگر لاگین نبود، مودال باز شود
+        // POST LOGIC
         // =============================================
         document.querySelectorAll('.post-type-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -706,7 +706,6 @@
         }
 
         document.getElementById('submitPost').addEventListener('click', async function() {
-            // اگر لاگین نبود، مودال ورود باز شود
             if (!currentUser) {
                 openModal('signin');
                 document.getElementById('postMessage').innerHTML = '<div class="message error">Please sign in first to post.</div>';
@@ -725,7 +724,7 @@
                 authorUid: currentUser.uid,
                 authorName: currentUser.name,
                 authorEmail: currentUser.email,
-                timestamp: serverTimestamp(),
+                createdAt: Date.now(), // ✅ استفاده از عدد ساده به جای serverTimestamp
                 likes: [],
                 commentsCount: 0
             };
@@ -762,17 +761,21 @@
         });
 
         // =============================================
-        // REAL-TIME POSTS
+        // REAL-TIME POSTS - بدون orderBy برای جلوگیری از نیاز به Index
         // =============================================
         const postsGrid = document.getElementById('postsGrid');
-        const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+        
+        // ✅ روش ساده: گرفتن همه پست‌ها بدون排序، سپس مرتب‌سازی در جاوااسکریپت
+        const q = query(collection(db, "posts"), limit(100));
 
         onSnapshot(q, (snapshot) => {
             allPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // ✅ مرتب‌سازی بر اساس createdAt (جدیدترین اول)
+            allPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
             renderPosts();
         }, (error) => {
             console.error("Error fetching posts:", error);
-            postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error loading posts</h3></div>`;
+            postsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h3>Error loading posts</h3><p>Please check your connection.</p></div>`;
         });
 
         document.querySelectorAll('.filter-pill').forEach(pill => {
@@ -803,7 +806,8 @@
         }
 
         function createPostCard(post) {
-            const timeAgo = post.timestamp ? getTimeAgo(post.timestamp.toDate()) : 'Just now';
+            // ✅ استفاده از createdAt (عدد) به جای timestamp (شیء Firestore)
+            const timeAgo = post.createdAt ? getTimeAgo(new Date(post.createdAt)) : 'Just now';
             const initials = getInitials(post.authorName || 'Anonymous');
 
             let badgeClass = 'badge-discussion', badgeText = 'Discussion';
@@ -811,7 +815,7 @@
             else if (post.type === 'ad') { badgeClass = 'badge-ad'; badgeText = 'Ad'; }
             else if (post.type === 'question') { badgeText = 'Question'; }
             
-            const isNew = post.timestamp && (Date.now() - post.timestamp.toDate().getTime()) < 86400000;
+            const isNew = post.createdAt && (Date.now() - post.createdAt) < 86400000;
 
             let metaHTML = '';
             if (post.type === 'job') {
@@ -887,7 +891,7 @@
             if (!currentUser) return;
             const presenceRef = doc(db, "presence", currentUser.uid);
             try {
-                await setDoc(presenceRef, { lastActive: serverTimestamp(), name: currentUser.name }, { merge: true });
+                await setDoc(presenceRef, { lastActive: Date.now(), name: currentUser.name }, { merge: true });
             } catch (e) { console.error("Heartbeat error", e); }
         }
 
