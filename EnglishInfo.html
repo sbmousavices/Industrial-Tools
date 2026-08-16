@@ -622,6 +622,43 @@ animation: blink 0.7s infinite;
 .btn { padding: 0.9rem 2rem; border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; border: none; font-family: inherit; font-size: 1rem; cursor: pointer; }
 .btn-primary { background: var(--gradient); color: var(--bg-primary); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
+
+/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨✨✨ */
+.hero-buttons .btn-primary {
+    position: relative;
+    z-index: 1;
+    /* Make it slightly larger to stand out */
+    transform: scale(1.05); 
+    /* Stronger initial glow */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    /* Apply the pulse animation */
+    animation: hero-btn-pulse 2s infinite ease-in-out;
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Subtle white border for extra pop */
+}
+
+@keyframes hero-btn-pulse {
+    0% {
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        transform: scale(1.05);
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(212, 175, 55, 0.9), 0 0 10px rgba(255, 255, 255, 0.5);
+        transform: scale(1.08);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        transform: scale(1.05);
+    }
+}
+
+/* Ensure hover effect still works nicely on top of animation */
+.hero-buttons .btn-primary:hover {
+    animation: none; /* Stop pulsing on hover so user can click easily */
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8);
+}
+/* ✨✨✨ END NEW HIGHLIGHT STYLE ✨✨✨ */
+
 .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 .btn-resume {
