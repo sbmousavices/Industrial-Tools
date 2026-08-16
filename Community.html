@@ -417,50 +417,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .progress-bar {
-            background: var(--bg-primary);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 2rem 0;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-        .progress-bar:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
-        }
-        .progress-bar.active {
-            transform: scale(1.02) translateY(-3px);
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
-            border: 1px solid var(--accent);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
-        }
-        .progress-bar.active .progress-text {
-            color: var(--accent-light);
-        }
-        .progress-text {
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        .progress-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--border);
-            transition: all 0.3s;
-        }
-        .dot.active {
-            background: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
-        }
+        /* ✅ PROGRESS BAR STYLES REMOVED */
 
         .download-section {
             background: linear-gradient(135deg, var(--accent-green) 0%, #27ae60 100%);
@@ -654,7 +611,7 @@
             .nav-links { gap: 1rem; }
             .nav-links a { font-size: 0.85rem; }
             .page-header h1 { font-size: 2rem; }
-            .platform-card.active, .reward-section.active, .progress-bar.active, .download-section.active, .hub-section.active {
+            .platform-card.active, .reward-section.active, .download-section.active, .hub-section.active {
                 transform: scale(1.02) translateY(-5px);
             }
             .hub-stats { gap: 1rem; }
@@ -767,17 +724,7 @@
         
         <!-- ✅ SIGNUP FORM REMOVED - مستقیم وارد پلتفرم‌ها می‌شویم -->
 
-        <div class="progress-bar reveal" data-interactive>
-            <div class="progress-text">Follow Our Platforms (Complete all 6 to unlock download)</div>
-            <div class="progress-dots">
-                <div class="dot" data-platform="medium"></div>
-                <div class="dot" data-platform="github"></div>
-                <div class="dot" data-platform="facebook"></div>
-                <div class="dot" data-platform="youtube"></div>
-                <div class="dot" data-platform="instagram"></div>
-                <div class="dot" data-platform="reddit"></div>
-            </div>
-        </div>
+        <!-- ✅ PROGRESS BAR SECTION REMOVED -->
 
         <div class="section-header reveal">
             <p class="section-subtitle">Where To Find Us</p>
@@ -871,7 +818,7 @@
 
         <div class="reward-section reveal" id="rewardSection" data-interactive>
             <div class="reward-icon"><i class="fas fa-gift"></i></div>
-            <h3 class="reward-title">🎁 Exclusive Community Reward</h3>
+            <h3 class="reward-title"> Exclusive Community Reward</h3>
             <p class="reward-description" id="rewardDescription">
                 After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:
                 <br>✅ Professional WBS Template (Excel)
@@ -1162,8 +1109,7 @@
                         confirmBtn.classList.add('confirmed');
                         confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
                     }
-                    const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
-                    if (dot) dot.classList.add('active');
+                    // Dot logic removed as progress bar is gone, but keeping state logic intact
                 }
             });
         }
@@ -1204,8 +1150,8 @@
 
                 this.classList.add('confirmed');
                 this.innerHTML = '<i class="fas fa-check-circle"></i> <span>Confirmed!</span>';
-                const dot = document.querySelector(`.dot[data-platform="${platform}"]`);
-                if (dot) dot.classList.add('active');
+                
+                // Dot logic removed
                 checkAllConfirmed();
             });
         });
