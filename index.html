@@ -258,6 +258,43 @@
         .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
 
+        /* ✅ NEW STYLE FOR FREE SAMPLE BUTTON */
+        .free-sample-wrapper {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 1px dashed var(--accent-green);
+            border-radius: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .free-sample-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .btn-free-sample {
+            background: var(--accent-green);
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
+            font-size: 1.05rem;
+        }
+        .btn-free-sample:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.5);
+            background: var(--accent-green-hover);
+        }
+
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
 
         .product-card {
@@ -619,6 +656,28 @@
             .products-grid { grid-template-columns: 1fr; }
             .info-grid { grid-template-columns: 1fr; }
             .auth-modal { padding: 1.8rem; width: 95%; }
+            .free-sample-wrapper { padding: 1rem; margin: 1.5rem 0 2rem; }
+            .btn-free-sample { padding: 0.8rem 1.5rem; font-size: 0.95rem; }
+        }
+
+        /* ✅ PRINT STYLES TO PREVENT BROKEN BOXES IN PDF */
+        @media print {
+            .product-card, .info-card, .community-section, .hub-section, .about-card, .free-sample-wrapper {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                margin-bottom: 20px !important;
+            }
+            
+            nav, footer, .auth-modal-overlay, .bg-shapes {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }
     </style>
 </head>
@@ -736,6 +795,14 @@
             <p class="section-subtitle">Available Solutions</p>
             <h2 class="section-title">Professional <span>Tools & Services</span></h2>
             <div class="section-divider"></div>
+        </div>
+
+        <!-- ✅ NEW FREE SAMPLE DOWNLOAD SECTION -->
+        <div class="free-sample-wrapper reveal">
+            <p class="free-sample-text">Not sure which tool fits your needs? Download our free product catalog to evaluate the quality and structure before purchasing.</p>
+            <a href="Product.pdf" download class="btn-free-sample" onclick="event.stopPropagation(); trackEvent('/free-sample-download', 'Downloaded: Free Product Catalog PDF')">
+                <i class="fas fa-file-pdf"></i> Download Free Product Catalog
+            </a>
         </div>
 
         <div class="products-grid">
@@ -900,7 +967,7 @@
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
                     </div>
                     <div class="product-actions">
-                        <a href="EL_&IN_Sample_PMS.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: PMS Sample PDF')">
+                        <a href="Product.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: PMS Sample PDF')">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
                         <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: PMS')">
