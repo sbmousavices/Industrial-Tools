@@ -288,6 +288,8 @@
             transition: all 0.3s;
             box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
             font-size: 1.05rem;
+            cursor: pointer;
+            border: none;
         }
         .btn-free-sample:hover {
             transform: translateY(-3px);
@@ -594,7 +596,7 @@
         .hub-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
         .hub-stat { text-align: center; }
         .hub-stat-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--hub-color); transition: all 0.3s ease; }
-        .hub-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+        .hub-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing 1px; }
         .btn-hub {
             background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white;
             padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600;
@@ -662,21 +664,127 @@
 
         /* ✅ PRINT STYLES TO PREVENT BROKEN BOXES IN PDF */
         @media print {
-            .product-card, .info-card, .community-section, .hub-section, .about-card, .free-sample-wrapper {
-                break-inside: avoid !important;
-                page-break-inside: avoid !important;
-                margin-bottom: 20px !important;
-            }
-            
-            nav, footer, .auth-modal-overlay, .bg-shapes {
-                display: none !important;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
+            /* Force Background Colors */
+            * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+            }
+
+            /* Hide Non-Essential Elements */
+            nav, footer, .auth-modal-overlay, .bg-shapes, .free-sample-wrapper, .community-section, .hub-section, .about-section {
+                display: none !important;
+            }
+
+            /* Reset Body for Print */
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                overflow: visible !important;
+            }
+
+            /* Layout Adjustments for Print */
+            .page-header {
+                padding: 2rem 0 !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem !important;
+                color: #000 !important;
+                -webkit-text-fill-color: #000 !important;
+            }
+
+            .stats-strip {
+                background: #f0f0f0 !important;
+                border: 1px solid #ccc !important;
+                color: #000 !important;
+            }
+
+            .stat-box .stat-number, .stat-box .stat-label {
+                color: #000 !important;
+            }
+
+            /* CRITICAL FIX: Break Grid and Stack Cards Vertically */
+            .products-grid {
+                display: block !important; /* This is the key fix */
+                width: 100% !important;
+            }
+
+            .product-card, .info-card {
+                /* Prevent breaking inside the card */
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                
+                /* Force full width and spacing */
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 25px !important;
+                display: block !important;
+                
+                /* Reset styles for clean printing */
+                border: 1px solid #ddd !important;
+                background: #fff !important;
+                box-shadow: none !important;
+                transform: none !important;
+                transition: none !important;
+                border-radius: 8px !important;
+            }
+
+            /* Text Colors for Print */
+            .product-title, .info-title {
+                color: #000 !important;
+            }
+
+            .product-description, .product-features li, .product-meta, .product-category {
+                color: #333 !important;
+            }
+
+            .product-price {
+                color: #000 !important;
+                font-weight: bold !important;
+            }
+
+            .product-banner {
+                height: 100px !important; /* Reduce banner height for print */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .product-banner i {
+                filter: none !important;
+            }
+
+            .btn-product {
+                border: 1px solid #ccc !important;
+                background: #f9f9f9 !important;
+                color: #000 !important;
+                box-shadow: none !important;
+            }
+
+            /* Payment Section Print Styles */
+            .payment-section {
+                margin: 2rem 0 !important;
+                page-break-before: always !important;
+            }
+
+            .info-card {
+                background: #f9f9f9 !important;
+                border: 1px solid #ccc !important;
+            }
+
+            .info-value-box {
+                background: #fff !important;
+                border: 1px solid #ccc !important;
+                color: #000 !important;
+            }
+
+            .section-title {
+                color: #000 !important;
+                -webkit-text-fill-color: #000 !important;
+            }
+
+            .section-subtitle {
+                color: #333 !important;
             }
         }
     </style>
@@ -797,12 +905,12 @@
             <div class="section-divider"></div>
         </div>
 
-        <!-- ✅ NEW FREE SAMPLE DOWNLOAD SECTION -->
+        <!-- ✅ DIRECT DOWNLOAD BUTTON (NO NEW TAB) -->
         <div class="free-sample-wrapper reveal">
             <p class="free-sample-text">Not sure which tool fits your needs? Download our free product catalog to evaluate the quality and structure before purchasing.</p>
-            <a href="Product.pdf" download class="btn-free-sample" onclick="event.stopPropagation(); trackEvent('/free-sample-download', 'Downloaded: Free Product Catalog PDF')">
+            <button onclick="downloadProductCatalog()" class="btn-free-sample">
                 <i class="fas fa-file-pdf"></i> Download Free Product Catalog
-            </a>
+            </button>
         </div>
 
         <div class="products-grid">
@@ -1149,6 +1257,38 @@
     </footer>
 
     <script>
+        // =============================================
+        // ✅ DIRECT DOWNLOAD FUNCTION (NO NEW TAB)
+        // =============================================
+        async function downloadProductCatalog() {
+            const url = 'https://sbmousavices.github.io/Industrial-Tools/Product.pdf';
+            const filename = 'Product_Catalog.pdf';
+            
+            try {
+                trackEvent('/free-sample-download', 'Downloaded: Free Product Catalog PDF');
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Download failed:', error);
+                // Fallback: open in new tab if fetch fails
+                window.open(url, '_blank');
+            }
+        }
+
         // =============================================
         // ✅ GOATCOUNTER CUSTOM EVENT TRACKING
         // =============================================
