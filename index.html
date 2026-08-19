@@ -788,34 +788,21 @@
             }
         }
 
-        /* ✅ CUSTOM CHATBOT HIGHLIGHT ANIMATION */
-        #custom-chat-highlight {
+        /* ✅ CUSTOM CHATBOT ASK ME LABEL & SHAKE ANIMATION */
+        /* کانتینر اصلی برای قرارگیری لیبل و دکمه */
+        #custom-chat-wrapper {
             position: fixed;
             bottom: 25px;
             right: 25px;
             z-index: 10000;
-            pointer-events: none; /* Let clicks pass through to the actual bot button */
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
+            pointer-events: none; /* اجازه کلیک روی دکمه اصلی بات */
         }
 
-        .chat-pulse-ring {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            opacity: 0;
-            animation: pulse-gold 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chat-pulse-ring:nth-child(2) { animation-delay: 0.5s; }
-        .chat-pulse-ring:nth-child(3) { animation-delay: 1s; }
-
+        /* استایل لیبل Ask Me */
         .chat-ask-label {
-            position: absolute;
-            right: 75px;
             background: var(--gradient);
             color: var(--bg-primary);
             padding: 6px 14px;
@@ -823,25 +810,43 @@
             font-size: 0.85rem;
             font-weight: 700;
             font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
             white-space: nowrap;
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+
+        /* انیمیشن تکانی ملایم برای دکمه چت بات */
+        iframe[src*="botpress.cloud"] + div button, 
+        button[aria-label*="chat"],
+        .bpw-layout button {
+            animation: gentle-shake 4s infinite ease-in-out;
+            animation-delay: 2s;
+        }
+
+        @keyframes gentle-shake {
+            0%, 100% { transform: rotate(0deg); }
+            2% { transform: rotate(-6deg); }
+            4% { transform: rotate(6deg); }
+            6% { transform: rotate(-4deg); }
+            8% { transform: rotate(4deg); }
+            10% { transform: rotate(0deg); }
+        }
+
+        /* توقف انیمیشن هنگام هاور یا باز بودن چت */
+        iframe[src*="botpress.cloud"] + div button:hover,
+        button[aria-label*="chat"]:hover,
+        .bpw-layout button:hover,
+        body.chat-open iframe[src*="botpress.cloud"] + div button,
+        body.chat-open button[aria-label*="chat"],
+        body.chat-open .bpw-layout button {
+            animation: none !important;
+        }
+
+        /* مخفی کردن لیبل وقتی چت باز است */
+        body.chat-open .chat-ask-label {
             opacity: 0;
-            transform: translateX(10px);
-            animation: slide-in-label 0.5s ease forwards 1.5s;
-        }
-
-        @keyframes pulse-gold {
-            0% { transform: scale(0.8); opacity: 0.8; border-width: 3px; }
-            100% { transform: scale(1.6); opacity: 0; border-width: 1px; }
-        }
-
-        @keyframes slide-in-label {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Hide highlight when chat is open */
-        body.chat-open #custom-chat-highlight {
-            display: none !important;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -1598,23 +1603,16 @@
     
     <!-- ✅ BOTPRESS CHATBOT WIDGET END -->
 
-    <!-- ✅ CUSTOM GOLDEN HIGHLIGHT OVERLAY FOR CHATBOT -->
-      <div id="custom-chat-highlight">
-        <div class="chat-pulse-ring"></div>
-        <div class="chat-pulse-ring"></div>
-        <div class="chat-pulse-ring"></div>
-        <div class="chat-ask-label">Ask me</div>
+    <!-- ✅ CUSTOM ASK ME LABEL WRAPPER -->
+    <div id="custom-chat-wrapper">
+        <div class="chat-ask-label">Ask Me</div>
     </div>
 
     <script>
-        // Hide highlight when user clicks anywhere (chat opens)
+        // Stop shake animation and hide label when chat opens
         document.addEventListener('click', function() {
             document.body.classList.add('chat-open');
         });
-        
-        // Show highlight again if user closes chat (optional enhancement)
-        // This requires observing DOM changes in Botpress iframe which is complex
-        // For now, it disappears on first interaction which is standard UX
     </script>
 
 </body>
