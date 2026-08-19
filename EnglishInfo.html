@@ -623,7 +623,7 @@ animation: blink 0.7s infinite;
 .btn-primary { background: var(--gradient); color: var(--bg-primary); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
 
-/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨✨✨ */
+/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨✨ */
 .hero-buttons .btn-primary {
     position: relative;
     z-index: 1;
@@ -1341,6 +1341,82 @@ gap: 0.5rem;
 border-radius: 15px;
 }
 }
+
+/* =============================================
+   ✅ BOTPRESS CHATBOT CUSTOM STYLES
+   ============================================= */
+   
+/* کانتینر اصلی برای قرارگیری لیبل و دکمه در پایین سمت راست */
+#custom-chat-wrapper {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none; /* اجازه کلیک روی دکمه اصلی بات */
+}
+
+/* استایل لیبل Ask Me */
+.chat-ask-label {
+    background: var(--gradient);
+    color: var(--bg-primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    white-space: nowrap;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+/* انیمیشن تکانی ملایم برای دکمه چت بات */
+iframe[src*="botpress.cloud"] + div button, 
+button[aria-label*="chat"],
+.bpw-layout button {
+    animation: gentle-shake 4s infinite ease-in-out;
+    animation-delay: 2s;
+}
+
+@keyframes gentle-shake {
+    0%, 100% { transform: rotate(0deg); }
+    2% { transform: rotate(-6deg); }
+    4% { transform: rotate(6deg); }
+    6% { transform: rotate(-4deg); }
+    8% { transform: rotate(4deg); }
+    10% { transform: rotate(0deg); }
+}
+
+/* توقف انیمیشن هنگام هاور یا باز بودن چت */
+iframe[src*="botpress.cloud"] + div button:hover,
+button[aria-label*="chat"]:hover,
+.bpw-layout button:hover,
+body.chat-open iframe[src*="botpress.cloud"] + div button,
+body.chat-open button[aria-label*="chat"],
+body.chat-open .bpw-layout button {
+    animation: none !important;
+}
+
+/* مخفی کردن لیبل وقتی چت باز است */
+body.chat-open .chat-ask-label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ریسپانسیو برای موبایل */
+@media (max-width: 768px) {
+    #custom-chat-wrapper {
+        bottom: 20px;
+        right: 20px;
+    }
+    .chat-ask-label {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+}
 </style>
 </head>
 <body>
@@ -1811,6 +1887,24 @@ onerror="this.style.display='none'; this.nextElementSibling.style.display='block
 <footer>
 <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
 </footer>
+
+<!-- ✅ BOTPRESS CHATBOT WIDGET START -->
+<script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/08/18/04/20260818041925-O81DDK4U.js" defer></script>
+<!-- ✅ BOTPRESS CHATBOT WIDGET END -->
+
+<!-- ✅ CUSTOM ASK ME LABEL WRAPPER -->
+<div id="custom-chat-wrapper">
+    <div class="chat-ask-label">Ask Me</div>
+</div>
+
+<script>
+    // Stop shake animation and hide label when chat opens
+    document.addEventListener('click', function() {
+        document.body.classList.add('chat-open');
+    });
+</script>
+
 <!-- ✅ DEFERRED JAVASCRIPT FOR BETTER LOADING PERFORMANCE -->
 <script defer>
 // =============================================
