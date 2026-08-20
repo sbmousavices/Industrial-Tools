@@ -622,6 +622,190 @@
             .platforms-grid { grid-template-columns: 1fr; }
             .auth-modal { padding: 1.8rem; width: 95%; }
         }
+
+        /* =============================================
+           ✅ CUSTOM CHATBOT STYLES (QWEN INTEGRATION)
+           ============================================= */
+           
+        /* Wrapper for Ask Me label and chat button positioning */
+        #custom-chat-wrapper {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none; /* Allow clicks to pass through to button */
+        }
+
+        /* Ask Me Label Style */
+        .chat-ask-label {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            white-space: nowrap;
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Chat Toggle Button */
+        #chat-toggle {
+            pointer-events: auto;
+            padding: 12px 24px;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 10001;
+            transition: transform 0.2s ease;
+        }
+
+        #chat-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Chat Box Window */
+        #chat-box {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 25px;
+            width: 320px;
+            height: 450px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            flex-direction: column;
+            font-family: 'Inter', Tahoma, Arial, sans-serif;
+            z-index: 10002;
+            overflow: hidden;
+        }
+
+        /* Chat Header */
+        #chat-header {
+            padding: 15px;
+            background: var(--bg-primary);
+            color: var(--accent);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        #close-chat {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        /* Messages Area */
+        #chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #f9f9f9;
+        }
+
+        /* Input Area */
+        #chat-input-area {
+            padding: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 8px;
+            background: white;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+            color: #333;
+        }
+
+        #send-btn {
+            padding: 10px 16px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+        }
+
+        /* Message Bubbles */
+        .msg-user {
+            margin: 8px 0;
+            text-align: right;
+        }
+        .msg-user span {
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 8px 12px;
+            border-radius: 12px 12px 0 12px;
+            display: inline-block;
+            max-width: 85%;
+        }
+
+        .msg-bot {
+            margin: 8px 0;
+            text-align: left;
+        }
+        .msg-bot span {
+            background: #e9ecef;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 12px 12px 12px 0;
+            display: inline-block;
+            max-width: 85%;
+        }
+
+        .loading-msg {
+            margin: 8px 0;
+            text-align: left;
+            color: #888;
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            #custom-chat-wrapper {
+                bottom: 20px;
+                right: 20px;
+            }
+            .chat-ask-label {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+            }
+            #chat-box {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 70px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -809,7 +993,7 @@
         </div>
 
         <div class="download-section reveal" id="downloadSection" style="display: none;" data-interactive>
-            <h3>🎉 Congratulations! Download Unlocked</h3>
+            <h3> Congratulations! Download Unlocked</h3>
             <p>You've successfully joined our community on all platforms. Here's your FREE Project Planning Starter Kit:</p>
             <a href="https://sbmousavices.github.io/Industrial-Tools/Community.rar" download="Community.rar" class="btn-download" onclick="event.stopPropagation(); trackGoatEvent('/starter-kit-download', 'Downloaded Starter Kit')">
                 <i class="fas fa-download"></i> Download Starter Kit
@@ -846,6 +1030,103 @@
     <footer>
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
     </footer>
+
+    <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) -->
+    <div id="custom-chat-wrapper">
+        <div class="chat-ask-label">Ask Me</div>
+        <button id="chat-toggle">💬 Chat</button>
+    </div>
+
+    <div id="chat-box">
+        <div id="chat-header">
+            <span>AI Assistant</span>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+    // Chatbot Configuration
+    const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
+
+    const toggleBtn = document.getElementById('chat-toggle');
+    const closeBtn = document.getElementById('close-chat');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('send-btn');
+    const userInput = document.getElementById('user-input');
+    const messagesDiv = document.getElementById('chat-messages');
+    const askLabel = document.querySelector('.chat-ask-label');
+
+    // Toggle Chat Visibility
+    toggleBtn.addEventListener('click', () => {
+        chatBox.style.display = 'flex';
+        toggleBtn.style.display = 'none';
+        if(askLabel) askLabel.style.opacity = '0';
+        userInput.focus();
+    });
+
+    closeBtn.addEventListener('click', () => {
+        chatBox.style.display = 'none';
+        toggleBtn.style.display = 'block';
+        if(askLabel) askLabel.style.opacity = '0.95';
+    });
+
+    // Send Message Handlers
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => { 
+        if (e.key === 'Enter') sendMessage(); 
+    });
+
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // User Message Bubble
+        messagesDiv.innerHTML += `<div class="msg-user"><span>${escapeHtml(message)}</span></div>`;
+        userInput.value = '';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        // Loading Indicator
+        const loadingId = 'loading-' + Date.now();
+        messagesDiv.innerHTML += `<div id="${loadingId}" class="loading-msg">Thinking...</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+            
+            const data = await response.json();
+            document.getElementById(loadingId).remove();
+            
+            // Bot Response Bubble
+            const replyText = data.reply || 'Sorry, I could not process that request.';
+            messagesDiv.innerHTML += `<div class="msg-bot"><span>${escapeHtml(replyText)}</span></div>`;
+        } catch (error) {
+            document.getElementById(loadingId).remove();
+            messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">⚠️ Connection error. Please try again.</span></div>`;
+        }
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Security Helper to prevent XSS
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+    </script>
 
     <!-- 🔥 FIREBASE SDK -->
     <script type="module">
@@ -1173,7 +1454,7 @@
             document.getElementById('downloadSection').style.display = 'block';
             document.getElementById('rewardSection').style.display = 'none';
             if (alreadyClaimed) {
-                document.querySelector('#downloadSection h3').textContent = '🎁 Your Reward is Ready';
+                document.querySelector('#downloadSection h3').textContent = ' Your Reward is Ready';
                 document.querySelector('#downloadSection p').textContent = 'Welcome back! You have already unlocked the Project Planning Starter Kit. Download it anytime.';
             }
         }
