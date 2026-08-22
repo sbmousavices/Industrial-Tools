@@ -227,40 +227,25 @@
         }
 
         /* =============================================
-           ✅ CUSTOM CHATBOT STYLES (QWEN INTEGRATION)
+           ✅ CUSTOM CHATBOT STYLES (QWEN INTEGRATION) - FIXED POSITION
            ============================================= */
            
-        /* Wrapper for Ask Me label and chat button positioning */
+        /* Wrapper for chat button positioning - Moved to Top Left with better spacing */
         #custom-chat-wrapper {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            top: 80px; /* Below navbar */
+            left: 30px; /* Increased from 20px to 30px for better visual balance */
             z-index: 10000;
             display: flex;
             align-items: center;
             gap: 12px;
-            pointer-events: none; /* Allow clicks to pass through to button */
-        }
-
-        /* Ask Me Label Style */
-        .chat-ask-label {
-            background: var(--gradient);
-            color: var(--bg-primary);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            white-space: nowrap;
-            opacity: 0.95;
-            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         /* Chat Toggle Button */
         #chat-toggle {
             pointer-events: auto;
-            padding: 12px 24px;
+            padding: 10px 20px;
             background: var(--gradient);
             color: var(--bg-primary);
             border: none;
@@ -282,8 +267,8 @@
         #chat-box {
             display: none;
             position: fixed;
-            bottom: 80px;
-            right: 25px;
+            top: 130px; /* Below the chat button */
+            left: 30px; /* Aligned with the button */
             width: 320px;
             height: 450px;
             background: white;
@@ -393,20 +378,17 @@
             font-size: 13px;
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive for Chat */
         @media (max-width: 768px) {
             #custom-chat-wrapper {
-                bottom: 20px;
-                right: 20px;
-            }
-            .chat-ask-label {
-                font-size: 0.75rem;
-                padding: 4px 10px;
+                top: 70px;
+                left: 20px; /* Adjusted for mobile */
             }
             #chat-box {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 70px;
+                width: calc(100% - 40px); /* Better width calculation */
+                left: 20px;
+                top: 120px;
+                height: 60vh; /* Adjust height for mobile */
             }
         }
     </style>
@@ -512,10 +494,9 @@
         <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Community Hub</p>
     </footer>
 
-    <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) -->
+    <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) - REPOSITIONED -->
     <div id="custom-chat-wrapper">
-        <div class="chat-ask-label">Ask Me</div>
-        <button id="chat-toggle">💬 Chat</button>
+        <button id="chat-toggle"> Chat</button>
     </div>
 
     <div id="chat-box">
@@ -540,20 +521,17 @@
     const sendBtn = document.getElementById('send-btn');
     const userInput = document.getElementById('user-input');
     const messagesDiv = document.getElementById('chat-messages');
-    const askLabel = document.querySelector('.chat-ask-label');
 
     // Toggle Chat Visibility
     toggleBtn.addEventListener('click', () => {
         chatBox.style.display = 'flex';
         toggleBtn.style.display = 'none';
-        if(askLabel) askLabel.style.opacity = '0';
         userInput.focus();
     });
 
     closeBtn.addEventListener('click', () => {
         chatBox.style.display = 'none';
         toggleBtn.style.display = 'block';
-        if(askLabel) askLabel.style.opacity = '0.95';
     });
 
     // Send Message Handlers
@@ -591,7 +569,7 @@
             messagesDiv.innerHTML += `<div class="msg-bot"><span>${escapeHtml(replyText)}</span></div>`;
         } catch (error) {
             document.getElementById(loadingId).remove();
-            messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">⚠️ Connection error. Please try again.</span></div>`;
+            messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">️ Connection error. Please try again.</span></div>`;
         }
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
