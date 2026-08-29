@@ -172,7 +172,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 </noscript>
-<!-- 🛠️ FIX #3: SERVICE WORKER WITH CACHE BUSTING (Unregister old SW first) -->
+<!-- ️ FIX #3: SERVICE WORKER WITH CACHE BUSTING (Unregister old SW first) -->
 <script>
 window.addEventListener('load', () => {
 if ('serviceWorker' in navigator) {
@@ -691,7 +691,36 @@ transform: translateY(-3px);
 box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
 background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
 }
-/* ✅ REMOVED MOBILE NFT BUTTON STYLES AS REQUESTED */
+/* ✅ MOBILE ONLY NFT BUTTON */
+.mobile-nft-btn {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--hub-color);
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+    color: var(--hub-color-light);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.mobile-nft-btn:hover {
+    background: var(--hub-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.4);
+}
+@media (min-width: 969px) {
+    .mobile-nft-btn { display: none !important; }
+}
 
 .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
 .avatar-wrapper { position: relative; width: 320px; height: 320px; border-radius: 50%; background: var(--gradient); padding: 5px; animation: pulse 3s infinite; }
@@ -1699,7 +1728,8 @@ Specializing in <span class="typing-text" id="typing-text"></span>
 <a href="#contact" class="btn btn-outline">
 <i class="fas fa-envelope"></i> Get in Touch
 </a>
-<!-- ✅ REMOVED MOBILE NFT BUTTON -->
+<!-- ✅ MOBILE ONLY NFT BUTTON RESTORED -->
+<a href="https://sbmousavices.github.io/NFT/" class="mobile-nft-btn"><i class="fas fa-images"></i> NFT Gallery</a>
 </div>
 </div>
 <div class="hero-image">
