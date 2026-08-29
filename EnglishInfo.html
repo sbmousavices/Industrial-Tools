@@ -691,36 +691,7 @@ transform: translateY(-3px);
 box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
 background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
 }
-/* ✅ MOBILE ONLY NFT BUTTON */
-.mobile-nft-btn {
-    display: none;
-    width: 100%;
-    margin-top: 1rem;
-    padding: 0.9rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: 2px solid var(--hub-color);
-    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
-    color: var(--hub-color-light);
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-}
-.mobile-nft-btn:hover {
-    background: var(--hub-color);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.4);
-}
-@media (min-width: 969px) {
-    .mobile-nft-btn { display: none !important; }
-}
+/* ✅ REMOVED MOBILE NFT BUTTON STYLES AS REQUESTED */
 
 .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
 .avatar-wrapper { position: relative; width: 320px; height: 320px; border-radius: 50%; background: var(--gradient); padding: 5px; animation: pulse 3s infinite; }
@@ -1538,41 +1509,7 @@ border-radius: 15px;
         height: 60vh;
     }
 }
-/* ✅ NFT GALLERY SPA STYLES */
-#nft-gallery-view {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-primary);
-    z-index: 10000;
-    overflow-y: auto;
-    padding-top: 80px;
-}
-.nft-back-btn {
-    position: fixed;
-    top: 90px;
-    left: 5%;
-    z-index: 10001;
-    padding: 0.6rem 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--accent);
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s;
-}
-.nft-back-btn:hover {
-    background: var(--accent);
-    color: var(--bg-primary);
-}
+/* ✅ REMOVED ALL NFT GALLERY SPA STYLES (#nft-gallery-view, .nft-back-btn) */
 </style>
 </head>
 <body>
@@ -1692,21 +1629,22 @@ border-radius: 15px;
 <nav>
 <div class="nav-container">
 <!-- ✅ UPDATED LOGO STRUCTURE -->
-<a href="#" class="logo" onclick="showMainView()">
+<a href="#" class="logo">
 <div class="logo-circle">
 <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
 </div>
 Home
 </a>
 <ul class="nav-links">
-<li><a href="#about" onclick="showMainView()">About</a></li>
-<li><a href="#skills" onclick="showMainView()">Expertise</a></li>
-<li><a href="#" onclick="showNFTGallery(); return false;">NFT Gallery</a></li> <!-- ✅ CHANGED FROM Education -->
-<li><a href="#products" onclick="showMainView()">Products</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Expertise</a></li>
+<!-- ✅ DIRECT LINK TO NFT GALLERY (NO SPA) -->
+<li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+<li><a href="#products">Products</a></li>
 <li><a href="https://sbmousavices.github.io/Articles/index.html">Articles</a></li>
-<li><a href="#community" onclick="showMainView()">Community</a></li>
+<li><a href="#community">Community</a></li>
 <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
-<li><a href="#contact" onclick="showMainView()">Contact</a></li>
+<li><a href="#contact">Contact</a></li>
 <!-- ✅ AUTH BUTTON / USER DROPDOWN (Desktop) -->
 <li>
 <button class="nav-auth-btn" id="navAuthBtn">
@@ -1734,8 +1672,7 @@ Home
 </div>
 </nav>
 
-<!-- ✅ MAIN SITE CONTENT WRAPPER -->
-<div id="main-site-content">
+<!-- ✅ MAIN SITE CONTENT WRAPPER (NO HIDDEN DIVS) -->
 <section class="hero" id="home">
 <div class="hero-content">
 <div class="hero-text">
@@ -1762,10 +1699,7 @@ Specializing in <span class="typing-text" id="typing-text"></span>
 <a href="#contact" class="btn btn-outline">
 <i class="fas fa-envelope"></i> Get in Touch
 </a>
-<!-- ✅ MOBILE ONLY NFT BUTTON -->
-<button class="mobile-nft-btn" onclick="showNFTGallery()">
-    <i class="fas fa-images"></i> NFT Gallery
-</button>
+<!-- ✅ REMOVED MOBILE NFT BUTTON -->
 </div>
 </div>
 <div class="hero-image">
@@ -2050,19 +1984,12 @@ onerror="this.style.display='none'; this.nextElementSibling.style.display='block
 <footer>
 <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
 </footer>
-</div> <!-- END MAIN SITE CONTENT -->
 
-<!-- ✅ NFT GALLERY SPA VIEW -->
-<div id="nft-gallery-view">
-    <button class="nft-back-btn" onclick="showMainView()">
-        <i class="fas fa-arrow-left"></i> Back to Portfolio
-    </button>
-    <iframe id="nft-frame" src="https://sbmousavices.github.io/NFT/" style="width:100%; height:calc(100vh - 80px); border:none; display:block;"></iframe>
-</div>
+<!-- ✅ REMOVED NFT GALLERY SPA VIEW AND IFRAME -->
 
 <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) - REPOSITIONED -->
 <div id="custom-chat-wrapper">
-    <button id="chat-toggle"> Chat</button>
+    <button id="chat-toggle">💬 Chat</button>
 </div>
 
 <div id="chat-box">
@@ -2078,19 +2005,7 @@ onerror="this.style.display='none'; this.nextElementSibling.style.display='block
 </div>
 
 <script>
-// ✅ SPA NAVIGATION FUNCTIONS
-function showNFTGallery() {
-    document.getElementById('main-site-content').style.display = 'none';
-    document.getElementById('nft-gallery-view').style.display = 'block';
-    window.scrollTo(0, 0);
-    trackEvent('/nft-gallery', 'Opened NFT Gallery');
-}
-
-function showMainView() {
-    document.getElementById('nft-gallery-view').style.display = 'none';
-    document.getElementById('main-site-content').style.display = 'block';
-    window.scrollTo(0, 0);
-}
+// ✅ REMOVED SPA NAVIGATION FUNCTIONS (showNFTGallery, showMainView)
 
 // Chatbot Configuration
 const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
