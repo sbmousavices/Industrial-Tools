@@ -657,7 +657,7 @@ animation: blink 0.7s infinite;
     transform: scale(1.1) translateY(-3px);
     box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8);
 }
-/* ✨✨✨ END NEW HIGHLIGHT STYLE ✨✨✨ */
+/* ✨✨ END NEW HIGHLIGHT STYLE ✨✨✨ */
 
 .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
@@ -691,6 +691,38 @@ transform: translateY(-3px);
 box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
 background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
 }
+
+/* ✅ MOBILE ONLY WEB DESIGN BUTTON (NEW) */
+.mobile-web-design-btn {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--accent);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 208, 111, 0.1) 100%);
+    color: var(--accent-light);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.mobile-web-design-btn:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+@media (min-width: 969px) {
+    .mobile-web-design-btn { display: none !important; }
+}
+
 /* ✅ MOBILE ONLY NFT BUTTON */
 .mobile-nft-btn {
     display: none;
@@ -1666,7 +1698,8 @@ Home
 </a>
 <ul class="nav-links">
 <li><a href="#about">About</a></li>
-<li><a href="#skills">Expertise</a></li>
+<!-- ✅ 1. CHANGED EXPERTISE TO WEB DESIGN WITH LINK TO THEME PAGE -->
+<li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
 <!-- ✅ DIRECT LINK TO NFT GALLERY (NO SPA) -->
 <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
 <li><a href="#products">Products</a></li>
@@ -1728,6 +1761,8 @@ Specializing in <span class="typing-text" id="typing-text"></span>
 <a href="#contact" class="btn btn-outline">
 <i class="fas fa-envelope"></i> Get in Touch
 </a>
+<!-- ✅ 2. MOBILE ONLY WEB DESIGN BUTTON (NEW) -->
+<a href="https://sbmousavices.github.io/Theme/index.html" class="mobile-web-design-btn"><i class="fas fa-laptop-code"></i> Web Design Themes</a>
 <!-- ✅ MOBILE ONLY NFT BUTTON RESTORED -->
 <a href="https://sbmousavices.github.io/NFT/" class="mobile-nft-btn"><i class="fas fa-images"></i> NFT Gallery</a>
 </div>
@@ -2581,7 +2616,7 @@ if(btnVerify) {
                 }, 1000);
             } else {
                 msgDiv.className = 'auth-message error';
-                msgDiv.textContent = '✕ Invalid code. Please check your email and try again.';
+                msgDiv.textContent = ' Invalid code. Please check your email and try again.';
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-check-circle"></i> Verify & Create Account';
             }
