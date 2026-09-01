@@ -1,659 +1,2076 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Articles | Project Controls & Planning | Behzad Mousavi</title>
+<meta name="description" content="Expert guides on Primavera P6, Critical Path Analysis, EVM, Delay Analysis, Calendars, Activity Codes, Constraints, Relationships, Layouts, Reports and Project Controls.">
+<meta name="author" content="Behzad Mousavi">
+<!-- ✅ PWA Manifest -->
+<link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
+<!-- ✅ iOS Safari Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BM Planning">
+<link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
+<!-- ✅ Theme Color -->
+<meta name="theme-color" content="#d4af37">
+<meta name="msapplication-TileColor" content="#d4af37">
+<!-- ✅ ARTICLE SCHEMA MARKUP FOR SEO (UPDATED TO 41 ITEMS) -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "ItemList",
+"name": "Professional Articles on Project Controls",
+"description": "Expert guides on Primavera P6, Critical Path Analysis, EVM, WBS Development, Schedule Compression, Delay Analysis, Float Management, Calendars, Activity Codes, Constraints, Relationships, Layouts, Reports, Dashboards, Risk Management, Cost Control, and more.",
+"numberOfItems": 41,
+"itemListElement": [
+{ "@type": "ListItem", "position": 1, "item": { "@type": "Article", "headline": "Mastering Activity Relationships in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Relationships.pdf" } },
+{ "@type": "ListItem", "position": 2, "item": { "@type": "Article", "headline": "Mastering Layouts in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Layouts.pdf" } },
+{ "@type": "ListItem", "position": 3, "item": { "@type": "Article", "headline": "Mastering Reports in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Reports.pdf" } },
+{ "@type": "ListItem", "position": 4, "item": { "@type": "Article", "headline": "Understanding Project Calendars in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Calendars.pdf" } },
+{ "@type": "ListItem", "position": 5, "item": { "@type": "Article", "headline": "Mastering Activity Codes for Reporting", "url": "https://sbmousavices.github.io/Articles/Activity_Codes.pdf" } },
+{ "@type": "ListItem", "position": 6, "item": { "@type": "Article", "headline": "Managing Schedule Constraints Effectively", "url": "https://sbmousavices.github.io/Articles/Constraints.pdf" } },
+{ "@type": "ListItem", "position": 7, "item": { "@type": "Article", "headline": "Mastering Schedule Compression", "url": "https://sbmousavices.github.io/Articles/Schedule_Compression.pdf" } },
+{ "@type": "ListItem", "position": 8, "item": { "@type": "Article", "headline": "The Definitive Guide to Delay Analysis", "url": "https://sbmousavices.github.io/Articles/Delay_Analysis.pdf" } },
+{ "@type": "ListItem", "position": 9, "item": { "@type": "Article", "headline": "The Strategic Art of Float Management", "url": "https://sbmousavices.github.io/Articles/Float_Management.pdf" } },
+{ "@type": "ListItem", "position": 10, "item": { "@type": "Article", "headline": "Mastering Resource Leveling in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Mastering_Resource_Leveling.pdf" } },
+{ "@type": "ListItem", "position": 11, "item": { "@type": "Article", "headline": "The Ultimate Guide to Project Progress Measurement", "url": "https://sbmousavices.github.io/Articles/Project_Progress_Measurement.pdf" } },
+{ "@type": "ListItem", "position": 12, "item": { "@type": "Article", "headline": "The Art of Schedule Updating", "url": "https://sbmousavices.github.io/Articles/Updating_Schedules.pdf" } },
+{ "@type": "ListItem", "position": 13, "item": { "@type": "Article", "headline": "Resource Loading", "url": "https://sbmousavices.github.io/Articles/Resource_Loading.pdf" } },
+{ "@type": "ListItem", "position": 14, "item": { "@type": "Article", "headline": "Baseline Schedule Development", "url": "https://sbmousavices.github.io/Articles/Baseline_Schedule_Development.pdf" } },
+{ "@type": "ListItem", "position": 15, "item": { "@type": "Article", "headline": "Critical Path Analysis", "url": "https://sbmousavices.github.io/Articles/Critical_Path_Analysis.pdf" } },
+{ "@type": "ListItem", "position": 16, "item": { "@type": "Article", "headline": "WBS Development for EPC Projects", "url": "https://sbmousavices.github.io/Articles/WBS_Development_for_EPC_Projects.pdf" } },
+{ "@type": "ListItem", "position": 17, "item": { "@type": "Article", "headline": "Primavera P6 Scheduling Best Practices", "url": "https://sbmousavices.github.io/Articles/Primavera_P6_Scheduling_Best_Practices.pdf" } },
+{ "@type": "ListItem", "position": 18, "item": { "@type": "Article", "headline": "EPC Project Delay Due to 10 Critical Schedule Risks", "url": "https://sbmousavices.github.io/Articles/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf" } },
+{ "@type": "ListItem", "position": 19, "item": { "@type": "Article", "headline": "Executive Project Dashboards: Transforming Data into Decisions", "url": "https://sbmousavices.github.io/Articles/Dashboards.pdf" } },
+{ "@type": "ListItem", "position": 20, "item": { "@type": "Article", "headline": "Mastering Global Change in Primavera P6", "url": "https://sbmousavices.github.io/Articles/Global_Change.pdf" } },
+{ "@type": "ListItem", "position": 21, "item": { "@type": "Article", "headline": "10 Essential Primavera P6 Tips & Tricks", "url": "https://sbmousavices.github.io/Articles/Tips&Tricks.pdf" } },
+{ "@type": "ListItem", "position": 22, "item": { "@type": "Article", "headline": "Building a Robust Project Controls Framework", "url": "https://sbmousavices.github.io/Articles/Project_Controls_Framework.pdf" } },
+{ "@type": "ListItem", "position": 23, "item": { "@type": "Article", "headline": "Mastering Cost Control in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Cost_Control.pdf" } },
+{ "@type": "ListItem", "position": 24, "item": { "@type": "Article", "headline": "Engineering Progress Measurement in EPC Projects", "url": "https://sbmousavices.github.io/Articles/Engineering_Progress_Measurement.pdf" } },
+{ "@type": "ListItem", "position": 25, "item": { "@type": "Article", "headline": "Procurement Tracking in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Procurement_Tracking.pdf" } },
+{ "@type": "ListItem", "position": 26, "item": { "@type": "Article", "headline": "Construction Progress Measurement in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Construction_Progress_Measurement.pdf" } },
+{ "@type": "ListItem", "position": 27, "item": { "@type": "Article", "headline": "Interface Management in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Interface_Management.pdf" } },
+{ "@type": "ListItem", "position": 28, "item": { "@type": "Article", "headline": "Change Management in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Change_Management.pdf" } },
+{ "@type": "ListItem", "position": 29, "item": { "@type": "Article", "headline": "Recovery Planning in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Recovery_Planning.pdf" } },
+{ "@type": "ListItem", "position": 30, "item": { "@type": "Article", "headline": "Risk Management in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Risk_Management.pdf" } },
+{ "@type": "ListItem", "position": 31, "item": { "@type": "Article", "headline": "KPI Development for Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/KPI_Development.pdf" } },
+{ "@type": "ListItem", "position": 32, "item": { "@type": "Article", "headline": "Performance Reporting in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Performance_Reporting.pdf" } },
+{ "@type": "ListItem", "position": 33, "item": { "@type": "Article", "headline": "Forecasting in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Forecasting.pdf" } },
+{ "@type": "ListItem", "position": 34, "item": { "@type": "Article", "headline": "Trend Analysis in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Trend_Analysis.pdf" } },
+{ "@type": "ListItem", "position": 35, "item": { "@type": "Article", "headline": "Productivity Analysis in Industrial EPC Projects", "url": "https://sbmousavices.github.io/Articles/Productivity_Analysis.pdf" } },
+{ "@type": "ListItem", "position": 36, "item": { "@type": "Article", "headline": "Project Dashboards: Designing for Decision", "url": "https://sbmousavices.github.io/Articles/Project_Dashboards.pdf" } },
+{ "@type": "ListItem", "position": 37, "item": { "@type": "Article", "headline": "Schedule Recovery Strategies", "url": "https://sbmousavices.github.io/Articles/Schedule_Recovery.pdf" } },
+{ "@type": "ListItem", "position": 38, "item": { "@type": "Article", "headline": "Claims Avoidance in Construction", "url": "https://sbmousavices.github.io/Articles/Claims_Avoidance.pdf" } },
+{ "@type": "ListItem", "position": 39, "item": { "@type": "Article", "headline": "Lessons Learned in Project Management", "url": "https://sbmousavices.github.io/Articles/Lessons_Learned.pdf" } },
+{ "@type": "ListItem", "position": 40, "item": { "@type": "Article", "headline": "Project Closeout Procedures", "url": "https://sbmousavices.github.io/Articles/Project_Closeout.pdf" } },
+{ "@type": "ListItem", "position": 41, "item": { "@type": "Article", "headline": "Industry Best Practices", "url": "https://sbmousavices.github.io/Articles/Best Practices.pdf" } }
+]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- ✅ Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', () => {
+navigator.serviceWorker.register('/Industrial-Tools/sw.js')
+.then(registration => {
+console.log('ServiceWorker registered', registration.scope);
+})
+.catch(error => {
+console.log('ServiceWorker registration failed', error);
+});
+});
+}
+</script>
+<!-- ✅ GoatCounter Analytics -->
+<script data-goatcounter="https://bmousavi.goatcounter.com/count"
+async src="//gc.zgo.at/count.js"></script>
+<script>
+function trackEvent(path, title) {
+if (window.goatcounter) {
+window.goatcounter.count({ path: path, title: title || path, event: true });
+}
+}
+</script>
+<style>
+:root {
+--bg-primary: #0a1628; --bg-secondary: #0f1f38; --bg-card: #132847;
+--accent: #d4af37; --accent-light: #f4d06f;
+--text-primary: #e8eef7; --text-secondary: #a0aec0;
+--border: rgba(212, 175, 55, 0.2);
+--gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+--shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+--hub-color: #9b59b6;
+--hub-color-light: #bb8fce;
+--success: #2ecc71;
+--danger: #e74c3c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
+/* --- UNIFIED AUTH MODAL STYLES --- */
+.auth-modal-overlay {
+position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
+z-index: 2000; display: none; align-items: center; justify-content: center;
+opacity: 0; transition: opacity 0.3s ease;
+}
+.auth-modal-overlay.active { display: flex; opacity: 1; }
+.auth-modal {
+background: var(--bg-card); border: 1px solid var(--border);
+border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
+position: relative; transform: translateY(20px); transition: transform 0.3s ease;
+box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+.auth-modal-overlay.active .auth-modal { transform: translateY(0); }
+.auth-close {
+position: absolute; top: 1.2rem; right: 1.5rem;
+background: none; border: none; color: var(--text-secondary);
+font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+}
+.auth-close:hover { color: var(--accent); }
+.auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
+.auth-tab {
+flex: 1; padding: 0.8rem; background: none; border: none;
+color: var(--text-secondary); font-family: inherit; font-size: 1rem;
+font-weight: 600; cursor: pointer; transition: all 0.3s;
+border-bottom: 2px solid transparent; margin-bottom: -2px;
+}
+.auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.auth-form { display: none; }
+.auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
+.auth-field { margin-bottom: 1.2rem; text-align: left; }
+.auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
+.auth-field input {
+width: 100%; padding: 0.85rem 1.2rem; background: var(--bg-primary);
+border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
+font-family: inherit; font-size: 1rem; transition: all 0.3s;
+}
+.auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+.btn-auth-submit {
+width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
+border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
+cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; font-family: inherit;
+}
+.btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+.btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
+.auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--success); color: var(--success); }
+.auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
+/* NAV AUTH BUTTON & DROPDOWN */
+.nav-auth-btn {
+padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
+font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+display: inline-flex; align-items: center; gap: 0.5rem;
+border: 1px solid var(--accent); color: var(--accent); background: transparent;
+font-family: inherit; text-decoration: none; white-space: nowrap;
+}
+.nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
+.nav-auth-btn.logged-in { border-color: var(--success); color: var(--success); }
+.nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
+.user-dropdown { position: relative; display: none; }
+.user-dropdown.active { display: inline-flex; }
+.user-menu {
+position: absolute; top: calc(100% + 10px); right: 0;
+background: var(--bg-card); border: 1px solid var(--border);
+border-radius: 12px; min-width: 200px; padding: 0.5rem;
+box-shadow: var(--shadow); display: none; z-index: 1001;
+}
+.user-menu.show { display: block; animation: fadeInAuth 0.2s ease; }
+.user-menu-item {
+display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem;
+color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
+border-radius: 8px; transition: all 0.2s; border: none; background: none;
+width: 100%; font-family: inherit; text-decoration: none;
+}
+.user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
+.user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+.user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
+@keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
+/* --- END AUTH STYLES --- */
+.bg-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.bg-shapes::before, .bg-shapes::after { content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out; }
+.bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+.bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
+@keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
+nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
+.nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+/* ✅ UPDATED LOGO STYLES (MATCHING HOME PAGE) */
+.logo {
+font-family: 'Playfair Display', serif;
+font-size: 1.5rem;
+font-weight: 900;
+color: var(--accent);
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.logo-circle {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+border: 2px solid var(--accent);
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+background: var(--bg-card);
+transition: transform 0.3s ease;
+}
+.logo-circle img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.logo:hover .logo-circle {
+transform: scale(1.1);
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links .active { color: var(--accent); font-weight: 600; }
+.page-header { padding: 9rem 5% 3rem; text-align: center; }
+.page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+.page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+.page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
+.stats-strip { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; padding: 1.5rem; background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border); flex-wrap: wrap; }
+.stat-box { text-align: center; }
+.stat-box i { color: var(--accent); font-size: 1.5rem; margin-bottom: 0.3rem; display: block; }
+.stat-box .stat-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+.stat-box .stat-label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+.search-filter-section { max-width: 1200px; margin: 3rem auto; padding: 0 5%; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: center; }
+.search-box { flex: 1; min-width: 280px; max-width: 500px; position: relative; }
+.search-box input { width: 100%; padding: 0.9rem 1.5rem 0.9rem 3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50px; color: var(--text-primary); font-family: inherit; font-size: 0.95rem; outline: none; transition: all 0.3s; }
+.search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+.search-box i { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+.filter-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.filter-pill { padding: 0.6rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+.filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+.filter-pill.active { background: var(--gradient); color: var(--bg-primary); border-color: transparent; font-weight: 600; }
+.articles-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
+.articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+.article-card {
+background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
+overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+display: flex; flex-direction: column; cursor: pointer; position: relative;
+}
+.article-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--shadow); }
+.article-card.active {
+transform: scale(1.03) translateY(-8px); border-color: var(--accent-light); border-width: 2px;
+background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15); z-index: 10;
+}
+.article-card.active .article-banner i { transform: scale(1.15); filter: drop-shadow(0 5px 20px rgba(255, 255, 255, 0.5)); }
+.article-card.active .article-title { color: var(--accent-light); }
+.article-card.active .article-category { background: rgba(212, 175, 55, 0.25); color: var(--accent-light); }
+.article-banner { height: 180px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.article-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%); }
+.article-banner i { font-size: 4rem; color: white; z-index: 1; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.article-badge { position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--bg-primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; z-index: 2; }
+.article-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+.article-category {
+display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--accent);
+padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.8rem; width: fit-content; transition: all 0.3s ease;
+}
+.article-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.3; transition: color 0.3s ease; }
+.article-description { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; flex: 1; }
+.article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.article-meta-item { display: flex; align-items: center; gap: 0.4rem; }
+.article-meta-item i { color: var(--accent); }
+.article-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.btn-article { padding: 0.7rem 1.3rem; border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; border: none; font-family: inherit; font-size: 0.9rem; cursor: pointer; flex: 1; justify-content: center; min-width: 140px; }
+.btn-article-download { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3); }
+.btn-article-download:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5); }
+.btn-article-download:disabled { opacity: 0.7; cursor: wait; transform: none; }
+.btn-article-view { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.btn-article-view:hover { border-color: var(--accent); color: var(--accent); }
+.newsletter {
+max-width: 800px; margin: 4rem auto; padding: 3rem 2rem; background: var(--bg-card);
+border-radius: 20px; border: 1px solid var(--border); text-align: center;
+position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+}
+.newsletter::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); transition: height 0.4s ease; }
+.newsletter:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
+.newsletter.active {
+transform: scale(1.03) translateY(-5px); border-color: var(--accent-light); border-width: 2px;
+background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
+box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
+}
+.newsletter.active::before { height: 6px; background: linear-gradient(90deg, #d4af37, #f4d06f, #d4af37); background-size: 200% 100%; animation: shimmer 2s infinite; }
+.newsletter.active i { transform: scale(1.15); filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5)); }
+.newsletter.active h3 { color: var(--accent-light); }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.newsletter i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
+.newsletter h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
+.newsletter p { color: var(--text-secondary); margin-bottom: 2rem; }
+.newsletter-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: var(--gradient); color: var(--bg-primary); padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s; }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); }
+.btn-outline { background: transparent; color: var(--text-primary); padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s; border: 2px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.community-section {
+max-width: 800px; margin: 4rem auto; padding: 3rem 2rem;
+background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+border-radius: 20px; border: 2px solid var(--accent); text-align: center;
+position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+}
+.community-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71); transition: height 0.4s ease; }
+.community-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2); }
+.community-section.active {
+transform: scale(1.03) translateY(-5px); border-color: var(--accent-light); border-width: 3px;
+background: linear-gradient(135deg, rgba(91, 155, 213, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+box-shadow: 0 20px 60px rgba(91, 155, 213, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+}
+.community-section.active::before { height: 6px; animation: shimmer 2s infinite; }
+.community-section.active i { transform: scale(1.2); filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6)); }
+.community-section.active h3 { color: var(--accent-light); }
+.community-section.active .community-stat-value { color: var(--accent-light); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+.community-section i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
+.community-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
+.community-section p { color: var(--text-secondary); margin-bottom: 2rem; }
+.community-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+.community-stat { text-align: center; }
+.community-stat-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); transition: all 0.3s ease; }
+.community-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.btn-community { background: linear-gradient(135deg, #5B9BD5 0%, #4A90E2 100%); color: white; padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 5px 20px rgba(91, 155, 213, 0.3); }
+.btn-community:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(91, 155, 213, 0.5); }
+.hub-section {
+max-width: 800px; margin: 4rem auto; padding: 3rem 2rem;
+background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+border-radius: 20px; border: 2px solid var(--hub-color); text-align: center;
+position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+}
+.hub-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5); transition: height 0.4s ease; }
+.hub-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2); }
+.hub-section.active {
+transform: scale(1.03) translateY(-5px); border-color: var(--hub-color-light); border-width: 3px;
+background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
+}
+.hub-section.active::before { height: 6px; animation: shimmer 2s infinite; }
+.hub-section.active i { transform: scale(1.2); filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6)); }
+.hub-section.active h3 { color: var(--hub-color-light); }
+.hub-section.active .hub-stat-value { color: var(--hub-color-light); text-shadow: 0 0 20px rgba(155, 89, 182, 0.5); }
+.hub-section i { font-size: 2.5rem; color: var(--hub-color); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
+.hub-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
+.hub-section p { color: var(--text-secondary); margin-bottom: 2rem; }
+.hub-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+.hub-stat { text-align: center; }
+.hub-stat-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--hub-color); transition: all 0.3s ease; }
+.hub-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.btn-hub { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3); }
+.btn-hub:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5); }
+footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
+footer p { color: var(--text-secondary); font-size: 0.9rem; }
+.no-results { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); display: none; }
+.no-results i { font-size: 4rem; color: var(--accent); opacity: 0.5; margin-bottom: 1rem; }
+.no-results.show { display: block; }
+@media (max-width: 768px) {
+.nav-links { display: none; }
+.stats-strip { gap: 1.5rem; padding: 1rem; } .stat-box .stat-number { font-size: 1.4rem; }
+.articles-grid { grid-template-columns: 1fr; } .page-header h1 { font-size: 2rem; }
+.search-filter-section { flex-direction: column; } .search-box { max-width: 100%; }
+.community-stats, .hub-stats { gap: 1rem; } .community-stat-value, .hub-stat-value { font-size: 1.4rem; }
+.article-card.active, .newsletter.active, .community-section.active, .hub-section.active { transform: scale(1.02) translateY(-5px); }
+.auth-modal { padding: 1.8rem; width: 95%; }
+}
 
-    <title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
+/* =============================================
+   ✅ CUSTOM CHATBOT STYLES (QWEN INTEGRATION) - FIXED POSITION
+   ============================================= */
+   
+/* Wrapper for chat button positioning - Moved down to avoid overlap */
+#custom-chat-wrapper {
+    position: fixed;
+    top: 135px; /* ✅ Changed from 80px to 135px */
+    left: 30px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none;
+}
 
-    <meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
-    <meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
-    <meta name="author" content="Behzad Mousavi">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
+/* Chat Toggle Button */
+#chat-toggle {
+    pointer-events: auto;
+    padding: 10px 20px;
+    background: var(--gradient);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 10001;
+    transition: transform 0.2s ease;
+}
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Industrial Project Planning Tools">
-    <meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
+#chat-toggle:hover {
+    transform: scale(1.05);
+}
 
-    <!-- Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Industrial Project Planning Tools by Behzad Mousavi",
-      "description": "Professional project planning and control tools for industrial engineers.",
-      "url": "https://sbmousavices.github.io/Industrial-Tools/",
-      "sameAs": ["https://github.com/sbmousavices"],
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "79",
-        "highPrice": "3000",
-        "priceCurrency": "USD",
-        "offerCount": "10"
-      }
+/* Chat Box Window */
+#chat-box {
+    display: none;
+    position: fixed;
+    top: 185px; /* ✅ Adjusted to match new wrapper position */
+    left: 30px;
+    width: 320px;
+    height: 450px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    flex-direction: column;
+    font-family: 'Inter', Tahoma, Arial, sans-serif;
+    z-index: 10002;
+    overflow: hidden;
+}
+
+/* Chat Header */
+#chat-header {
+    padding: 15px;
+    background: var(--bg-primary);
+    color: var(--accent);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+#close-chat {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+/* Messages Area */
+#chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.6;
+    background: #f9f9f9;
+}
+
+/* Input Area */
+#chat-input-area {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 8px;
+    background: white;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    color: #333;
+}
+
+#send-btn {
+    padding: 10px 16px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+}
+
+/* Message Bubbles */
+.msg-user {
+    margin: 8px 0;
+    text-align: right;
+}
+.msg-user span {
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 8px 12px;
+    border-radius: 12px 12px 0 12px;
+    display: inline-block;
+    max-width: 85%;
+}
+
+.msg-bot {
+    margin: 8px 0;
+    text-align: left;
+}
+.msg-bot span {
+    background: #e9ecef;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 12px 12px 12px 0;
+    display: inline-block;
+    max-width: 85%;
+}
+
+.loading-msg {
+    margin: 8px 0;
+    text-align: left;
+    color: #888;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Mobile Responsive for Chat */
+@media (max-width: 768px) {
+    #custom-chat-wrapper {
+        top: 130px; /* ✅ Adjusted for mobile stats bar */
+        left: 20px;
     }
-    </script>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        :root {
-            --bg-primary: #f5f7fa;
-            --bg-secondary: #e8f4fc;
-            --bg-card: #ffffff;
-            --accent-blue: #5B9BD5;
-            --accent-dark-blue: #2980b9;
-            --accent-green: #27ae60;
-            --accent-green-hover: #219653;
-            --text-primary: #333333;
-            --text-secondary: #555555;
-            --border-color: #BDD7EE;
-            --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
-            
-            /* ✅ NAVBAR SPECIFIC VARIABLES */
-            --nav-bg: #0a1628;
-            --nav-text: #e8eef7;
-            --nav-accent: #d4af37;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Times New Roman", Times, serif;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding-top: 80px; /* ✅ OFFSET FOR FIXED NAVBAR */
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 0 20px;
-        }
-
-        /* ✅ UNIFIED NAVIGATION BAR STYLES */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 1rem 5%; 
-            background: var(--nav-bg); backdrop-filter: blur(15px);
-            z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .nav-container { 
-            max-width: 1600px; margin: 0 auto; 
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        
-        .logo { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.6rem; font-weight: 900; 
-            color: var(--nav-accent); text-decoration: none; 
-            display: flex; align-items: center; gap: 12px;
-        }
-        .logo-circle {
-            width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--nav-accent);
-            overflow: hidden; display: flex; align-items: center; justify-content: center;
-            background: #132847; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        }
-        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-        .nav-links { 
-            display: flex; gap: 1.8rem; list-style: none; align-items: center; 
-            margin-left: auto; margin-right: 2rem; 
-        }
-        .nav-links a { 
-            color: var(--nav-text); text-decoration: none; font-weight: 500; 
-            transition: color 0.3s; font-size: 0.95rem; letter-spacing: 0.3px;
-            font-family: 'Inter', sans-serif;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--nav-accent); }
-
-        .btn-signin {
-            padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
-            border: 1px solid var(--nav-accent); color: var(--nav-accent); background: transparent;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem;
-            white-space: nowrap; font-family: 'Inter', sans-serif;
-        }
-        .btn-signin:hover { 
-            background: var(--nav-accent); color: var(--nav-bg); 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-
-        /* Header & Title */
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 20px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-        }
-
-        .page-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .instructions {
-            max-width: 800px;
-            margin: 0 auto 30px;
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .instructions strong {
-            color: var(--accent-dark-blue);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--accent-green);
-            color: white;
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-green-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--accent-dark-blue);
-            border: 2px solid var(--accent-blue);
-        }
-
-        .btn-outline:hover {
-            background: var(--accent-blue);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            font-size: 0.9rem;
-        }
-
-        /* Products Grid */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent-blue);
-        }
-
-        .product-card h2 {
-            color: var(--accent-dark-blue);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .product-card p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            flex-grow: 1;
-            font-size: 0.95rem;
-        }
-
-        .product-card ul {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            padding-left: 20px;
-            font-size: 0.95rem;
-        }
-
-        .product-card ul li {
-            margin-bottom: 5px;
-        }
-
-        .price {
-            font-weight: bold;
-            color: var(--accent-green);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .launch-tag {
-            display: inline-block;
-            background: var(--bg-secondary);
-            color: var(--accent-dark-blue);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .delivery {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        /* Info Boxes (Payment & Email) */
-        .info-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .info-box {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .info-box:hover {
-            border-color: var(--accent-blue);
-        }
-
-        .info-label {
-            font-weight: bold;
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .info-value {
-            font-family: monospace;
-            background: var(--bg-primary);
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            display: block;
-            word-break: break-all;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-        }
-
-        .copy-btn {
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .copy-btn:hover {
-            background: var(--accent-dark-blue);
-        }
-
-        .copy-message {
-            color: var(--accent-green);
-            font-weight: bold;
-            height: 20px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        /* About Section */
-        .about {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .about h2 {
-            color: var(--accent-dark-blue);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .about p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media(max-width: 768px) {
-            .page-header h1 { font-size: 1.8rem; }
-            .product-card h2 { font-size: 1.15rem; }
-            .info-section { grid-template-columns: 1fr; }
-            .nav-links { display: none; } /* Hide links on mobile for simplicity */
-        }
-    </style>
+    #chat-box {
+        width: calc(100% - 40px);
+        left: 20px;
+        top: 180px; /* ✅ Adjusted for mobile */
+        height: 60vh;
+    }
+}
+</style>
 </head>
-
 <body>
+<div class="bg-shapes"></div>
+<!-- ✅ UNIFIED AUTH MODAL -->
+<div class="auth-modal-overlay" id="authModalOverlay">
+<div class="auth-modal">
+<button class="auth-close" id="authClose">&times;</button>
+<div class="auth-tabs">
+<button class="auth-tab active" data-tab="signin">Sign In</button>
+<button class="auth-tab" data-tab="signup">Sign Up</button>
+</div>
+<form class="auth-form active" id="signinForm">
+<div id="signinMessage" class="auth-message"></div>
+<div class="auth-field">
+<label for="signinEmail">Email Address</label>
+<input type="email" id="signinEmail" placeholder="name@company.com" required>
+</div>
+<div class="auth-field">
+<label for="signinPassword">Password</label>
+<input type="password" id="signinPassword" placeholder="Enter your password" required>
+</div>
+<button type="submit" class="btn-auth-submit" id="btnSignin">
+<i class="fas fa-sign-in-alt"></i> Sign In
+</button>
+</form>
+<form class="auth-form" id="signupForm">
+<div id="signupMessage" class="auth-message"></div>
+<div class="auth-field">
+<label for="signupName">Full Name</label>
+<input type="text" id="signupName" placeholder="e.g. Behzad Mousavi" required>
+</div>
+<div class="auth-field">
+<label for="signupEmail">Email Address</label>
+<input type="email" id="signupEmail" placeholder="name@company.com" required>
+</div>
+<div class="auth-field">
+<label for="signupPassword">Password</label>
+<input type="password" id="signupPassword" placeholder="Create a password" required minlength="6">
+</div>
+<button type="submit" class="btn-auth-submit" id="btnSignup">
+<i class="fas fa-user-plus"></i> Create Account
+</button>
+</form>
+</div>
+</div>
+<nav>
+<div class="nav-container">
+<!-- ✅ UPDATED LOGO STRUCTURE (MATCHING HOME PAGE) -->
+<a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
+<div class="logo-circle">
+<img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+</div>
+Home
+</a>
+<ul class="nav-links">
+<!-- ✅ CHANGED ABOUT TO RESUME BUILDER WITH LINK -->
+<li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+<!-- ✅ CHANGED EXPERTISE TO WEB DESIGN WITH LINK TO THEME PAGE -->
+<li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+<!-- ✅ 2. CHANGED EDUCATION TO NFT GALLERY WITH CORRECT LINK -->
+<li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+<li><a href="https://sbmousavices.github.io/Articles/" class="active">Articles</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+<!-- ✅ AUTH BUTTON / USER DROPDOWN -->
+<li>
+<button class="nav-auth-btn" id="navAuthBtn">
+<i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
+</button>
+<div class="user-dropdown" id="userDropdown">
+<button class="nav-auth-btn logged-in" id="navUserBtn">
+<i class="fas fa-user-circle"></i> <span id="navUserName">User</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i>
+</button>
+<div class="user-menu" id="userMenu">
+<a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="user-menu-item">
+<i class="fas fa-users"></i> My Community
+</a>
+<a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
+<i class="fas fa-comments"></i> Go to Hub
+</a>
+<div class="user-menu-divider"></div>
+<button class="user-menu-item danger" id="btnLogout">
+<i class="fas fa-sign-out-alt"></i> Sign Out
+</button>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</nav>
+<section class="page-header">
+<p class="greeting">Knowledge Library</p>
+<h1>Professional <span>Articles</span></h1>
+<p class="tagline">Expert guides, best practices, and insights on Project Controls, Primavera P6, Critical Path Method, and Industrial Engineering.</p>
+<div class="stats-strip">
+<!-- ✅ UPDATED COUNT TO 41 -->
+<div class="stat-box"><i class="fas fa-newspaper"></i><div class="stat-number">41</div><div class="stat-label">Articles</div></div>
+<div class="stat-box"><i class="fas fa-folder-open"></i><div class="stat-number">8</div><div class="stat-label">Categories</div></div>
+<div class="stat-box"><i class="fas fa-eye"></i><div class="stat-number">2.5K+</div><div class="stat-label">Readers</div></div>
+<div class="stat-box"><i class="fas fa-language"></i><div class="stat-number">EN</div><div class="stat-label">Language</div></div>
+</div>
+</section>
+<section class="search-filter-section">
+<div class="search-box">
+<i class="fas fa-search"></i>
+<input type="text" id="searchInput" placeholder="Search articles by title, topic, or keyword...">
+</div>
+<div class="filter-pills" id="filterPills">
+<button class="filter-pill active" data-category="all">All</button>
+<button class="filter-pill" data-category="Project Controls">Project Controls</button>
+<button class="filter-pill" data-category="EPC Planning">EPC Planning</button>
+<button class="filter-pill" data-category="Risk Management">Risk Management</button>
+<button class="filter-pill" data-category="Scheduling">Scheduling</button>
+<button class="filter-pill" data-category="Claims">Claims & Legal</button>
+<button class="filter-pill" data-category="Project Management">Project Management</button>
+</div>
+</section>
+<section class="articles-container">
+<div class="articles-grid" id="articlesGrid">
+<!-- ========================================== -->
+<!-- ✅ NEW ARTICLES (ADDED FROM USER REQUEST)  -->
+<!-- ========================================== -->
 
-    <!-- ✅ UNIFIED NAVIGATION BAR -->
-    <nav>
-        <div class="nav-container">
-            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
-                <div class="logo-circle">
-                    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Logo">
-                </div>
-                Home
-            </a>
-            
-            <ul class="nav-links">
-                <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
-                <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
-                <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
-                <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
-            </ul>
+<!-- 37. SCHEDULE RECOVERY -->
+<article class="article-card" data-category="Scheduling" data-keywords="schedule recovery delay mitigation crashing fast tracking project controls epc planning timeline restoration" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-first-aid"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Schedule Recovery Strategies</h2>
+<p class="article-description">Effective techniques to bring delayed projects back on track. Learn about crashing, fast-tracking, and resource optimization to recover lost time without compromising quality.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 15 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Schedule_Recovery.pdf', 'Schedule_Recovery.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Schedule_Recovery.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
 
-            <a href="#" class="btn-signin"><i class="fas fa-user"></i> Sign In</a>
-        </div>
-    </nav>
+<!-- 38. CLAIMS AVOIDANCE -->
+<article class="article-card" data-category="Claims" data-keywords="claims avoidance dispute resolution contract management risk mitigation construction claims legal prevention" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-shield-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Claims & Legal</span>
+<h2 class="article-title">Claims Avoidance in Construction</h2>
+<p class="article-description">Proactive strategies to prevent disputes and claims in construction projects. Focus on clear communication, documentation, and contract administration to minimize legal risks.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Claims_Avoidance.pdf', 'Claims_Avoidance.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Claims_Avoidance.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
 
-    <div class="container">
+<!-- 39. LESSONS LEARNED -->
+<article class="article-card" data-category="Project Management" data-keywords="lessons learned knowledge management continuous improvement project retrospective best practices feedback loop" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Management</span>
+<h2 class="article-title">Lessons Learned in Project Management</h2>
+<p class="article-description">How to effectively capture, document, and apply lessons learned from past projects. Build a knowledge base that drives continuous improvement and prevents recurring mistakes.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 12 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Lessons_Learned.pdf', 'Lessons_Learned.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Lessons_Learned.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
 
-        <!-- HEADER -->
-        <header class="page-header reveal">
-            <h1>Industrial Project Planning Tools</h1>
-            <p class="subtitle">Macro-Enabled Excel Solutions for Engineers & Project Managers</p>
-            <p class="instructions">
-                Professional tools developed by <strong>Behzad Mousavi, MSc Industrial Engineering</strong> 
-                with more than 25 years of experience in industrial project planning, scheduling, 
-                cost control, and project management.
-            </p>
-            <a class="btn btn-primary" href="Industrial_Project_Planning_Tools.pdf" target="_blank">
-                <i class="fas fa-file-pdf"></i> Download Product Catalog PDF
-            </a>
-        </header>
+<!-- 40. PROJECT CLOSEOUT -->
+<article class="article-card" data-category="Project Management" data-keywords="project closeout handover commissioning final report archival contract closure administrative closeout" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-flag-checkered"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Management</span>
+<h2 class="article-title">Project Closeout Procedures</h2>
+<p class="article-description">A comprehensive guide to closing out industrial projects. Covering administrative closure, final documentation, handover protocols, and financial reconciliation.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 14 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Project_Closeout.pdf', 'Project_Closeout.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Project_Closeout.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
 
-        <!-- PRODUCTS GRID -->
-        <div class="products">
+<!-- 41. BEST PRACTICES -->
+<article class="article-card" data-category="Project Controls" data-keywords="best practices industry standards guidelines excellence project controls planning scheduling efficiency" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-star"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Industry Best Practices</h2>
+<p class="article-description">Curated collection of industry best practices for project controls and planning. Align your processes with global standards to ensure efficiency, accuracy, and professional excellence.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Best Practices.pdf', 'Best_Practices.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Best Practices.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
 
-            <!-- PRODUCT 1 -->
-            <div class="product-card reveal">
-                <h2>Project Health Report Template <br><span style="color: var(--accent-green); font-size: 1rem;">(FREE DEMO)</span></h2>
-                <p>A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
-                <ul>
-                    <li>Free demo version</li>
-                    <li>No payment required</li>
-                    <li>Try before purchase</li>
-                </ul>
-                <a class="btn btn-outline btn-small" href="Demo_Project_Health_Report_Template.xlsm" download>
-                    <i class="fas fa-download"></i> Download Excel Demo
-                </a>
-            </div>
+<!-- ========================================== -->
+<!-- ✅ EXISTING ARTICLES (1-36 KEPT BELOW)     -->
+<!-- ========================================== -->
+<!-- 19. DASHBOARDS -->
+<article class="article-card" data-category="Project Controls" data-keywords="project dashboards executive dashboard kpi visualization decision support industrial epc reporting data intelligence performance monitoring" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-chart-pie"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Executive Project Dashboards: Transforming Data into Decisions</h2>
+<p class="article-description">Transform raw project data into strategic decision-making power. Learn to design executive dashboards that highlight KPIs, trends, and risks for oil & gas projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Dashboards.pdf', 'Dashboards.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Dashboards.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 20. GLOBAL CHANGE -->
+<article class="article-card" data-category="Scheduling" data-keywords="global change primavera p6 batch processing schedule automation mass update activity modification epc planning efficiency" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-magic"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Mastering Global Change in Primavera P6</h2>
+<p class="article-description">Unlock the power of automated schedule modifications. Learn safe Global Change strategies to update thousands of activities instantly without corrupting logic.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Global_Change.pdf', 'Global_Change.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Global_Change.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 21. TIPS & TRICKS -->
+<article class="article-card" data-category="Scheduling" data-keywords="tips tricks shortcuts productivity hacks primavera p6 keyboard shortcuts efficiency industrial planning best practices" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-lightbulb"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">10 Essential Primavera P6 Tips & Tricks</h2>
+<p class="article-description">Boost your scheduling efficiency with 10 battle-tested tips. From hidden shortcuts to advanced filtering techniques used by senior planners in industrial projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 15 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Tips&Tricks.pdf', 'Tips&Tricks.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Tips&Tricks.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 22. PROJECT CONTROLS FRAMEWORK -->
+<article class="article-card" data-category="Project Controls" data-keywords="project controls framework epc management system integrated controls wbs earned value risk governance industrial projects" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-sitemap"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Building a Robust Project Controls Framework</h2>
+<p class="article-description">Establish a comprehensive control ecosystem for industrial EPC projects. Integrate scope, time, cost, and risk into a unified management system.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Project_Controls_Framework.pdf', 'Project_Controls_Framework.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Project_Controls_Framework.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 23. COST CONTROL -->
+<article class="article-card" data-category="Project Controls" data-keywords="cost control epc budget forecasting earned value cash flow variance analysis industrial project finance margin protection" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-coins"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Mastering Cost Control in Industrial EPC Projects</h2>
+<p class="article-description">Protect project margins with proactive cost management. Learn integrated cost-schedule baselines, dynamic forecasting, and cash flow intelligence for EPC contracts.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 22 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Cost_Control.pdf', 'Cost_Control.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Cost_Control.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 24. ENGINEERING PROGRESS MEASUREMENT -->
+<article class="article-card" data-category="EPC Planning" data-keywords="engineering progress measurement weighted milestone method deliverable tracking epcc planning document control earned value" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-drafting-compass"></i>
+</div>
+<div class="article-body">
+<span class="article-category">EPC Planning</span>
+<h2 class="article-title">Engineering Progress Measurement in EPC Projects</h2>
+<p class="article-description">Move beyond subjective percentages. Implement the Weighted Milestone Method for accurate, auditable engineering progress tracking in industrial projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Engineering_Progress_Measurement.pdf', 'Engineering_Progress_Measurement.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Engineering_Progress_Measurement.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 25. PROCUREMENT TRACKING -->
+<article class="article-card" data-category="EPC Planning" data-keywords="procurement tracking expediting supply chain management po monitoring material delivery epc planning logistics vendor management" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-shopping-cart"></i>
+</div>
+<div class="article-body">
+<span class="article-category">EPC Planning</span>
+<h2 class="article-title">Procurement Tracking in Industrial EPC Projects</h2>
+<p class="article-description">Ensure materials arrive when needed. Master milestone-based procurement tracking, expediting protocols, and integration with construction schedules.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Procurement_Tracking.pdf', 'Procurement_Tracking.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Procurement_Tracking.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 26. CONSTRUCTION PROGRESS MEASUREMENT -->
+<article class="article-card" data-category="EPC Planning" data-keywords="construction progress measurement quantity based tracking physical percent complete site verification payment certification epc execution" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-hard-hat"></i>
+</div>
+<div class="article-body">
+<span class="article-category">EPC Planning</span>
+<h2 class="article-title">Construction Progress Measurement in Industrial EPC Projects</h2>
+<p class="article-description">Transform subjective estimates into objective facts. Learn quantity-based measurement rules, verification protocols, and discipline-specific tracking for civil, piping, and E&I.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 24 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Construction_Progress_Measurement.pdf', 'Construction_Progress_Measurement.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Construction_Progress_Measurement.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 27. INTERFACE MANAGEMENT -->
+<article class="article-card" data-category="Project Controls" data-keywords="interface management battery limits icd coordination multi-contractor epc integration scope boundaries dispute prevention" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-plug"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Interface Management in Industrial EPC Projects</h2>
+<p class="article-description">Prevent gaps and overlaps at project boundaries. Master technical, physical, temporal, and contractual interface management for multi-contractor sites.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Interface_Management.pdf', 'Interface_Management.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Interface_Management.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 28. CHANGE MANAGEMENT -->
+<article class="article-card" data-category="Project Controls" data-keywords="change management variation orders vo change directive impact assessment epc claims contract administration scope creep" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-exchange-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Change Management in Industrial EPC Projects</h2>
+<p class="article-description">Protect margins from scope creep. Learn systematic identification, impact assessment, and approval protocols for variations in lump-sum EPC contracts.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 22 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Change_Management.pdf', 'Change_Management.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Change_Management.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 29. RECOVERY PLANNING -->
+<article class="article-card" data-category="Scheduling" data-keywords="recovery planning schedule recovery crashing fast tracking delay mitigation epc crisis management forensic analysis baseline reset" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-first-aid"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Recovery Planning in Industrial EPC Projects</h2>
+<p class="article-description">Turn crisis into control. Learn root cause delay analysis, resource-loaded recovery scheduling, and stakeholder alignment strategies to get back on track.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Recovery_Planning.pdf', 'Recovery_Planning.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Recovery_Planning.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 30. RISK MANAGEMENT -->
+<article class="article-card" data-category="Risk Management" data-keywords="risk management monte carlo simulation contingency reserve risk register iso 31000 epc uncertainty mitigation sanctions currency" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-shield-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Risk Management</span>
+<h2 class="article-title">Risk Management in Industrial EPC Projects</h2>
+<p class="article-description">Turn uncertainty into strategic advantage. Master quantitative risk analysis, Monte Carlo simulation, and dynamic response planning for oil & gas projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 28 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Risk_Management.pdf', 'Risk_Management.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Risk_Management.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 31. KPI DEVELOPMENT -->
+<article class="article-card" data-category="Project Controls" data-keywords="kpi development key performance indicators leading lagging metrics epc dashboard design performance measurement strategic alignment" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-bullseye"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">KPI Development for Industrial EPC Projects</h2>
+<p class="article-description">Measure what truly matters. Learn to select, define, and track vital KPIs that drive accountability and predict success in complex industrial projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/KPI_Development.pdf', 'KPI_Development.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/KPI_Development.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 32. PERFORMANCE REPORTING -->
+<article class="article-card" data-category="Project Controls" data-keywords="performance reporting stakeholder communication executive summary variance analysis predictive reporting epc transparency decision support" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-file-contract"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Performance Reporting in Industrial EPC Projects</h2>
+<p class="article-description">From data to decision. Design stakeholder-centric reports that provide actionable insights, build trust, and accelerate project approvals.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Performance_Reporting.pdf', 'Performance_Reporting.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Performance_Reporting.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 33. FORECASTING -->
+<article class="article-card" data-category="Project Controls" data-keywords="forecasting estimate at completion eac earned value probabilistic forecasting cash flow prediction epc planning accuracy" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-crystal-ball"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Forecasting in Industrial EPC Projects</h2>
+<p class="article-description">Predict the future with precision. Move beyond static baselines to dynamic, probabilistic forecasting for cost, schedule, and cash flow.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 22 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Forecasting.pdf', 'Forecasting.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Forecasting.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 34. TREND ANALYSIS -->
+<article class="article-card" data-category="Project Controls" data-keywords="trend analysis time series run charts rate of change early warning signals epc performance monitoring predictive analytics" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-chart-line"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Trend Analysis in Industrial EPC Projects</h2>
+<p class="article-description">Detect signals before they become crises. Master time-series visualization, rate-of-change analysis, and cross-metric correlation for proactive management.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Trend_Analysis.pdf', 'Trend_Analysis.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Trend_Analysis.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 35. PRODUCTIVITY ANALYSIS -->
+<article class="article-card" data-category="EPC Planning" data-keywords="productivity analysis unit rates learning curve benchmarking labor efficiency epc construction optimization performance improvement" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-tachometer-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">EPC Planning</span>
+<h2 class="article-title">Productivity Analysis in Industrial EPC Projects</h2>
+<p class="article-description">Measure true efficiency beyond man-hours. Learn context-aware productivity measurement, normalization factors, and root cause diagnosis for sustainable improvement.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 24 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Productivity_Analysis.pdf', 'Productivity_Analysis.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Productivity_Analysis.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 36. PROJECT DASHBOARDS -->
+<article class="article-card" data-category="Project Controls" data-keywords="project dashboards design principles signal-to-noise ratio decision support interface epc visualization executive reporting digital enablement" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-desktop"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Project Dashboards: Designing for Decision</h2>
+<p class="article-description">Create dashboards that drive action, not decoration. Master audience-specific design, visual hierarchy, and live data integration for industrial projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Project_Dashboards.pdf', 'Project_Dashboards.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Project_Dashboards.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- ========================================== -->
+<!-- ✅ EXISTING ARTICLES (1-18 KEPT BELOW)     -->
+<!-- ========================================== -->
+<!-- 1. RELATIONSHIPS -->
+<article class="article-card" data-category="Scheduling" data-keywords="activity relationships primavera p6 finish to start start to start critical path method schedule logic lag lead time network diagram fs ss ff sf" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-project-diagram"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Mastering Activity Relationships in Primavera P6</h2>
+<p class="article-description">Master the 4 types of activity relationships (FS, SS, FF, SF) in Primavera P6. Learn how Lag & Lead times impact Critical Path analysis and avoid common scheduling pitfalls in EPC projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 16, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 22 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Relationships.pdf', 'Relationships.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Relationships.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 2. LAYOUTS -->
+<article class="article-card" data-category="Project Controls" data-keywords="primavera p6 layouts schedule visualization gantt chart customization activity table columns layout templates project reporting baseline comparison progress visualization" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-columns"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Mastering Layouts in Primavera P6</h2>
+<p class="article-description">Transform raw schedule data into actionable visual intelligence. Learn to create, customize, save, and share professional layouts for effective project reporting and stakeholder communication.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 16, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Layouts.pdf', 'Layouts.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Layouts.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 3. REPORTS -->
+<article class="article-card" data-category="Project Controls" data-keywords="primavera p6 reports schedule reporting report wizard custom report templates visual reports batch publishing project controls reporting epc progress reports dashboard design kpi reporting" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+<span class="article-badge">NEW</span>
+<i class="fas fa-file-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Mastering Reports in Primavera P6</h2>
+<p class="article-description">From raw data to stakeholder intelligence. Learn Report Wizard, custom templates, visual reports, batch publishing, and professional reporting strategies for EPC projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 16, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Reports.pdf', 'Reports.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Reports.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 4. CALENDARS -->
+<article class="article-card" data-category="Scheduling" data-keywords="calendars primavera p6 global calendar project calendar resource calendar work week exceptions holidays scheduling time management" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
+<i class="fas fa-calendar-week"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Understanding Project Calendars in Primavera P6</h2>
+<p class="article-description">A comprehensive guide to Global, Project, and Resource calendars. Learn how to create custom work weeks, handle exceptions, and assign calendars correctly to ensure accurate scheduling.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 14, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Calendars.pdf', 'Calendars.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Calendars.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 5. ACTIVITY CODES -->
+<article class="article-card" data-category="Project Controls" data-keywords="activity codes reporting filtering grouping primavera p6 epc planning project controls coding structure wbs alternative" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);">
+<i class="fas fa-tags"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Mastering Activity Codes for Reporting</h2>
+<p class="article-description">Learn how to structure Activity Codes effectively for advanced filtering, grouping, and reporting in Primavera P6. Essential for managing large-scale EPC projects where WBS alone is insufficient.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 14, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 15 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Activity_Codes.pdf', 'Activity_Codes.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Activity_Codes.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 6. CONSTRAINTS -->
+<article class="article-card" data-category="Scheduling" data-keywords="constraints start on finish by mandatory constraint total float negative float scheduling pitfalls primavera p6 critical path" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);">
+<i class="fas fa-lock"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Managing Schedule Constraints Effectively</h2>
+<p class="article-description">Deep dive into constraint types (Start On, Finish By, Mandatory). Understand the critical impact of constraints on Total Float calculations and learn how to avoid common scheduling pitfalls.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 14, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Constraints.pdf', 'Constraints.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Constraints.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 7. SCHEDULE COMPRESSION -->
+<article class="article-card" data-category="Scheduling" data-keywords="schedule compression crashing fast tracking project acceleration construction management agile scheduling resource optimization scl protocol" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);">
+<i class="fas fa-tachometer-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Mastering Schedule Compression</h2>
+<p class="article-description">A strategic guide to accelerating project timelines without compromising scope. Learn the critical differences between Crashing and Fast Tracking, analyze risks, and master the art of project acceleration.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 13, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Schedule_Compression.pdf', 'Schedule_Compression.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Schedule_Compression.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 8. DELAY ANALYSIS -->
+<article class="article-card" data-category="Risk Management" data-keywords="delay analysis forensic schedule analysis time impact analysis tia windows analysis as-planned vs as-built concurrent delays scl protocol extension of time eot construction claims" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+<i class="fas fa-gavel"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Claims & Forensics</span>
+<h2 class="article-title">The Definitive Guide to Delay Analysis</h2>
+<p class="article-description">Master forensic schedule techniques like Time Impact Analysis (TIA), Windows Analysis, and As-Planned vs As-Built. Understand concurrent delays and the SCL Protocol to substantiate Extension of Time (EOT) claims.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 13, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Delay_Analysis.pdf', 'Delay_Analysis.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Delay_Analysis.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 9. FLOAT MANAGEMENT -->
+<article class="article-card" data-category="Scheduling" data-keywords="float management total float free float critical path method schedule slack float ownership scl protocol negative float project delay analysis construction scheduling" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);">
+<i class="fas fa-water"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">The Strategic Art of Float Management</h2>
+<p class="article-description">Understand the critical differences between Total Float and Free Float, navigate the legal complexities of float ownership under SCL and FIDIC protocols, and learn how to leverage schedule flexibility to mitigate delays.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 13, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 22 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Float_Management.pdf', 'Float_Management.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Float_Management.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 10. RESOURCE LEVELING -->
+<article class="article-card" data-category="Scheduling" data-keywords="resource leveling primavera p6 over-allocation critical path smoothing epc planning project controls histogram" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);">
+<i class="fas fa-balance-scale"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Mastering Resource Leveling in Primavera P6</h2>
+<p class="article-description">Stop letting software dictate your schedule. Learn advanced Resource Leveling strategies to resolve over-allocations without destroying your Critical Path. A guide for Senior Planners.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 12, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Mastering_Resource_Leveling.pdf', 'Mastering_Resource_Leveling.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Mastering_Resource_Leveling.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 11. PROGRESS MEASUREMENT -->
+<article class="article-card" data-category="Project Controls" data-keywords="progress measurement weighted milestones units completed earned value management evm s-curve 90 percent syndrome physical percent complete" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
+<i class="fas fa-chart-line"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">The Ultimate Guide to Project Progress Measurement</h2>
+<p class="article-description">Master the art of Project Progress Measurement in EPC projects. Learn Weighted Milestones, Units Completed, Earned Value Management (EVM), and how to avoid the "90% Complete" syndrome.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 12, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 35 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Project_Progress_Measurement.pdf', 'Project_Progress_Measurement.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Project_Progress_Measurement.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 12. UPDATING SCHEDULES -->
+<article class="article-card" data-category="Scheduling" data-keywords="updating schedules primavera p6 data date retained logic progress override out-of-sequence critical path monthly reporting" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);">
+<i class="fas fa-sync-alt"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">The Art of Schedule Updating</h2>
+<p class="article-description">Beyond Data Entry in Primavera P6. Learn about Data Dates, Retained Logic vs. Progress Override, Out-of-Sequence progress, and how to maintain a defensible Critical Path for EPC projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 12, 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 30 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Updating_Schedules.pdf', 'Updating_Schedules.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Updating_Schedules.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 13. RESOURCE LOADING -->
+<article class="article-card" data-category="Project Controls" data-keywords="resource loading resource allocation manpower loading resource management resource histograms resource leveling productivity norms earned value s-curve project controls primavera p6 epc planning" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
+<i class="fas fa-users-cog"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Resource Loading</h2>
+<p class="article-description">Master resource loading with this comprehensive guide. Learn manpower, equipment, and material loading techniques, productivity norm application, resource leveling and smoothing, histogram analysis, and integration with Earned Value Management for EPC projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 30 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Resource_Loading.pdf', 'Resource_Loading.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Resource_Loading.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 14. BASELINE SCHEDULE DEVELOPMENT -->
+<article class="article-card" data-category="Project Controls" data-keywords="baseline schedule development project baseline schedule management dcma aace pmi primavera p6 critical path epc planning schedule baseline approval governance" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
+<i class="fas fa-clipboard-check"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Baseline Schedule Development</h2>
+<p class="article-description">Master baseline schedule development with this comprehensive guide. Learn the 20-step process, DCMA 14-point validation, AACE/PMI standards, governance frameworks, and best practices for creating defensible baselines in EPC projects.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 25 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Baseline_Schedule_Development.pdf', 'Baseline_Schedule_Development.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Baseline_Schedule_Development.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 15. CRITICAL PATH ANALYSIS -->
+<article class="article-card" data-category="Scheduling" data-keywords="critical path analysis cpm scheduling float network diagram" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+<i class="fas fa-project-diagram"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Scheduling</span>
+<h2 class="article-title">Critical Path Analysis</h2>
+<p class="article-description">Master Critical Path Method (CPM) analysis with this comprehensive guide. Learn to identify critical activities, calculate float, optimize project schedules, and manage dependencies for successful project delivery.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 20 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Critical_Path_Analysis.pdf', 'Critical_Path_Analysis.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Critical_Path_Analysis.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 16. WBS DEVELOPMENT -->
+<article class="article-card" data-category="EPC Planning" data-keywords="wbs development epc projects work breakdown structure engineering procurement construction" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
+<i class="fas fa-sitemap"></i>
+</div>
+<div class="article-body">
+<span class="article-category">EPC Planning</span>
+<h2 class="article-title">WBS Development for EPC Projects</h2>
+<p class="article-description">Master WBS development for EPC projects with this comprehensive guide. Learn deliverable-based structuring, WBS dictionaries, phase-specific templates for Engineering, Procurement, Construction, and Commissioning, plus AACE/PMI best practices.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 18 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/WBS_Development_for_EPC_Projects.pdf', 'WBS_Development_for_EPC_Projects.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/WBS_Development_for_EPC_Projects.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 17. PRIMAVERA P6 BEST PRACTICES -->
+<article class="article-card" data-category="Project Controls" data-keywords="primavera p6 scheduling best practices wbs baseline dcma critical path" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
+<i class="fas fa-calendar-check"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Controls</span>
+<h2 class="article-title">Primavera P6 Scheduling Best Practices</h2>
+<p class="article-description">Master Primavera P6 scheduling with this comprehensive guide covering WBS structuring, activity logic, resource loading, baseline management, DCMA 14-point assessment, and progress updating for successful project delivery.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Aug 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 15 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/Primavera_P6_Scheduling_Best_Practices.pdf', 'Primavera_P6_Scheduling_Best_Practices.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/Primavera_P6_Scheduling_Best_Practices.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+<!-- 18. EPC PROJECT DELAY RISKS -->
+<article class="article-card" data-category="Risk Management" data-keywords="epc project delay schedule risks critical construction mitigation" data-interactive>
+<div class="article-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+<i class="fas fa-exclamation-triangle"></i>
+</div>
+<div class="article-body">
+<span class="article-category">Project Risk Management</span>
+<h2 class="article-title">EPC Project Delay Due to 10 Critical Schedule Risks</h2>
+<p class="article-description">An in-depth analysis of the top 10 critical schedule risks that commonly cause delays in Engineering, Procurement, and Construction (EPC) projects. Learn how to identify, assess, and mitigate these risks to ensure timely project delivery.</p>
+<div class="article-meta">
+<span class="article-meta-item"><i class="fas fa-calendar-alt"></i> Jul 2026</span>
+<span class="article-meta-item"><i class="fas fa-clock"></i> 12 min read</span>
+<span class="article-meta-item"><i class="fas fa-file-pdf"></i> PDF</span>
+</div>
+<div class="article-actions">
+<button class="btn-article btn-article-download" onclick="event.stopPropagation(); downloadArticle('https://sbmousavices.github.io/Articles/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf', 'EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf', this)">
+<i class="fas fa-download"></i> Download
+</button>
+<a href="https://sbmousavices.github.io/Articles/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf" target="_blank" rel="noopener" class="btn-article btn-article-view" onclick="event.stopPropagation()">
+<i class="fas fa-eye"></i> Read Online
+</a>
+</div>
+</div>
+</article>
+</div>
+<div class="no-results" id="noResults">
+<i class="fas fa-search"></i>
+<h3>No articles found</h3>
+<p>Try adjusting your search or filter criteria.</p>
+</div>
+</section>
+<section class="articles-container">
+<div class="community-section" data-interactive>
+<i class="fas fa-users"></i>
+<h3>Join Our Professional Community</h3>
+<p>Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
+<div class="community-stats">
+<div class="community-stat"><div class="community-stat-value">500+</div><div class="community-stat-label">Members</div></div>
+<div class="community-stat"><div class="community-stat-value">6</div><div class="community-stat-label">Platforms</div></div>
+<div class="community-stat"><div class="community-stat-value">FREE</div><div class="community-stat-label">Starter Kit</div></div>
+</div>
+<a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn-community" onclick="event.stopPropagation()">
+<i class="fas fa-user-plus"></i> Join Community Now
+</a>
+</div>
+</section>
+<section class="articles-container">
+<div class="hub-section" data-interactive>
+<i class="fas fa-comments"></i>
+<h3>Community Hub - Connect & Share</h3>
+<p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
+<div class="hub-stats">
+<div class="hub-stat"><div class="hub-stat-value">LIVE</div><div class="hub-stat-label">Discussions</div></div>
+<div class="hub-stat"><div class="hub-stat-value">JOBS</div><div class="hub-stat-label">Board</div></div>
+<div class="hub-stat"><div class="hub-stat-value">ADS</div><div class="hub-stat-label">Marketplace</div></div>
+</div>
+<a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
+<i class="fas fa-arrow-right"></i> Enter Community Hub
+</a>
+</div>
+</section>
+<section class="articles-container">
+<div class="newsletter" data-interactive>
+<i class="fas fa-bell"></i>
+<h3>Stay Updated</h3>
+<p>New articles are published regularly. Follow me on Instagram or reach out to get notified about the latest professional guides.</p>
+<div class="newsletter-btns">
+<a href="https://www.instagram.com/industrial.planning.tools" target="_blank" class="btn-primary" onclick="event.stopPropagation()">
+<i class="fab fa-instagram"></i> Follow on Instagram
+</a>
+<a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact" class="btn-outline" onclick="event.stopPropagation()">
+<i class="fas fa-envelope"></i> Get in Touch
+</a>
+</div>
+</div>
+</section>
+<footer>
+<p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
+</footer>
 
-            <!-- PRODUCT 2 -->
-            <div class="product-card reveal">
-                <h2>WBS Grouping Tool for MS Project</h2>
-                <p>Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
-                <div class="price">Price: 79 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
-                <a class="btn btn-outline btn-small" href="WBS_Grouping_Demo.mp4" download>
-                    <i class="fas fa-video"></i> Download Demo Video
-                </a>
-            </div>
+<!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) - REPOSITIONED -->
+<div id="custom-chat-wrapper">
+    <button id="chat-toggle">💬 Chat</button>
+</div>
 
-            <!-- PRODUCT 3 -->
-            <div class="product-card reveal">
-                <h2>Executive Monthly Action Plan</h2>
-                <p>Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
-                <div class="price">Price: 350 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 2 days</div>
-                <a class="btn btn-outline btn-small" href="Executive_Monthly_Action_Plan.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
-            </div>
-
-            <!-- PRODUCT 4 -->
-            <div class="product-card reveal">
-                <h2>Manpower & Machinery Data Bank</h2>
-                <p>Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
-                <div class="price">Price: 600 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 24 hours</div>
-                <a class="btn btn-outline btn-small" href="Manpower_Guide.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
-            </div>
-
-            <!-- PRODUCT 5 -->
-            <div class="product-card reveal">
-                <h2>EVMS - Earned Value Management</h2>
-                <p>Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
-                <div class="price">Price: 800 USDT</div>
-                <div class="launch-tag">Introductory Price</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 3 days</div>
-                <a class="btn btn-outline btn-small" href="EVMS.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
-            </div>
-
-            <!-- PRODUCT 6 -->
-            <div class="product-card reveal">
-                <h2>Executive Management Dashboard</h2>
-                <p>Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
-                <div class="price">Price: 1200 USDT</div>
-                <div class="launch-tag">Premium Dashboard</div>
-                <a class="btn btn-outline btn-small" href="Management_Dashboard.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </a>
-            </div>
-
-            <!-- PRODUCT 7 -->
-            <div class="product-card reveal">
-                <h2>PMS - Progress Measurement System</h2>
-                <p>Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
-                <div class="price">Price: 1500 USDT</div>
-                <div class="launch-tag">Professional Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="EL_IN_Sample_PMS.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download Sample
-                </a>
-            </div>
-
-            <!-- PRODUCT 8 -->
-            <div class="product-card reveal">
-                <h2>Project Time Schedule</h2>
-                <p>A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
-                <div class="price">Price: 1500 USDT</div>
-                <div class="launch-tag">Professional Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="Project_Time_Schedule.mp4" download>
-                    <i class="fas fa-video"></i> Download Demo Video
-                </a>
-            </div>
-
-            <!-- PRODUCT 9 -->
-            <div class="product-card reveal">
-                <h2>Project Delay Report (EOT Support)</h2>
-                <p>Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
-                <div class="price">Price: 3000 USDT</div>
-                <div class="launch-tag">Premium Claim Service</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-                <a class="btn btn-outline btn-small" href="Delay_Schedule_Analysis.pdf" download>
-                    <i class="fas fa-file-pdf"></i> Download Sample
-                </a>
-            </div>
-
-            <!-- PRODUCT 10 -->
-            <div class="product-card reveal">
-                <h2>Claim Package - Financial Impact</h2>
-                <p>Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
-                <div class="price">Price: 5% of Claim Value (USDT)</div>
-                <div class="launch-tag">Full Documentation Package</div>
-                <div class="delivery"><i class="fas fa-clock"></i> Delivery: Within 1 month</div>
-            </div>
-
-        </div>
-
-        <!-- PAYMENT & CONTACT SECTION -->
-        <div class="info-section">
-            <div class="info-box reveal">
-                <div class="info-label"><i class="fas fa-wallet"></i> USDT Wallet (TRC-20 Network)</div>
-                <div class="info-value" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
-                <button class="copy-btn" onclick="copyText('walletAddress', 'walletMessage')">
-                    <i class="fas fa-copy"></i> Copy Wallet Address
-                </button>
-                <div class="copy-message" id="walletMessage"></div>
-            </div>
-
-            <div class="info-box reveal">
-                <div class="info-label"><i class="fas fa-envelope"></i> Support & Purchase Email</div>
-                <div class="info-value" id="emailAddress">sbmousavices@gmail.com</div>
-                <button class="copy-btn" onclick="copyText('emailAddress', 'emailMessage')">
-                    <i class="fas fa-copy"></i> Copy Email
-                </button>
-                <div class="copy-message" id="emailMessage"></div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-bottom: 40px;" class="reveal">
-            <a href="mailto:sbmousavices@gmail.com?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn btn-primary">
-                <i class="fas fa-paper-plane"></i> Send Purchase Email
-            </a>
-        </div>
-
-        <!-- ABOUT SECTION -->
-        <div class="about reveal">
-            <h2>About the Creator</h2>
-            <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <p>&copy; 2026 Behzad Mousavi. All rights reserved. | Industrial Project Planning Excellence</p>
-        </footer>
-
+<div id="chat-box">
+    <div id="chat-header">
+        <span>AI Assistant</span>
+        <button id="close-chat">&times;</button>
     </div>
+    <div id="chat-messages"></div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
 
-    <script>
-        // Copy to Clipboard Function
-        function copyText(id, messageId) {
-            const element = document.getElementById(id);
-            const text = element.innerText || element.textContent;
+<script>
+// Chatbot Configuration
+const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
 
-            navigator.clipboard.writeText(text).then(function() {
-                const message = document.getElementById(messageId);
-                message.innerHTML = '<i class="fas fa-check-circle"></i> Copied successfully!';
-                setTimeout(function() {
-                    message.innerHTML = "";
-                }, 2500);
-            }).catch(function(error) {
-                console.log("Copy failed:", error);
-                alert("Failed to copy. Please copy manually.");
-            });
-        }
+const toggleBtn = document.getElementById('chat-toggle');
+const closeBtn = document.getElementById('close-chat');
+const chatBox = document.getElementById('chat-box');
+const sendBtn = document.getElementById('send-btn');
+const userInput = document.getElementById('user-input');
+const messagesDiv = document.getElementById('chat-messages');
 
-        // Scroll Reveal Animation
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+// Toggle Chat Visibility
+toggleBtn.addEventListener('click', () => {
+    chatBox.style.display = 'flex';
+    toggleBtn.style.display = 'none';
+    userInput.focus();
+});
+
+closeBtn.addEventListener('click', () => {
+    chatBox.style.display = 'none';
+    toggleBtn.style.display = 'block';
+});
+
+// Send Message Handlers
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => { 
+    if (e.key === 'Enter') sendMessage(); 
+});
+
+async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    // User Message Bubble
+    messagesDiv.innerHTML += `<div class="msg-user"><span>${escapeHtml(message)}</span></div>`;
+    userInput.value = '';
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    // Loading Indicator
+    const loadingId = 'loading-' + Date.now();
+    messagesDiv.innerHTML += `<div id="${loadingId}" class="loading-msg">Thinking...</div>`;
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    try {
+        const response = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
         
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
+        const data = await response.json();
+        document.getElementById(loadingId).remove();
+        
+        // Bot Response Bubble
+        const replyText = data.reply || 'Sorry, I could not process that request.';
+        messagesDiv.innerHTML += `<div class="msg-bot"><span>${escapeHtml(replyText)}</span></div>`;
+    } catch (error) {
+        document.getElementById(loadingId).remove();
+        messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">️ Connection error. Please try again.</span></div>`;
+    }
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
 
+// Security Helper to prevent XSS
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+</script>
+
+<script>
+// =============================================
+// ✅ GOATCOUNTER CUSTOM EVENT TRACKING
+// =============================================
+function trackEvent(path, title) {
+if (window.goatcounter) {
+window.goatcounter.count({ path: path, title: title || path, event: true });
+}
+}
+// =============================================
+// ✅ UNIFIED AUTHENTICATION SYSTEM
+// =============================================
+const AUTH_STORAGE_KEY = 'bm_portfolio_user_session';
+// ✅ UPDATED API URL - New Google Apps Script
+const HUB_API_URL = 'https://script.google.com/macros/s/AKfycbwfc67DKjDJAIR4nB5CgpM6eha0puQok1i_LykV8kFeerMFsBtp0EOCWxYH_9PTkVLJ/exec';
+function getCurrentUser() {
+try {
+const saved = localStorage.getItem(AUTH_STORAGE_KEY);
+return saved ? JSON.parse(saved) : null;
+} catch { return null; }
+}
+function saveSession(user) {
+localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+updateAuthUI();
+}
+function clearSession() {
+localStorage.removeItem(AUTH_STORAGE_KEY);
+localStorage.removeItem('community_signup_progress');
+updateAuthUI();
+}
+function updateAuthUI() {
+const user = getCurrentUser();
+const authBtn = document.getElementById('navAuthBtn');
+const userDropdown = document.getElementById('userDropdown');
+const userNameSpan = document.getElementById('navUserName');
+if (user && user.email) {
+authBtn.style.display = 'none';
+userDropdown.classList.add('active');
+userNameSpan.textContent = user.name ? user.name.split(' ')[0] : 'User';
+} else {
+authBtn.style.display = 'inline-flex';
+userDropdown.classList.remove('active');
+document.getElementById('userMenu').classList.remove('show');
+}
+}
+// Modal Controls
+const modalOverlay = document.getElementById('authModalOverlay');
+const authTabs = document.querySelectorAll('.auth-tab');
+const authForms = document.querySelectorAll('.auth-form');
+function openModal(tab = 'signin') {
+modalOverlay.classList.add('active');
+switchTab(tab);
+document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+modalOverlay.classList.remove('active');
+document.body.style.overflow = '';
+document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+}
+function switchTab(tabName) {
+authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+authForms.forEach(f => f.classList.remove('active'));
+document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupForm').classList.add('active');
+document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
+}
+document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
+document.getElementById('authClose').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+// User Dropdown
+document.getElementById('navUserBtn').addEventListener('click', (e) => {
+e.stopPropagation();
+document.getElementById('userMenu').classList.toggle('show');
+});
+document.addEventListener('click', (e) => {
+if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
+});
+// Sign In
+document.getElementById('signinForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+const email = document.getElementById('signinEmail').value.trim();
+const msgDiv = document.getElementById('signinMessage');
+const btn = document.getElementById('btnSignin');
+btn.disabled = true;
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+try {
+await fetch(HUB_API_URL, {
+method: 'POST',
+headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+body: JSON.stringify({ action: 'sign_in', email, password: document.getElementById('signinPassword').value })
+});
+saveSession({ email, name: email.split('@')[0], loggedInAt: Date.now() });
+trackEvent('/sign-in', 'User signed in');
+msgDiv.className = 'auth-message success';
+msgDiv.textContent = '✓ Welcome back!';
+setTimeout(closeModal, 1000);
+} catch (error) {
+msgDiv.className = 'auth-message error';
+msgDiv.textContent = 'Sign in failed.';
+} finally {
+btn.disabled = false;
+btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+}
+});
+// Sign Up → No Redirect (User Choice)
+document.getElementById('signupForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+const name = document.getElementById('signupName').value.trim();
+const email = document.getElementById('signupEmail').value.trim();
+const msgDiv = document.getElementById('signupMessage');
+const btn = document.getElementById('btnSignup');
+if (document.getElementById('signupPassword').value.length < 6) {
+msgDiv.className = 'auth-message error';
+msgDiv.textContent = 'Password must be at least 6 characters.';
+return;
+}
+btn.disabled = true;
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+try {
+await fetch(HUB_API_URL, {
+method: 'POST',
+headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+body: JSON.stringify({ action: 'sign_up', name, email, password: document.getElementById('signupPassword').value })
+});
+saveSession({ email, name, loggedInAt: Date.now() });
+localStorage.setItem('community_signup_progress', JSON.stringify({
+formData: { name, email }, emailVerified: true
+}));
+trackEvent('/sign-up', 'New user registered');
+msgDiv.className = 'auth-message success';
+msgDiv.textContent = '✓ Account created successfully! You can now join the community.';
+setTimeout(() => {
+closeModal();
+}, 1500);
+} catch (error) {
+msgDiv.className = 'auth-message error';
+msgDiv.textContent = 'Registration failed.';
+} finally {
+btn.disabled = false;
+btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+}
+});
+// Sign Out
+document.getElementById('btnLogout').addEventListener('click', function() {
+clearSession();
+document.getElementById('userMenu').classList.remove('show');
+trackEvent('/sign-out', 'User signed out');
+});
+// Init Auth
+updateAuthUI();
+// =============================================
+// ARTICLES PAGE FUNCTIONALITY
+// =============================================
+const searchInput = document.getElementById('searchInput');
+const filterPills = document.querySelectorAll('.filter-pill');
+const articleCards = document.querySelectorAll('.article-card');
+const noResults = document.getElementById('noResults');
+let currentCategory = 'all';
+function filterArticles() {
+const searchTerm = searchInput.value.toLowerCase().trim();
+let visibleCount = 0;
+articleCards.forEach(card => {
+const category = card.getAttribute('data-category').toLowerCase();
+const keywords = card.getAttribute('data-keywords').toLowerCase();
+const title = card.querySelector('.article-title').textContent.toLowerCase();
+const description = card.querySelector('.article-description').textContent.toLowerCase();
+const matchesCategory = currentCategory === 'all' || category.includes(currentCategory.toLowerCase());
+const matchesSearch = !searchTerm || title.includes(searchTerm) || description.includes(searchTerm) || keywords.includes(searchTerm);
+if (matchesCategory && matchesSearch) { card.style.display = 'flex'; visibleCount++; }
+else { card.style.display = 'none'; }
+});
+noResults.classList.toggle('show', visibleCount === 0);
+}
+searchInput.addEventListener('input', filterArticles);
+filterPills.forEach(pill => {
+pill.addEventListener('click', () => {
+filterPills.forEach(p => p.classList.remove('active'));
+pill.classList.add('active');
+currentCategory = pill.getAttribute('data-category');
+filterArticles();
+});
+});
+function downloadArticle(url, fileName, btn) {
+const originalHTML = btn.innerHTML;
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+btn.disabled = true;
+fetch(url, { cache: 'no-store' })
+.then(response => {
+if (!response.ok) throw new Error('HTTP ' + response.status);
+return response.blob();
+})
+.then(blob => {
+const blobUrl = window.URL.createObjectURL(blob);
+const link = document.createElement('a');
+link.href = blobUrl;
+link.download = fileName;
+link.style.display = 'none';
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+setTimeout(() => window.URL.revokeObjectURL(blobUrl), 3000);
+btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+trackEvent('/article-download-' + fileName.replace('.pdf', '').toLowerCase(), 'Downloaded: ' + fileName);
+setTimeout(() => { btn.innerHTML = originalHTML; btn.disabled = false; }, 2000);
+})
+.catch(error => {
+console.error('Download error:', error);
+btn.innerHTML = originalHTML;
+btn.disabled = false;
+alert('Download failed. Please use Read Online instead.');
+});
+}
+// Interactive Cards
+document.querySelectorAll('[data-interactive]').forEach(element => {
+element.addEventListener('click', function(e) {
+if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
+const wasActive = this.classList.contains('active');
+document.querySelectorAll('[data-interactive].active').forEach(el => { if (el !== this) el.classList.remove('active'); });
+this.classList.toggle('active');
+if (!wasActive) this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+});
+document.addEventListener('click', function(e) {
+if (!e.target.closest('[data-interactive]')) {
+document.querySelectorAll('[data-interactive].active').forEach(el => el.classList.remove('active'));
+}
+});
+</script>
 </body>
 </html>
