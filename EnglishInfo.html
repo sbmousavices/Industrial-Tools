@@ -623,7 +623,7 @@ animation: blink 0.7s infinite;
 .btn-primary { background: var(--gradient); color: var(--bg-primary); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
 
-/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨✨ */
+/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨ */
 .hero-buttons .btn-primary {
     position: relative;
     z-index: 1;
@@ -752,6 +752,37 @@ background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
 }
 @media (min-width: 969px) {
     .mobile-nft-btn { display: none !important; }
+}
+
+/* ✅ MOBILE ONLY RESUME BUILDER BUTTON (NEW) */
+.mobile-resume-btn {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--success);
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(39, 174, 96, 0.1) 100%);
+    color: var(--success);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.mobile-resume-btn:hover {
+    background: var(--success);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+}
+@media (min-width: 969px) {
+    .mobile-resume-btn { display: none !important; }
 }
 
 .hero-image { display: flex; justify-content: center; opacity: 0; animation: fadeIn 1s 0.5s forwards; }
@@ -1766,6 +1797,8 @@ Specializing in <span class="typing-text" id="typing-text"></span>
 <a href="https://sbmousavices.github.io/Theme/index.html" class="mobile-web-design-btn"><i class="fas fa-laptop-code"></i> Web Design Themes</a>
 <!-- ✅ MOBILE ONLY NFT BUTTON RESTORED -->
 <a href="https://sbmousavices.github.io/NFT/" class="mobile-nft-btn"><i class="fas fa-images"></i> NFT Gallery</a>
+<!-- ✅ MOBILE ONLY RESUME BUILDER BUTTON (NEW) -->
+<a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html" class="mobile-resume-btn"><i class="fas fa-file-alt"></i> Resume Builder</a>
 </div>
 </div>
 <div class="hero-image">
