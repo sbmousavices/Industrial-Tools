@@ -69,6 +69,10 @@
             --hub-color: #9b59b6;
             --hub-color-light: #bb8fce;
             --danger: #e74c3c;
+            
+            /* ✅ NAV STANDARD VARIABLES FROM REFERENCE */
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -80,88 +84,93 @@
             color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
+            padding-top: var(--nav-height); /* ✅ SPACE FOR FIXED HEADER */
         }
 
-        /* --- UNIFIED AUTH MODAL STYLES --- */
-        .auth-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
-            z-index: 2000; display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease;
+        /* ✅ UNIFIED NAVIGATION BAR STYLES */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
         }
-        .auth-modal-overlay.active { display: flex; opacity: 1; }
-        .auth-modal {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 450px;
-            position: relative; transform: translateY(20px); transition: transform 0.3s ease;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
         }
-        .auth-modal-overlay.active .auth-modal { transform: translateY(0); }
-        .auth-close {
-            position: absolute; top: 1.2rem; right: 1.5rem;
-            background: none; border: none; color: var(--text-secondary);
-            font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+
+        .nav-logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
         }
-        .auth-close:hover { color: var(--accent); }
-        .auth-tabs { display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 2px solid var(--border); }
-        .auth-tab {
-            flex: 1; padding: 0.8rem; background: none; border: none;
-            color: var(--text-secondary); font-family: inherit; font-size: 1rem;
-            font-weight: 600; cursor: pointer; transition: all 0.3s;
-            border-bottom: 2px solid transparent; margin-bottom: -2px;
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
         }
-        .auth-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-        .auth-form { display: none; }
-        .auth-form.active { display: block; animation: fadeInAuth 0.3s ease; }
-        .auth-field { margin-bottom: 1.2rem; text-align: left; }
-        .auth-field label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
-        .auth-field input {
-            width: 100%; padding: 0.85rem 1.2rem; background: var(--bg-primary);
-            border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary);
-            font-family: inherit; font-size: 1rem; transition: all 0.3s;
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
-        .auth-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
-        .btn-auth-submit {
-            width: 100%; padding: 1rem; background: var(--gradient); color: var(--bg-primary);
-            border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: all 0.3s; margin-top: 0.5rem; font-family: inherit;
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
         }
-        .btn-auth-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .auth-message { padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; display: none; }
-        .auth-message.success { display: block; background: rgba(46, 204, 113, 0.2); border: 1px solid var(--accent-green); color: var(--accent-green); }
-        .auth-message.error { display: block; background: rgba(231, 76, 60, 0.2); border: 1px solid var(--danger); color: var(--danger); }
-        
-        /* NAV AUTH BUTTON & DROPDOWN */
-        .nav-auth-btn {
-            padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: 600;
-            font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            border: 1px solid var(--accent); color: var(--accent); background: transparent;
-            font-family: inherit; text-decoration: none; white-space: nowrap;
+
+        /* ✅ SIGN IN BUTTON STYLE */
+        .btn-signin {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
-        .nav-auth-btn:hover { background: var(--accent); color: var(--bg-primary); }
-        .nav-auth-btn.logged-in { border-color: var(--accent-green); color: var(--accent-green); }
-        .nav-auth-btn.logged-in:hover { background: rgba(46, 204, 113, 0.1); }
-        .user-dropdown { position: relative; display: none; }
-        .user-dropdown.active { display: inline-flex; }
-        .user-menu {
-            position: absolute; top: calc(100% + 10px); right: 0;
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 12px; min-width: 200px; padding: 0.5rem;
-            box-shadow: var(--shadow); display: none; z-index: 1001;
+
+        .btn-signin:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
-        .user-menu.show { display: block; animation: fadeInAuth 0.2s ease; }
-        .user-menu-item {
-            display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem;
-            color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
-            border-radius: 8px; transition: all 0.2s; border: none; background: none;
-            width: 100%; font-family: inherit; text-decoration: none;
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
-        .user-menu-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
-        .user-menu-item.danger:hover { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
-        .user-menu-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
-        @keyframes fadeInAuth { from { opacity: 0; } to { opacity: 1; } }
 
         .bg-shapes {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
@@ -173,34 +182,7 @@
         .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 1rem 5%; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.5rem; 
-            font-weight: 900; 
-            color: var(--accent); 
-            text-decoration: none; 
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-logo-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--accent);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-
-        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-links .active { color: var(--accent); font-weight: 600; }
-
-        .page-header { padding: 9rem 5% 3rem; text-align: center; position: relative; }
+        .page-header { padding: 6rem 5% 3rem; text-align: center; position: relative; }
         .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
         .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
         .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -582,23 +564,6 @@
             box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5);
         }
 
-        .message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            text-align: center;
-        }
-        .message.error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-        .message.success {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-        }
-
         footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
         footer p { color: var(--text-secondary); font-size: 0.9rem; }
 
@@ -606,8 +571,8 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 968px) {
-            .nav-links { gap: 1rem; }
-            .nav-links a { font-size: 0.85rem; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
             .page-header h1 { font-size: 2rem; }
             .platform-card.active, .reward-section.active, .download-section.active, .hub-section.active {
                 transform: scale(1.02) translateY(-5px);
@@ -616,9 +581,7 @@
             .hub-stat-value { font-size: 1.4rem; }
         }
         @media (max-width: 600px) {
-            .nav-links { display: none; }
             .platforms-grid { grid-template-columns: 1fr; }
-            .auth-modal { padding: 1.8rem; width: 95%; }
         }
 
         /* =============================================
@@ -791,94 +754,27 @@
 <body>
     <div class="bg-shapes"></div>
 
-    <!-- ✅ UNIFIED AUTH MODAL (فقط از نوار بالا) -->
-    <div class="auth-modal-overlay" id="authModalOverlay">
-        <div class="auth-modal">
-            <button class="auth-close" id="authClose">&times;</button>
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="signin">Sign In</button>
-                <button class="auth-tab" data-tab="signup">Sign Up</button>
-            </div>
-            
-            <form class="auth-form active" id="signinForm">
-                <div id="signinMessage" class="auth-message"></div>
-                <div class="auth-field">
-                    <label for="signinEmail">Email Address</label>
-                    <input type="email" id="signinEmail" placeholder="name@company.com" required>
-                </div>
-                <div class="auth-field">
-                    <label for="signinPassword">Password</label>
-                    <input type="password" id="signinPassword" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn-auth-submit" id="btnSignin">
-                    <i class="fas fa-sign-in-alt"></i> Sign In
-                </button>
-            </form>
-            
-            <form class="auth-form" id="signupFormModal">
-                <div id="signupMessage" class="auth-message"></div>
-                <div class="auth-field">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" placeholder="e.g. Behzad Mousavi" required>
-                </div>
-                <div class="auth-field">
-                    <label for="signupEmail">Email Address</label>
-                    <input type="email" id="signupEmail" placeholder="name@company.com" required>
-                </div>
-                <div class="auth-field">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Create a password" required minlength="6">
-                </div>
-                <button type="submit" class="btn-auth-submit" id="btnSignup">
-                    <i class="fas fa-user-plus"></i> Create Account
-                </button>
-            </form>
-        </div>
-    </div>
-
+    <!-- ✅ UNIFIED NAVIGATION BAR -->
     <nav>
-        <div class="nav-container">
-            <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="logo">
-                <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="Logo" class="nav-logo-img">
-                Home
-            </a>
-            <ul class="nav-links">
-                <!-- ✅ CHANGED ABOUT TO RESUME BUILDER WITH LINK -->
-                <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
-                <!-- ✅ CHANGED EXPERTISE TO WEB DESIGN WITH LINK TO THEME PAGE -->
-                <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
-                <!-- ✅ 2. CHANGED EDUCATION TO NFT GALLERY WITH CORRECT LINK -->
-                <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
-                <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
-                <li><a href="community.html" class="active">Community</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
-                <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
-                
-                <li>
-                    <button class="nav-auth-btn" id="navAuthBtn">
-                        <i class="fas fa-user"></i> <span id="navAuthText">Sign In</span>
-                    </button>
-                    <div class="user-dropdown" id="userDropdown">
-                        <button class="nav-auth-btn logged-in" id="navUserBtn">
-                            <i class="fas fa-user-circle"></i> <span id="navUserName">User</span> <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i>
-                        </button>
-                        <div class="user-menu" id="userMenu">
-                            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="user-menu-item">
-                                <i class="fas fa-comments"></i> Go to Hub
-                            </a>
-                            <a href="https://sbmousavices.github.io/Industrial-Tools/" class="user-menu-item">
-                                <i class="fas fa-box-open"></i> Products
-                            </a>
-                            <div class="user-menu-divider"></div>
-                            <button class="user-menu-item danger" id="btnLogout">
-                                <i class="fas fa-sign-out-alt"></i> Sign Out
-                            </button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <!-- ✅ CHANGED ABOUT TO RESUME BUILDER WITH LINK -->
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <!-- ✅ CHANGED EXPERTISE TO WEB DESIGN WITH LINK TO THEME PAGE -->
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="community.html" class="active">Community</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <!-- ✅ SIGN IN BUTTON ADDED HERE -->
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
     <section class="page-header">
@@ -1128,7 +1024,7 @@
 
         const AB_VARIANTS = {
             A: {
-                title: '🎁 Exclusive Community Reward',
+                title: ' Exclusive Community Reward',
                 description: 'After following our platforms, receive a <strong>FREE Project Planning Starter Kit</strong> including:<br>✅ Professional WBS Template (Excel)<br>✅ Project Health Checklist (50 Points)<br>✅ EVM Basics Quick-Reference Guide'
             },
             B: {
@@ -1177,7 +1073,6 @@
             } else {
                 currentUser = null;
             }
-            updateNavAuthUI();
             restorePlatformStates();
             checkAllConfirmed();
         });
@@ -1209,132 +1104,10 @@
             } catch (e) { console.error("Error saving progress:", e); }
         }
 
-        function updateNavAuthUI() {
-            const authBtn = document.getElementById('navAuthBtn');
-            const userDropdown = document.getElementById('userDropdown');
-            const userNameSpan = document.getElementById('navUserName');
+        // Modal Controls removed as per standard nav reference
 
-            if (currentUser) {
-                authBtn.style.display = 'none';
-                userDropdown.classList.add('active');
-                userNameSpan.textContent = currentUser.name.split(' ')[0];
-            } else {
-                authBtn.style.display = 'inline-flex';
-                userDropdown.classList.remove('active');
-                document.getElementById('userMenu').classList.remove('show');
-            }
-        }
-
-        // Modal Controls
-        const modalOverlay = document.getElementById('authModalOverlay');
-        const authTabs = document.querySelectorAll('.auth-tab');
-        const authForms = document.querySelectorAll('.auth-form');
-
-        window.openModal = function(tab = 'signin') {
-            modalOverlay.classList.add('active');
-            switchTab(tab);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
-        }
-        function switchTab(tabName) {
-            authTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
-            authForms.forEach(f => f.classList.remove('active'));
-            document.getElementById(tabName === 'signin' ? 'signinForm' : 'signupFormModal').classList.add('active');
-            document.querySelectorAll('.auth-message').forEach(m => { m.className = 'auth-message'; m.textContent = ''; });
-        }
-
-        document.getElementById('navAuthBtn').addEventListener('click', () => openModal('signin'));
-        document.getElementById('authClose').addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-        authTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-
-        document.getElementById('navUserBtn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.getElementById('userMenu').classList.toggle('show');
-        });
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.user-dropdown')) document.getElementById('userMenu').classList.remove('show');
-        });
-
-        // Sign In
-        document.getElementById('signinForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('signinEmail').value.trim();
-            const password = document.getElementById('signinPassword').value;
-            const msgDiv = document.getElementById('signinMessage');
-            const btn = document.getElementById('btnSignin');
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Welcome back!';
-                setTimeout(closeModal, 1000);
-            } catch (error) {
-                msgDiv.className = 'auth-message error';
-                msgDiv.textContent = getFirebaseErrorMessage(error.code);
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-            }
-        });
-
-        // Sign Up
-        document.getElementById('signupFormModal').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
-            const password = document.getElementById('signupPassword').value;
-            const msgDiv = document.getElementById('signupMessage');
-            const btn = document.getElementById('btnSignup');
-
-            if (password.length < 6) {
-                msgDiv.className = 'auth-message error';
-                msgDiv.textContent = 'Password must be at least 6 characters.';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                await updateProfile(userCredential.user, { displayName: name });
-                msgDiv.className = 'auth-message success';
-                msgDiv.textContent = '✓ Account created!';
-                setTimeout(closeModal, 1000);
-            } catch (error) {
-                msgDiv.className = 'auth-message error';
-                msgDiv.textContent = getFirebaseErrorMessage(error.code);
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-            }
-        });
-
-        document.getElementById('btnLogout').addEventListener('click', async () => {
-            await signOut(auth);
-            localStorage.removeItem(STORAGE_KEY);
-            trackGoatEvent('/sign-out', 'User signed out');
-            window.location.reload();
-        });
-
-        function getFirebaseErrorMessage(code) {
-            switch(code) {
-                case 'auth/email-already-in-use': return 'This email is already registered.';
-                case 'auth/invalid-email': return 'Invalid email address.';
-                case 'auth/user-not-found': return 'No account found with this email.';
-                case 'auth/wrong-password': return 'Incorrect password.';
-                case 'auth/weak-password': return 'Password is too weak.';
-                default: return 'An error occurred. Please try again.';
-            }
-        }
+        // Sign In / Sign Up logic removed from this page as per standard nav reference
+        // Auth is now handled centrally via the Sign In button linking to EnglishInfo.html
 
         // =============================================
         // COMMUNITY PAGE LOGIC
