@@ -191,6 +191,35 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
+        /* ✅ FLOATING BACK TO DIGITAL CARD BUTTON */
+        .floating-back-btn {
+            position: fixed;
+            top: calc(var(--nav-height) + 15px); /* Exactly below navbar with small gap */
+            right: 5%; /* Aligned to the right side */
+            z-index: 999; /* Below nav but above content */
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            background: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .floating-back-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
         /* Mobile Menu Toggle */
         .mobile-menu-btn {
             display: none;
@@ -624,6 +653,13 @@
             .product-card.active, .info-card.active, .community-section.active, .hub-section.active, .about-card.active {
                 transform: scale(1.02) translateY(-5px);
             }
+            /* Adjust floating button for mobile */
+            .floating-back-btn {
+                right: 20px;
+                top: calc(var(--nav-height) + 10px);
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
         }
         @media (max-width: 600px) {
             .products-grid { grid-template-columns: 1fr; }
@@ -641,7 +677,7 @@
             }
 
             /* Hide Non-Essential Elements */
-            nav, footer, .bg-shapes, .free-sample-wrapper, .community-section, .hub-section, .about-section {
+            nav, footer, .bg-shapes, .free-sample-wrapper, .community-section, .hub-section, .about-section, .floating-back-btn {
                 display: none !important;
             }
 
@@ -927,6 +963,11 @@
 </head>
 <body>
     <div class="bg-shapes"></div>
+
+    <!-- ✅ FLOATING BACK TO DIGITAL CARD BUTTON (BELOW NAV, RIGHT SIDE) -->
+    <a href="https://sbmousavices.github.io/Theme/digital-card-en.html" class="floating-back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Digital Card
+    </a>
 
     <!-- ✅ UNIFIED NAVIGATION BAR -->
     <nav>
