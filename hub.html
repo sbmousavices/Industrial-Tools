@@ -139,92 +139,9 @@
             align-items: stretch;
         }
 
-        /* ✅ LEFT COLUMN CONTAINER (HOLDS FORM + PULSE BOARD) */
-        .left-column {
-            flex: 0.67;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* ✅ AD REQUEST FORM (COMPACT HEIGHT) */
-        .ad-request-bar {
-            width: 100%;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 12px 16px;
-            display: grid;
-            grid-template-columns: 1fr 1.8fr; 
-            grid-template-rows: auto auto auto auto auto;
-            gap: 8px; 
-            align-items: start;
-            flex-shrink: 0;
-        }
-
-        .ad-title-box {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 0;
-        }
-
-        .ad-title-box i { font-size: 1.1rem; color: var(--accent); }
-        .ad-title-box span { font-size: 0.85rem; color: var(--accent-light); font-weight: 700; }
-
-        .ad-field {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: var(--text-primary);
-            padding: 8px 10px;
-            font-size: 0.8rem;
-            outline: none;
-            transition: border-color 0.3s;
-            width: 100%;
-        }
-
-        .ad-field:focus { border-color: var(--accent); }
-
-        /* Inputs Stacked Left */
-        #adBizName { grid-column: 1; grid-row: 2; }
-        #adEmail   { grid-column: 1; grid-row: 3; }
-        #adWebsite { grid-column: 1; grid-row: 4; }
-
-        /* Description Right Side */
-        .ad-desc-area {
-            grid-column: 2;
-            grid-row: 2 / span 3;
-            min-height: 85px;
-            resize: vertical;
-        }
-
-        /* Submit Button (Moved Up Closer to Description) */
-        .ad-submit-btn {
-            grid-column: 2;
-            grid-row: 5;
-            padding: 6px 16px;
-            background: var(--gradient);
-            border: none;
-            border-radius: 8px;
-            color: #0a1628;
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-            width: fit-content;
-            justify-self: end;
-            margin-top: 0;
-        }
-
-        .ad-submit-btn:hover { transform: scale(1.05); }
-
-        /* ✅ PULSE BOARD (INCREASED HEIGHT) */
+        /* ✅ LEFT COLUMN: FULL HEIGHT PULSE BOARD */
         .pulse-board {
-            flex: 1;
+            flex: 0.67;
             background: var(--card-bg);
             backdrop-filter: blur(15px);
             border: 1px solid var(--border);
@@ -432,9 +349,92 @@
             font-size: 0.85rem;
         }
 
-        /* ✅ BUSINESS SHOWCASE (RIGHT - FULL HEIGHT) */
+        /* ✅ RIGHT COLUMN: AD FORM + SHOWCASE */
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* ✅ AD REQUEST FORM (TOP OF RIGHT COLUMN) */
+        .ad-request-bar {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr; 
+            grid-template-rows: auto auto auto auto auto;
+            gap: 8px; 
+            align-items: start;
+            flex-shrink: 0;
+        }
+
+        .ad-title-box {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
+        }
+
+        .ad-title-box i { font-size: 1.1rem; color: var(--accent); }
+        .ad-title-box span { font-size: 0.85rem; color: var(--accent-light); font-weight: 700; }
+
+        .ad-field {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+        }
+
+        .ad-field:focus { border-color: var(--accent); }
+
+        /* Inputs Stacked Left */
+        #adBizName { grid-column: 1; grid-row: 2; }
+        #adEmail   { grid-column: 1; grid-row: 3; }
+        #adWebsite { grid-column: 1; grid-row: 4; }
+
+        /* Description Right Side */
+        .ad-desc-area {
+            grid-column: 2;
+            grid-row: 2 / span 3;
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        /* Submit Button */
+        .ad-submit-btn {
+            grid-column: 2;
+            grid-row: 5;
+            padding: 6px 16px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: #0a1628;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: fit-content;
+            justify-self: end;
+            margin-top: 0;
+        }
+
+        .ad-submit-btn:hover { transform: scale(1.05); }
+
+        /* ✅ BUSINESS SHOWCASE (BOTTOM OF RIGHT COLUMN) */
         .showcase-panel {
-            flex: 1; 
+            flex: 1;
             background: var(--card-bg);
             backdrop-filter: blur(15px);
             border: 1px solid var(--border);
@@ -444,7 +444,6 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            height: 100%;
         }
 
         .showcase-header {
@@ -571,7 +570,8 @@
             .business-grid { grid-template-columns: repeat(3, 1fr); }
             
             .hub-layout { flex-direction: column; height: auto; }
-            .left-column { width: 100%; }
+            .pulse-board { width: 100%; height: 60vh; }
+            .right-column { width: 100%; }
             .showcase-panel { width: 100%; height: 60vh; }
             
             .ad-request-bar {
@@ -590,7 +590,6 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
-            .pulse-board { height: 60vh; }
             .business-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
@@ -624,10 +623,32 @@
     <!-- ✅ MAIN DUAL-COLUMN LAYOUT -->
     <div class="hub-layout">
         
-        <!-- LEFT COLUMN: FORM + PULSE BOARD -->
-        <div class="left-column">
+        <!-- LEFT: COMMUNITY PULSE BOARD (FULL HEIGHT) -->
+        <div class="pulse-board">
+            <div class="board-header">
+                <h2><i class="fas fa-bolt"></i> Community Pulse <span class="live-indicator"></span></h2>
+                <div class="online-counter">
+                    <span class="live-indicator" style="width:6px;height:6px;"></span>
+                    <span id="onlineCount">0</span> online now
+                </div>
+            </div>
+
+            <div class="messages-container" id="messagesContainer"></div>
+
+            <div class="input-area">
+                <input type="text" id="authorName" class="name-input" placeholder="Your Nickname" maxlength="20">
+                <div class="msg-input-wrapper">
+                    <textarea id="msgContent" class="msg-input" placeholder="What's on your mind?" rows="1"></textarea>
+                    <button class="emoji-btn" title="Emoji (Decorative)"><i class="far fa-smile"></i></button>
+                    <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: AD FORM + SHOWCASE -->
+        <div class="right-column">
             
-            <!-- AD REQUEST FORM (TOP LEFT - COMPACT) -->
+            <!-- AD REQUEST FORM (TOP RIGHT) -->
             <div class="ad-request-bar">
                 <div class="ad-title-box">
                     <i class="fas fa-bullhorn"></i>
@@ -641,96 +662,221 @@
                 <button class="ad-submit-btn" onclick="submitAdRequest()">Send</button>
             </div>
 
-            <!-- COMMUNITY PULSE BOARD (BOTTOM LEFT - INCREASED HEIGHT) -->
-            <div class="pulse-board">
-                <div class="board-header">
-                    <h2><i class="fas fa-bolt"></i> Community Pulse <span class="live-indicator"></span></h2>
-                    <div class="online-counter">
-                        <span class="live-indicator" style="width:6px;height:6px;"></span>
-                        <span id="onlineCount">0</span> online now
-                    </div>
+            <!-- BUSINESS SHOWCASE (BOTTOM RIGHT) -->
+            <div class="showcase-panel">
+                <div class="showcase-header">
+                    <h3><i class="fas fa-store"></i> Business Showcase</h3>
                 </div>
 
-                <div class="messages-container" id="messagesContainer"></div>
+                <div class="business-grid" id="businessGrid">
+                    <!-- ✅ PM TOOLS CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools - Project Management Templates">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">PM Center Tools</div>
+                                <div class="biz-desc">Professional WBS & planning templates.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
 
-                <div class="input-area">
-                    <input type="text" id="authorName" class="name-input" placeholder="Your Nickname" maxlength="20">
-                    <div class="msg-input-wrapper">
-                        <textarea id="msgContent" class="msg-input" placeholder="What's on your mind?" rows="1"></textarea>
-                        <button class="emoji-btn" title="Emoji (Decorative)"><i class="far fa-smile"></i></button>
-                        <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                    <!-- ✅ WEBDEV CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio - Custom Themes & Digital Cards">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">WebDev Studio</div>
+                                <div class="biz-desc">Custom themes & digital cards.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/Theme/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- ✅ NFT ART CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery - Exclusive Digital Art Collection">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">NFT Gallery</div>
+                                <div class="biz-desc">Exclusive digital art collection.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/NFT/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- ✅ EMPTY AD SLOTS -->
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- RIGHT: BUSINESS SHOWCASE (FULL HEIGHT) -->
-        <div class="showcase-panel">
-            <div class="showcase-header">
-                <h3><i class="fas fa-store"></i> Business Showcase</h3>
-            </div>
+    </div>
 
-            <div class="business-grid" id="businessGrid">
-                <!-- ✅ PM TOOLS CARD WITH REAL IMAGE AND LINK (SAME TAB) -->
-                <div class="biz-card">
-                    <div class="biz-img-box">
-                        <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools - Project Management Templates">
-                    </div>
-                    <div class="biz-info">
-                        <div>
-                            <div class="biz-name">PM Center Tools</div>
-                            <div class="biz-desc">Professional WBS & planning templates.</div>
-                        </div>
-                        <a href="https://sbmousavices.github.io/Industrial-Tools/index.html" class="biz-link">Visit →</a>
-                    </div>
-                </div>
+    <!-- ✅ SUPABASE CLIENT LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                <!-- ✅ WEBDEV CARD WITH REAL IMAGE AND LINK (SAME TAB) -->
-                <div class="biz-card">
-                    <div class="biz-img-box">
-                        <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio - Custom Themes & Digital Cards">
-                    </div>
-                    <div class="biz-info">
-                        <div>
-                            <div class="biz-name">WebDev Studio</div>
-                            <div class="biz-desc">Custom themes & digital cards.</div>
-                        </div>
-                        <a href="https://sbmousavices.github.io/Theme/index.html" class="biz-link">Visit →</a>
-                    </div>
-                </div>
+    <script>
+        // ✅ CONFIGURATION
+        const SUPABASE_URL = 'https://jvsczmnennouvflbkpxd.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_CkiyrqDRK7Axe308oKvVTQ_Ky6641VH';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-                <!-- ✅ NFT ART CARD WITH REAL IMAGE AND LINK (SAME TAB) -->
-                <div class="biz-card">
-                    <div class="biz-img-box">
-                        <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery - Exclusive Digital Art Collection">
-                    </div>
-                    <div class="biz-info">
-                        <div>
-                            <div class="biz-name">NFT Gallery</div>
-                            <div class="biz-desc">Exclusive digital art collection.</div>
-                        </div>
-                        <a href="https://sbmousavices.github.io/NFT/index.html" class="biz-link">Visit →</a>
-                    </div>
-                </div>
+        // ✅ MESSAGE FUNCTIONS
+        async function loadMessages() {
+            const { data, error } = await supabase.from('messages').select('*').order('timestamp', { ascending: true });
+            if (!error) renderMessages(data || []);
+        }
 
-                <!-- ✅ EMPTY AD SLOTS -->
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+        async function sendMessage() {
+            const authorInput = document.getElementById('authorName');
+            const contentInput = document.getElementById('msgContent');
+            const author = authorInput.value.trim() || 'Anonymous';
+            const content = contentInput.value.trim();
+            if (!content) return;
+
+            localStorage.setItem('pulse_nickname', author);
+            await supabase.from('messages').insert({ author: author.substring(0, 20), content: content.substring(0, 500) });
+            contentInput.value = '';
+            loadMessages();
+        }
+
+        async function toggleLike(id, currentLikes) {
+            await supabase.from('messages').update({ likes: currentLikes + 1 }).eq('id', id);
+            loadMessages();
+        }
+
+        function renderMessages(msgs) {
+            const container = document.getElementById('messagesContainer');
+            if (msgs.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="far fa-comment-dots" style="font-size:2rem;margin-bottom:10px;display:block;"></i>No pulses yet. Be the first!</div>`;
+                return;
+            }
+            container.innerHTML = msgs.map(msg => `
+                <div class="message-card">
+                    <div class="msg-header">
+                        <span class="msg-author">@${escapeHtml(msg.author)}</span>
+                        <span class="msg-time">${timeAgo(new Date(msg.timestamp).getTime())}</span>
+                    </div>
+                    <div class="msg-content">${escapeHtml(msg.content)}</div>
+                    <div class="msg-actions">
+                        <button class="action-btn" onclick="toggleLike(${msg.id}, ${msg.likes})">
+                            <i class="${msg.likes > 0 ? 'fas' : 'far'} fa-heart"></i> ${msg.likes || 0}
+                        </button>
+                        <button class="action-btn" onclick="replyTo('${escapeHtml(msg.author)}')">
+                            <i class="far fa-comment"></i> Reply
+                        </button>
+                    </div>
                 </div>
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-                </div>
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-                </div>
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-                </div>
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-                </div>
-                <div class="biz-card empty-slot">
-                    <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-                </div>
-                <div class="biz......
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function timeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds/60)}m ago`;
+            return new Date(timestamp).toLocaleDateString();
+        }
+
+        function replyTo(author) {
+            const input = document.getElementById('msgContent');
+            input.value = `@${author} `;
+            input.focus();
+        }
+
+        // ✅ EVENT LISTENERS
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('msgContent').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+        });
+
+        const savedNickname = localStorage.getItem('pulse_nickname');
+        if (savedNickname) document.getElementById('authorName').value = savedNickname;
+
+        // ✅ REAL-TIME SUBSCRIPTIONS
+        supabase.channel('public:messages')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => loadMessages())
+          .subscribe();
+
+        const presenceChannel = supabase.channel('online-users');
+        presenceChannel.on('presence', { event: 'sync' }, () => {
+            document.getElementById('onlineCount').textContent = Object.keys(presenceChannel.presenceState()).length;
+        }).subscribe(async (status) => {
+            if (status === 'SUBSCRIBED') {
+                await presenceChannel.track({ user_id: crypto.randomUUID(), joined_at: new Date().toISOString() });
+            }
+        });
+
+        // ✅ AD REQUEST EMAIL FUNCTION
+        function submitAdRequest() {
+            const name = document.getElementById('adBizName').value.trim();
+            const email = document.getElementById('adEmail').value.trim();
+            const desc = document.getElementById('adDesc').value.trim();
+            const website = document.getElementById('adWebsite').value.trim();
+
+            if (!name || !email) {
+                alert('Please fill in at least Business Name and Email.');
+                return;
+            }
+
+            const subject = encodeURIComponent(`Free Ad Request: ${name}`);
+            const body = encodeURIComponent(
+                `Hi Behzad,\n\nI would like to request a free ad space on your Hub.\n\n` +
+                `Business Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Description: ${desc}\n` +
+                `Website: ${website}\n\n` +
+                `I will send the business image separately via email.\n\nThanks!`
+            );
+
+            window.location.href = `mailto:sbmousavi@proton.me?subject=${subject}&body=${body}`;
+        }
+
+        // Initialize
+        loadMessages();
+    </script>
+</body>
+</html>
