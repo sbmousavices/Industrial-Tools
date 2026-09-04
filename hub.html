@@ -3,80 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Hub | Coming Soon | Behzad Mousavi</title>
-    <meta name="description" content="Join our professional community hub. Post jobs, share insights, discuss project controls, and connect with industry experts.">
-
-    <!-- ✅ PWA Manifest -->
-    <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
-
-    <!-- ✅ iOS Safari Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="BM Planning">
-    <link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
-
-    <!-- ✅ Theme Color -->
-    <meta name="theme-color" content="#d4af37">
-    <meta name="msapplication-TileColor" content="#d4af37">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <title>Community Pulse | Live Hub & Discussion</title>
+    
+    <!-- ✅ SEO Meta Tags -->
+    <meta name="description" content="Join the live Community Pulse Board. Connect with industrial engineers, share insights, and get real-time updates without signup.">
+    <meta property="og:title" content="Community Pulse | Behzad Mousavi Hub">
+    <meta property="og:description" content="Live discussion board for project planners and web developers. Zero friction interaction.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/hub.html">
+    
+    <!-- ✅ Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- ✅ Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => { console.log('ServiceWorker registered', registration.scope); })
-                    .catch(error => { console.log('ServiceWorker registration failed', error); });
-            });
-        }
-    </script>
-
-    <!-- ✅ GoatCounter Analytics -->
-    <script data-goatcounter="https://bmousavi.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script>
-    <script>
-        function trackGoatEvent(path, title) {
-            if (window.goatcounter) {
-                window.goatcounter.count({ path: path, title: title || path, event: true });
-            }
-        }
-    </script>
 
     <style>
         :root {
             --bg-primary: #0a1628;
-            --bg-secondary: #0f1f38;
-            --bg-card: #132847;
             --accent: #d4af37;
             --accent-light: #f4d06f;
             --text-primary: #e8eef7;
             --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 31, 56, 0.9);
             --border: rgba(212, 175, 55, 0.2);
             --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             
-            /* ✅ NAV STANDARD VARIABLES FROM REFERENCE */
+            /* ✅ NAVIGATION VARIABLES */
             --nav-height: 70px;
             --nav-bg: rgba(10, 10, 12, 0.95);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
+            background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-top: var(--nav-height); /* ✅ SPACE FOR FIXED HEADER */
+            align-items: center;
+            padding-top: calc(var(--nav-height) + 15px); 
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent 50%);
         }
 
         /* ✅ UNIFIED NAVIGATION BAR STYLES */
@@ -121,7 +87,7 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
@@ -132,15 +98,14 @@
             color: var(--accent);
         }
 
-        /* ✅ SIGN IN BUTTON STYLE */
         .btn-signin {
-            display: inline-flex;
+            display: inline-flex !important;
             align-items: center;
             gap: 8px;
-            padding: 0.6rem 1.5rem;
+            padding: 0.6rem 1.5rem !important;
             border: 1px solid var(--accent);
             border-radius: 50px;
-            color: var(--accent);
+            color: var(--accent) !important;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -150,11 +115,10 @@
 
         .btn-signin:hover {
             background: var(--accent);
-            color: var(--bg-primary);
+            color: var(--bg-primary) !important;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
-        /* Mobile Menu Toggle */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -164,214 +128,477 @@
             cursor: pointer;
         }
 
-        .bg-shapes {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
+        /* ✅ MAIN DUAL-COLUMN LAYOUT */
+        .hub-layout {
+            display: flex;
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            height: 78vh;
+            min-height: 600px;
+            align-items: stretch;
         }
-        .bg-shapes::before, .bg-shapes::after {
-            content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out;
-        }
-        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
-        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
 
-        /* COMING SOON CENTER STYLES */
-        .coming-soon-wrapper {
-            flex: 1;
+        /* ✅ LEFT COLUMN: FULL HEIGHT PULSE BOARD */
+        .pulse-board {
+            flex: 0.67;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .board-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .board-header h2 {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 0 5%;
-        }
-        .coming-soon-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            line-height: 1.1;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            gap: 8px;
         }
 
-        footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
-        footer p { color: var(--text-secondary); font-size: 0.9rem; }
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .online-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #2ecc71;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .messages-container::-webkit-scrollbar { width: 6px; }
+        .messages-container::-webkit-scrollbar-track { background: transparent; }
+        .messages-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .message-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .msg-author { font-weight: 700; color: var(--accent-light); font-size: 0.85rem; }
+        .msg-time { font-size: 0.65rem; color: var(--text-secondary); }
+        .msg-content { font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px; word-wrap: break-word; }
+
+        .msg-actions {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 8px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover { color: var(--accent); }
+        .action-btn.liked { color: #e74c3c; }
+        .action-btn.liked i { animation: pulse 0.3s; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .input-area {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .name-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent-light);
+            padding: 6px 0;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .msg-input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .msg-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 8px;
+            resize: none;
+            height: 40px;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .msg-input:focus { border-color: var(--accent); }
+
+        .emoji-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--accent);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: #0a1628;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover { transform: scale(1.05); }
+        .send-btn:active { transform: scale(0.95); }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            font-size: 0.85rem;
+        }
+
+        /* ✅ RIGHT COLUMN: AD FORM + SHOWCASE */
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* ✅ AD REQUEST FORM (TOP OF RIGHT COLUMN) */
+        .ad-request-bar {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr; 
+            grid-template-rows: auto auto auto auto auto;
+            gap: 8px; 
+            align-items: start;
+            flex-shrink: 0;
+        }
+
+        .ad-title-box {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
+        }
+
+        .ad-title-box i { font-size: 1.1rem; color: var(--accent); }
+        .ad-title-box span { font-size: 0.85rem; color: var(--accent-light); font-weight: 700; }
+
+        .ad-field {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+        }
+
+        .ad-field:focus { border-color: var(--accent); }
+
+        /* Inputs Stacked Left */
+        #adBizName { grid-column: 1; grid-row: 2; }
+        #adEmail   { grid-column: 1; grid-row: 3; }
+        #adWebsite { grid-column: 1; grid-row: 4; }
+
+        /* Description Right Side */
+        .ad-desc-area {
+            grid-column: 2;
+            grid-row: 2 / span 3;
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        /* Submit Button */
+        .ad-submit-btn {
+            grid-column: 2;
+            grid-row: 5;
+            padding: 6px 16px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: #0a1628;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: fit-content;
+            justify-self: end;
+            margin-top: 0;
+        }
+
+        .ad-submit-btn:hover { transform: scale(1.05); }
+
+        /* ✅ BUSINESS SHOWCASE (BOTTOM OF RIGHT COLUMN) */
+        .showcase-panel {
+            flex: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .showcase-header h3 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            flex: 1;
+            align-content: start;
+        }
+
+        /* ✅ EQUAL HEIGHT CARDS */
+        .biz-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .biz-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .biz-img-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .biz-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .biz-card:hover .biz-img-box img { transform: scale(1.05); }
+
+        .biz-info {
+            padding: 8px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .biz-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .biz-desc {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .biz-link {
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .biz-link:hover { color: var(--accent-light); }
+
+        /* ✅ EMPTY AD SLOTS */
+        .biz-card.empty-slot {
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.02);
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .empty-slot-text {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1200px) {
+            .business-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (max-width: 1024px) {
+            .business-grid { grid-template-columns: repeat(3, 1fr); }
+            
+            .hub-layout { flex-direction: column; height: auto; }
+            .pulse-board { width: 100%; height: 60vh; }
+            .right-column { width: 100%; }
+            .showcase-panel { width: 100%; height: 60vh; }
+            
+            .ad-request-bar {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .ad-title-box { grid-column: 1; }
+            #adBizName, #adEmail, #adWebsite, .ad-desc-area, .ad-submit-btn {
+                grid-column: 1;
+                grid-row: auto;
+            }
+            .ad-desc-area { min-height: 80px; }
+            .ad-submit-btn { width: 100%; justify-self: stretch; }
+        }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
-            .coming-soon-text { font-size: clamp(2.5rem, 12vw, 4rem); }
+            .business-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* =============================================
-           ✅ CUSTOM CHATBOT STYLES (QWEN INTEGRATION) - FIXED POSITION
-           ============================================= */
-           
-        /* Wrapper for chat button positioning - Moved down to avoid overlap */
-        #custom-chat-wrapper {
-            position: fixed;
-            top: 135px; /* ✅ Changed from 80px to 135px */
-            left: 30px;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            pointer-events: none;
-        }
-
-        /* Chat Toggle Button */
-        #chat-toggle {
-            pointer-events: auto;
-            padding: 10px 20px;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.9rem;
-            z-index: 10001;
-            transition: transform 0.2s ease;
-        }
-
-        #chat-toggle:hover {
-            transform: scale(1.05);
-        }
-
-        /* Chat Box Window */
-        #chat-box {
-            display: none;
-            position: fixed;
-            top: 185px; /* ✅ Adjusted to match new wrapper position */
-            left: 30px;
-            width: 320px;
-            height: 450px;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            flex-direction: column;
-            font-family: 'Inter', Tahoma, Arial, sans-serif;
-            z-index: 10002;
-            overflow: hidden;
-        }
-
-        /* Chat Header */
-        #chat-header {
-            padding: 15px;
-            background: var(--bg-primary);
-            color: var(--accent);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        #close-chat {
-            background: none;
-            border: none;
-            color: var(--accent);
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
-
-        /* Messages Area */
-        #chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            font-size: 14px;
-            line-height: 1.6;
-            background: #f9f9f9;
-        }
-
-        /* Input Area */
-        #chat-input-area {
-            padding: 10px;
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 8px;
-            background: white;
-        }
-
-        #user-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            font-family: inherit;
-            color: #333;
-        }
-
-        #send-btn {
-            padding: 10px 16px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-        }
-
-        /* Message Bubbles */
-        .msg-user {
-            margin: 8px 0;
-            text-align: right;
-        }
-        .msg-user span {
-            background: var(--accent);
-            color: var(--bg-primary);
-            padding: 8px 12px;
-            border-radius: 12px 12px 0 12px;
-            display: inline-block;
-            max-width: 85%;
-        }
-
-        .msg-bot {
-            margin: 8px 0;
-            text-align: left;
-        }
-        .msg-bot span {
-            background: #e9ecef;
-            color: #333;
-            padding: 8px 12px;
-            border-radius: 12px 12px 12px 0;
-            display: inline-block;
-            max-width: 85%;
-        }
-
-        .loading-msg {
-            margin: 8px 0;
-            text-align: left;
-            color: #888;
-            font-style: italic;
-            font-size: 13px;
-        }
-
-        /* Mobile Responsive for Chat */
-        @media (max-width: 768px) {
-            #custom-chat-wrapper {
-                top: 130px; /* ✅ Adjusted for mobile stats bar */
-                left: 20px;
-            }
-            #chat-box {
-                width: calc(100% - 40px);
-                left: 20px;
-                top: 180px; /* ✅ Adjusted for mobile */
-                height: 60vh;
-            }
+        @media (max-width: 480px) {
+            .business-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-shapes"></div>
 
     <!-- ✅ UNIFIED NAVIGATION BAR -->
     <nav>
@@ -380,9 +607,7 @@
             <span>Home</span>
         </a>
         <ul class="nav-links">
-            <!-- ✅ CHANGED ABOUT TO RESUME BUILDER WITH LINK -->
             <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
-            <!-- ✅ CHANGED EXPERTISE TO WEB DESIGN WITH LINK TO THEME PAGE -->
             <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
             <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
@@ -390,112 +615,268 @@
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
             <li><a href="hub.html" class="active">Hub</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
-            <!-- ✅ SIGN IN BUTTON ADDED HERE -->
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
         </ul>
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- ✅ NEW COMING SOON CONTENT -->
-    <main class="coming-soon-wrapper">
-        <h1 class="coming-soon-text">Coming Soon</h1>
-    </main>
+    <!-- ✅ MAIN DUAL-COLUMN LAYOUT -->
+    <div class="hub-layout">
+        
+        <!-- LEFT: COMMUNITY PULSE BOARD (FULL HEIGHT) -->
+        <div class="pulse-board">
+            <div class="board-header">
+                <h2><i class="fas fa-bolt"></i> Community Pulse <span class="live-indicator"></span></h2>
+                <div class="online-counter">
+                    <span class="live-indicator" style="width:6px;height:6px;"></span>
+                    <span id="onlineCount">0</span> online now
+                </div>
+            </div>
 
-    <footer>
-        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Community Hub</p>
-    </footer>
+            <div class="messages-container" id="messagesContainer"></div>
 
-    <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) - REPOSITIONED -->
-    <div id="custom-chat-wrapper">
-        <button id="chat-toggle">💬 Chat</button>
+            <div class="input-area">
+                <input type="text" id="authorName" class="name-input" placeholder="Your Nickname" maxlength="20">
+                <div class="msg-input-wrapper">
+                    <textarea id="msgContent" class="msg-input" placeholder="What's on your mind?" rows="1"></textarea>
+                    <button class="emoji-btn" title="Emoji (Decorative)"><i class="far fa-smile"></i></button>
+                    <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: AD FORM + SHOWCASE -->
+        <div class="right-column">
+            
+            <!-- AD REQUEST FORM (TOP RIGHT) -->
+            <div class="ad-request-bar">
+                <div class="ad-title-box">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Free Ad Space Request Form</span>
+                </div>
+                
+                <input type="text" id="adBizName" class="ad-field" placeholder="Business Name">
+                <input type="email" id="adEmail" class="ad-field" placeholder="Your Email Address">
+                <input type="url" id="adWebsite" class="ad-field" placeholder="Website URL">
+                <textarea id="adDesc" class="ad-field ad-desc-area" placeholder="Description (Tell us about your business...)"></textarea>
+                <button class="ad-submit-btn" onclick="submitAdRequest()">Send</button>
+            </div>
+
+            <!-- BUSINESS SHOWCASE (BOTTOM RIGHT) -->
+            <div class="showcase-panel">
+                <div class="showcase-header">
+                    <h3><i class="fas fa-store"></i> Business Showcase</h3>
+                </div>
+
+                <div class="business-grid" id="businessGrid">
+                    <!-- ✅ PM TOOLS CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools - Project Management Templates">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">PM Center Tools</div>
+                                <div class="biz-desc">Professional WBS & planning templates.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- ✅ WEBDEV CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio - Custom Themes & Digital Cards">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">WebDev Studio</div>
+                                <div class="biz-desc">Custom themes & digital cards.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/Theme/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- ✅ NFT ART CARD -->
+                    <div class="biz-card">
+                        <div class="biz-img-box">
+                            <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery - Exclusive Digital Art Collection">
+                        </div>
+                        <div class="biz-info">
+                            <div>
+                                <div class="biz-name">NFT Gallery</div>
+                                <div class="biz-desc">Exclusive digital art collection.</div>
+                            </div>
+                            <a href="https://sbmousavices.github.io/NFT/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- ✅ EMPTY AD SLOTS -->
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                    <div class="biz-card empty-slot">
+                        <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div id="chat-box">
-        <div id="chat-header">
-            <span>AI Assistant</span>
-            <button id="close-chat">&times;</button>
-        </div>
-        <div id="chat-messages"></div>
-        <div id="chat-input-area">
-            <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
-            <button id="send-btn">Send</button>
-        </div>
-    </div>
+    <!-- ✅ SUPABASE CLIENT LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-    // Chatbot Configuration
-    const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
+        // ✅ CONFIGURATION
+        const SUPABASE_URL = 'https://jvsczmnennouvflbkpxd.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_CkiyrqDRK7Axe308oKvVTQ_Ky6641VH';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const toggleBtn = document.getElementById('chat-toggle');
-    const closeBtn = document.getElementById('close-chat');
-    const chatBox = document.getElementById('chat-box');
-    const sendBtn = document.getElementById('send-btn');
-    const userInput = document.getElementById('user-input');
-    const messagesDiv = document.getElementById('chat-messages');
-
-    // Toggle Chat Visibility
-    toggleBtn.addEventListener('click', () => {
-        chatBox.style.display = 'flex';
-        toggleBtn.style.display = 'none';
-        userInput.focus();
-    });
-
-    closeBtn.addEventListener('click', () => {
-        chatBox.style.display = 'none';
-        toggleBtn.style.display = 'block';
-    });
-
-    // Send Message Handlers
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', (e) => { 
-        if (e.key === 'Enter') sendMessage(); 
-    });
-
-    async function sendMessage() {
-        const message = userInput.value.trim();
-        if (!message) return;
-
-        // User Message Bubble
-        messagesDiv.innerHTML += `<div class="msg-user"><span>${escapeHtml(message)}</span></div>`;
-        userInput.value = '';
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-        // Loading Indicator
-        const loadingId = 'loading-' + Date.now();
-        messagesDiv.innerHTML += `<div id="${loadingId}" class="loading-msg">Thinking...</div>`;
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: message })
-            });
-            
-            const data = await response.json();
-            document.getElementById(loadingId).remove();
-            
-            // Bot Response Bubble
-            const replyText = data.reply || 'Sorry, I could not process that request.';
-            messagesDiv.innerHTML += `<div class="msg-bot"><span>${escapeHtml(replyText)}</span></div>`;
-        } catch (error) {
-            document.getElementById(loadingId).remove();
-            messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">️ Connection error. Please try again.</span></div>`;
+        // ✅ MESSAGE FUNCTIONS
+        async function loadMessages() {
+            const { data, error } = await supabase.from('messages').select('*').order('timestamp', { ascending: true });
+            if (!error) renderMessages(data || []);
         }
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
 
-    // Security Helper to prevent XSS
-    function escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-    }
+        async function sendMessage() {
+            const authorInput = document.getElementById('authorName');
+            const contentInput = document.getElementById('msgContent');
+            const author = authorInput.value.trim() || 'Anonymous';
+            const content = contentInput.value.trim();
+            if (!content) return;
+
+            localStorage.setItem('pulse_nickname', author);
+            await supabase.from('messages').insert({ author: author.substring(0, 20), content: content.substring(0, 500) });
+            contentInput.value = '';
+            loadMessages();
+        }
+
+        async function toggleLike(id, currentLikes) {
+            await supabase.from('messages').update({ likes: currentLikes + 1 }).eq('id', id);
+            loadMessages();
+        }
+
+        function renderMessages(msgs) {
+            const container = document.getElementById('messagesContainer');
+            if (msgs.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="far fa-comment-dots" style="font-size:2rem;margin-bottom:10px;display:block;"></i>No pulses yet. Be the first!</div>`;
+                return;
+            }
+            container.innerHTML = msgs.map(msg => `
+                <div class="message-card">
+                    <div class="msg-header">
+                        <span class="msg-author">@${escapeHtml(msg.author)}</span>
+                        <span class="msg-time">${timeAgo(new Date(msg.timestamp).getTime())}</span>
+                    </div>
+                    <div class="msg-content">${escapeHtml(msg.content)}</div>
+                    <div class="msg-actions">
+                        <button class="action-btn" onclick="toggleLike(${msg.id}, ${msg.likes})">
+                            <i class="${msg.likes > 0 ? 'fas' : 'far'} fa-heart"></i> ${msg.likes || 0}
+                        </button>
+                        <button class="action-btn" onclick="replyTo('${escapeHtml(msg.author)}')">
+                            <i class="far fa-comment"></i> Reply
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function timeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds/60)}m ago`;
+            return new Date(timestamp).toLocaleDateString();
+        }
+
+        function replyTo(author) {
+            const input = document.getElementById('msgContent');
+            input.value = `@${author} `;
+            input.focus();
+        }
+
+        // ✅ EVENT LISTENERS
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('msgContent').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+        });
+
+        const savedNickname = localStorage.getItem('pulse_nickname');
+        if (savedNickname) document.getElementById('authorName').value = savedNickname;
+
+        // ✅ REAL-TIME SUBSCRIPTIONS
+        supabase.channel('public:messages')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => loadMessages())
+          .subscribe();
+
+        const presenceChannel = supabase.channel('online-users');
+        presenceChannel.on('presence', { event: 'sync' }, () => {
+            document.getElementById('onlineCount').textContent = Object.keys(presenceChannel.presenceState()).length;
+        }).subscribe(async (status) => {
+            if (status === 'SUBSCRIBED') {
+                await presenceChannel.track({ user_id: crypto.randomUUID(), joined_at: new Date().toISOString() });
+            }
+        });
+
+        // ✅ AD REQUEST EMAIL FUNCTION
+        function submitAdRequest() {
+            const name = document.getElementById('adBizName').value.trim();
+            const email = document.getElementById('adEmail').value.trim();
+            const desc = document.getElementById('adDesc').value.trim();
+            const website = document.getElementById('adWebsite').value.trim();
+
+            if (!name || !email) {
+                alert('Please fill in at least Business Name and Email.');
+                return;
+            }
+
+            const subject = encodeURIComponent(`Free Ad Request: ${name}`);
+            const body = encodeURIComponent(
+                `Hi Behzad,\n\nI would like to request a free ad space on your Hub.\n\n` +
+                `Business Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Description: ${desc}\n` +
+                `Website: ${website}\n\n` +
+                `I will send the business image separately via email.\n\nThanks!`
+            );
+
+            window.location.href = `mailto:sbmousavi@proton.me?subject=${subject}&body=${body}`;
+        }
+
+        // Initialize
+        loadMessages();
     </script>
 </body>
 </html>
