@@ -1,8 +1,3 @@
-# Robots.txt for sbmousavices.github.io/Industrial-Tools/
 User-agent: *
 Allow: /
-Disallow: /sw.js
-Disallow: /manifest.json
-
-# Sitemap location
-Sitemap: https://sbmousavices.github.io/Industrial-Tools/sitemap.xml
+Sitemap: https://sbmousavices.github.io/sitemap.xml
