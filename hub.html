@@ -82,7 +82,7 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        /* ✅ FLOATING AD FORM - TOP LEFT CORNER BELOW NAVBAR (UNCHANGED) */
+        /* ✅ HORIZONTAL FLOATING AD FORM - COMPACT & GRID LAYOUT */
         .floating-ad-form {
             position: fixed;
             top: calc(var(--nav-height) + 15px);
@@ -94,34 +94,48 @@
             backdrop-filter: blur(12px);
             border: 1px dashed rgba(212, 175, 55, 0.3);
             border-radius: 12px;
-            padding: 16px;
+            padding: 12px;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .floating-ad-form label {
-            display: block;
+        .form-header {
             font-size: 0.8rem;
             color: var(--accent-light);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ad-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
         }
 
         .floating-ad-form input, 
         .floating-ad-form textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 8px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             outline: none;
             transition: border-color 0.3s;
             direction: ltr;
             text-align: left;
+        }
+
+        .floating-ad-form textarea {
+            grid-column: span 2;
+            resize: none;
+            min-height: 50px;
+            margin-bottom: 8px;
         }
 
         .floating-ad-form input:focus, 
@@ -130,20 +144,16 @@
             background: rgba(255,255,255,0.1);
         }
 
-        .floating-ad-form textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
         .floating-ad-form .submit-btn {
+            grid-column: span 2;
             width: 100%;
-            padding: 12px;
+            padding: 8px;
             background: var(--accent);
             color: var(--bg-primary);
             border: none;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 0.95rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Inter', sans-serif;
@@ -154,15 +164,13 @@
             transform: translateY(-2px);
         }
 
-        /* ✅ PREMIUM SHOWCASE FRAME - PLACED IN EMPTY SPACE BELOW FORM */
+        /* ✅ PREMIUM SHOWCASE FRAME - WITH PAYMENT BUTTON */
         .premium-frame {
             position: fixed;
-            /* Starts exactly below the form with logical spacing */
-            top: calc(var(--nav-height) + 380px); 
+            top: calc(var(--nav-height) + 250px); 
             left: 5%;
             width: 100%;
             max-width: 320px;
-            /* Extends to match the bottom of showcase-panel */
             bottom: 20px; 
             z-index: 998;
             
@@ -180,7 +188,6 @@
             align-items: center;
         }
 
-        /* Inner engraved border effect for vintage frame look */
         .premium-frame::before {
             content: '';
             position: absolute;
@@ -193,13 +200,21 @@
         .premium-frame h4 {
             color: var(--accent);
             font-size: 1rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-weight: 800;
             letter-spacing: 1px;
             text-transform: uppercase;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .order-id {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            margin-bottom: 10px;
+            opacity: 0.8;
         }
 
         .premium-price {
@@ -218,9 +233,31 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
             line-height: 1.5;
+            margin-bottom: 20px;
         }
 
-        /* ✅ FULL HEIGHT SHOWCASE PANEL (RIGHT SIDE) - ADJUSTED SPACING */
+        .btn-premium-pay {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-premium-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            background: var(--accent-light);
+        }
+
+        /* ✅ FULL HEIGHT SHOWCASE PANEL (RIGHT SIDE) */
         .showcase-panel {
             position: fixed;
             top: calc(var(--nav-height) + 20px);
@@ -260,7 +297,6 @@
             padding-bottom: 20px;
         }
 
-        /* ✅ EQUAL HEIGHT CARDS (FROM HUB) */
         .biz-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.05);
@@ -269,6 +305,8 @@
             transition: all 0.3s;
             display: flex;
             flex-direction: column;
+            text-decoration: none;
+            color: inherit;
         }
 
         .biz-card:hover {
@@ -333,11 +371,11 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.2s;
+            display: inline-block;
         }
 
         .biz-link:hover { color: var(--accent-light); }
 
-        /* ✅ EMPTY AD SLOTS */
         .biz-card.empty-slot {
             border: 1px dashed rgba(212, 175, 55, 0.3);
             background: rgba(212, 175, 55, 0.02);
@@ -413,27 +451,32 @@
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- ✅ FLOATING AD REQUEST FORM (TOP LEFT CORNER - UNCHANGED) -->
+    <!-- ✅ HORIZONTAL FLOATING AD REQUEST FORM -->
     <div class="floating-ad-form">
-        <label><i class="fas fa-bullhorn"></i> Ad Space Request Form</label>
-        <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST">
+        <div class="form-header"><i class="fas fa-bullhorn"></i> Ad Space Request</div>
+        <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST" class="ad-form-grid">
             <input type="hidden" name="_next" value="https://sbmousavices.github.io/Theme/digital-card-en.html">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_subject" value="Free Ad Space Request">
             
             <input type="text" name="business_name" placeholder="Business Name" required>
-            <input type="url" name="website_url" placeholder="Website URL" required>
-            <input type="email" name="email" placeholder="Your Email (for reply)" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="url" name="website_url" placeholder="Website URL" style="grid-column: span 2;" required>
             <textarea name="message" placeholder="Message or collaboration request..." required></textarea>
-            <button type="submit" class="submit-btn">Send Message</button>
+            <button type="submit" class="submit-btn">Send Request</button>
         </form>
     </div>
 
-    <!-- ✅ SEPARATE PREMIUM SHOWCASE FRAME (IN EMPTY SPACE BELOW FORM) -->
+    <!-- ✅ SEPARATE PREMIUM SHOWCASE FRAME WITH PAYMENT -->
     <div class="premium-frame">
-        <h4><i class="fas fa-crown"></i> Premium Showcase Frame</h4>
-        <div class="premium-price">10 USDT</div>
+        <h4><i class="fas fa-crown"></i> Premium Showcase</h4>
+        <div class="order-id">ID: AD-PREMIUM-001</div>
+        <div class="premium-price">20 USDT</div>
         <p class="premium-desc">Get featured in this exclusive vintage-style frame above the free section. Limited availability for premium partners only.</p>
+        
+        <a href="https://nowpayments.io/payment/?iid=5553941511&paymentId=5191560318" target="_blank" class="btn-premium-pay">
+            <i class="fas fa-wallet"></i> Purchase Slot
+        </a>
     </div>
 
     <!-- ✅ FULL HEIGHT SHOWCASE PANEL (RIGHT SIDE) -->
@@ -443,10 +486,10 @@
         </div>
 
         <div class="business-grid">
-            <!-- ✅ NEW GAME COLLECTION AD CARD -->
+            <!-- ✅ FIXED GAME COLLECTION AD CARD -->
             <a href="https://sbmousavices.github.io/Community-Hub/game-index.html" class="biz-card">
                 <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/game-index.png" alt="Game Collection - Fun and Excitement">
+                    <img src="https://sbmousavices.github.io/Community-Hub/game-index.png" alt="Game Collection">
                 </div>
                 <div class="biz-info">
                     <div>
@@ -460,7 +503,7 @@
             <!-- ✅ PM TOOLS CARD -->
             <div class="biz-card">
                 <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools - Project Management Templates">
+                    <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools">
                 </div>
                 <div class="biz-info">
                     <div>
@@ -474,7 +517,7 @@
             <!-- ✅ WEBDEV CARD -->
             <div class="biz-card">
                 <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio - Custom Themes & Digital Cards">
+                    <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio">
                 </div>
                 <div class="biz-info">
                     <div>
@@ -488,7 +531,7 @@
             <!-- ✅ NFT ART CARD -->
             <div class="biz-card">
                 <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery - Exclusive Digital Art Collection">
+                    <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery">
                 </div>
                 <div class="biz-info">
                     <div>
