@@ -465,11 +465,17 @@
             box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
         .btn-download-product:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5); }
-        .btn-purchase {
+        
+        /* ✅ NEW STYLE FOR CRYPTO PAYMENT BUTTON */
+        .btn-crypto-pay {
             background: var(--gradient);
             color: var(--bg-primary);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
-        .btn-purchase:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
+        .btn-crypto-pay:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); 
+        }
 
         .payment-section {
             max-width: 1200px;
@@ -1060,13 +1066,15 @@
                     <div class="product-meta">
                         <span class="product-price">79 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-WBS-001</span>
                     </div>
                     <div class="product-actions">
                         <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: WBS Grouping Demo Video')">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: WBS Grouping Tool')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5209174491&paymentId=5791083670" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: WBS Grouping Tool via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1084,13 +1092,15 @@
                     <div class="product-meta">
                         <span class="product-price">350 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 days</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EXEC-002</span>
                     </div>
                     <div class="product-actions">
                         <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Executive Monthly Action Plan PDF')">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Executive Monthly Action Plan')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5775525669&paymentId=5699785748" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Executive Monthly Action Plan via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1108,13 +1118,15 @@
                     <div class="product-meta">
                         <span class="product-price">600 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-MAN-003</span>
                     </div>
                     <div class="product-actions">
                         <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Manpower Guide PDF')">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Manpower & Machinery Data Bank')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5733663888&paymentId=6413210627" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Manpower & Machinery Data Bank via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1132,13 +1144,15 @@
                     <div class="product-meta">
                         <span class="product-price">800 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 3 days</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EVM-004</span>
                     </div>
                     <div class="product-actions">
                         <a href="EVMS.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: EVMS PDF')">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: EVMS')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=6102240557&paymentId=4477870494" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: EVMS via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1156,13 +1170,15 @@
                     <div class="product-meta">
                         <span class="product-price">1200 USDT</span>
                         <span class="product-delivery"><i class="fas fa-crown"></i> Premium</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DASH-005</span>
                     </div>
                     <div class="product-actions">
                         <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Management Dashboard PDF')">
                             <i class="fas fa-file-pdf"></i> Download PDF
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Executive Management Dashboard')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5866703507&paymentId=4840400562" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Executive Management Dashboard via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1180,13 +1196,15 @@
                     <div class="product-meta">
                         <span class="product-price">1500 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-PMS-006</span>
                     </div>
                     <div class="product-actions">
                         <a href="Product.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: PMS Sample PDF')">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: PMS')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5614704382&paymentId=4425956246" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: PMS via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1204,13 +1222,15 @@
                     <div class="product-meta">
                         <span class="product-price">1500 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-SCH-007</span>
                     </div>
                     <div class="product-actions">
                         <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Project Time Schedule Demo Video')">
                             <i class="fas fa-video"></i> Demo Video
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Project Time Schedule')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5835163687&paymentId=5825746215" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Project Time Schedule via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1228,13 +1248,15 @@
                     <div class="product-meta">
                         <span class="product-price">3000 USDT</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EOT-008</span>
                     </div>
                     <div class="product-actions">
                         <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Delay Schedule Analysis PDF')">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Project Delay Report')">
-                            <i class="fas fa-shopping-cart"></i> Purchase
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=5781311479&paymentId=6144251615" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Project Delay Report via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay with USDT
                         </a>
                     </div>
                 </div>
@@ -1250,12 +1272,15 @@
                     <h3 class="product-title">Claim Package - Financial Impact</h3>
                     <p class="product-description">Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
                     <div class="product-meta">
-                        <span class="product-price">5% of Claim Value</span>
+                        <!-- ✅ UPDATED PRICE TEXT -->
+                        <span class="product-price" style="font-size: 0.95rem;">3000 USDT in Advance &<br>5% of Claim Value</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CLM-009</span>
                     </div>
                     <div class="product-actions">
-                        <a href="#payment-section" class="btn-product btn-purchase" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Claim Package')">
-                            <i class="fas fa-envelope"></i> Request Quote
+                        <!-- ✅ UPDATED BUTTON WITH NOWPAYMENTS LINK -->
+                        <a href="https://nowpayments.io/payment/?iid=4842698243&paymentId=6097060074" target="_blank" class="btn-product btn-crypto-pay" onclick="event.stopPropagation(); trackEvent('/purchase-click', 'Purchase click: Claim Package via Crypto')">
+                            <i class="fas fa-wallet"></i> Pay Advance Fee
                         </a>
                     </div>
                 </div>
@@ -1282,22 +1307,39 @@
                 <div class="copy-message" id="walletMessage"></div>
             </div>
 
-            <div class="info-card reveal" data-interactive>
-                <div class="info-icon"><i class="fas fa-envelope"></i></div>
-                <h3 class="info-title">Support & Purchase Email</h3>
-                <div class="info-value-box" id="emailAddress">sbmousavi@proton.me</div>
-                <button class="copy-btn" onclick="event.stopPropagation(); copyText('emailAddress', 'emailMessage')">
-                    <i class="fas fa-copy"></i> Copy Email
-                </button>
-                <div class="copy-message" id="emailMessage"></div>
+            <!-- ✅ REPLACED EMAIL BOX WITH DIRECT MESSAGE FORM (DIGITAL CARD STYLE) -->
+            <div class="info-card reveal" style="text-align: left; padding: 1.5rem; cursor: default;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div class="info-icon" style="margin: 0 auto 1rem;"><i class="fas fa-paper-plane"></i></div>
+                    <h3 class="info-title">Send Direct Message</h3>
+                </div>
+                
+                <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST">
+                    <input type="hidden" name="_next" value="https://sbmousavices.github.io/Industrial-Tools/">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="New Purchase Inquiry from Website">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Full Name</label>
+                    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Email Address</label>
+                    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Product Code</label>
+                    <input type="text" id="productCodeInput" name="product_code" placeholder="Click on a product to auto-fill" style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Description / Transaction Hash</label>
+                    <textarea name="message" placeholder="Describe your request or paste TX Hash..." required style="width: 100%; padding: 10px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none; min-height: 80px; resize: vertical;"></textarea>
+
+                    <button type="submit" class="submit-btn" style="width: 100%; padding: 12px; background: var(--accent); color: var(--bg-primary); border: none; border-radius: 8px; font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
             </div>
         </div>
 
         <div class="purchase-cta reveal">
-            <p>After payment, send an email with the product name, amount sent, and transaction hash to receive your tool.</p>
-            <a href="mailto:sbmousavi@proton.me?subject=Purchase Inquiry - Industrial Project Tools&body=Hello,%0A%0AI would like to purchase one of your tools.%0A%0AProduct Name:%0AAmount Sent:%0ATransaction Hash:%0A%0AThank you." class="btn-email" onclick="trackEvent('/purchase-email', 'Clicked purchase email link')">
-                <i class="fas fa-paper-plane"></i> Send Purchase Email
-            </a>
+            <p>After payment, you can use the form above to send your transaction details directly.</p>
         </div>
     </section>
 
@@ -1543,21 +1585,53 @@
 
         document.querySelectorAll('[data-interactive]').forEach(element => {
             element.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.tagName === 'BUTTON') return;
+                // ✅ FIX: IGNORE CLICKS ON FORMS, INPUTS, BUTTONS AND LINKS
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || 
+                    e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || 
+                    e.target.closest('a') || e.target.closest('button') || 
+                    e.target.closest('form') || e.target.closest('input')) return;
+                
                 const wasActive = this.classList.contains('active');
+                
+                // ✅ LOGIC CHANGE: ONLY REMOVE ACTIVE FROM OTHERS, DON'T REMOVE FROM CURRENT IF CLICKED AGAIN
                 document.querySelectorAll('[data-interactive].active').forEach(el => {
                     if (el !== this) el.classList.remove('active');
                 });
+                
                 this.classList.toggle('active');
-                if (!wasActive) this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // ✅ AUTO-FILL PRODUCT CODE INTO FORM (WHEN CLICKING ON CARD BODY)
+                const productCodeSpan = this.querySelector('span[style*="color: var(--accent)"]');
+                if (productCodeSpan) {
+                    const codeText = productCodeSpan.innerText.replace('ID: ', '').trim();
+                    const inputField = document.getElementById('productCodeInput');
+                    if (inputField) {
+                        inputField.value = codeText;
+                    }
+                }
             });
         });
 
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('[data-interactive]')) {
-                document.querySelectorAll('[data-interactive].active').forEach(el => el.classList.remove('active'));
-            }
+        // ✅ NEW: AUTO-FILL PRODUCT CODE WHEN CLICKING PAYMENT BUTTON
+        document.querySelectorAll('.btn-crypto-pay').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Find the parent product card
+                const card = this.closest('.product-card');
+                if (card) {
+                    const productCodeSpan = card.querySelector('span[style*="color: var(--accent)"]');
+                    if (productCodeSpan) {
+                        const codeText = productCodeSpan.innerText.replace('ID: ', '').trim();
+                        const inputField = document.getElementById('productCodeInput');
+                        if (inputField) {
+                            inputField.value = codeText;
+                        }
+                    }
+                }
+            });
         });
+
+        // ✅ REMOVED THE GLOBAL CLICK LISTENER THAT WAS CLEARING ACTIVE STATES
+        // document.addEventListener('click', function(e) { ... }); 
     </script>
 
 </body>
