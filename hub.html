@@ -393,6 +393,22 @@
             line-height: 1.4;
         }
 
+        /* ✅ COMMUNITY PULSE SECTION STYLES */
+        .community-pulse-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+            width: 100%;
+        }
+        
+        .pulse-title {
+            text-align: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
         @media (max-width: 1024px) {
             .showcase-panel {
                 width: calc(100% - 40px);
@@ -562,7 +578,34 @@
                 <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
             </div>
         </div>
+
+        <!-- ✅ COMMUNITY PULSE SECTION (FULL WIDTH) -->
+        <div class="community-pulse-section">
+            <h3 class="pulse-title"><i class="fas fa-comments"></i> Community Pulse</h3>
+            
+            <!-- Cusdis Comment System -->
+            <div id="cusdis_thread" 
+                 data-host="https://cusdis.com" 
+                 data-app-id="24d635d3-838d-4d77-8af2-1b893ea1cf07" 
+                 data-page-id="hub-main-page" 
+                 data-page-url="https://sbmousavices.github.io/Theme/digital-card-en.html" 
+                 data-page-title="BM Planning Community Hub">
+            </div>
+        </div>
     </div>
+
+    <!-- ✅ CUSDIS SCRIPT & LIGHT BACKGROUND FIX -->
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    
+    <style>
+        /* ✅ SIMPLE FIX: Light background so default black text is visible */
+        #cusdis_thread {
+            background-color: #f9f9f9 !important;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+    </style>
 
 </body>
 </html>
