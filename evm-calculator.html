@@ -48,6 +48,34 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
+        /* ✅ BACK TO ENG. TOOLS BUTTON STYLE */
+        .back-to-tools-btn {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 5%;
+            z-index: 999;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .back-to-tools-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
         /* ✅ EQUAL HEIGHT LAYOUT CONTAINER */
         .main-layout {
             max-width: 1200px;
@@ -146,6 +174,14 @@
             .input-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
             .section-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            
+            /* Adjust button for mobile */
+            .back-to-tools-btn {
+                right: 20px;
+                top: calc(var(--nav-height) + 10px);
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -166,11 +202,17 @@
             <li><a href="https://sbmousavices.github.io/Community-Hub/game-index.html">Game</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
             <li><a href="hub.html" class="active">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/tools.html">Eng. Tools</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
         </ul>
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
+
+    <!-- ✅ BACK TO ENG. TOOLS BUTTON -->
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools-btn">
+        <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+    </a>
 
     <!-- ✅ TWO-COLUMN LAYOUT WITH EQUAL HEIGHT -->
     <div class="main-layout">
