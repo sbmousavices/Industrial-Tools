@@ -376,6 +376,7 @@
         }
         .product-badge-free { background: var(--accent-green); color: white; }
         .product-badge-premium { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; }
+        .product-badge-online { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; }
 
         .product-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
 
@@ -501,6 +502,17 @@
         .btn-complete-order:hover { 
             transform: translateY(-2px); 
             box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5); 
+        }
+
+        /* ✅ ONLINE TOOL BUTTON STYLE */
+        .btn-online-tool {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        .btn-online-tool:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5); 
         }
 
         .payment-section {
@@ -790,6 +802,7 @@
             <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/tools.html">Eng. Tools</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
         </ul>
@@ -824,6 +837,34 @@
         </div>
 
         <div class="products-grid">
+
+            <!-- ✅ NEW: ENGINEERING TOOLS HUB CARD (ONLINE & FREE) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="product-card reveal" style="border-color: var(--accent-blue);">
+                <div class="product-banner" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
+                    <span class="product-badge product-badge-online">FREE ONLINE</span>
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-blue);">Web Application</span>
+                    <h3 class="product-title">Engineering Tools Hub</h3>
+                    <p class="product-description">Access professional online calculators and utilities instantly. No download required. Includes Advanced EVM Calculator with multi-currency support.</p>
+                    <ul class="product-features">
+                        <li>Advanced EVM Calculator</li>
+                        <li>Multi-Currency Support</li>
+                        <li>Real-time Analysis</li>
+                        <li>100% Free & Online</li>
+                    </ul>
+                    <div class="product-meta">
+                        <span class="product-price" style="color: var(--accent-blue);">FREE</span>
+                        <span class="product-delivery"><i class="fas fa-wifi"></i> Instant Access</span>
+                    </div>
+                    <div class="product-actions">
+                        <span class="btn-product btn-online-tool" style="width: 100%;">
+                            <i class="fas fa-external-link-alt"></i> Open Eng. Tools
+                        </span>
+                    </div>
+                </div>
+            </a>
 
             <!-- 1. FREE DEMO (No Complete Order Button) -->
             <div class="product-card reveal" data-interactive>
