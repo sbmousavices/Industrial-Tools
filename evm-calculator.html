@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced EVM Calculator | Behzad Mousavi</title>
+    
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 31, 56, 0.8);
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
+        }
+
+        /* ✅ NAVIGATION BAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ EQUAL HEIGHT LAYOUT CONTAINER */
+        .main-layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        /* ✅ SHARED PANEL STYLES */
+        .panel {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+        .section-title { color: var(--text-primary); font-size: 1.5rem; }
+        .section-title span { color: var(--accent); }
+
+        /* ✅ CURRENCY SELECTOR STYLE */
+        .currency-select {
+            background: rgba(0,0,0,0.3);
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .currency-select option { background: var(--bg-primary); color: var(--text-primary); }
+
+        /* ✅ INPUT SECTION STYLES */
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        .input-group { margin-bottom: 15px; }
+        .input-label { color: var(--accent); font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 6px; }
+        
+        .calc-input {
+            width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+            color: #ffffff !important; border-radius: 8px; outline: none; font-size: 1rem; font-weight: bold;
+        }
+        .calc-input:focus { border-color: var(--accent); }
+        .calc-input::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        /* ✅ OUTPUT SECTION STYLES */
+        .results-section { display: none; animation: fadeIn 0.5s; flex-grow: 1; }
+
+        .results-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;
+        }
+
+        .result-box {
+            background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3); text-align: center;
+        }
+
+        .result-label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .result-value { font-size: 1.4rem; font-weight: 800; color: #fff; }
+
+        .forecast-box {
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid var(--border);
+        }
+        
+        .forecast-row {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+            padding-bottom: 12px; border-bottom: 1px dashed var(--border);
+        }
+        .forecast-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .variance-text { color: var(--text-secondary); font-size: 0.9rem; }
+        .variance-num { font-weight: 800; font-size: 1.1rem; color: #fff; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ✅ RESPONSIVE DESIGN */
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .input-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .section-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ NAVIGATION BAR -->
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/game-index.html">Game</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="hub.html" class="active">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- ✅ TWO-COLUMN LAYOUT WITH EQUAL HEIGHT -->
+    <div class="main-layout">
+        
+        <!-- LEFT COLUMN: INPUTS -->
+        <div class="panel input-panel">
+            <div class="section-header">
+                <h2 class="section-title">Project <span>Data Input</span></h2>
+                <!-- Currency Selector -->
+                <select id="currency-selector" class="currency-select" onchange="calculateEVM()">
+                    <option value="USD">🇺🇸 USD ($)</option>
+                    <option value="EUR">🇪🇺 EUR (€)</option>
+                    <option value="GBP">🇬🇧 GBP (£)</option>
+                    <option value="IRR">🇮🇷 IRR (﷼)</option>
+                    <option value="AED">🇦🇪 AED (dh)</option>
+                    <option value="TRY">🇹🇷 TRY (₺)</option>
+                </select>
+            </div>
+            
+            <div class="input-grid">
+                <div class="input-group full-width">
+                    <label class="input-label">Budget at Completion (BAC)</label>
+                    <input type="text" id="bac" class="calc-input" placeholder="Total Contract Value" oninput="formatInput(this)">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Original Duration (OD)</label>
+                    <input type="number" id="od" class="calc-input" placeholder="Months" oninput="calculateEVM()">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Actual Time (AT)</label>
+                    <input type="number" id="at" class="calc-input" placeholder="Current Month" oninput="calculateEVM()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Planned Value (PV)</label>
+                    <input type="text" id="pv" class="calc-input" placeholder="Planned to date" oninput="formatInput(this)">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Earned Value (EV)</label>
+                    <input type="text" id="ev" class="calc-input" placeholder="Work completed" oninput="formatInput(this)">
+                </div>
+                <div class="input-group full-width">
+                    <label class="input-label">Actual Cost (AC)</label>
+                    <input type="text" id="ac" class="calc-input" placeholder="Spent to date" oninput="formatInput(this)">
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: OUTPUTS -->
+        <div class="panel output-panel">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 25px;">Analysis <span>Results</span></h2>
+            
+            <div id="evm-results" class="results-section">
+                <h3 style="color: var(--accent); margin-bottom: 15px; font-size: 1.1rem;">Performance Indices</h3>
+                <div class="results-grid">
+                    <div class="result-box">
+                        <div class="result-label">CPI</div>
+                        <div id="cpi-result" class="result-value">0.00</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-label">SPI</div>
+                        <div id="spi-result" class="result-value">0.00</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-label">CV</div>
+                        <div id="cv-result" class="result-value">$0</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-label">SV</div>
+                        <div id="sv-result" class="result-value">$0</div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--accent-light); margin: 25px 0 15px 0; font-size: 1.1rem;">Forecasting</h3>
+                <div class="forecast-box">
+                    <div class="forecast-row">
+                        <span class="variance-text">Estimate at Completion (EAC):</span>
+                        <span id="eac-result" class="variance-num" style="color: var(--accent-light);">$0</span>
+                    </div>
+                    <div class="forecast-row">
+                        <span class="variance-text">Variance at Completion (VAC):</span>
+                        <span id="vac-result" class="variance-num">$0</span>
+                    </div>
+                    <div class="forecast-row">
+                        <span class="variance-text">Estimated Time:</span>
+                        <span id="eat-result" class="variance-num" style="color: var(--accent);">0 Months</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Placeholder when no data is entered -->
+            <div id="empty-state" style="text-align: center; color: var(--text-secondary); padding: 40px 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                <p>Enter project data to see real-time analysis.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Format numbers with commas
+        function formatInput(input) {
+            let value = input.value.replace(/,/g, '').replace(/\D/g, '');
+            if (value) {
+                input.value = parseInt(value).toLocaleString('en-US');
+            } else {
+                input.value = '';
+            }
+            calculateEVM();
+        }
+
+        function calculateEVM() {
+            const bac = parseFloat(document.getElementById('bac').value.replace(/,/g, '')) || 0;
+            const od = parseFloat(document.getElementById('od').value) || 0;
+            const at = parseFloat(document.getElementById('at').value) || 0;
+            const pv = parseFloat(document.getElementById('pv').value.replace(/,/g, '')) || 0;
+            const ev = parseFloat(document.getElementById('ev').value.replace(/,/g, '')) || 0;
+            const ac = parseFloat(document.getElementById('ac').value.replace(/,/g, '')) || 0;
+            const currency = document.getElementById('currency-selector').value;
+
+            if (pv === 0 && ev === 0 && ac === 0) {
+                document.getElementById('evm-results').style.display = 'none';
+                document.getElementById('empty-state').style.display = 'flex';
+                return;
+            }
+
+            document.getElementById('evm-results').style.display = 'block';
+            document.getElementById('empty-state').style.display = 'none';
+
+            // Basic Calculations
+            const cpi = ac !== 0 ? (ev / ac).toFixed(2) : "0.00";
+            const spi = pv !== 0 ? (ev / pv).toFixed(2) : "0.00";
+            const cv = ev - ac;
+            const sv = ev - pv;
+
+            // Forecasting Logic (Schedule Impact)
+            const eac = spi > 0 ? (ac + ((bac - ev) / spi)) : 0;
+            const vac = bac - eac;
+            const eat = spi > 0 ? (od / spi) : 0;
+
+            // Display Results
+            document.getElementById('cpi-result').innerText = cpi;
+            document.getElementById('spi-result').innerText = spi;
+            
+            // Dynamic Currency Formatting
+            const formatter = new Intl.NumberFormat('en-US', { 
+                style: 'currency', 
+                currency: currency, 
+                maximumFractionDigits: currency === 'IRR' ? 0 : 2 
+            });
+
+            document.getElementById('cv-result').innerText = formatter.format(cv);
+            document.getElementById('sv-result').innerText = formatter.format(sv);
+            document.getElementById('eac-result').innerText = formatter.format(eac);
+            document.getElementById('vac-result').innerText = formatter.format(vac);
+            document.getElementById('eat-result').innerText = Math.ceil(eat) + " Months";
+
+            // Color Logic
+            document.getElementById('cpi-result').style.color = cpi >= 1 ? '#4ade80' : '#f87171';
+            document.getElementById('spi-result').style.color = spi >= 1 ? '#4ade80' : '#f87171';
+            document.getElementById('cv-result').style.color = cv >= 0 ? '#4ade80' : '#f87171';
+            document.getElementById('sv-result').style.color = sv >= 0 ? '#4ade80' : '#f87171';
+            document.getElementById('vac-result').style.color = vac >= 0 ? '#4ade80' : '#f87171';
+        }
+    </script>
+</body>
+</html>
