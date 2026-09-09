@@ -579,33 +579,28 @@
             </div>
         </div>
 
-        <!-- ✅ COMMUNITY PULSE SECTION (FULL WIDTH) -->
+        <!-- ✅ COMMUNITY PULSE SECTION (FULL WIDTH) - GISCUS INTEGRATED -->
         <div class="community-pulse-section">
             <h3 class="pulse-title"><i class="fas fa-comments"></i> Community Pulse</h3>
             
-            <!-- Cusdis Comment System -->
-            <div id="cusdis_thread" 
-                 data-host="https://cusdis.com" 
-                 data-app-id="24d635d3-838d-4d77-8af2-1b893ea1cf07" 
-                 data-page-id="hub-main-page" 
-                 data-page-url="https://sbmousavices.github.io/Theme/digital-card-en.html" 
-                 data-page-title="BM Planning Community Hub">
-            </div>
+            <!-- Giscus Comment System -->
+            <script src="https://giscus.app/client.js"
+                    data-repo="sbmousavices/Industrial-Tools"
+                    data-repo-id="R_kgDOQMjGcA"
+                    data-category="General"
+                    data-category-id="DIC_kwDOQMjGcM4DC-go"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="dark_high_contrast"
+                    data-lang="en"
+                    crossorigin="anonymous"
+                    async>
+            </script>
         </div>
     </div>
-
-    <!-- ✅ CUSDIS SCRIPT & LIGHT BACKGROUND FIX -->
-    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-    
-    <style>
-        /* ✅ SIMPLE FIX: Light background so default black text is visible */
-        #cusdis_thread {
-            background-color: #f9f9f9 !important;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-    </style>
 
 </body>
 </html>
