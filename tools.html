@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Tools Hub | Behzad Mousavi</title>
+    
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 31, 56, 0.8);
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
+        }
+
+        /* ✅ NAVIGATION BAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ TOOLS HUB STYLES */
+        .hub-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .page-header span { color: var(--accent); }
+        .page-header p { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .tool-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-active { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .status-soon { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+
+        .arrow-icon {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 1.2rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: all 0.3s;
+            transform: translateX(-10px);
+        }
+
+        .tool-card:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .page-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ NAVIGATION BAR -->
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/game-index.html">Game</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="hub.html">Hub</a></li>
+            <li><a href="tools.html" class="active">Tools</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- ✅ TOOLS HUB CONTENT -->
+    <div class="hub-container">
+        <div class="page-header">
+            <h1>Engineering <span>Tools Hub</span></h1>
+            <p>A collection of professional utilities for Project Managers and Industrial Engineers.</p>
+        </div>
+
+        <div class="tools-grid">
+            
+            <!-- ✅ TOOL 1: EVM CALCULATOR (ACTIVE) -->
+            <a href="evm-calculator.html" class="tool-card">
+                <div>
+                    <i class="fas fa-calculator tool-icon"></i>
+                    <div class="tool-title">Advanced EVM Calculator</div>
+                    <div class="tool-desc">Calculate CPI, SPI, and forecast project completion cost (EAC) based on schedule delays. Supports multiple currencies.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-active">Live Tool</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                </div>
+            </a>
+
+            <!-- ✅ TOOL 2: WBS GENERATOR (COMING SOON) -->
+            <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div>
+                    <i class="fas fa-sitemap tool-icon" style="color: var(--text-secondary);"></i>
+                    <div class="tool-title">WBS Structure Builder</div>
+                    <div class="tool-desc">Automatically generate Work Breakdown Structures for industrial projects based on standard templates.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- ✅ TOOL 3: DELAY ANALYZER (COMING SOON) -->
+            <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div>
+                    <i class="fas fa-hourglass-half tool-icon" style="color: var(--text-secondary);"></i>
+                    <div class="tool-title">Delay Impact Analyzer</div>
+                    <div class="tool-desc">Analyze the impact of specific events on the project critical path and calculate EOT claims.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- ✅ TOOL 4: CASH FLOW PREDICTOR (COMING SOON) -->
+            <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div>
+                    <i class="fas fa-chart-line tool-icon" style="color: var(--text-secondary);"></i>
+                    <div class="tool-title">Cash Flow Predictor</div>
+                    <div class="tool-desc">Predict monthly cash flow requirements based on S-curve analysis and progress measurements.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-soon">Coming Soon</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
