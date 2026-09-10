@@ -1028,7 +1028,7 @@
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-PMS-006</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Product.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: PMS Sample PDF')">
+                        <a href="javascript:void(0)" class="btn-product btn-download-product" onclick="event.stopPropagation(); forceDownloadFile('https://sbmousavices.github.io/Industrial-Tools/EL_%26IN_Sample_PMS.pdf', 'PMS_Sample.pdf', '/demo-download', 'Downloaded: PMS Sample PDF')">
                             <i class="fas fa-file-pdf"></i> Download Sample
                         </a>
                         <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-PMS-006')">
@@ -1311,6 +1311,28 @@
             const filename = 'Product_Catalog.pdf';
             try {
                 trackEvent('/free-sample-download', 'Downloaded: Free Product Catalog PDF');
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Download failed:', error);
+                window.open(url, '_blank');
+            }
+        }
+
+        // ✅ NEW FUNCTION: Force download without preview
+        async function forceDownloadFile(url, filename, eventName, eventTitle) {
+            try {
+                if (eventName) trackEvent(eventName, eventTitle || eventName);
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const blob = await response.blob();
