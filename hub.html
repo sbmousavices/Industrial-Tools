@@ -54,20 +54,13 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
-        /* ✅ ENABLE SMOOTH SCROLLING */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            padding-top: calc(var(--nav-height) + 20px);
+            padding-top: var(--nav-height);
             background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
         }
 
@@ -87,64 +80,78 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        /* ✅ FLOATING COMMUNITY PULSE BUTTON (TOP RIGHT) */
-        .btn-community-pulse {
-            position: fixed;
-            top: calc(var(--nav-height) + 20px);
-            right: 5%;
-            z-index: 998;
-            padding: 10px 20px;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
+        /* ✅ MAIN LAYOUT CONTAINER (FIXED OVERLAP ISSUE) */
+        .main-container {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+            align-items: flex-start; /* Aligns tops of columns */
         }
 
-        .btn-community-pulse:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-            background: var(--accent-light);
+        /* ✅ LEFT COLUMN (Forms) */
+        .left-column {
+            flex: 0 0 320px; /* Fixed width matching original design */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* ✅ HORIZONTAL FLOATING AD FORM - COMPACT & GRID LAYOUT */
+        /* ✅ RIGHT COLUMN (Showcase Panel) */
+        .right-column {
+            flex: 1;
+            min-height: calc(100vh - var(--nav-height) - 40px);
+        }
+
+        /* ✅ HORIZONTAL AD FORM STYLES */
         .floating-ad-form {
-            position: fixed;
-            top: calc(var(--nav-height) + 80px); /* Moved down to avoid overlap with new button */
-            left: 5%;
-            z-index: 999;
             width: 100%;
-            max-width: 320px;
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px dashed rgba(212, 175, 55, 0.3);
             border-radius: 12px;
-            padding: 12px;
-            text-align: left;
+            padding: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* ✅ GREEN GLOW ANIMATION CLASS */
+        .glow-green {
+            box-shadow: 0 0 20px 5px rgba(46, 204, 113, 0.6) !important;
+            border-color: #2ecc71 !important;
         }
 
         .form-header {
             font-size: 0.8rem;
             color: var(--accent-light);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between; /* Space between title and button */
+        }
+
+        /* ✅ NEW BUTTON STYLE */
+        .btn-new-form {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-new-form:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
         }
 
         .ad-form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 8px;
         }
 
@@ -160,328 +167,114 @@
             font-size: 0.8rem;
             outline: none;
             transition: border-color 0.3s;
-            direction: ltr;
-            text-align: left;
         }
 
-        .floating-ad-form textarea {
-            grid-column: span 2;
-            resize: none;
-            min-height: 50px;
-            margin-bottom: 8px;
-        }
+        .floating-ad-form textarea { resize: none; min-height: 50px; }
+        .floating-ad-form input:focus, .floating-ad-form textarea:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); }
 
-        .floating-ad-form input:focus, 
-        .floating-ad-form textarea:focus {
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.1);
+        /* Wallet Box */
+        .wallet-container {
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+            padding: 0 8px;
+            height: 34px;
         }
+        .wallet-address-text {
+            font-family: monospace; font-size: 0.7rem; color: var(--accent-light);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; margin-right: 8px;
+        }
+        .copy-wallet-btn {
+            background: transparent; border: none; color: var(--accent); cursor: pointer; padding: 0;
+        }
+        .copy-wallet-btn:hover { color: var(--accent-light); }
 
         .floating-ad-form .submit-btn {
-            grid-column: span 2;
-            width: 100%;
-            padding: 8px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
+            width: 100%; padding: 8px; background: var(--accent); color: var(--bg-primary);
+            border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
         }
+        .floating-ad-form .submit-btn:hover { background: var(--accent-light); transform: translateY(-2px); }
 
-        .floating-ad-form .submit-btn:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
-        }
-
-        /* ✅ PREMIUM SHOWCASE FRAME - WITH PAYMENT BUTTON */
+        /* ✅ PREMIUM SHOWCASE FRAME */
         .premium-frame {
-            position: fixed;
-            top: calc(var(--nav-height) + 310px); /* Adjusted for new button */
-            left: 5%;
             width: 100%;
-            max-width: 320px;
-            bottom: 20px; 
-            z-index: 998;
-            
             background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
             border: 4px double var(--accent);
             border-radius: 4px;
             padding: 20px;
             text-align: center;
-            box-shadow: 
-                inset 0 0 30px rgba(0,0,0,0.9),
-                0 0 20px rgba(212, 175, 55, 0.15);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.15);
+            position: relative;
         }
-
         .premium-frame::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 2px;
-            pointer-events: none;
+            content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 2px; pointer-events: none;
         }
-
-        .premium-frame h4 {
-            color: var(--accent);
-            font-size: 1rem;
-            margin-bottom: 5px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .premium-frame h4 { color: var(--accent); font-size: 1rem; margin-bottom: 5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .order-id { font-size: 0.7rem; color: var(--text-secondary); font-family: monospace; margin-bottom: 10px; opacity: 0.8; }
+        .premium-price { display: inline-block; background: var(--accent); color: var(--bg-primary); padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4); }
+        .premium-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+        
+        /* ✅ BUTTON STYLE (NO LINK) */
+        .btn-premium-pay { 
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; 
+            background: var(--gradient); color: var(--bg-primary); 
+            border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; 
+            transition: all 0.3s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); cursor: pointer;
         }
+        .btn-premium-pay:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); background: var(--accent-light); }
 
-        .order-id {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            font-family: monospace;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        .premium-price {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--bg-primary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
-        }
-
-        .premium-desc {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .btn-premium-pay {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-premium-pay:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-            background: var(--accent-light);
-        }
-
-        /* ✅ FULL HEIGHT SHOWCASE PANEL (RIGHT SIDE) */
+        /* ✅ SHOWCASE PANEL (RIGHT SIDE) */
         .showcase-panel {
-            position: fixed;
-            top: calc(var(--nav-height) + 20px);
-            right: 20px;
-            bottom: 20px;
-            width: calc(100% - 400px);
-            max-width: 900px;
+            width: 100%;
+            height: 100%;
             background: rgba(15, 31, 56, 0.6);
             backdrop-filter: blur(15px);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 20px;
-            overflow-y: auto;
-            z-index: 1;
         }
 
-        .showcase-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
+        .showcase-header { text-align: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .showcase-header h3 { font-size: 1.2rem; color: var(--accent); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .showcase-header h3 {
-            font-size: 1.2rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .business-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            padding-bottom: 20px;
-        }
-
-        .biz-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .biz-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
-        }
-
-        .biz-img-box {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .biz-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
+        .business-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; padding-bottom: 20px; }
+        .biz-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+        .biz-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1); }
+        .biz-img-box { width: 100%; aspect-ratio: 1 / 1; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+        .biz-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
         .biz-card:hover .biz-img-box img { transform: scale(1.05); }
-
-        .biz-info {
-            padding: 12px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-        }
-
-        .biz-name {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .biz-desc {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            line-height: 1.3;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .biz-link {
-            font-size: 0.7rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-            display: inline-block;
-        }
-
+        .biz-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        .biz-name { font-weight: 700; color: var(--text-primary); font-size: 0.85rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .biz-desc { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.3; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .biz-link { font-size: 0.7rem; color: var(--accent); text-decoration: none; font-weight: 600; transition: color 0.2s; display: inline-block; }
         .biz-link:hover { color: var(--accent-light); }
+        .biz-card.empty-slot { border: 1px dashed rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02); justify-content: center; align-items: center; padding: 20px; text-align: center; min-height: 150px; }
+        .empty-slot-text { font-size: 0.7rem; color: var(--text-secondary); opacity: 0.6; line-height: 1.4; }
 
-        .biz-card.empty-slot {
-            border: 1px dashed rgba(212, 175, 55, 0.3);
-            background: rgba(212, 175, 55, 0.02);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            min-height: 150px;
-        }
+        /* ✅ COMMUNITY PULSE SECTION */
+        .community-pulse-section { margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border); width: 100%; }
+        .pulse-title { text-align: center; color: var(--accent); font-size: 1.5rem; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
 
-        .empty-slot-text {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            opacity: 0.6;
-            line-height: 1.4;
+        /* ✅ FLOATING COMMUNITY BUTTON */
+        .btn-community-pulse {
+            position: fixed; top: calc(var(--nav-height) + 20px); right: 5%; z-index: 998;
+            padding: 10px 20px; background: var(--gradient); color: var(--bg-primary); border: none; border-radius: 50px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; text-decoration: none;
         }
-
-        /* ✅ COMMUNITY PULSE SECTION STYLES */
-        .community-pulse-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid var(--border);
-            width: 100%;
-            scroll-margin-top: 100px; /* Ensures header doesn't cover title when scrolling */
-        }
-        
-        .pulse-title {
-            text-align: center;
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-        }
+        .btn-community-pulse:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); background: var(--accent-light); }
 
         @media (max-width: 1024px) {
-            .showcase-panel {
-                width: calc(100% - 40px);
-                max-width: none;
-                position: relative;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                margin-top: 20px;
-                border-left: 1px solid var(--border);
-            }
-            .floating-ad-form {
-                position: relative;
-                top: 0;
-                left: 0;
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
-            .premium-frame {
-                position: relative;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                max-width: 100%;
-                margin-top: 20px;
-                min-height: 200px;
-            }
-            .btn-community-pulse {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin: 20px auto;
-                display: table;
-            }
-            body {
-                display: block;
-                padding: 20px;
-                padding-top: calc(var(--nav-height) + 20px);
-            }
+            .main-container { flex-direction: column; }
+            .left-column { flex: none; width: 100%; }
+            .right-column { width: 100%; min-height: auto; }
+            .btn-community-pulse { position: relative; top: 0; right: 0; margin: 0 auto 20px; display: table; }
+            body { padding-top: var(--nav-height); }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
         }
     </style>
 </head>
@@ -508,168 +301,183 @@
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- ✅ NEW FLOATING BUTTON FOR COMMUNITY PULSE -->
+    <!-- ✅ FLOATING COMMUNITY BUTTON -->
     <a href="#community-pulse-target" class="btn-community-pulse">
-        <i class="fas fa-comments"></i> Go to the Community Pulse
+        <i class="fas fa-comments"></i> Go to Community Pulse
     </a>
 
-    <!-- ✅ HORIZONTAL FLOATING AD REQUEST FORM -->
-    <div class="floating-ad-form">
-        <div class="form-header"><i class="fas fa-bullhorn"></i> Ad Space Request</div>
-        <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST" class="ad-form-grid">
-            <input type="hidden" name="_next" value="https://sbmousavices.github.io/Theme/digital-card-en.html">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="Free Ad Space Request">
-            
-            <input type="text" name="business_name" placeholder="Business Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="url" name="website_url" placeholder="Website URL" style="grid-column: span 2;" required>
-            <textarea name="message" placeholder="Message or collaboration request..." required></textarea>
-            <button type="submit" class="submit-btn">Send Request</button>
-        </form>
-    </div>
-
-    <!-- ✅ SEPARATE PREMIUM SHOWCASE FRAME WITH PAYMENT -->
-    <div class="premium-frame">
-        <h4><i class="fas fa-crown"></i> Premium Showcase</h4>
-        <div class="order-id">ID: AD-PREMIUM-001</div>
-        <div class="premium-price">20 USDT</div>
-        <p class="premium-desc">Get featured in this exclusive vintage-style frame above the free section. Limited availability for premium partners only.</p>
+    <!-- ✅ MAIN TWO-COLUMN LAYOUT -->
+    <div class="main-container">
         
-        <a href="https://nowpayments.io/payment/?iid=4661481353&paymentId=6296449756" target="_blank" class="btn-premium-pay">
-            <i class="fas fa-wallet"></i> Purchase Slot
-        </a>
-    </div>
-
-    <!-- ✅ FULL HEIGHT SHOWCASE PANEL (RIGHT SIDE) -->
-    <div class="showcase-panel">
-        <div class="showcase-header">
-            <h3><i class="fas fa-store"></i> Business Showcase (Free)</h3>
-        </div>
-
-        <div class="business-grid">
-            <!-- ✅ FIXED GAME COLLECTION AD CARD -->
-            <a href="https://sbmousavices.github.io/Community-Hub/game-index.html" class="biz-card">
-                <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/game-index.png" alt="Game Collection">
-                </div>
-                <div class="biz-info">
-                    <div>
-                        <div class="biz-name">Game Collection</div>
-                        <div class="biz-desc">Fun, Recreation, and Excitement All in One Place for Your Leisure Time</div>
-                    </div>
-                    <span class="biz-link">Visit →</span>
-                </div>
-            </a>
-
-            <!-- ✅ PM TOOLS CARD -->
-            <div class="biz-card">
-                <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools">
-                </div>
-                <div class="biz-info">
-                    <div>
-                        <div class="biz-name">PM Center Tools</div>
-                        <div class="biz-desc">Professional WBS & planning templates.</div>
-                    </div>
-                    <a href="https://sbmousavices.github.io/Industrial-Tools/index.html" class="biz-link">Visit →</a>
-                </div>
-            </div>
-
-            <!-- ✅ WEBDEV CARD -->
-            <div class="biz-card">
-                <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio">
-                </div>
-                <div class="biz-info">
-                    <div>
-                        <div class="biz-name">WebDev Studio</div>
-                        <div class="biz-desc">Custom themes & digital cards.</div>
-                    </div>
-                    <a href="https://sbmousavices.github.io/Theme/index.html" class="biz-link">Visit →</a>
-                </div>
-            </div>
-
-            <!-- ✅ NFT ART CARD -->
-            <div class="biz-card">
-                <div class="biz-img-box">
-                    <img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery">
-                </div>
-                <div class="biz-info">
-                    <div>
-                        <div class="biz-name">NFT Gallery</div>
-                        <div class="biz-desc">Exclusive digital art collection.</div>
-                    </div>
-                    <a href="https://sbmousavices.github.io/NFT/index.html" class="biz-link">Visit →</a>
-                </div>
-            </div>
-
-            <!-- ✅ EMPTY AD SLOTS -->
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-            <div class="biz-card empty-slot">
-                <div class="empty-slot-text">Your Ad Here<br>(Free Space)</div>
-            </div>
-        </div>
-
-        <!-- ✅ COMMUNITY PULSE SECTION (FULL WIDTH) - GISCUS INTEGRATED -->
-        <div id="community-pulse-target" class="community-pulse-section">
-            <h3 class="pulse-title"><i class="fas fa-comments"></i> Community Pulse</h3>
+        <!-- LEFT COLUMN: FORMS STACKED -->
+        <div class="left-column">
             
-            <!-- Giscus Comment System -->
-            <script src="https://giscus.app/client.js"
-                    data-repo="sbmousavices/Industrial-Tools"
-                    data-repo-id="R_kgDOQMjGcA"
-                    data-category="General"
-                    data-category-id="DIC_kwDOQMjGcM4DC-go"
-                    data-mapping="pathname"
-                    data-strict="0"
-                    data-reactions-enabled="1"
-                    data-emit-metadata="0"
-                    data-input-position="top"
-                    data-theme="dark_high_contrast"
-                    data-lang="en"
-                    crossorigin="anonymous"
-                    async>
-            </script>
+            <!-- AD REQUEST FORM -->
+            <div class="floating-ad-form" id="adFormBox">
+                <div class="form-header">
+                    <span><i class="fas fa-bullhorn"></i> Ad Space Request</span>
+                    <!-- ✅ NEW BUTTON -->
+                    <button type="button" class="btn-new-form" onclick="resetForm()">New</button>
+                </div>
+                <form id="adRequestForm" action="https://formsubmit.co/sbmousavi@proton.me" method="POST" class="ad-form-grid">
+                    <input type="hidden" name="_next" value="https://sbmousavices.github.io/Theme/digital-card-en.html">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="Free Ad Space Request">
+                    
+                    <input type="text" name="business_name" placeholder="Business Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" id="productCodeInput" name="product_code" placeholder="Product Code">
+                    
+                    <!-- WALLET BOX -->
+                    <div class="wallet-container">
+                        <span class="wallet-address-text" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</span>
+                        <button type="button" class="copy-wallet-btn" onclick="copyWallet()" title="Copy Wallet">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <input type="url" name="website_url" placeholder="Website URL" required>
+                    <textarea name="message" placeholder="Message..." required></textarea>
+                    <button type="submit" class="submit-btn">Send Request</button>
+                </form>
+            </div>
+
+            <!-- PREMIUM SHOWCASE FRAME -->
+            <div class="premium-frame">
+                <h4><i class="fas fa-crown"></i> Premium Showcase</h4>
+                <div class="order-id">ID: AD-PREMIUM-001</div>
+                <div class="premium-price">20 USDT</div>
+                <p class="premium-desc">Get featured in this exclusive vintage-style frame. Limited availability for premium partners only.</p>
+                
+                <!-- ✅ BUTTON WITH ONCLICK EVENT -->
+                <button class="btn-premium-pay" onclick="handlePurchaseClick()">
+                    <i class="fas fa-wallet"></i> Purchase Slot
+                </button>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: SHOWCASE PANEL -->
+        <div class="right-column">
+            <div class="showcase-panel">
+                <div class="showcase-header">
+                    <h3><i class="fas fa-store"></i> Business Showcase (Free)</h3>
+                </div>
+
+                <div class="business-grid">
+                    <!-- GAME COLLECTION -->
+                    <a href="https://sbmousavices.github.io/Community-Hub/game-index.html" class="biz-card">
+                        <div class="biz-img-box"><img src="https://sbmousavices.github.io/Community-Hub/game-index.png" alt="Game Collection"></div>
+                        <div class="biz-info">
+                            <div><div class="biz-name">Game Collection</div><div class="biz-desc">Fun, Recreation, and Excitement All in One Place</div></div>
+                            <span class="biz-link">Visit →</span>
+                        </div>
+                    </a>
+
+                    <!-- PM TOOLS -->
+                    <div class="biz-card">
+                        <div class="biz-img-box"><img src="https://sbmousavices.github.io/Community-Hub/pm-tools.jpg" alt="PM Center Tools"></div>
+                        <div class="biz-info">
+                            <div><div class="biz-name">PM Center Tools</div><div class="biz-desc">Professional WBS & planning templates.</div></div>
+                            <a href="https://sbmousavices.github.io/Industrial-Tools/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- WEBDEV -->
+                    <div class="biz-card">
+                        <div class="biz-img-box"><img src="https://sbmousavices.github.io/Community-Hub/webdev.jpg" alt="WebDev Studio"></div>
+                        <div class="biz-info">
+                            <div><div class="biz-name">WebDev Studio</div><div class="biz-desc">Custom themes & digital cards.</div></div>
+                            <a href="https://sbmousavices.github.io/Theme/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- NFT -->
+                    <div class="biz-card">
+                        <div class="biz-img-box"><img src="https://sbmousavices.github.io/Community-Hub/nftart.jpg" alt="NFT Gallery"></div>
+                        <div class="biz-info">
+                            <div><div class="biz-name">NFT Gallery</div><div class="biz-desc">Exclusive digital art collection.</div></div>
+                            <a href="https://sbmousavices.github.io/NFT/index.html" class="biz-link">Visit →</a>
+                        </div>
+                    </div>
+
+                    <!-- EMPTY SLOTS -->
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                    <div class="biz-card empty-slot"><div class="empty-slot-text">Your Ad Here<br>(Free Space)</div></div>
+                </div>
+
+                <!-- COMMUNITY PULSE -->
+                <div id="community-pulse-target" class="community-pulse-section">
+                    <h3 class="pulse-title"><i class="fas fa-comments"></i> Community Pulse</h3>
+                    <script src="https://giscus.app/client.js"
+                            data-repo="sbmousavices/Industrial-Tools"
+                            data-repo-id="R_kgDOQMjGcA"
+                            data-category="General"
+                            data-category-id="DIC_kwDOQMjGcM4DC-go"
+                            data-mapping="pathname"
+                            data-strict="0"
+                            data-reactions-enabled="1"
+                            data-emit-metadata="0"
+                            data-input-position="top"
+                            data-theme="dark_high_contrast"
+                            data-lang="en"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ✅ ENHANCED GISCUS STYLES FOR BETTER VISIBILITY -->
+    <!-- GISCUS ENHANCEMENTS -->
     <style>
-        /* ✅ ENHANCE GISCUS REACTION VISIBILITY */
-        .giscus-reaction-count {
-            font-weight: bold !important;
-            color: var(--accent-light) !important;
-            margin-left: 4px !important;
-            font-size: 0.9rem !important;
-        }
-        
-        /* Make the reaction buttons slightly larger for better interaction */
-        .giscus-reaction-button {
-            padding: 4px 8px !important;
-            border-radius: 20px !important;
-            transition: all 0.2s ease !important;
-        }
-        
-        .giscus-reaction-button:hover {
-            background-color: rgba(212, 175, 55, 0.2) !important;
-            transform: scale(1.1);
-        }
+        .giscus-reaction-count { font-weight: bold !important; color: var(--accent-light) !important; margin-left: 4px !important; font-size: 0.9rem !important; }
+        .giscus-reaction-button { padding: 4px 8px !important; border-radius: 20px !important; transition: all 0.2s ease !important; }
+        .giscus-reaction-button:hover { background-color: rgba(212, 175, 55, 0.2) !important; transform: scale(1.1); }
     </style>
+
+    <script>
+        // ✅ COPY WALLET FUNCTION
+        function copyWallet() {
+            const walletText = document.getElementById('walletAddress').innerText;
+            navigator.clipboard.writeText(walletText).then(() => {
+                alert("Wallet address copied!");
+            }).catch(err => console.error('Failed to copy: ', err));
+        }
+
+        // ✅ NEW PURCHASE CLICK FUNCTION
+        function handlePurchaseClick() {
+            // 1. Fill Product Code
+            const productInput = document.getElementById('productCodeInput');
+            if (productInput) {
+                productInput.value = "AD-PREMIUM-001";
+                productInput.style.borderColor = "#2ecc71"; // Highlight input briefly
+                setTimeout(() => { productInput.style.borderColor = ""; }, 2000);
+            }
+
+            // 2. Add Green Glow to Ad Form
+            const adForm = document.getElementById('adFormBox');
+            if (adForm) {
+                adForm.classList.add('glow-green');
+                // Remove glow after 2 seconds
+                setTimeout(() => {
+                    adForm.classList.remove('glow-green');
+                }, 2000);
+            }
+        }
+
+        // ✅ RESET FORM FUNCTION
+        function resetForm() {
+            const form = document.getElementById('adRequestForm');
+            if (form) {
+                form.reset();
+            }
+        }
+    </script>
 
 </body>
 </html>
