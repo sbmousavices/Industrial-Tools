@@ -141,6 +141,7 @@
             overflow-x: hidden;
             padding-top: var(--nav-height);
             min-height: 100vh;
+            position: relative;
         }
 
         nav {
@@ -326,22 +327,9 @@
             flex-direction: column;
             cursor: pointer;
             position: relative;
+            z-index: 1;
         }
         .product-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .product-card.active {
-            transform: scale(1.03) translateY(-8px);
-            border-color: var(--accent-light);
-            border-width: 2px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
-            z-index: 10;
-        }
-        .product-card.active .product-banner i {
-            transform: scale(1.15);
-            filter: drop-shadow(0 5px 20px rgba(255, 255, 255, 0.5));
-        }
-        .product-card.active .product-title { color: var(--accent-light); }
-        .product-card.active .product-price { color: var(--accent-light); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
 
         .product-banner {
             height: 140px;
@@ -509,6 +497,8 @@
             max-width: 1200px;
             margin: 4rem auto;
             padding: 0 5%;
+            position: relative;
+            z-index: 1;
         }
         .info-grid {
             display: grid;
@@ -523,17 +513,11 @@
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
         .info-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
-        .info-card.active {
-            transform: scale(1.03) translateY(-5px);
-            border-color: var(--accent-light);
-            border-width: 2px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
-            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25), 0 0 0 1px rgba(212, 175, 55, 0.1);
-        }
-        .info-card.active .info-icon { transform: scale(1.1); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .info-card.active .info-title { color: var(--accent-light); }
+        
         .info-icon {
             width: 70px; height: 70px; margin: 0 auto 1.5rem;
             background: rgba(212, 175, 55, 0.15); border-radius: 50%;
@@ -574,21 +558,14 @@
             background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
             border-radius: 20px; border: 2px solid var(--accent); text-align: center;
             position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+            z-index: 1;
         }
         .community-section::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71); transition: height 0.4s ease;
         }
         .community-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2); }
-        .community-section.active {
-            transform: scale(1.03) translateY(-5px); border-color: var(--accent-light); border-width: 3px;
-            background: linear-gradient(135deg, rgba(91, 155, 213, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
-            box-shadow: 0 20px 60px rgba(91, 155, 213, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-        .community-section.active::before { height: 6px; animation: shimmer 2s infinite; }
-        .community-section.active i { transform: scale(1.2); filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.6)); }
-        .community-section.active h3 { color: var(--accent-light); }
-        .community-section.active .community-stat-value { color: var(--accent-light); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
         .community-section i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
         .community-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
@@ -610,21 +587,14 @@
             background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
             border-radius: 20px; border: 2px solid var(--hub-color); text-align: center;
             position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+            z-index: 1;
         }
         .hub-section::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5); transition: height 0.4s ease;
         }
         .hub-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2); }
-        .hub-section.active {
-            transform: scale(1.03) translateY(-5px); border-color: var(--hub-color-light); border-width: 3px;
-            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
-            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.35), 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-        .hub-section.active::before { height: 6px; animation: shimmer 2s infinite; }
-        .hub-section.active i { transform: scale(1.2); filter: drop-shadow(0 5px 20px rgba(155, 89, 182, 0.6)); }
-        .hub-section.active h3 { color: var(--hub-color-light); }
-        .hub-section.active .hub-stat-value { color: var(--hub-color-light); text-shadow: 0 0 20px rgba(155, 89, 182, 0.5); }
+        
         .hub-section i { font-size: 2.5rem; color: var(--hub-color); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
         .hub-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
         .hub-section p { color: var(--text-secondary); margin-bottom: 2rem; }
@@ -645,20 +615,14 @@
             background: var(--bg-card); padding: 3rem 2rem; border-radius: 20px;
             border: 1px solid var(--border); text-align: center; position: relative;
             overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+            z-index: 1;
         }
         .about-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: var(--gradient); transition: height 0.4s ease;
         }
         .about-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .about-card.active {
-            transform: scale(1.03) translateY(-5px); border-color: var(--accent-light); border-width: 2px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(244, 208, 111, 0.05) 100%);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.15);
-        }
-        .about-card.active::before { height: 6px; animation: shimmer 2s infinite; }
-        .about-card.active i.about-icon { transform: scale(1.15); filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5)); }
-        .about-card.active h3 { color: var(--accent-light); }
+        
         .about-card i.about-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
         .about-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; transition: color 0.3s ease; }
         .about-card p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.8; font-size: 1rem; }
@@ -684,9 +648,6 @@
             .page-header h1 { font-size: 2rem; }
             .community-stats, .hub-stats { gap: 1rem; }
             .community-stat-value, .hub-stat-value { font-size: 1.4rem; }
-            .product-card.active, .info-card.active, .community-section.active, .hub-section.active, .about-card.active {
-                transform: scale(1.02) translateY(-5px);
-            }
             .floating-back-btn {
                 right: 20px;
                 top: calc(var(--nav-height) + 10px);
@@ -856,7 +817,7 @@
             </a>
 
             <!-- 1. FREE DEMO (No Complete Order Button) -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
                     <span class="product-badge product-badge-free">FREE DEMO</span>
                     <i class="fas fa-heartbeat"></i>
@@ -883,7 +844,7 @@
             </div>
 
             <!-- 2. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-sitemap"></i>
@@ -909,7 +870,7 @@
             </div>
 
             <!-- 3. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-calendar-alt"></i>
@@ -935,7 +896,7 @@
             </div>
 
             <!-- 4. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-users-cog"></i>
@@ -961,7 +922,7 @@
             </div>
 
             <!-- 5. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
                     <span class="product-badge">INTRO PRICE</span>
                     <i class="fas fa-chart-line"></i>
@@ -987,7 +948,7 @@
             </div>
 
             <!-- 6. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM</span>
                     <i class="fas fa-tachometer-alt"></i>
@@ -1013,7 +974,7 @@
             </div>
 
             <!-- 7. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
                     <i class="fas fa-tasks"></i>
@@ -1039,7 +1000,7 @@
             </div>
 
             <!-- 8. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
                     <span class="product-badge">PROFESSIONAL</span>
                     <i class="fas fa-project-diagram"></i>
@@ -1065,7 +1026,7 @@
             </div>
 
             <!-- 9. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);">
                     <span class="product-badge product-badge-premium">PREMIUM CLAIM</span>
                     <i class="fas fa-gavel"></i>
@@ -1091,7 +1052,7 @@
             </div>
 
             <!-- 10. PAID PRODUCT -->
-            <div class="product-card reveal" data-interactive>
+            <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%);">
                     <span class="product-badge">FULL PACKAGE</span>
                     <i class="fas fa-balance-scale"></i>
@@ -1124,7 +1085,7 @@
         </div>
 
         <div class="info-grid">
-            <div class="info-card reveal" data-interactive>
+            <div class="info-card reveal">
                 <div class="info-icon"><i class="fas fa-wallet"></i></div>
                 <h3 class="info-title">USDT Wallet (TRC-20)</h3>
                 <div class="info-value-box" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
@@ -1170,7 +1131,7 @@
     </section>
 
     <section class="products-container">
-        <div class="community-section reveal" data-interactive>
+        <div class="community-section reveal">
             <i class="fas fa-users"></i>
             <h3>Join Our Professional Community</h3>
             <p>Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
@@ -1195,7 +1156,7 @@
     </section>
 
     <section class="products-container">
-        <div class="hub-section reveal" data-interactive>
+        <div class="hub-section reveal">
             <i class="fas fa-comments"></i>
             <h3>Community Hub - Connect & Share</h3>
             <p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
@@ -1220,7 +1181,7 @@
     </section>
 
     <section class="about-section">
-        <div class="about-card reveal" data-interactive>
+        <div class="about-card reveal">
             <i class="fas fa-user-tie about-icon"></i>
             <h3>About the Creator</h3>
             <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
@@ -1372,7 +1333,7 @@
             });
         }
 
-        // ✅ NEW FUNCTION: Scroll to contact form and auto-fill product code
+        // ✅ UPDATED FUNCTION: Scroll to contact form and auto-fill product code
         function scrollToContactForm(productId = '') {
             const target = document.getElementById('payment-section');
             if (target) {
@@ -1415,28 +1376,6 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 scrollToContactForm();
-            });
-        });
-
-        document.querySelectorAll('[data-interactive]').forEach(element => {
-            element.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || 
-                    e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || 
-                    e.target.closest('a') || e.target.closest('button') || 
-                    e.target.closest('form') || e.target.closest('input')) return;
-                
-                const wasActive = this.classList.contains('active');
-                document.querySelectorAll('[data-interactive].active').forEach(el => {
-                    if (el !== this) el.classList.remove('active');
-                });
-                this.classList.toggle('active');
-                
-                const productCodeSpan = this.querySelector('span[style*="color: var(--accent)"]');
-                if (productCodeSpan) {
-                    const codeText = productCodeSpan.innerText.replace('ID: ', '').trim();
-                    const inputField = document.getElementById('productCodeInput');
-                    if (inputField) inputField.value = codeText;
-                }
             });
         });
     </script>
