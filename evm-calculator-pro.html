@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Data Entry | Behzad Mousavi</title>
+    
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ✅ CHART.JS FOR GRAPHS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ✅ HTML2PDF FOR PDF GENERATION -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 31, 56, 0.8);
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
+        }
+
+        /* ✅ UNIFIED NAVIGATION BAR STYLES */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ COMMON CARD STYLES */
+        .main-card {
+            width: 100%;
+            max-width: 1400px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ✅ TOP SECTION: HORIZONTAL INPUTS */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; }
+        
+        .form-input, .currency-select {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border); border-radius: 8px;
+            color: white; outline: none; transition: border-color 0.3s;
+        }
+        .form-input:focus, .currency-select:focus { border-color: var(--accent); }
+        .currency-select { cursor: pointer; color: var(--accent-light); }
+        .currency-select option { background: var(--bg-primary); }
+
+        /* ✅ ACTION BUTTONS GROUP STYLES */
+        .action-btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        .btn-sm {
+            padding: 10px 18px !important;
+            font-size: 0.85rem !important;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+            color: white !important;
+        }
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4) !important;
+            transform: translateY(-2px);
+        }
+
+        /* ✅ BOTTOM SECTION: COMPACT HORIZONTAL TABLE */
+        .compact-table-wrapper {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .compact-grid {
+            display: grid;
+            grid-template-columns: 60px 70px repeat(var(--col-count, 1), 1fr); 
+            gap: 6px;
+            min-width: fit-content;
+        }
+
+        .grid-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 4px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            height: 35px;
+            position: relative;
+        }
+
+        .grid-header {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-light);
+            border-color: rgba(212, 175, 55, 0.3);
+            font-size: 0.8rem;
+        }
+
+        .percent-input-wrapper {
+            position: relative; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .percent-box {
+            width: 100%; height: 100%; background: transparent; border: none;
+            color: white; text-align: center; font-size: 0.85rem; font-weight: bold;
+            outline: none; padding-right: 12px; -moz-appearance: textfield;
+        }
+        .percent-box::-webkit-outer-spin-button, .percent-box::-webkit-inner-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
+        .percent-box:focus { color: var(--accent); }
+        .percent-symbol {
+            position: absolute; right: 4px; color: var(--accent);
+            font-size: 0.7rem; opacity: 0.6; pointer-events: none;
+        }
+
+        /* ✅ REPORTS SECTION - STACKED VERTICALLY */
+        .reports-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* ✅ WHITE REPORT STYLE (SHARED) */
+        .white-report {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            min-height: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .report-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 20px; }
+        .company-info h2 { color: #0a1628; font-size: 1.5rem; }
+        .company-info p { color: #666; font-size: 0.8rem; }
+        .report-logo img { max-height: 50px; }
+        
+        /* Report 1 Specifics */
+        .executive-summary { background: #f8f9fa; padding: 15px; border-left: 4px solid #d4af37; margin-bottom: 20px; }
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+        .kpi-box { text-align: center; background: white; padding: 8px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .kpi-value { font-size: 1rem; font-weight: bold; color: #0a1628; }
+        .kpi-label { font-size: 0.6rem; color: #888; text-transform: uppercase; }
+        .analysis-text { font-size: 0.85rem; line-height: 1.6; color: #444; margin-bottom: 20px; }
+
+        /* ✅ Report 2 Specifics (Chart & Table) */
+        .chart-area {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .chart-wrapper {
+            flex: 3;
+            height: 300px;
+            position: relative;
+        }
+        .legend-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-width: 120px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* ✅ HORIZONTAL EXCEL-LIKE TABLE */
+        .data-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        .data-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        .data-table th {
+            background: #f8f9fa;
+            color: #0a1628;
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid #d4af37;
+            border-right: 1px solid #eee;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .data-table th:first-child {
+            text-align: left;
+            padding-left: 12px;
+            border-right: 2px solid #d4af37;
+        }
+        .data-table td {
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            color: #555;
+            white-space: nowrap;
+        }
+        .data-table td:first-child {
+            text-align: left;
+            padding-left: 12px;
+            font-weight: 600;
+            color: #0a1628;
+            border-right: 2px solid #d4af37;
+            background: rgba(212, 175, 55, 0.03);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+
+        .report-footer { 
+            margin-top: 20px;
+            border-top: 1px solid #eee; 
+            padding-top: 15px; 
+            text-align: center; 
+            font-size: 0.7rem; 
+            color: #999; 
+        }
+
+        /* ✅ BEAUTIFUL DOWNLOAD BUTTONS CONTAINER */
+        .btn-container {
+            text-align: center;
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-action {
+            width: auto;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%); 
+            color: var(--bg-primary); 
+            border: none; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-action:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+        .btn-action.secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-action.secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-light);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .input-grid { grid-template-columns: 1fr; }
+            .chart-area { flex-direction: column; }
+            .legend-wrapper { flex-direction: row; width: 100%; justify-content: space-around; }
+            .btn-container, .action-btn-group { flex-direction: column; align-items: center; }
+            .btn-action, .action-btn-group button { width: 100%; max-width: 400px; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ UNIFIED NAVIGATION BAR -->
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/game-index.html">Game</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="hub.html" class="active">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- ✅ CARD 1: INITIAL PROJECT DATA -->
+    <div class="main-card">
+        <div class="card-header">
+            <i class="fas fa-info-circle"></i> Project Initial Data
+        </div>
+
+        <div class="input-grid">
+            <div class="form-group">
+                <label class="form-label">Currency</label>
+                <select id="inpCurrency" class="currency-select" onchange="updateCalculations()">
+                    <option value="USD">🇺🇸 USD ($)</option>
+                    <option value="EUR">🇪🇺 EUR (€)</option>
+                    <option value="GBP">🇬🇧 GBP (£)</option>
+                    <option value="IRR">🇮🇷 IRR (﷼)</option>
+                    <option value="AED">🇦🇪 AED (dh)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Company Name</label>
+                <input type="text" id="inpCompany" class="form-input" placeholder="Enter Company Name" oninput="updateTextInfo()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" id="inpProject" class="form-input" placeholder="Enter Project Name" oninput="updateTextInfo()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Company Logo</label>
+                <input type="file" id="inpLogo" class="form-input" accept="image/*" onchange="handleLogoUpload(event)">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Total Duration (Months)</label>
+                <input type="number" id="inpDuration" class="form-input" placeholder="e.g. 12" oninput="handleDurationChange()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Elapsed Time (Months)</label>
+                <input type="number" id="inpElapsed" class="form-input" placeholder="e.g. 6" oninput="updateCalculations()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Total Project Cost (BAC)</label>
+                <input type="text" id="inpBAC" class="form-input" placeholder="0" oninput="formatInput(this); updateCalculations()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Revenue / Earned Value</label>
+                <input type="text" class="form-input" placeholder="0" oninput="formatInput(this)">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Actual Cost to Date</label>
+                <input type="text" class="form-input" placeholder="0" oninput="formatInput(this)">
+            </div>
+
+            <!-- ✅ NEW: PROJECT ACTION BUTTONS -->
+            <div class="form-group" style="grid-column: 1 / -1; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 20px;">
+                <label class="form-label">Project Management Actions</label>
+                <div class="action-btn-group">
+                    <button class="btn-action secondary btn-sm" onclick="saveProject()">
+                        <i class="fas fa-save"></i> Save Project
+                    </button>
+                    <button class="btn-action secondary btn-sm" onclick="document.getElementById('importFile').click()">
+                        <i class="fas fa-file-import"></i> Import Project
+                    </button>
+                    <button class="btn-action btn-sm btn-danger" onclick="newProject()">
+                        <i class="fas fa-plus-circle"></i> New Project
+                    </button>
+                    <!-- Hidden file input for import -->
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importProject(this)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ CARD 2: COMPACT HORIZONTAL PERCENTAGE GRID -->
+    <div class="main-card">
+        <div class="card-header">
+            <i class="fas fa-percentage"></i> Monthly Distribution & EVM Data
+        </div>
+        
+        <div class="compact-table-wrapper">
+            <div id="dynamicGrid" class="compact-grid" style="--col-count: 1;">
+                <div class="grid-cell grid-header">Label</div>
+                <div class="grid-cell grid-header">Total</div>
+                <div class="grid-cell">-</div>
+                
+                <div class="grid-cell grid-header">BAC</div>
+                <div class="grid-cell grid-header" id="totalBACCell">0%</div>
+                <div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box bac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                
+                <div class="grid-cell grid-header">PV</div>
+                <div class="grid-cell grid-header" id="totalPVCell">0%</div>
+                <div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box pv-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                
+                <div class="grid-cell grid-header">EV</div>
+                <div class="grid-cell grid-header" id="totalEVCell">0%</div>
+                <div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ev-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                
+                <div class="grid-cell grid-header">AC</div>
+                <div class="grid-cell grid-header" id="totalACCell">0%</div>
+                <div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ CARD 3: DUAL REPORTS (TEXT + S-CURVE) -->
+    <div class="reports-container">
+        
+        <!-- REPORT 1: TEXT REPORT -->
+        <div class="white-report" id="textReport">
+            <div class="report-header">
+                <div class="company-info">
+                    <h2 id="outCompany">Your Company Name</h2>
+                    <p>Project: <span id="outProject">Project Name</span></p>
+                    <p>Date: <span id="currentDate"></span></p>
+                </div>
+                <div class="report-logo">
+                    <img id="logoPreview1" src="" alt="Logo" style="display: none;">
+                    <div id="logoPlaceholder" style="width: 50px; height: 50px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #999;"><i class="fas fa-image"></i></div>
+                </div>
+            </div>
+
+            <div class="executive-summary">
+                <h4 style="color: #0a1628; margin-bottom: 10px; font-size: 1rem;">Executive Summary</h4>
+                <div class="summary-grid">
+                    <div class="kpi-box">
+                        <div class="kpi-value" id="outCPI">0.00</div>
+                        <div class="kpi-label">CPI</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-value" id="outSPI">0.00</div>
+                        <div class="kpi-label">SPI</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-value" id="outEAC">0</div>
+                        <div class="kpi-label">EAC</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-value" id="outVAC">0</div>
+                        <div class="kpi-label">VAC</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-text">
+                <h4 style="color: #0a1628; margin-bottom: 10px; font-size: 1rem;">Managerial Analysis</h4>
+                <p id="analysisText">Please enter project data...</p>
+            </div>
+
+            <div class="report-footer">
+                <p>Generated by EVM Pro Tool | Behzad Mousavi Industrial Planning</p>
+            </div>
+        </div>
+
+        <!-- REPORT 2: S-CURVE CHART REPORT -->
+        <div class="white-report" id="chartReport">
+            <div class="report-header">
+                <div class="company-info">
+                    <h2 id="outCompany2">Your Company Name</h2>
+                    <p>S-Curve Analysis: <span id="outProject2">Project Name</span></p>
+                </div>
+                <div class="report-logo">
+                    <img id="logoPreview2" src="" alt="Logo" style="display: none;">
+                </div>
+            </div>
+
+            <div class="chart-area">
+                <div class="chart-wrapper">
+                    <canvas id="sCurveChart"></canvas>
+                </div>
+                <div class="legend-wrapper">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #d4af37;"></div>
+                        <span>BAC (Budget)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #2ecc71;"></div>
+                        <span>EV (Earned)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e74c3c;"></div>
+                        <span>AC (Actual)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table-wrapper">
+                <table class="data-table" id="dataTableReport"></table>
+            </div>
+
+            <div class="report-footer">
+                <p>Cumulative Performance Curve | Confidential</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ✅ DUAL DOWNLOAD BUTTONS (PORTRAIT & LANDSCAPE) -->
+    <div class="btn-container">
+        <button class="btn-action secondary" onclick="downloadReport1()">
+            <i class="fas fa-file-alt"></i> Download Text Report (Portrait)
+        </button>
+        <button class="btn-action" onclick="downloadReport2()">
+            <i class="fas fa-chart-line"></i> Download Chart Report (Landscape)
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+        let sCurveChart = null;
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img1 = document.getElementById('logoPreview1');
+                    const img2 = document.getElementById('logoPreview2');
+                    const placeholder = document.getElementById('logoPlaceholder');
+                    img1.src = e.target.result;
+                    img2.src = e.target.result;
+                    img1.style.display = 'block';
+                    img2.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateTextInfo() {
+            const company = document.getElementById('inpCompany').value || "Your Company Name";
+            const project = document.getElementById('inpProject').value || "Project Name";
+            document.getElementById('outCompany').innerText = company;
+            document.getElementById('outProject').innerText = project;
+            document.getElementById('outCompany2').innerText = company;
+            document.getElementById('outProject2').innerText = project;
+        }
+
+        function formatInput(input) {
+            let value = input.value.replace(/,/g, '').replace(/\D/g, '');
+            input.value = value ? parseInt(value).toLocaleString('en-US') : '';
+        }
+
+        function formatMoney(amount, currency) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: currency,
+                maximumFractionDigits: currency === 'IRR' ? 0 : 2
+            }).format(amount);
+        }
+
+        function handleDurationChange() {
+            generateTable();
+            updateCalculations();
+        }
+
+        function generateTable() {
+            const duration = parseInt(document.getElementById('inpDuration').value) || 0;
+            const grid = document.getElementById('dynamicGrid');
+            grid.style.setProperty('--col-count', duration > 0 ? duration : 1);
+            grid.innerHTML = '';
+
+            if (duration <= 0) {
+                grid.innerHTML = `
+                    <div class="grid-cell grid-header">Label</div><div class="grid-cell grid-header">Total</div><div class="grid-cell">-</div>
+                    <div class="grid-cell grid-header">BAC</div><div class="grid-cell grid-header" id="totalBACCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box bac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">PV</div><div class="grid-cell grid-header" id="totalPVCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box pv-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">EV</div><div class="grid-cell grid-header" id="totalEVCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ev-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">AC</div><div class="grid-cell grid-header" id="totalACCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                `;
+                return;
+            }
+
+            const createInputCell = (type) => {
+                const div = document.createElement('div');
+                div.className = 'grid-cell';
+                div.innerHTML = `<div class="percent-input-wrapper"><input type="number" class="percent-box ${type}-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div>`;
+                return div;
+            };
+
+            grid.appendChild(Object.assign(document.createElement('div'), {className: 'grid-cell grid-header', innerText: 'Label'}));
+            grid.appendChild(Object.assign(document.createElement('div'), {className: 'grid-cell grid-header', innerText: 'Total'}));
+            for (let i = 1; i <= duration; i++) grid.appendChild(Object.assign(document.createElement('div'), {className: 'grid-cell grid-header', innerText: `M${i}`}));
+
+            ['bac', 'pv', 'ev', 'ac'].forEach(type => {
+                grid.appendChild(Object.assign(document.createElement('div'), {className: 'grid-cell grid-header', innerText: type.toUpperCase()}));
+                grid.appendChild(Object.assign(document.createElement('div'), {className: 'grid-cell grid-header', id: `total${type.toUpperCase()}Cell`}));
+                for (let i = 1; i <= duration; i++) grid.appendChild(createInputCell(type));
+            });
+        }
+
+        function updateCalculations() {
+            updateTextInfo();
+            const currency = document.getElementById('inpCurrency').value;
+            const bacValue = parseFloat(document.getElementById('inpBAC').value.replace(/,/g, '')) || 0;
+            const duration = parseInt(document.getElementById('inpDuration').value) || 0;
+            const elapsed = parseInt(document.getElementById('inpElapsed').value) || 0;
+
+            if (duration <= 0) {
+                if (sCurveChart) { sCurveChart.destroy(); sCurveChart = null; }
+                ['outCPI', 'outSPI'].forEach(id => document.getElementById(id).innerText = '0.00');
+                ['outEAC', 'outVAC'].forEach(id => document.getElementById(id).innerText = formatMoney(0, currency));
+                document.getElementById('analysisText').innerText = 'Please enter Total Duration (Months) to generate the report and chart.';
+                document.getElementById('dataTableReport').innerHTML = '';
+                ['totalBACCell', 'totalPVCell', 'totalEVCell', 'totalACCell'].forEach(id => {
+                    const el = document.getElementById(id); if(el) el.innerText = '0%';
+                });
+                return;
+            }
+
+            const getRowValues = (type) => Array.from(document.querySelectorAll(`.${type}-input`)).map(inp => parseFloat(inp.value) || 0);
+            const getRowTotal = (type) => getRowValues(type).reduce((a, b) => a + b, 0);
+
+            const bacPerc = getRowValues('bac'), pvData = getRowValues('pv'), evData = getRowValues('ev'), acData = getRowValues('ac');
+
+            ['BAC', 'PV', 'EV', 'AC'].forEach(type => {
+                const cell = document.getElementById(`total${type}Cell`);
+                if(cell) cell.innerText = getRowTotal(type.toLowerCase()) + '%';
+            });
+
+            const validElapsed = Math.min(elapsed, duration);
+            let cumBAC = [], cumPV = [], cumEV = [], cumAC = [], labels = [];
+            let sumBAC = 0, sumPV = 0, sumEV = 0, sumAC = 0;
+
+            for(let i = 0; i < duration; i++) {
+                labels.push(`M${i+1}`);
+                sumBAC += (bacValue * bacPerc[i]) / 100;
+                sumPV += (bacValue * pvData[i]) / 100;
+                sumEV += (bacValue * evData[i]) / 100;
+                sumAC += (bacValue * acData[i]) / 100;
+                cumBAC.push(sumBAC);
+                cumPV.push(sumPV);
+                cumEV.push(i < validElapsed ? sumEV : null);
+                cumAC.push(i < validElapsed ? sumAC : null);
+            }
+
+            const table = document.getElementById('dataTableReport');
+            table.innerHTML = '';
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            headerRow.appendChild(Object.assign(document.createElement('th'), {textContent: 'Metric'}));
+            for (let i = 0; i < duration; i++) headerRow.appendChild(Object.assign(document.createElement('th'), {textContent: `M${i+1}`}));
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            [{ name: 'BAC %', data: bacPerc }, { name: 'PV %', data: pvData }, { name: 'EV %', data: evData }, { name: 'AC %', data: acData }].forEach(metric => {
+                const row = document.createElement('tr');
+                row.appendChild(Object.assign(document.createElement('td'), {textContent: metric.name}));
+                for (let i = 0; i < duration; i++) row.appendChild(Object.assign(document.createElement('td'), {textContent: metric.data[i] + '%'}));
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            const totalPV_elapsed = validElapsed > 0 ? cumPV[validElapsed - 1] : 0;
+            const validEV = cumEV.filter(v => v !== null);
+            const validAC = cumAC.filter(v => v !== null);
+            const totalEV_elapsed = validEV.length > 0 ? validEV[validEV.length - 1] : 0;
+            const totalAC_elapsed = validAC.length > 0 ? validAC[validAC.length - 1] : 0;
+
+            const cpi = totalAC_elapsed > 0 ? (totalEV_elapsed / totalAC_elapsed).toFixed(2) : 0;
+            const spi = totalPV_elapsed > 0 ? (totalEV_elapsed / totalPV_elapsed).toFixed(2) : 0;
+            const eac = cpi > 0 ? (bacValue / cpi) : 0;
+            const vac = bacValue - eac;
+
+            document.getElementById('outCPI').innerText = cpi;
+            document.getElementById('outSPI').innerText = spi;
+            document.getElementById('outEAC').innerText = formatMoney(eac, currency);
+            document.getElementById('outVAC').innerText = formatMoney(vac, currency);
+            
+            document.getElementById('outCPI').style.color = cpi >= 1 ? '#2ecc71' : (cpi > 0 ? '#e74c3c' : '#888');
+            document.getElementById('outSPI').style.color = spi >= 1 ? '#2ecc71' : (spi > 0 ? '#e74c3c' : '#888');
+
+            let analysis = 'No performance data entered yet.';
+            if (cpi > 0 || spi > 0) {
+                analysis = `<strong>Cost Performance:</strong> CPI is ${cpi}. ` + (cpi < 1 ? 'Indicates cost overrun. ' : 'Indicates good cost performance. ');
+                analysis += `<br><br><strong>Schedule Performance:</strong> SPI is ${spi}. ` + (spi < 1 ? 'Indicates schedule delay. ' : 'Indicates good schedule performance. ');
+                if (cpi > 0) analysis += `<br><br><strong>Forecast:</strong> EAC is ${formatMoney(eac, currency)}. VAC is ${formatMoney(vac, currency)}.`;
+            }
+            document.getElementById('analysisText').innerHTML = analysis;
+            drawSCurveChart(labels, cumBAC, cumEV, cumAC, currency);
+        }
+
+        function drawSCurveChart(labels, bac, ev, ac, currency) {
+            const ctx = document.getElementById('sCurveChart').getContext('2d');
+            if (sCurveChart) sCurveChart.destroy();
+
+            sCurveChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'BAC', data: bac, borderColor: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderWidth: 3, tension: 0.4, pointRadius: 4, fill: true, spanGaps: false },
+                        { label: 'EV', data: ev, borderColor: '#2ecc71', backgroundColor: 'rgba(46, 204, 113, 0.1)', borderWidth: 3, tension: 0.4, pointRadius: 4, fill: true, spanGaps: false },
+                        { label: 'AC', data: ac, borderColor: '#e74c3c', backgroundColor: 'rgba(231, 76, 60, 0.1)', borderWidth: 3, tension: 0.4, pointRadius: 4, fill: true, spanGaps: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 22, 40, 0.9)',
+                            titleColor: '#d4af37',
+                            bodyColor: '#fff',
+                            callbacks: { label: (ctx) => ctx.dataset.label + ': ' + new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(ctx.raw) }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#666' } },
+                        x: { grid: { display: false }, ticks: { color: '#666' } }
+                    }
+                }
+            });
+        }
+
+        // ✅ DOWNLOAD REPORT 1 (PORTRAIT)
+        function downloadReport1() {
+            const element = document.getElementById('textReport');
+            const opt = { 
+                margin: 0.5, 
+                filename: 'EVM_Executive_Summary.pdf', 
+                image: { type: 'jpeg', quality: 1.0 }, 
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 }, 
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // ✅ DOWNLOAD REPORT 2 (LANDSCAPE)
+        function downloadReport2() {
+            const element = document.getElementById('chartReport');
+            if (sCurveChart) sCurveChart.update();
+            const opt = { 
+                margin: 0.5, 
+                filename: 'EVM_S-Curve_Analysis_Landscape.pdf', 
+                image: { type: 'jpeg', quality: 1.0 }, 
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight }, 
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            setTimeout(() => { html2pdf().set(opt).from(element).save(); }, 500);
+        }
+
+        // =================================================================
+        // ✅ NEW: PROJECT MANAGEMENT FUNCTIONS (SAVE, IMPORT, NEW)
+        // =================================================================
+
+        function getProjectData() {
+            return {
+                currency: document.getElementById('inpCurrency').value,
+                company: document.getElementById('inpCompany').value,
+                project: document.getElementById('inpProject').value,
+                logo: document.getElementById('logoPreview1').src,
+                duration: document.getElementById('inpDuration').value,
+                elapsed: document.getElementById('inpElapsed').value,
+                bac: document.getElementById('inpBAC').value,
+                gridData: {
+                    bac: Array.from(document.querySelectorAll('.bac-input')).map(inp => inp.value),
+                    pv: Array.from(document.querySelectorAll('.pv-input')).map(inp => inp.value),
+                    ev: Array.from(document.querySelectorAll('.ev-input')).map(inp => inp.value),
+                    ac: Array.from(document.querySelectorAll('.ac-input')).map(inp => inp.value)
+                }
+            };
+        }
+
+        function saveProject() {
+            const data = getProjectData();
+            const projectName = data.project.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'evm_project';
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", projectName + "_data.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importProject(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Restore basic fields
+                    document.getElementById('inpCurrency').value = data.currency || 'USD';
+                    document.getElementById('inpCompany').value = data.company || '';
+                    document.getElementById('inpProject').value = data.project || '';
+                    document.getElementById('inpDuration').value = data.duration || '';
+                    document.getElementById('inpElapsed').value = data.elapsed || '';
+                    document.getElementById('inpBAC').value = data.bac || '';
+                    
+                    // Restore Logo
+                    if (data.logo && data.logo.length > 100) {
+                        document.getElementById('logoPreview1').src = data.logo;
+                        document.getElementById('logoPreview2').src = data.logo;
+                        document.getElementById('logoPreview1').style.display = 'block';
+                        document.getElementById('logoPreview2').style.display = 'block';
+                        document.getElementById('logoPlaceholder').style.display = 'none';
+                    }
+
+                    // Rebuild grid first based on duration
+                    handleDurationChange(); 
+
+                    // Restore grid data with a slight delay to ensure DOM is ready
+                    setTimeout(() => {
+                        if (data.gridData) {
+                            ['bac', 'pv', 'ev', 'ac'].forEach(type => {
+                                const inputs = document.querySelectorAll(`.${type}-input`);
+                                if (data.gridData[type]) {
+                                    data.gridData[type].forEach((val, index) => {
+                                        if (inputs[index]) inputs[index].value = val;
+                                    });
+                                }
+                            });
+                        }
+                        updateTextInfo();
+                        updateCalculations();
+                        alert('✅ Project imported successfully!');
+                    }, 100);
+
+                } catch (err) {
+                    alert('❌ Error reading file. Please ensure it is a valid EVM Project JSON file.');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+            input.value = ''; // Reset input so same file can be selected again
+        }
+
+        function newProject() {
+            if (confirm('⚠️ Are you sure you want to start a new project?\n\nAll unsaved data will be permanently lost.')) {
+                // Clear text inputs
+                document.getElementById('inpCompany').value = '';
+                document.getElementById('inpProject').value = '';
+                document.getElementById('inpDuration').value = '';
+                document.getElementById('inpElapsed').value = '';
+                document.getElementById('inpBAC').value = '';
+                document.getElementById('inpCurrency').value = 'USD';
+                
+                // Clear Logo
+                document.getElementById('inpLogo').value = '';
+                document.getElementById('logoPreview1').src = '';
+                document.getElementById('logoPreview2').src = '';
+                document.getElementById('logoPreview1').style.display = 'none';
+                document.getElementById('logoPreview2').style.display = 'none';
+                document.getElementById('logoPlaceholder').style.display = 'flex';
+
+                // Reset Grid to default
+                document.getElementById('dynamicGrid').style.setProperty('--col-count', 1);
+                document.getElementById('dynamicGrid').innerHTML = `
+                    <div class="grid-cell grid-header">Label</div><div class="grid-cell grid-header">Total</div><div class="grid-cell">-</div>
+                    <div class="grid-cell grid-header">BAC</div><div class="grid-cell grid-header" id="totalBACCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box bac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">PV</div><div class="grid-cell grid-header" id="totalPVCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box pv-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">EV</div><div class="grid-cell grid-header" id="totalEVCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ev-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                    <div class="grid-cell grid-header">AC</div><div class="grid-cell grid-header" id="totalACCell">0%</div><div class="grid-cell"><div class="percent-input-wrapper"><input type="number" class="percent-box ac-input" placeholder="0" oninput="updateCalculations()"><span class="percent-symbol">%</span></div></div>
+                `;
+                
+                updateTextInfo();
+                updateCalculations();
+            }
+        }
+    </script>
+</body>
+</html>
