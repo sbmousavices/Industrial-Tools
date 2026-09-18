@@ -166,6 +166,30 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ✅ PREMIUM TOOL BUTTON STYLE */
+        .btn-premium {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            margin-top: 30px;
+        }
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+        }
+
         /* ✅ RESPONSIVE DESIGN */
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -306,6 +330,11 @@
                 <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
                 <p>Enter project data to see real-time analysis.</p>
             </div>
+
+            <!-- ✅ GET PREMIUM TOOL BUTTON (Scrolls to Product #10) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-EVM-PRO-010" class="btn-premium">
+                <i class="fas fa-crown"></i> Get The Premium Tool
+            </a>
         </div>
 
     </div>
