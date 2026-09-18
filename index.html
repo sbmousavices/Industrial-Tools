@@ -105,7 +105,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; } /* ✅ این خط باعث اسکرول نرم می‌شود */
 
         body {
             font-family: 'Inter', sans-serif;
@@ -777,8 +777,8 @@
                 </div>
             </div>
 
-            <!-- 12. NEW PRODUCT 10 (PRO WEB APP) - Placed exactly after Product 9 (Claim Package) -->
-            <div class="product-card pro-web-app reveal">
+            <!-- ✅ 12. NEW PRODUCT 10 (PRO WEB APP) - ID ADDED HERE FOR SCROLL TARGET -->
+            <div id="BM-EVM-PRO-010" class="product-card pro-web-app reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
                     <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
                     <i class="fas fa-laptop-code"></i>
