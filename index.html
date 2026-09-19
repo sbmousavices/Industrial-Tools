@@ -105,7 +105,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } /* ✅ این خط باعث اسکرول نرم می‌شود */
+        
+        /* ✅ CRITICAL FIX FOR ANCHOR SCROLLING BEHIND FIXED NAVBAR */
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 100px; /* 70px nav height + 30px breathing room */
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -777,7 +782,7 @@
                 </div>
             </div>
 
-            <!-- ✅ 12. NEW PRODUCT 10 (PRO WEB APP) - ID ADDED HERE FOR SCROLL TARGET -->
+            <!-- 12. EVM CALCULATOR PRO (PRO WEB APP) -->
             <div id="BM-EVM-PRO-010" class="product-card pro-web-app reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
                     <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
@@ -803,6 +808,39 @@
                             <i class="fas fa-eye"></i> Live Demo
                         </a>
                         <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-EVM-PRO-010')">
+                            <i class="fas fa-check-circle"></i> Complete Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ 13. DELAY IMPACT ANALYZER PRO (PREMIUM WEB APP) - TARGET FOR SCROLL -->
+            <div id="BM-DIA-PRO-011" class="product-card pro-web-app reveal">
+                <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
+                    <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Premium Web Application</span>
+                    <h3 class="product-title">Delay Impact Analyzer Pro</h3>
+                    <p class="product-description">Professional delay analysis tool for calculating project delays, critical path impact, and EOT claims with interactive Gantt charts and comprehensive reporting.</p>
+                    <ul class="product-features">
+                        <li>Critical Path Method (CPM) Analysis</li>
+                        <li>Save / Import Project Data (JSON)</li>
+                        <li>Interactive Gantt Chart Visualization</li>
+                        <li>Excel Export & Print Reports</li>
+                        <li>EOT Claim Calculation</li>
+                    </ul>
+                    <div class="product-meta">
+                        <span class="product-price">199 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DIA-PRO-011</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://sbmousavices.github.io/Industrial-Tools/delay-impact-analyzer.html" class="btn-product btn-online-tool" onclick="event.stopPropagation(); trackEvent('/dia-pro-demo', 'Opened: Delay Impact Analyzer Pro Demo')">
+                            <i class="fas fa-eye"></i> Live Demo
+                        </a>
+                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-DIA-PRO-011')">
                             <i class="fas fa-check-circle"></i> Complete Order
                         </button>
                     </div>
