@@ -209,15 +209,6 @@
       background: #dc2626;
     }
 
-    .btn-success {
-      background: var(--accent-green);
-      color: #fff;
-    }
-
-    .btn-success:hover {
-      background: #059669;
-    }
-
     .table-container {
       overflow-x: auto;
       margin-top: 16px;
@@ -367,14 +358,6 @@
       text-align: center;
       border-left: 1px solid var(--border-color);
       padding-left: 4px;
-    }
-
-    .action-bar {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
     }
 
     .text-muted { color: var(--text-secondary); }
@@ -576,48 +559,6 @@
         <h3 style="font-size: 14px; margin-bottom: 12px; color: var(--text-secondary);">Gantt Chart Visualization</h3>
         <div class="timeline-scale" id="timelineScale"></div>
         <div class="gantt-chart" id="ganttChart"></div>
-      </div>
-
-      <div class="action-bar">
-        <button class="btn" onclick="clearAll()" style="background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-color);">
-          Clear All
-        </button>
-        
-        <button class="btn" onclick="saveProject()" style="background: var(--accent-blue); color: #fff;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-            <polyline points="17 21 17 13 7 13 7 21"/>
-            <polyline points="7 3 7 8 15 8"/>
-          </svg>
-          Save Project
-        </button>
-        
-        <button class="btn" onclick="document.getElementById('importFile').click()" style="background: var(--bg-card); color: var(--accent-gold); border: 1px solid var(--accent-gold);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
-          Import Project
-        </button>
-        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importProject(this)">
-        
-        <button class="btn btn-success" onclick="exportToExcel()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Export to Excel
-        </button>
-        <button class="btn btn-primary" onclick="window.print()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 6 2 18 2 18 9"/>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-            <rect x="6" y="14" width="12" height="8"/>
-          </svg>
-          Print Report
-        </button>
       </div>
     </section>
   </div>
@@ -868,52 +809,6 @@
       }
     }
 
-    function saveProject() {
-      if (activities.length === 0) {
-        alert('No data to save.');
-        return;
-      }
-      const data = { activities, delayEvent, projectId, savedAt: new Date().toISOString() };
-      localStorage.setItem('dia_project_data', JSON.stringify(data));
-      
-      const json = JSON.stringify(data, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `DIA_Project_${new Date().toISOString().split('T')[0]}.json`;
-      a.click();
-      window.URL.revokeObjectURL(url);
-      alert('Project saved successfully! (Also backed up to browser storage)');
-    }
-
-    function importProject(input) {
-      const file = input.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const data = JSON.parse(e.target.result);
-          if (data.activities && Array.isArray(data.activities)) {
-            activities = data.activities;
-            delayEvent = data.delayEvent || null;
-            projectId = data.projectId || (activities.length > 0 ? Math.max(...activities.map(a => a.id)) + 1 : 1);
-            localStorage.setItem('dia_project_data', JSON.stringify(data));
-            renderActivities();
-            calculateCPM();
-            alert('Project imported successfully!');
-          } else {
-            alert('Invalid file format. Please select a valid DIA project file.');
-          }
-        } catch (error) {
-          alert('Error reading file: ' + error.message);
-        }
-      };
-      reader.readAsText(file);
-      input.value = '';
-    }
-
     function loadFromLocalStorage() {
       const saved = localStorage.getItem('dia_project_data');
       if (saved) {
@@ -928,50 +823,6 @@
           console.error('Failed to load auto-saved data', e);
         }
       }
-    }
-
-    // ===== UTILITIES =====
-    function clearAll() {
-      if (confirm('Are you sure you want to clear all activities?')) {
-        activities = [];
-        delayEvent = null;
-        projectId = 1;
-        localStorage.removeItem('dia_project_data');
-        renderActivities();
-        document.getElementById('originalDuration').textContent = '0';
-        document.getElementById('revisedDuration').textContent = '0';
-        document.getElementById('projectDelay').textContent = '0';
-        document.getElementById('eotClaim').textContent = '0';
-        document.getElementById('ganttChart').innerHTML = '';
-        document.getElementById('timelineScale').innerHTML = '';
-      }
-    }
-
-    function exportToExcel() {
-      if (activities.length === 0) {
-        alert('No data to export');
-        return;
-      }
-
-      let csv = 'ID,Activity Name,Duration,Predecessors,Start Date,ES,EF,LS,LF,Float,Is Critical\n';
-      activities.forEach(act => {
-        csv += `${act.id},"${act.name}",${act.duration},"${act.predecessors.join(',')}",${act.startDate},${act.es},${act.ef},${act.ls},${act.lf},${act.float},${act.isCritical}\n`;
-      });
-
-      if (delayEvent) {
-        csv += `\nDelay Event Analysis\n`;
-        csv += `Activity,${delayEvent.activityName}\n`;
-        csv += `Delay Type,${delayEvent.type}\n`;
-        csv += `Delay Duration,${delayEvent.duration} days\n`;
-        csv += `EOT Claim,${document.getElementById('eotClaim').textContent} days\n`;
-      }
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `delay-impact-analysis-${new Date().toISOString().split('T')[0]}.csv`;
-      a.click();
     }
 
     // ===== INITIALIZATION =====
