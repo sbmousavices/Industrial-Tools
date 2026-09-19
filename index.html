@@ -3,451 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Industrial Project Planning Tools | Excel Templates for Project Managers | Behzad Mousavi</title>
-
-    <meta name="description" content="Professional Excel tools for industrial project managers including WBS, EVMS, EOT delay analysis, progress measurement systems and executive dashboards.">
-    <meta name="keywords" content="Project Planning Excel, EVMS Dashboard, WBS Tool, Primavera, MS Project, EOT Claim, Industrial Engineering">
-    <meta name="author" content="Behzad Mousavi">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sbmousavices.github.io/Industrial-Tools/">
-
-    <link rel="manifest" href="/Industrial-Tools/EnglishInfo.html/manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="BM Planning">
-    <link rel="apple-touch-icon" href="/Industrial-Tools/icon-192.png">
+    <title>Engineering Tools Hub | Behzad Mousavi</title>
     
-    <meta name="theme-color" content="#d4af37">
-    <meta name="msapplication-TileColor" content="#d4af37">
-
-    <meta property="og:title" content="Industrial Project Planning Tools">
-    <meta property="og:description" content="Professional Excel-based solutions for industrial project managers.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sbmousavices.github.io/Industrial-Tools/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/sbmousavices/Industrial-Tools/main/Profile.jpg">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Industrial Project Planning Tools by Behzad Mousavi",
-      "description": "Professional project planning and control tools for industrial engineers.",
-      "url": "https://sbmousavices.github.io/Industrial-Tools/",
-      "sameAs": ["https://github.com/sbmousavices"],
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "79",
-        "highPrice": "3000",
-        "priceCurrency": "USD",
-        "offerCount": "11"
-      }
-    }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/Industrial-Tools/sw.js')
-                    .then(registration => console.log('ServiceWorker registered', registration.scope))
-                    .catch(error => console.log('ServiceWorker registration failed', error));
-            });
-        }
-    </script>
-
-    <script data-goatcounter="https://bmousavi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-    <script>
-        function trackEvent(path, title) {
-            if (window.goatcounter) {
-                window.goatcounter.count({ path: path, title: title || path, event: true });
-            }
-        }
-    </script>
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        * {
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            outline: none !important;
-        }
-        html, body {
-            -webkit-tap-highlight-color: transparent !important;
-            background-color: var(--bg-primary);
-            overscroll-behavior: none;
-        }
-        :focus, :focus-visible, :focus-within { outline: none !important; box-shadow: none !important; }
-        ::selection { background: var(--accent) !important; color: var(--bg-primary) !important; }
-        ::-moz-selection { background: var(--accent) !important; color: var(--bg-primary) !important; }
-
         :root {
             --bg-primary: #0a1628;
-            --bg-secondary: #0f1f38;
-            --bg-card: #132847;
             --accent: #d4af37;
             --accent-light: #f4d06f;
-            --accent-blue: #5B9BD5;
-            --accent-green: #2ecc71;
-            --accent-green-hover: #27ae60;
             --text-primary: #e8eef7;
             --text-secondary: #a0aec0;
-            --border: rgba(212, 175, 55, 0.2);
-            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            --hub-color: #9b59b6;
+            --card-bg: rgba(15, 31, 56, 0.8);
             --nav-height: 70px;
-            --nav-bg: #0a1628; 
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
-        /* ✅ CRITICAL FIX FOR ANCHOR SCROLLING BEHIND FIXED NAVBAR */
-        html { 
-            scroll-behavior: smooth; 
-            scroll-padding-top: 100px; /* 70px nav height + 30px breathing room */
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
+            background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-            padding-top: var(--nav-height);
             min-height: 100vh;
-            position: relative;
+            padding-top: calc(var(--nav-height) + 40px);
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
         }
 
+        /* ✅ NAVIGATION BAR */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: var(--nav-bg); border-bottom: 1px solid var(--border);
-            z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
         }
-
         .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
         .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
         .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-        .btn-signin {
-            display: inline-flex; align-items: center; gap: 8px; padding: 0.6rem 1.5rem;
-            border: 1px solid var(--accent); border-radius: 50px; color: var(--accent);
-            text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap;
-        }
-        .btn-signin:hover { background: var(--accent); color: var(--bg-primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-
-        .floating-back-btn {
-            position: fixed; top: calc(var(--nav-height) + 15px); right: 5%; z-index: 999;
-            display: inline-flex; align-items: center; gap: 8px; padding: 0.5rem 1.2rem;
-            background: var(--bg-primary); border: 1px solid var(--accent); border-radius: 50px;
-            color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .floating-back-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        .bg-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .bg-shapes::before, .bg-shapes::after {
-            content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out;
-        }
-        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
-        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
-
-        .page-header { padding: 6rem 5% 3rem; text-align: center; position: relative; }
-        .page-header .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
-        .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
-        .page-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .page-header .tagline { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; }
-
-        .stats-strip { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; padding: 1.5rem; background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border); flex-wrap: wrap; }
-        .stat-box { text-align: center; }
-        .stat-box i { color: var(--accent); font-size: 1.5rem; margin-bottom: 0.3rem; display: block; }
-        .stat-box .stat-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
-        .stat-box .stat-label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        .products-container { max-width: 1200px; margin: 0 auto; padding: 0 5% 4rem; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
-        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
-
-        .free-sample-wrapper {
-            text-align: center; margin: 2rem 0 3rem; padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-            border: 1px dashed var(--accent-green); border-radius: 15px; max-width: 800px; margin-left: auto; margin-right: auto;
-        }
-        .free-sample-text { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1rem; }
-        .btn-free-sample {
-            background: var(--accent-green); color: white; padding: 0.9rem 2.5rem; border-radius: 50px;
-            text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.6rem;
-            transition: all 0.3s; box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3); font-size: 1.05rem; cursor: pointer; border: none;
-        }
-        .btn-free-sample:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(46, 204, 113, 0.5); background: var(--accent-green-hover); }
-
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
-
-        .product-card {
-            background: var(--bg-card); border-radius: 15px; border: 1px solid var(--border);
-            overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; cursor: pointer; position: relative; z-index: 1;
-        }
-        .product-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: var(--shadow); }
-
-        .product-card.pro-web-app {
-            border-color: rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #132847 0%, #0f1f38 100%);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
-        }
-        .product-card.pro-web-app:hover { box-shadow: 0 15px 45px rgba(212, 175, 55, 0.25); border-color: var(--accent); }
-        .product-card.pro-web-app::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-
-        .product-banner { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .product-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%); }
-        .product-banner i { 
-            font-size: 3.5rem; color: white; z-index: 1; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ✅ TOOLS HUB STYLES */
+        .hub-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .product-badge {
-            position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--bg-primary);
-            padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; z-index: 2;
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
-        .product-badge-free { background: var(--accent-green); color: white; }
-        .product-badge-premium { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; }
-        .product-badge-online { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; }
-        
-        .product-badge-pro { 
-            background: linear-gradient(90deg, #d4af37 0%, #f4d06f 50%, #d4af37 100%);
-            background-size: 200% 100%; color: var(--bg-primary); 
-            box-shadow: 0 3px 12px rgba(212, 175, 55, 0.5);
-            display: inline-flex; align-items: center; gap: 4px;
-            animation: shimmerPro 3s infinite linear;
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
         }
-        @keyframes shimmerPro { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        .page-header span { color: var(--accent); }
+        .page-header p { color: var(--text-secondary); font-size: 1.1rem; }
 
-        .product-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
-        .product-category {
-            display: inline-block; background: rgba(212, 175, 55, 0.15); color: var(--accent);
-            padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.8rem; width: fit-content;
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
-        .product-title {
-            font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
-            margin-bottom: 0.8rem; line-height: 1.3; color: var(--text-primary); transition: color 0.3s ease;
-        }
-        .product-description { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.2rem; line-height: 1.6; flex: 1; }
-        .product-meta {
-            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-            font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.2rem;
-            padding-bottom: 1rem; border-bottom: 1px solid var(--border); flex-wrap: wrap;
-        }
-        .product-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; font-family: 'Playfair Display', serif; transition: all 0.3s ease; }
-        .product-delivery { display: flex; align-items: center; gap: 0.4rem; }
-        .product-delivery i { color: var(--accent); }
 
-        .product-features { list-style: none; margin-bottom: 1.2rem; padding: 0; }
-        .product-features li { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem; padding-left: 1.5rem; position: relative; }
-        .product-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-green); font-weight: bold; }
-
-        .product-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-        .btn-product {
-            padding: 0.7rem 1.3rem; border-radius: 50px; font-weight: 600; text-decoration: none;
-            transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; border: none;
-            font-family: inherit; font-size: 0.9rem; cursor: pointer; flex: 1; justify-content: center; min-width: 140px;
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
         }
-        .btn-download-product { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3); }
-        .btn-download-product:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5); }
-        .btn-complete-order { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
-        .btn-complete-order:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5); }
-        .btn-online-tool { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); }
-        .btn-online-tool:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5); }
 
-        .payment-section { max-width: 1200px; margin: 4rem auto; padding: 0 5%; position: relative; z-index: 1; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
-        .info-card {
-            background: var(--bg-card); padding: 2rem; border-radius: 15px; border: 1px solid var(--border);
-            text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; z-index: 1;
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
         }
-        .info-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
-        .info-icon {
-            width: 70px; height: 70px; margin: 0 auto 1.5rem; background: rgba(212, 175, 55, 0.15); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.8rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .info-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-primary); transition: color 0.3s ease; }
-        .info-value-box {
-            background: var(--bg-primary); padding: 1rem; border-radius: 10px; border: 1px solid var(--border);
-            font-family: monospace; font-size: 0.9rem; color: var(--accent-light); margin-bottom: 1rem; word-break: break-all; user-select: all;
-        }
-        .copy-btn {
-            background: var(--gradient); color: var(--bg-primary); border: none; padding: 0.7rem 1.5rem; border-radius: 50px;
-            cursor: pointer; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
-            font-family: inherit; font-size: 0.9rem;
-        }
-        .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
-        .copy-message { color: var(--accent-green); font-weight: 600; height: 20px; margin-top: 0.8rem; font-size: 0.85rem; }
 
-        .purchase-cta { max-width: 800px; margin: 3rem auto; text-align: center; }
-        .purchase-cta p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem; }
-
-        .community-section, .hub-section {
-            max-width: 800px; margin: 4rem auto; padding: 3rem 2rem; border-radius: 20px;
-            text-align: center; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; z-index: 1;
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
         }
-        .community-section { background: linear-gradient(135deg, rgba(91, 155, 213, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%); border: 2px solid var(--accent); }
-        .community-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #5B9BD5, #d4af37, #2ecc71); transition: height 0.4s ease; }
-        .community-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(91, 155, 213, 0.2); }
-        .community-section i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
-        .community-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
-        .community-section p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .community-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
-        .community-stat { text-align: center; }
-        .community-stat-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); transition: all 0.3s ease; }
-        .community-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
-        .btn-community {
-            background: linear-gradient(135deg, #5B9BD5 0%, #4A90E2 100%); color: white; padding: 0.9rem 2rem;
-            border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: all 0.3s; box-shadow: 0 5px 20px rgba(91, 155, 213, 0.3);
+
+        .tool-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
         }
-        .btn-community:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(91, 155, 213, 0.5); }
 
-        .hub-section { background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%); border: 2px solid var(--hub-color); }
-        .hub-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #9b59b6, #d4af37, #5B9BD5); transition: height 0.4s ease; }
-        .hub-section:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(155, 89, 182, 0.2); }
-        .hub-section i { font-size: 2.5rem; color: var(--hub-color); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
-        .hub-section h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.8rem; transition: color 0.3s ease; }
-        .hub-section p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .hub-stats { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
-        .hub-stat { text-align: center; }
-        .hub-stat-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--hub-color); transition: all 0.3s ease; }
-        .hub-stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
-        .btn-hub {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; padding: 0.9rem 2rem;
-            border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: all 0.3s; box-shadow: 0 5px 20px rgba(155, 89, 182, 0.3);
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
-        .btn-hub:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(155, 89, 182, 0.5); }
 
-        .about-section { max-width: 900px; margin: 4rem auto; padding: 0 5%; }
-        .about-card {
-            background: var(--bg-card); padding: 3rem 2rem; border-radius: 20px; border: 1px solid var(--border);
-            text-align: center; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; z-index: 1;
+        .tool-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
-        .about-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); transition: height 0.4s ease; }
-        .about-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .about-card i.about-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
-        .about-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; transition: color 0.3s ease; }
-        .about-card p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.8; font-size: 1rem; }
+        .status-active { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .status-soon { background: rgba(248, 113, 113, 0.2); color: #f87171; }
 
-        footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
-        footer p { color: var(--text-secondary); font-size: 0.9rem; }
-
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @keyframes highlight-section {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(46, 204, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        .arrow-icon {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 1.2rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: all 0.3s;
+            transform: translateX(-10px);
         }
-        .payment-section.highlight { animation: highlight-section 1.5s ease-out; }
 
-        @media (max-width: 968px) {
+        .tool-card:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
-            .stats-strip { gap: 1.5rem; padding: 1rem; }
-            .stat-box .stat-number { font-size: 1.4rem; }
-            .page-header h1 { font-size: 2rem; }
-            .community-stats, .hub-stats { gap: 1rem; }
-            .community-stat-value, .hub-stat-value { font-size: 1.4rem; }
-            .floating-back-btn { right: 20px; top: calc(var(--nav-height) + 10px); padding: 0.4rem 1rem; font-size: 0.8rem; }
-        }
-        @media (max-width: 600px) {
-            .products-grid { grid-template-columns: 1fr; }
-            .info-grid { grid-template-columns: 1fr; }
-            .free-sample-wrapper { padding: 1rem; margin: 1.5rem 0 2rem; }
-            .btn-free-sample { padding: 0.8rem 1.5rem; font-size: 0.95rem; }
-        }
-
-        @media print {
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            nav, footer, .bg-shapes, .free-sample-wrapper, .community-section, .hub-section, .about-section, .floating-back-btn { display: none !important; }
-            body { background: #ffffff !important; color: #000000 !important; overflow: visible !important; }
-            .page-header { padding: 2rem 0 !important; margin-bottom: 2rem !important; }
-            .page-header h1 { font-size: 2rem !important; color: #000 !important; -webkit-text-fill-color: #000 !important; }
-            .stats-strip { background: #f0f0f0 !important; border: 1px solid #ccc !important; color: #000 !important; }
-            .stat-box .stat-number, .stat-box .stat-label { color: #000 !important; }
-            .products-grid { display: block !important; width: 100% !important; }
-            .product-card, .info-card {
-                break-inside: avoid !important; page-break-inside: avoid !important; width: 100% !important; max-width: 100% !important;
-                margin-bottom: 25px !important; display: block !important; border: 1px solid #ddd !important; background: #fff !important;
-                box-shadow: none !important; transform: none !important; transition: none !important; border-radius: 8px !important;
-            }
-            .product-title, .info-title { color: #000 !important; }
-            .product-description, .product-features li, .product-meta, .product-category { color: #333 !important; }
-            .product-price { color: #000 !important; font-weight: bold !important; }
-            .product-banner { height: 100px !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .product-banner i { filter: none !important; }
-            .btn-product { border: 1px solid #ccc !important; background: #f9f9f9 !important; color: #000 !important; box-shadow: none !important; }
-            .payment-section { margin: 2rem 0 !important; page-break-before: always !important; }
-            .info-card { background: #f9f9f9 !important; border: 1px solid #ccc !important; }
-            .info-value-box { background: #fff !important; border: 1px solid #ccc !important; color: #000 !important; }
-            .section-title { color: #000 !important; -webkit-text-fill-color: #000 !important; }
-            .section-subtitle { color: #333 !important; }
-        }
-
-        #custom-chat-wrapper {
-            position: fixed; top: 135px; left: 30px; z-index: 10000;
-            display: flex; align-items: center; gap: 12px; pointer-events: none;
-        }
-        #chat-toggle {
-            pointer-events: auto; padding: 10px 20px; background: var(--gradient);
-            color: var(--bg-primary); border: none; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); font-family: inherit;
-            font-weight: 600; font-size: 0.9rem; z-index: 10001; transition: transform 0.2s ease;
-        }
-        #chat-toggle:hover { transform: scale(1.05); }
-        #chat-box {
-            display: none; position: fixed; top: 185px; left: 30px; width: 320px; height: 450px;
-            background: white; border: 1px solid #e0e0e0; border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column;
-            font-family: 'Inter', Tahoma, Arial, sans-serif; z-index: 10002; overflow: hidden;
-        }
-        #chat-header {
-            padding: 15px; background: var(--bg-primary); color: var(--accent); font-weight: bold;
-            display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        #close-chat { background: none; border: none; color: var(--accent); font-size: 20px; cursor: pointer; padding: 0; line-height: 1; }
-        #chat-messages { flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; background: #f9f9f9; }
-        #chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; gap: 8px; background: white; }
-        #user-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; color: #333; }
-        #send-btn { padding: 10px 16px; background: var(--accent); color: var(--bg-primary); border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        .msg-user { margin: 8px 0; text-align: right; }
-        .msg-user span { background: var(--accent); color: var(--bg-primary); padding: 8px 12px; border-radius: 12px 12px 0 12px; display: inline-block; max-width: 85%; }
-        .msg-bot { margin: 8px 0; text-align: left; }
-        .msg-bot span { background: #e9ecef; color: #333; padding: 8px 12px; border-radius: 12px 12px 12px 0; display: inline-block; max-width: 85%; }
-        .loading-msg { margin: 8px 0; text-align: left; color: #888; font-style: italic; font-size: 13px; }
-        @media (max-width: 768px) {
-            #custom-chat-wrapper { top: 130px; left: 20px; }
-            #chat-box { width: calc(100% - 40px); left: 20px; top: 180px; height: 60vh; }
+            .page-header h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-shapes"></div>
 
-    <a href="https://sbmousavices.github.io/Theme/digital-card-en.html" class="floating-back-btn">
-        <i class="fas fa-arrow-left"></i> Back to Digital Card
-    </a>
-
+    <!-- ✅ NAVIGATION BAR -->
     <nav>
         <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
             <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
@@ -460,691 +164,75 @@
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
             <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
-            <li><a href="https://sbmousavices.github.io/Industrial-Tools/hub.html">Hub</a></li>
+            <li><a href="hub.html">Hub</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
             <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
         </ul>
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <section class="page-header">
-        <p class="greeting">Macro-Enabled Solutions</p>
-        <h1>Industrial Project <span>Planning Tools</span></h1>
-        <p class="tagline">Professional Excel-based solutions for engineers and project managers, developed with 25+ years of field experience in oil & gas, EPC, and industrial projects.</p>
-
-        <div class="stats-strip">
-            <div class="stat-box"><i class="fas fa-box-open"></i><div class="stat-number">11</div><div class="stat-label">Tools</div></div>
-            <div class="stat-box"><i class="fas fa-star"></i><div class="stat-number">25+</div><div class="stat-label">Years Exp.</div></div>
-            <div class="stat-box"><i class="fas fa-users"></i><div class="stat-number">500+</div><div class="stat-label">Users</div></div>
-            <div class="stat-box"><i class="fas fa-globe"></i><div class="stat-number">Global</div><div class="stat-label">Delivery</div></div>
-        </div>
-    </section>
-
-    <section class="products-container">
-        <div class="section-header reveal">
-            <p class="section-subtitle">Available Solutions</p>
-            <h2 class="section-title">Professional <span>Tools & Services</span></h2>
-            <div class="section-divider"></div>
+    <!-- ✅ TOOLS HUB CONTENT -->
+    <div class="hub-container">
+        <div class="page-header">
+            <h1>Engineering <span>Tools Hub</span></h1>
+            <p>A collection of professional utilities for Project Managers and Industrial Engineers.</p>
         </div>
 
-        <div class="free-sample-wrapper reveal">
-            <p class="free-sample-text">Not sure which tool fits your needs? Download our free product catalog to evaluate the quality and structure before purchasing.</p>
-            <button onclick="downloadProductCatalog()" class="btn-free-sample">
-                <i class="fas fa-file-pdf"></i> Download Free Product Catalog
-            </button>
-        </div>
-
-        <div class="products-grid">
-
-            <!-- 1. FREE ONLINE TOOL -->
-            <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="product-card reveal" style="border-color: var(--accent-blue);">
-                <div class="product-banner" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
-                    <span class="product-badge product-badge-online">FREE ONLINE</span>
-                    <i class="fas fa-calculator"></i>
+        <div class="tools-grid">
+            
+            <!-- ✅ TOOL 1: EVM CALCULATOR (ACTIVE) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/evm-calculator.html" class="tool-card">
+                <div>
+                    <i class="fas fa-calculator tool-icon"></i>
+                    <div class="tool-title">Advanced EVM Calculator</div>
+                    <div class="tool-desc">Calculate CPI, SPI, and forecast project completion cost (EAC) based on schedule delays. Supports multiple currencies.</div>
                 </div>
-                <div class="product-body">
-                    <span class="product-category" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-blue);">Web Application</span>
-                    <h3 class="product-title">Engineering Tools Hub</h3>
-                    <p class="product-description">Access professional online calculators and utilities instantly. No download required. Includes Advanced EVM Calculator with multi-currency support.</p>
-                    <ul class="product-features">
-                        <li>Advanced EVM Calculator</li>
-                        <li>Multi-Currency Support</li>
-                        <li>Real-time Analysis</li>
-                        <li>100% Free & Online</li>
-                    </ul>
-                    <div class="product-meta">
-                        <span class="product-price" style="color: var(--accent-blue);">FREE</span>
-                        <span class="product-delivery"><i class="fas fa-wifi"></i> Instant Access</span>
-                    </div>
-                    <div class="product-actions">
-                        <span class="btn-product btn-online-tool" style="width: 100%;">
-                            <i class="fas fa-external-link-alt"></i> Open Eng. Tools
-                        </span>
-                    </div>
+                <div>
+                    <span class="tool-status status-active">Live Tool</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
                 </div>
             </a>
 
-            <!-- 2. FREE DEMO -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
-                    <span class="product-badge product-badge-free">FREE DEMO</span>
-                    <i class="fas fa-heartbeat"></i>
+            <!-- ✅ TOOL 2: WBS STRUCTURE BUILDER (NOW LIVE - LINKED TO PRODUCT) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/wbs-structure-builder.html" class="tool-card">
+                <div>
+                    <i class="fas fa-sitemap tool-icon"></i>
+                    <div class="tool-title">WBS Structure Builder</div>
+                    <div class="tool-desc">Automatically generate Work Breakdown Structures for industrial projects based on standard templates.</div>
                 </div>
-                <div class="product-body">
-                    <span class="product-category">Free Tool</span>
-                    <h3 class="product-title">Project Health Report Template</h3>
-                    <p class="product-description">A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
-                    <ul class="product-features">
-                        <li>Free demo version</li>
-                        <li>No payment required</li>
-                        <li>Try before purchase</li>
-                    </ul>
-                    <div class="product-meta">
-                        <span class="product-price">FREE</span>
-                        <span class="product-delivery"><i class="fas fa-bolt"></i> Instant</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Demo_Project_Health_Report_Template.xlsm" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Project Health Report Demo')">
-                            <i class="fas fa-download"></i> Download Demo
-                        </a>
-                    </div>
+                <div>
+                    <span class="tool-status status-active">Live Tool</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
                 </div>
-            </div>
-
-            <!-- 3. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);">
-                    <span class="product-badge">INTRO PRICE</span>
-                    <i class="fas fa-sitemap"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">MS Project Tool</span>
-                    <h3 class="product-title">WBS Grouping Tool for MS Project</h3>
-                    <p class="product-description">Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
-                    <div class="product-meta">
-                        <span class="product-price">79 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-WBS-001</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="WBS_Grouping_Demo.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: WBS Grouping Demo Video')">
-                            <i class="fas fa-video"></i> Demo Video
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-WBS-001')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
-                    <span class="product-badge">INTRO PRICE</span>
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Planning Tool</span>
-                    <h3 class="product-title">Executive Monthly Action Plan</h3>
-                    <p class="product-description">Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
-                    <div class="product-meta">
-                        <span class="product-price">350 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 2 days</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EXEC-002</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Executive_Monthly_Action_Plan.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Executive Monthly Action Plan PDF')">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-EXEC-002')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">
-                    <span class="product-badge">INTRO PRICE</span>
-                    <i class="fas fa-users-cog"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Resource Tool</span>
-                    <h3 class="product-title">Manpower & Machinery Data Bank</h3>
-                    <p class="product-description">Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
-                    <div class="product-meta">
-                        <span class="product-price">600 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-MAN-003</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Manpower_Guide.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Manpower Guide PDF')">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-MAN-003')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
-                    <span class="product-badge">INTRO PRICE</span>
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">EVM System</span>
-                    <h3 class="product-title">EVMS - Earned Value Management</h3>
-                    <p class="product-description">Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
-                    <div class="product-meta">
-                        <span class="product-price">800 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 3 days</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EVM-004</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="EVMS.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: EVMS PDF')">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-EVM-004')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 7. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
-                    <span class="product-badge product-badge-premium">PREMIUM</span>
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Executive Dashboard</span>
-                    <h3 class="product-title">Executive Management Dashboard</h3>
-                    <p class="product-description">Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
-                    <div class="product-meta">
-                        <span class="product-price">1200 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-crown"></i> Premium</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DASH-005</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Management_Dashboard.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Management Dashboard PDF')">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-DASH-005')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                    <span class="product-badge">PROFESSIONAL</span>
-                    <i class="fas fa-tasks"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Measurement System</span>
-                    <h3 class="product-title">PMS - Progress Measurement System</h3>
-                    <p class="product-description">Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
-                    <div class="product-meta">
-                        <span class="product-price">1500 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-PMS-006</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="javascript:void(0)" class="btn-product btn-download-product" onclick="event.stopPropagation(); forceDownloadFile('https://sbmousavices.github.io/Industrial-Tools/EL_%26IN_Sample_PMS.pdf', 'PMS_Sample.pdf', '/demo-download', 'Downloaded: PMS Sample PDF')">
-                            <i class="fas fa-file-pdf"></i> Download Sample
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-PMS-006')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 9. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
-                    <span class="product-badge">PROFESSIONAL</span>
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Schedule Service</span>
-                    <h3 class="product-title">Project Time Schedule</h3>
-                    <p class="product-description">A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
-                    <div class="product-meta">
-                        <span class="product-price">1500 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-SCH-007</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Project_Time_Schedule.mp4" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Project Time Schedule Demo Video')">
-                            <i class="fas fa-video"></i> Demo Video
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-SCH-007')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 10. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);">
-                    <span class="product-badge product-badge-premium">PREMIUM CLAIM</span>
-                    <i class="fas fa-gavel"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Claim Service</span>
-                    <h3 class="product-title">Project Delay Report (EOT Support)</h3>
-                    <p class="product-description">Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
-                    <div class="product-meta">
-                        <span class="product-price">3000 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EOT-008</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="Delay_Schedule_Analysis.pdf" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Delay Schedule Analysis PDF')">
-                            <i class="fas fa-file-pdf"></i> Download Sample
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-EOT-008')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 11. PAID PRODUCT -->
-            <div class="product-card reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%);">
-                    <span class="product-badge">FULL PACKAGE</span>
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Claim Package</span>
-                    <h3 class="product-title">Claim Package - Financial Impact</h3>
-                    <p class="product-description">Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
-                    <div class="product-meta">
-                        <span class="product-price" style="font-size: 0.95rem;">3000 USDT in Advance &<br>5% of Claim Value</span>
-                        <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CLM-009</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-CLM-009')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 12. EVM CALCULATOR PRO (PRO WEB APP) -->
-            <div id="BM-EVM-PRO-010" class="product-card pro-web-app reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
-                    <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Premium Web Application</span>
-                    <h3 class="product-title">EVM Calculator Pro</h3>
-                    <p class="product-description">Professional Earned Value Management web application with advanced S-Curve generation, PDF reporting, and project data persistence for industrial engineers.</p>
-                    <ul class="product-features">
-                        <li>Save / Import Project Data (JSON)</li>
-                        <li>PDF Reports (Portrait + Landscape)</li>
-                        <li>Interactive S-Curve Chart</li>
-                        <li>Managerial Analysis Engine</li>
-                    </ul>
-                    <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EVM-PRO-010</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="https://sbmousavices.github.io/Industrial-Tools/evm-calculator-pro-demo.html" class="btn-product btn-online-tool" onclick="event.stopPropagation(); trackEvent('/evm-pro-demo', 'Opened: EVM Calculator Pro')">
-                            <i class="fas fa-eye"></i> Live Demo
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-EVM-PRO-010')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ✅ 13. DELAY IMPACT ANALYZER PRO (PREMIUM WEB APP) - TARGET FOR SCROLL -->
-            <div id="BM-DIA-PRO-011" class="product-card pro-web-app reveal">
-                <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
-                    <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
-                    <i class="fas fa-hourglass-half"></i>
-                </div>
-                <div class="product-body">
-                    <span class="product-category">Premium Web Application</span>
-                    <h3 class="product-title">Delay Impact Analyzer Pro</h3>
-                    <p class="product-description">Professional delay analysis tool for calculating project delays, critical path impact, and EOT claims with interactive Gantt charts and comprehensive reporting.</p>
-                    <ul class="product-features">
-                        <li>Critical Path Method (CPM) Analysis</li>
-                        <li>Save / Import Project Data (JSON)</li>
-                        <li>Interactive Gantt Chart Visualization</li>
-                        <li>Excel Export & Print Reports</li>
-                        <li>EOT Claim Calculation</li>
-                    </ul>
-                    <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
-                        <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
-                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DIA-PRO-011</span>
-                    </div>
-                    <div class="product-actions">
-                        <a href="https://sbmousavices.github.io/Industrial-Tools/delay-impact-analyzer.html" class="btn-product btn-online-tool" onclick="event.stopPropagation(); trackEvent('/dia-pro-demo', 'Opened: Delay Impact Analyzer Pro Demo')">
-                            <i class="fas fa-eye"></i> Live Demo
-                        </a>
-                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-DIA-PRO-011')">
-                            <i class="fas fa-check-circle"></i> Complete Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="payment-section" id="payment-section">
-        <div class="section-header reveal">
-            <p class="section-subtitle">How to Purchase</p>
-            <h2 class="section-title">Payment & <span>Contact</span></h2>
-            <div class="section-divider"></div>
-        </div>
-
-        <div class="info-grid">
-            <div class="info-card reveal">
-                <div class="info-icon"><i class="fas fa-wallet"></i></div>
-                <h3 class="info-title">USDT Wallet (TRC-20)</h3>
-                <div class="info-value-box" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
-                <button class="copy-btn" onclick="event.stopPropagation(); copyText('walletAddress', 'walletMessage')">
-                    <i class="fas fa-copy"></i> Copy Wallet Address
-                </button>
-                <div class="copy-message" id="walletMessage"></div>
-            </div>
-
-            <div class="info-card reveal" style="text-align: left; padding: 1.5rem; cursor: default;">
-                <div style="text-align: center; margin-bottom: 1.5rem;">
-                    <div class="info-icon" style="margin: 0 auto 1rem;"><i class="fas fa-paper-plane"></i></div>
-                    <h3 class="info-title">Send Direct Message</h3>
-                </div>
-                
-                <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST">
-                    <input type="hidden" name="_next" value="https://sbmousavices.github.io/Industrial-Tools/">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_subject" value="New Purchase Inquiry from Website">
-
-                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Full Name</label>
-                    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
-
-                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Email Address</label>
-                    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
-
-                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Product Code</label>
-                    <input type="text" id="productCodeInput" name="product_code" placeholder="Click on a product to auto-fill" style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
-
-                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Description / Transaction Hash</label>
-                    <textarea name="message" placeholder="Describe your request or paste TX Hash..." required style="width: 100%; padding: 10px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none; min-height: 80px; resize: vertical;"></textarea>
-
-                    <button type="submit" class="submit-btn" style="width: 100%; padding: 12px; background: var(--accent); color: var(--bg-primary); border: none; border-radius: 8px; font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="purchase-cta reveal">
-            <p>After payment, you can use the form above to send your transaction details directly.</p>
-            <p>Our team will contact you as soon as possible.</p>
-        </div>
-    </section>
-
-    <section class="products-container">
-        <div class="community-section reveal">
-            <i class="fas fa-users"></i>
-            <h3>Join Our Professional Community</h3>
-            <p>Connect with 500+ industrial engineers and project planners. Get exclusive tools, real-world insights, and networking opportunities across multiple platforms.</p>
-            <div class="community-stats">
-                <div class="community-stat">
-                    <div class="community-stat-value">500+</div>
-                    <div class="community-stat-label">Members</div>
-                </div>
-                <div class="community-stat">
-                    <div class="community-stat-value">6</div>
-                    <div class="community-stat-label">Platforms</div>
-                </div>
-                <div class="community-stat">
-                    <div class="community-stat-value">FREE</div>
-                    <div class="community-stat-label">Starter Kit</div>
-                </div>
-            </div>
-            <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html" class="btn-community" onclick="event.stopPropagation()">
-                <i class="fas fa-user-plus"></i> Join Community Now
             </a>
-        </div>
-    </section>
 
-    <section class="products-container">
-        <div class="hub-section reveal">
-            <i class="fas fa-comments"></i>
-            <h3>Community Hub - Connect & Share</h3>
-            <p>Join our interactive hub to post job opportunities, share industry insights, ask questions, and connect with professionals worldwide. Real-time discussions, job board, and marketplace.</p>
-            <div class="hub-stats">
-                <div class="hub-stat">
-                    <div class="hub-stat-value">LIVE</div>
-                    <div class="hub-stat-label">Discussions</div>
+            <!-- ✅ TOOL 3: DELAY ANALYZER (ACTIVE) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/delay-impact-analyzer.html" class="tool-card">
+                <div>
+                    <i class="fas fa-hourglass-half tool-icon"></i>
+                    <div class="tool-title">Delay Impact Analyzer</div>
+                    <div class="tool-desc">Analyze the impact of specific events on the project critical path and calculate EOT claims.</div>
                 </div>
-                <div class="hub-stat">
-                    <div class="hub-stat-value">JOBS</div>
-                    <div class="hub-stat-label">Board</div>
+                <div>
+                    <span class="tool-status status-active">Live Tool</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
                 </div>
-                <div class="hub-stat">
-                    <div class="hub-stat-value">ADS</div>
-                    <div class="hub-stat-label">Marketplace</div>
+            </a>
+
+            <!-- ✅ TOOL 4: CASH FLOW PREDICTOR (COMING SOON) -->
+            <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div>
+                    <i class="fas fa-chart-line tool-icon" style="color: var(--text-secondary);"></i>
+                    <div class="tool-title">Cash Flow Predictor</div>
+                    <div class="tool-desc">Predict monthly cash flow requirements based on S-curve analysis and progress measurements.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-soon">Coming Soon</span>
                 </div>
             </div>
-            <a href="https://sbmousavices.github.io/Industrial-Tools/hub.html" class="btn-hub" onclick="event.stopPropagation()">
-                <i class="fas fa-arrow-right"></i> Enter Community Hub
-            </a>
-        </div>
-    </section>
 
-    <section class="about-section">
-        <div class="about-card reveal">
-            <i class="fas fa-user-tie about-icon"></i>
-            <h3>About the Creator</h3>
-            <p>With more than 25 years of experience in industrial project planning and control, I design practical tools for engineers and project managers. My experience covers oil and gas projects including engineering, procurement, construction, commissioning, scheduling, progress measurement, cost control, and delay analysis. These solutions are developed based on real project challenges and practical field requirements.</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Industrial Project Planning Excellence</p>
-    </footer>
-
-    <div id="custom-chat-wrapper">
-        <button id="chat-toggle">💬 Chat</button>
-    </div>
-
-    <div id="chat-box">
-        <div id="chat-header">
-            <span>AI Assistant</span>
-            <button id="close-chat">&times;</button>
-        </div>
-        <div id="chat-messages"></div>
-        <div id="chat-input-area">
-            <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
-            <button id="send-btn">Send</button>
         </div>
     </div>
 
-    <script>
-    const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
-    const toggleBtn = document.getElementById('chat-toggle');
-    const closeBtn = document.getElementById('close-chat');
-    const chatBox = document.getElementById('chat-box');
-    const sendBtn = document.getElementById('send-btn');
-    const userInput = document.getElementById('user-input');
-    const messagesDiv = document.getElementById('chat-messages');
-
-    toggleBtn.addEventListener('click', () => {
-        chatBox.style.display = 'flex';
-        toggleBtn.style.display = 'none';
-        userInput.focus();
-    });
-
-    closeBtn.addEventListener('click', () => {
-        chatBox.style.display = 'none';
-        toggleBtn.style.display = 'block';
-    });
-
-    sendBtn.addEventListener('click', sendMessage);
-    userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-
-    async function sendMessage() {
-        const message = userInput.value.trim();
-        if (!message) return;
-
-        messagesDiv.innerHTML += `<div class="msg-user"><span>${escapeHtml(message)}</span></div>`;
-        userInput.value = '';
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-        const loadingId = 'loading-' + Date.now();
-        messagesDiv.innerHTML += `<div id="${loadingId}" class="loading-msg">Thinking...</div>`;
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: message })
-            });
-            const data = await response.json();
-            document.getElementById(loadingId).remove();
-            const replyText = data.reply || 'Sorry, I could not process that request.';
-            messagesDiv.innerHTML += `<div class="msg-bot"><span>${escapeHtml(replyText)}</span></div>`;
-        } catch (error) {
-            document.getElementById(loadingId).remove();
-            messagesDiv.innerHTML += `<div class="msg-bot"><span style="color:red;">⚠️ Connection error. Please try again.</span></div>`;
-        }
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    function escapeHtml(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-    }
-    </script>
-
-    <script>
-        async function downloadProductCatalog() {
-            const url = 'https://sbmousavices.github.io/Industrial-Tools/Product.pdf';
-            const filename = 'Product_Catalog.pdf';
-            try {
-                trackEvent('/free-sample-download', 'Downloaded: Free Product Catalog PDF');
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                const blob = await response.blob();
-                const blobUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = blobUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(blobUrl);
-                document.body.removeChild(a);
-            } catch (error) {
-                console.error('Download failed:', error);
-                window.open(url, '_blank');
-            }
-        }
-
-        async function forceDownloadFile(url, filename, eventName, eventTitle) {
-            try {
-                if (eventName) trackEvent(eventName, eventTitle || eventName);
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                const blob = await response.blob();
-                const blobUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = blobUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(blobUrl);
-                document.body.removeChild(a);
-            } catch (error) {
-                console.error('Download failed:', error);
-                window.open(url, '_blank');
-            }
-        }
-
-        function trackEvent(path, title) {
-            if (window.goatcounter) {
-                window.goatcounter.count({ path: path, title: title || path, event: true });
-            }
-        }
-
-        function copyText(id, messageId) {
-            const element = document.getElementById(id);
-            const text = element.innerText || element.textContent;
-            navigator.clipboard.writeText(text).then(function() {
-                const message = document.getElementById(messageId);
-                message.innerHTML = '<i class="fas fa-check-circle"></i> Copied successfully!';
-                setTimeout(function() { message.innerHTML = ""; }, 2500);
-                if (id === 'walletAddress') trackEvent('/copy-wallet', 'Copied wallet address');
-            }).catch(function(error) {
-                console.log("Copy failed:", error);
-                alert("Failed to copy. Please copy manually.");
-            });
-        }
-
-        function scrollToContactForm(productId = '') {
-            const target = document.getElementById('payment-section');
-            if (target) {
-                const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 90;
-                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                
-                if (productId) {
-                    const inputField = document.getElementById('productCodeInput');
-                    if (inputField) {
-                        inputField.value = productId;
-                        inputField.style.borderColor = 'var(--accent-green)';
-                        inputField.style.boxShadow = '0 0 0 3px rgba(46, 204, 113, 0.2)';
-                        setTimeout(() => {
-                            inputField.style.borderColor = 'rgba(212, 175, 55, 0.2)';
-                            inputField.style.boxShadow = 'none';
-                        }, 1500);
-                    }
-                }
-                
-                setTimeout(() => {
-                    target.classList.add('highlight');
-                    setTimeout(() => target.classList.remove('highlight'), 1500);
-                }, 600);
-            }
-        }
-
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('a[href="#payment-section"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                scrollToContactForm();
-            });
-        });
-    </script>
 </body>
 </html>
