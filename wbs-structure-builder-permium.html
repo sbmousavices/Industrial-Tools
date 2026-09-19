@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WBS Structure Builder - Engineering Tools Hub</title>
+  
+  <!-- ✅ FONTS & ICONS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #0a1628;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --border-color: rgba(212, 175, 55, 0.2);
+      --text-primary: #e8eef7;
+      --text-secondary: #a0aec0;
+      
+      --accent: #d4af37;
+      --accent-gold: #d4af37;
+      --accent-light: #f4d06f;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --input-bg: #0f172a;
+      
+      --nav-height: 70px;
+      --nav-bg: rgba(10, 10, 12, 0.95);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding-top: calc(var(--nav-height) + 30px);
+      padding-bottom: 60px;
+      background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+    }
+
+    /* =========================================
+       ✅ NAVIGATION BAR STYLES
+       ========================================= */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+      background: var(--nav-bg); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+    .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+    /* =========================================
+       ✅ TOOL SPECIFIC STYLES
+       ========================================= */
+    .header {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header h1 span { color: var(--accent-gold); }
+
+    .btn-back {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--accent-gold);
+      border-radius: 2px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: var(--accent-red);
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-success {
+      background: var(--accent-green);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    /* ===== WBS TREE STYLES ===== */
+    .wbs-tree {
+      margin-top: 20px;
+    }
+
+    .wbs-item {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
+
+    .wbs-item-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .wbs-item-content:hover {
+      border-color: var(--accent-gold);
+    }
+
+    .wbs-item-content.level-0 {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-gold);
+    }
+
+    /* ✅ Updated to support up to 10 levels */
+    .wbs-item-content.level-1 { margin-left: 30px; }
+    .wbs-item-content.level-2 { margin-left: 60px; }
+    .wbs-item-content.level-3 { margin-left: 90px; }
+    .wbs-item-content.level-4 { margin-left: 120px; }
+    .wbs-item-content.level-5 { margin-left: 150px; }
+    .wbs-item-content.level-6 { margin-left: 180px; }
+    .wbs-item-content.level-7 { margin-left: 210px; }
+    .wbs-item-content.level-8 { margin-left: 240px; }
+    .wbs-item-content.level-9 { margin-left: 270px; }
+    .wbs-item-content.level-10 { margin-left: 300px; }
+
+    .wbs-code {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      min-width: 80px;
+    }
+
+    .wbs-name {
+      flex: 1;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .wbs-name-input {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--accent-gold);
+      color: var(--text-primary);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .wbs-level-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .level-0 .wbs-level-badge { background: rgba(212, 175, 55, 0.2); color: var(--accent-gold); }
+    .level-1 .wbs-level-badge { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+    .level-2 .wbs-level-badge { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+    .level-3 .wbs-level-badge { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .level-4 .wbs-level-badge { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+    /* ✅ Generic styling for levels 5 to 10 */
+    .level-5 .wbs-level-badge,
+    .level-6 .wbs-level-badge,
+    .level-7 .wbs-level-badge,
+    .level-8 .wbs-level-badge,
+    .level-9 .wbs-level-badge,
+    .level-10 .wbs-level-badge { 
+      background: rgba(239, 68, 68, 0.2); 
+      color: var(--accent-red); 
+    }
+
+    .wbs-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .wbs-actions button {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wbs-actions button:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .wbs-actions button.delete:hover {
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    /* ===== ACTION BAR ===== */
+    .action-bar {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .text-muted { color: var(--text-secondary); }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 40px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    /* ✅ RESPONSIVE */
+    @media (max-width: 1024px) {
+      .input-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: var(--nav-bg); padding: 20px; border-bottom: 1px solid var(--border-color); }
+      .nav-links.active { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .header { flex-direction: column; gap: 15px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ NAVIGATION BAR -->
+  <nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+      <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+      <span>BM Planning</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+      <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+      <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+      <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="container">
+    <!-- TOOL HEADER -->
+    <header class="header">
+      <h1>
+        <i class="fas fa-sitemap" style="color: var(--accent-gold);"></i>
+        WBS Structure <span>Builder</span>
+      </h1>
+      <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        Back to Tools Hub
+      </a>
+    </header>
+
+    <!-- PROJECT SETUP SECTION -->
+    <section class="section">
+      <h2 class="section-title">Project Setup</h2>
+      
+      <div class="input-grid">
+        <div class="form-group">
+          <label>Project Name</label>
+          <input type="text" id="projectName" placeholder="e.g., Industrial Plant Construction">
+        </div>
+        <div class="form-group">
+          <label>Industry Template</label>
+          <select id="industryTemplate">
+            <option value="">-- Select Template --</option>
+            <option value="construction">Construction Project</option>
+            <option value="software">Software Development</option>
+            <option value="manufacturing">Manufacturing/Production</option>
+            <option value="oilgas">Oil & Gas EPC</option>
+            <option value="event">Event Management</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Max WBS Levels</label>
+          <!-- ✅ Updated to support up to 10 levels -->
+          <select id="maxLevels">
+            <option value="3">3 Levels</option>
+            <option value="4" selected>4 Levels</option>
+            <option value="5">5 Levels</option>
+            <option value="6">6 Levels</option>
+            <option value="7">7 Levels</option>
+            <option value="8">8 Levels</option>
+            <option value="9">9 Levels</option>
+            <option value="10">10 Levels</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="generateWBS()">
+          <i class="fas fa-magic"></i>
+          Generate WBS
+        </button>
+      </div>
+    </section>
+
+    <!-- WBS STRUCTURE SECTION -->
+    <section class="section">
+      <h2 class="section-title">WBS Structure</h2>
+      
+      <div id="wbsContainer">
+        <div class="empty-state">
+          <i class="fas fa-sitemap"></i>
+          <p>No WBS structure generated yet. Select a template and click "Generate WBS" to start.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICS SECTION -->
+    <section class="section" id="statsSection" style="display: none;">
+      <h2 class="section-title">WBS Statistics</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Tasks</div>
+          <div class="stat-value" id="totalTasks">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">WBS Levels</div>
+          <div class="stat-value" id="totalLevels">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Work Packages</div>
+          <div class="stat-value" id="workPackages">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Project Name</div>
+          <div class="stat-value" id="projectNameDisplay" style="font-size: 16px;">-</div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn btn-secondary" onclick="clearWBS()">
+          <i class="fas fa-trash"></i>
+          Clear All
+        </button>
+        
+        <button class="btn" onclick="saveProject()" style="background: var(--accent-blue); color: #fff;">
+          <i class="fas fa-save"></i>
+          Save Project
+        </button>
+        
+        <button class="btn" onclick="document.getElementById('importFile').click()" style="background: var(--bg-card); color: var(--accent-gold); border: 1px solid var(--accent-gold);">
+          <i class="fas fa-upload"></i>
+          Import Project
+        </button>
+        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importProject(this)">
+        
+        <button class="btn btn-success" onclick="exportToExcel()">
+          <i class="fas fa-file-excel"></i>
+          Export to Excel
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          <i class="fas fa-print"></i>
+          Print Report
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ✅ Mobile Menu Toggle
+    function toggleMobileMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    // ===== DATA STORE =====
+    let wbsData = [];
+    let projectId = 1;
+
+    // ===== WBS TEMPLATES =====
+    const wbsTemplates = {
+      construction: {
+        name: "Construction Project",
+        structure: [
+          { name: "Project Management", children: [
+              { name: "Project Planning", children: [{ name: "Scope Definition" }, { name: "Schedule Development" }, { name: "Budget Planning" }] },
+              { name: "Project Control", children: [{ name: "Progress Monitoring" }, { name: "Cost Control" }, { name: "Quality Assurance" }] },
+              { name: "Project Closure", children: [{ name: "Final Documentation" }, { name: "Handover" }] }
+            ]},
+          { name: "Design & Engineering", children: [
+              { name: "Conceptual Design", children: [{ name: "Feasibility Study" }, { name: "Preliminary Design" }] },
+              { name: "Detailed Design", children: [{ name: "Architectural Drawings" }, { name: "Structural Drawings" }, { name: "MEP Drawings" }] },
+              { name: "Design Review", children: [{ name: "Client Approval" }, { name: "Regulatory Approval" }] }
+            ]},
+          { name: "Procurement", children: [
+              { name: "Material Procurement", children: [{ name: "Vendor Selection" }, { name: "Purchase Orders" }, { name: "Material Delivery" }] },
+              { name: "Equipment Procurement", children: [{ name: "Equipment Specification" }, { name: "Supplier Contract" }] }
+            ]},
+          { name: "Construction", children: [
+              { name: "Site Preparation", children: [{ name: "Land Clearing" }, { name: "Excavation" }, { name: "Foundation Work" }] },
+              { name: "Structural Work", children: [{ name: "Steel Structure" }, { name: "Concrete Work" }] },
+              { name: "MEP Installation", children: [{ name: "Electrical Systems" }, { name: "Plumbing Systems" }, { name: "HVAC Systems" }] },
+              { name: "Finishing Work", children: [{ name: "Interior Finishing" }, { name: "Exterior Finishing" }] }
+            ]},
+          { name: "Testing & Commissioning", children: [
+              { name: "System Testing", children: [{ name: "Electrical Testing" }, { name: "Mechanical Testing" }] },
+              { name: "Commissioning", children: [{ name: "Performance Testing" }, { name: "Safety Inspection" }] }
+            ]}
+        ]
+      },
+      software: {
+        name: "Software Development",
+        structure: [
+          { name: "Project Initiation", children: [
+              { name: "Requirements Gathering", children: [{ name: "Stakeholder Interviews" }, { name: "Requirements Documentation" }] },
+              { name: "Project Planning", children: [{ name: "Resource Planning" }, { name: "Timeline Development" }] }
+            ]},
+          { name: "Design Phase", children: [
+              { name: "System Architecture", children: [{ name: "High-Level Design" }, { name: "Database Design" }] },
+              { name: "UI/UX Design", children: [{ name: "Wireframing" }, { name: "Prototyping" }, { name: "User Testing" }] }
+            ]},
+          { name: "Development", children: [
+              { name: "Frontend Development", children: [{ name: "UI Components" }, { name: "State Management" }, { name: "API Integration" }] },
+              { name: "Backend Development", children: [{ name: "API Development" }, { name: "Database Implementation" }, { name: "Authentication" }] },
+              { name: "Integration", children: [{ name: "Third-party Services" }, { name: "Payment Gateway" }] }
+            ]},
+          { name: "Testing", children: [
+              { name: "Unit Testing", children: [{ name: "Test Case Development" }, { name: "Code Coverage" }] },
+              { name: "Integration Testing", children: [{ name: "API Testing" }, { name: "End-to-End Testing" }] },
+              { name: "User Acceptance Testing", children: [{ name: "Beta Testing" }, { name: "Bug Fixes" }] }
+            ]},
+          { name: "Deployment", children: [
+              { name: "Production Setup", children: [{ name: "Server Configuration" }, { name: "CI/CD Pipeline" }] },
+              { name: "Launch", children: [{ name: "Go-Live" }, { name: "Monitoring" }] }
+            ]}
+        ]
+      },
+      manufacturing: {
+        name: "Manufacturing/Production",
+        structure: [
+          { name: "Product Development", children: [
+              { name: "Research & Development", children: [{ name: "Market Research" }, { name: "Product Design" }] },
+              { name: "Prototyping", children: [{ name: "Prototype Development" }, { name: "Testing & Validation" }] }
+            ]},
+          { name: "Production Planning", children: [
+              { name: "Capacity Planning", children: [{ name: "Resource Assessment" }, { name: "Production Schedule" }] },
+              { name: "Material Planning", children: [{ name: "BOM Development" }, { name: "Inventory Planning" }] }
+            ]},
+          { name: "Manufacturing", children: [
+              { name: "Raw Material Processing", children: [{ name: "Material Inspection" }, { name: "Preparation" }] },
+              { name: "Assembly", children: [{ name: "Component Assembly" }, { name: "Sub-Assembly" }] },
+              { name: "Quality Control", children: [{ name: "In-Process Inspection" }, { name: "Final Inspection" }] }
+            ]},
+          { name: "Packaging & Distribution", children: [
+              { name: "Packaging", children: [{ name: "Primary Packaging" }, { name: "Secondary Packaging" }] },
+              { name: "Logistics", children: [{ name: "Warehousing" }, { name: "Shipping" }] }
+            ]}
+        ]
+      },
+      oilgas: {
+        name: "Oil & Gas EPC",
+        structure: [
+          { name: "Engineering", children: [
+              { name: "Front-End Engineering", children: [{ name: "FEED Study" }, { name: "Process Design" }] },
+              { name: "Detailed Engineering", children: [{ name: "P&ID Development" }, { name: "Equipment Specification" }, { name: "Piping Design" }] }
+            ]},
+          { name: "Procurement", children: [
+              { name: "Long Lead Items", children: [{ name: "Compressors" }, { name: "Turbines" }, { name: "Heat Exchangers" }] },
+              { name: "Bulk Materials", children: [{ name: "Pipes & Fittings" }, { name: "Valves" }, { name: "Instruments" }] }
+            ]},
+          { name: "Construction", children: [
+              { name: "Civil Works", children: [{ name: "Foundation" }, { name: "Structural Steel" }] },
+              { name: "Mechanical Installation", children: [{ name: "Equipment Installation" }, { name: "Piping Installation" }] },
+              { name: "Electrical & Instrumentation", children: [{ name: "Cable Installation" }, { name: "Instrument Installation" }] }
+            ]},
+          { name: "Commissioning", children: [
+              { name: "Pre-Commissioning", children: [{ name: "Mechanical Completion" }, { name: "Loop Checking" }] },
+              { name: "Start-Up", children: [{ name: "Performance Testing" }, { name: "Handover to Operations" }] }
+            ]}
+        ]
+      },
+      event: {
+        name: "Event Management",
+        structure: [
+          { name: "Event Planning", children: [
+              { name: "Concept Development", children: [{ name: "Theme Selection" }, { name: "Budget Planning" }] },
+              { name: "Venue Selection", children: [{ name: "Site Visit" }, { name: "Contract Negotiation" }] }
+            ]},
+          { name: "Marketing & Promotion", children: [
+              { name: "Digital Marketing", children: [{ name: "Social Media Campaign" }, { name: "Email Marketing" }] },
+              { name: "Traditional Marketing", children: [{ name: "Print Media" }, { name: "Billboards" }] }
+            ]},
+          { name: "Logistics", children: [
+              { name: "Catering", children: [{ name: "Menu Planning" }, { name: "Vendor Selection" }] },
+              { name: "Equipment", children: [{ name: "AV Equipment" }, { name: "Furniture Rental" }] },
+              { name: "Transportation", children: [{ name: "Guest Transport" }, { name: "Staff Transport" }] }
+            ]},
+          { name: "Event Execution", children: [
+              { name: "Setup", children: [{ name: "Venue Decoration" }, { name: "Technical Setup" }] },
+              { name: "Event Day", children: [{ name: "Registration" }, { name: "Program Management" }] },
+              { name: "Teardown", children: [{ name: "Equipment Removal" }, { name: "Venue Restoration" }] }
+            ]}
+        ]
+      }
+    };
+
+    // ===== WBS GENERATION =====
+    function generateWBS() {
+      const projectName = document.getElementById('projectName').value.trim();
+      const template = document.getElementById('industryTemplate').value;
+      const maxLevels = parseInt(document.getElementById('maxLevels').value);
+
+      if (!projectName) { alert('Please enter a project name'); return; }
+      if (!template) { alert('Please select an industry template'); return; }
+
+      const templateData = wbsTemplates[template];
+      wbsData = [];
+      projectId = 1;
+
+      const rootNode = {
+        id: projectId++,
+        code: "1",
+        name: projectName,
+        level: 0,
+        children: []
+      };
+
+      function buildWBS(items, parentCode, level) {
+        if (level >= maxLevels) return [];
+        return items.map((item, index) => {
+          const code = `${parentCode}.${index + 1}`;
+          return {
+            id: projectId++,
+            code: code,
+            name: item.name,
+            level: level,
+            children: item.children ? buildWBS(item.children, code, level + 1) : []
+          };
+        });
+      }
+
+      rootNode.children = buildWBS(templateData.structure, "1", 1);
+      wbsData = [rootNode];
+
+      renderWBS();
+      updateStats();
+      autoSave();
+    }
+
+    // ===== WBS RENDERING =====
+    function renderWBS() {
+      const container = document.getElementById('wbsContainer');
+      const statsSection = document.getElementById('statsSection');
+
+      if (wbsData.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-sitemap"></i><p>No WBS structure generated yet. Select a template and click "Generate WBS" to start.</p></div>`;
+        statsSection.style.display = 'none';
+        return;
+      }
+
+      statsSection.style.display = 'block';
+      const maxLevels = parseInt(document.getElementById('maxLevels').value) || 4;
+
+      function renderNode(node) {
+        const canAddChild = node.level < maxLevels;
+        const canDelete = node.level > 0;
+
+        let html = `
+          <div class="wbs-item">
+            <div class="wbs-item-content level-${node.level}">
+              <span class="wbs-code">${node.code}</span>
+              <input type="text" class="wbs-name-input" value="${node.name}" onchange="updateNodeName(${node.id}, this.value)" title="Click to edit task name">
+              <span class="wbs-level-badge">Level ${node.level}</span>
+              <div class="wbs-actions">
+                ${canAddChild ? `<button onclick="addChildNode(${node.id})" title="Add Sub-task"><i class="fas fa-plus"></i></button>` : ''}
+                ${canDelete ? `<button class="delete" onclick="deleteNode(${node.id})" title="Delete Task"><i class="fas fa-trash"></i></button>` : ''}
+              </div>
+            </div>
+        `;
+
+        if (node.children && node.children.length > 0) {
+          node.children.forEach(child => {
+            html += renderNode(child);
+          });
+        }
+
+        html += `</div>`;
+        return html;
+      }
+
+      container.innerHTML = `<div class="wbs-tree">${wbsData.map(node => renderNode(node)).join('')}</div>`;
+    }
+
+    // ===== WBS MANIPULATION =====
+    function findNode(nodes, id) {
+      for (let node of nodes) {
+        if (node.id === id) return node;
+        if (node.children) {
+          const found = findNode(node.children, id);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+
+    function findParent(nodes, id, parent = null) {
+      for (let node of nodes) {
+        if (node.id === id) return parent;
+        if (node.children) {
+          const found = findParent(node.children, id, node);
+          if (found !== undefined) return found;
+        }
+      }
+      return undefined;
+    }
+
+    function updateNodeName(id, newName) {
+      const node = findNode(wbsData, id);
+      if (node) {
+        node.name = newName;
+        autoSave();
+      }
+    }
+
+    function addChildNode(parentId) {
+      const parent = findNode(wbsData, parentId);
+      if (!parent) return;
+
+      const maxLevels = parseInt(document.getElementById('maxLevels').value) || 4;
+      
+      if (parent.level >= maxLevels - 1) {
+        alert(`Maximum level reached. This project is configured for a maximum of ${maxLevels} levels.`);
+        return;
+      }
+
+      const childCode = `${parent.code}.${parent.children.length + 1}`;
+      const newChild = {
+        id: projectId++,
+        code: childCode,
+        name: "New Task",
+        level: parent.level + 1,
+        children: []
+      };
+
+      parent.children.push(newChild);
+      renderWBS();
+      updateStats();
+      autoSave();
+    }
+
+    function deleteNode(id) {
+      if (!confirm('Are you sure you want to delete this task and all its children?')) return;
+
+      const parent = findParent(wbsData, id);
+      if (parent) {
+        parent.children = parent.children.filter(child => child.id !== id);
+        parent.children.forEach((child, index) => {
+          const parts = child.code.split('.');
+          parts[parts.length - 1] = index + 1;
+          child.code = parts.join('.');
+          renumberChildren(child);
+        });
+      }
+
+      renderWBS();
+      updateStats();
+      autoSave();
+    }
+
+    function renumberChildren(node) {
+      if (node.children) {
+        node.children.forEach((child, index) => {
+          const parts = child.code.split('.');
+          parts[parts.length - 1] = index + 1;
+          child.code = parts.join('.');
+          renumberChildren(child);
+        });
+      }
+    }
+
+    // ===== STATISTICS =====
+    function updateStats() {
+      let totalTasks = 0;
+      let maxLevel = 0;
+      let workPackages = 0;
+
+      function countNodes(nodes) {
+        nodes.forEach(node => {
+          totalTasks++;
+          if (node.level > maxLevel) maxLevel = node.level;
+          if (node.children.length === 0 && node.level > 0) workPackages++;
+          if (node.children) countNodes(node.children);
+        });
+      }
+
+      countNodes(wbsData);
+
+      document.getElementById('totalTasks').textContent = totalTasks;
+      document.getElementById('totalLevels').textContent = maxLevel + 1;
+      document.getElementById('workPackages').textContent = workPackages;
+      document.getElementById('projectNameDisplay').textContent = wbsData[0]?.name || '-';
+    }
+
+    // ===== PERSISTENCE =====
+    function autoSave() {
+      if (wbsData.length > 0) {
+        const data = { wbsData, projectId, projectName: document.getElementById('projectName').value };
+        localStorage.setItem('wbs_project_data', JSON.stringify(data));
+      }
+    }
+
+    function saveProject() {
+      if (wbsData.length === 0) { alert('No data to save.'); return; }
+      const data = {
+        wbsData: wbsData,
+        projectId: projectId,
+        projectName: document.getElementById('projectName').value,
+        savedAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('wbs_project_data', JSON.stringify(data));
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `WBS_Project_${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      alert('Project saved successfully!');
+    }
+
+    function importProject(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.wbsData && Array.isArray(data.wbsData)) {
+            wbsData = data.wbsData;
+            projectId = data.projectId || 1;
+            document.getElementById('projectName').value = data.projectName || '';
+            localStorage.setItem('wbs_project_data', JSON.stringify(data));
+            renderWBS();
+            updateStats();
+            alert('Project imported successfully!');
+          } else {
+            alert('Invalid file format.');
+          }
+        } catch (error) {
+          alert('Error reading file: ' + error.message);
+        }
+      };
+      reader.readAsText(file);
+      input.value = '';
+    }
+
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem('wbs_project_data');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          wbsData = data.wbsData || [];
+          projectId = data.projectId || 1;
+          document.getElementById('projectName').value = data.projectName || '';
+          if (wbsData.length > 0) {
+            renderWBS();
+            updateStats();
+          }
+        } catch (e) {
+          console.error('Failed to load auto-saved data', e);
+        }
+      }
+    }
+
+    // ===== UTILITIES =====
+    function clearWBS() {
+      if (confirm('Are you sure you want to clear all WBS data?')) {
+        wbsData = [];
+        projectId = 1;
+        localStorage.removeItem('wbs_project_data');
+        renderWBS();
+        updateStats();
+      }
+    }
+
+    function exportToExcel() {
+      if (wbsData.length === 0) { alert('No data to export'); return; }
+
+      let csv = 'WBS Code,Task Name,Level,Parent Code\n';
+      function exportNode(node, parentCode = '') {
+        csv += `${node.code},"${node.name}",${node.level},${parentCode}\n`;
+        if (node.children) {
+          node.children.forEach(child => exportNode(child, node.code));
+        }
+      }
+      wbsData.forEach(node => exportNode(node));
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `WBS_Structure_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+
+    // ===== INITIALIZATION =====
+    window.addEventListener('load', () => {
+      loadFromLocalStorage();
+    });
+  </script>
+
+</body>
+</html>
