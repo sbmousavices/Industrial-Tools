@@ -41,7 +41,7 @@
         "lowPrice": "79",
         "highPrice": "3000",
         "priceCurrency": "USD",
-        "offerCount": "11"
+        "offerCount": "12"
       }
     }
     </script>
@@ -106,10 +106,9 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* ✅ CRITICAL FIX FOR ANCHOR SCROLLING BEHIND FIXED NAVBAR */
         html { 
             scroll-behavior: smooth; 
-            scroll-padding-top: 100px; /* 70px nav height + 30px breathing room */
+            scroll-padding-top: 100px;
         }
 
         body {
@@ -473,7 +472,7 @@
         <p class="tagline">Professional Excel-based solutions for engineers and project managers, developed with 25+ years of field experience in oil & gas, EPC, and industrial projects.</p>
 
         <div class="stats-strip">
-            <div class="stat-box"><i class="fas fa-box-open"></i><div class="stat-number">11</div><div class="stat-label">Tools</div></div>
+            <div class="stat-box"><i class="fas fa-box-open"></i><div class="stat-number">12</div><div class="stat-label">Tools</div></div>
             <div class="stat-box"><i class="fas fa-star"></i><div class="stat-number">25+</div><div class="stat-label">Years Exp.</div></div>
             <div class="stat-box"><i class="fas fa-users"></i><div class="stat-number">500+</div><div class="stat-label">Users</div></div>
             <div class="stat-box"><i class="fas fa-globe"></i><div class="stat-number">Global</div><div class="stat-label">Delivery</div></div>
@@ -814,7 +813,7 @@
                 </div>
             </div>
 
-            <!-- ✅ 13. DELAY IMPACT ANALYZER PRO (PREMIUM WEB APP) -->
+            <!-- 13. DELAY IMPACT ANALYZER PRO (PREMIUM WEB APP) -->
             <div id="BM-DIA-PRO-011" class="product-card pro-web-app reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
                     <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
@@ -847,7 +846,7 @@
                 </div>
             </div>
 
-            <!-- ✅ 14. WBS STRUCTURE BUILDER PRO (PREMIUM WEB APP) - SCROLL TARGET -->
+            <!-- 14. WBS STRUCTURE BUILDER PRO (PREMIUM WEB APP) -->
             <div id="BM-WBS-PRO-012" class="product-card pro-web-app reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
                     <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
@@ -873,6 +872,39 @@
                             <i class="fas fa-eye"></i> Live Demo
                         </a>
                         <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-WBS-PRO-012')">
+                            <i class="fas fa-check-circle"></i> Complete Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ 15. CASH FLOW PREDICTOR PRO (NEW PREMIUM WEB APP) -->
+            <div id="BM-CFP-PRO-013" class="product-card pro-web-app reveal">
+                <div class="product-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 50%, #0f1f38 100%);">
+                    <span class="product-badge product-badge-pro"><i class="fas fa-crown"></i> PRO WEB APP</span>
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="product-body">
+                    <span class="product-category">Premium Web Application</span>
+                    <h3 class="product-title">Cash Flow Predictor Pro</h3>
+                    <p class="product-description">Professional monthly cash flow forecasting tool with S-Curve distribution, custom progress models, multi-currency support, and comprehensive financial reporting for industrial projects.</p>
+                    <ul class="product-features">
+                        <li>S-Curve, Front-Loaded & Back-Loaded Models</li>
+                        <li>Custom Progress Measurements</li>
+                        <li>Save / Import Project Data (JSON)</li>
+                        <li>Excel Export & Print Reports</li>
+                        <li>Interactive S-Curve & Bar Charts</li>
+                    </ul>
+                    <div class="product-meta">
+                        <span class="product-price">149 USDT</span>
+                        <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
+                        <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CFP-PRO-013</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="https://sbmousavices.github.io/Industrial-Tools/cash-flow-predictor.html" class="btn-product btn-online-tool" onclick="event.stopPropagation(); trackEvent('/cfp-pro-demo', 'Opened: Cash Flow Predictor Pro')">
+                            <i class="fas fa-eye"></i> Live Demo
+                        </a>
+                        <button class="btn-product btn-complete-order" onclick="event.stopPropagation(); scrollToContactForm('BM-CFP-PRO-013')">
                             <i class="fas fa-check-circle"></i> Complete Order
                         </button>
                     </div>
