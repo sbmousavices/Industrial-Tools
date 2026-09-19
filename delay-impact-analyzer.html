@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delay Impact Analyzer - Engineering Tools Hub</title>
+  
+  <!-- ✅ FONTS & ICONS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      /* ✅ Unified Colors matching Engineering Tools Hub */
+      --bg-primary: #0a1628;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --border-color: rgba(212, 175, 55, 0.2);
+      --text-primary: #e8eef7;
+      --text-secondary: #a0aec0;
+      
+      --accent: #d4af37;
+      --accent-gold: #d4af37;
+      --accent-light: #f4d06f;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --input-bg: #0f172a;
+      
+      /* ✅ Nav Variables */
+      --nav-height: 70px;
+      --nav-bg: rgba(10, 10, 12, 0.95);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      /* Critical: Prevents content from hiding behind the fixed navbar */
+      padding-top: calc(var(--nav-height) + 30px);
+      padding-bottom: 60px;
+      background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+    }
+
+    /* =========================================
+       ✅ NAVIGATION BAR STYLES
+       ========================================= */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+      background: var(--nav-bg); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+    .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+    /* =========================================
+       ✅ TOOL SPECIFIC STYLES
+       ========================================= */
+    .header {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header h1 span { color: var(--accent-gold); }
+
+    .btn-back {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--accent-gold);
+      border-radius: 2px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: var(--accent-red);
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-success {
+      background: var(--accent-green);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: var(--bg-card);
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover {
+      background: var(--bg-card);
+    }
+
+    .critical {
+      background: rgba(239, 68, 68, 0.1) !important;
+      color: #fca5a5;
+      font-weight: 600;
+    }
+
+    .critical td {
+      border-bottom-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .delay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .result-card.highlight {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 1px var(--accent-red);
+    }
+
+    .result-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .result-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .result-card.highlight .result-value {
+      color: var(--accent-red);
+    }
+
+    .gantt-container {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .gantt-chart {
+      min-width: 800px;
+    }
+
+    .gantt-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      height: 36px;
+    }
+
+    .gantt-label {
+      width: 200px;
+      font-size: 13px;
+      padding-right: 12px;
+      text-align: right;
+      flex-shrink: 0;
+      color: var(--text-secondary);
+    }
+
+    .gantt-bar-container {
+      flex: 1;
+      background: var(--bg-card);
+      border-radius: 4px;
+      height: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gantt-bar {
+      position: absolute;
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      transition: all 0.3s;
+    }
+
+    .gantt-bar.normal { background: var(--accent-blue); }
+    .gantt-bar.critical { background: var(--accent-red); }
+    .gantt-bar.delayed { background: var(--accent-red); box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+
+    .timeline-scale {
+      display: flex;
+      margin-bottom: 8px;
+      margin-left: 212px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .timeline-tick {
+      flex: 1;
+      text-align: center;
+      border-left: 1px solid var(--border-color);
+      padding-left: 4px;
+    }
+
+    .action-bar {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .text-muted { color: var(--text-secondary); }
+    .text-gold { color: var(--accent-gold); }
+    .text-red { color: var(--accent-red); }
+    .text-green { color: var(--accent-green); }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-critical { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+    .badge-normal { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+
+    /* ✅ RESPONSIVE */
+    @media (max-width: 1024px) {
+      .input-grid, .delay-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: var(--nav-bg); padding: 20px; border-bottom: 1px solid var(--border-color); }
+      .nav-links.active { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .header { flex-direction: column; gap: 15px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ NAVIGATION BAR (Integrated) -->
+  <nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+      <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+      <span>BM Planning</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+      <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+      <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+      <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="container">
+    <!-- TOOL HEADER -->
+    <header class="header">
+      <h1>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16"/>
+          <path d="M8 4v4l4 6-4 6v4"/>
+          <path d="M16 4v4l-4 6 4 6v4"/>
+          <path d="M4 20h16"/>
+        </svg>
+        Delay Impact <span>Analyzer</span>
+      </h1>
+      <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Tools Hub
+      </a>
+    </header>
+
+    <!-- ACTIVITIES SECTION -->
+    <section class="section">
+      <h2 class="section-title">Project Activities</h2>
+      
+      <div class="input-grid">
+        <div class="form-group">
+          <label>Activity Name</label>
+          <input type="text" id="actName" placeholder="e.g., Foundation Work">
+        </div>
+        <div class="form-group">
+          <label>Duration (days)</label>
+          <input type="number" id="actDuration" min="1" value="5">
+        </div>
+        <div class="form-group">
+          <label>Predecessors (comma-separated IDs)</label>
+          <input type="text" id="actPredecessors" placeholder="e.g., 1,2">
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="actStartDate">
+        </div>
+        <button class="btn btn-primary" onclick="addActivity()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          Add Activity
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table id="activitiesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Activity Name</th>
+              <th>Duration</th>
+              <th>Predecessors</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>ES</th>
+              <th>EF</th>
+              <th>LS</th>
+              <th>LF</th>
+              <th>Float</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="activitiesBody">
+            <!-- Activities will be added here -->
+          </tbody>
+        </table>
+        <div id="emptyState" class="empty-state">
+          No activities added yet. Add your first activity above.
+        </div>
+      </div>
+    </section>
+
+    <!-- DELAY EVENT SECTION -->
+    <section class="section">
+      <h2 class="section-title">Delay Event Analysis</h2>
+      
+      <div class="delay-grid">
+        <div class="form-group">
+          <label>Select Activity</label>
+          <select id="delayActivity">
+            <option value="">-- Select Activity --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Delay Type</label>
+          <select id="delayType">
+            <option value="excusable">Excusable Delay</option>
+            <option value="compensable">Compensable Delay</option>
+            <option value="non-excusable">Non-Excusable Delay</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Delay Duration (days)</label>
+          <input type="number" id="delayDuration" min="1" value="1">
+        </div>
+        <button class="btn btn-primary" onclick="applyDelay()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+          Apply Delay
+        </button>
+      </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section class="section">
+      <h2 class="section-title">Analysis Results</h2>
+      
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-label">Original Duration</div>
+          <div class="result-value" id="originalDuration">0</div>
+          <div class="text-muted" style="font-size: 12px; margin-top: 4px;">days</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Revised Duration</div>
+          <div class="result-value" id="revisedDuration">0</div>
+          <div class="text-muted" style="font-size: 12px; margin-top: 4px;">days</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Project Delay</div>
+          <div class="result-value" id="projectDelay">0</div>
+          <div class="text-muted" style="font-size: 12px; margin-top: 4px;">days</div>
+        </div>
+        <div class="result-card highlight">
+          <div class="result-label">EOT Claim (Days)</div>
+          <div class="result-value" id="eotClaim">0</div>
+          <div class="text-muted" style="font-size: 12px; margin-top: 4px;">Extension of Time</div>
+        </div>
+      </div>
+
+      <div class="gantt-container">
+        <h3 style="font-size: 14px; margin-bottom: 12px; color: var(--text-secondary);">Gantt Chart Visualization</h3>
+        <div class="timeline-scale" id="timelineScale"></div>
+        <div class="gantt-chart" id="ganttChart"></div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn" onclick="clearAll()" style="background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-color);">
+          Clear All
+        </button>
+        
+        <button class="btn" onclick="saveProject()" style="background: var(--accent-blue); color: #fff;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Save Project
+        </button>
+        
+        <button class="btn" onclick="document.getElementById('importFile').click()" style="background: var(--bg-card); color: var(--accent-gold); border: 1px solid var(--accent-gold);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Import Project
+        </button>
+        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importProject(this)">
+        
+        <button class="btn btn-success" onclick="exportToExcel()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export to Excel
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Print Report
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ✅ Mobile Menu Toggle
+    function toggleMobileMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    // ===== DATA STORE =====
+    let activities = [];
+    let delayEvent = null;
+    let projectId = 1;
+
+    // Set default start date to today
+    document.getElementById('actStartDate').valueAsDate = new Date();
+
+    // ===== ACTIVITY MANAGEMENT =====
+    function addActivity() {
+      const name = document.getElementById('actName').value.trim();
+      const duration = parseInt(document.getElementById('actDuration').value);
+      const predecessorsStr = document.getElementById('actPredecessors').value.trim();
+      const startDate = document.getElementById('actStartDate').value;
+
+      if (!name || !duration || !startDate) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const predecessors = predecessorsStr
+        ? predecessorsStr.split(',').map(p => parseInt(p.trim())).filter(p => !isNaN(p))
+        : [];
+
+      const activity = {
+        id: projectId++,
+        name,
+        duration,
+        predecessors,
+        startDate,
+        es: 0, ef: 0, ls: 0, lf: 0,
+        float: 0,
+        isCritical: false,
+        delayedDuration: 0
+      };
+
+      activities.push(activity);
+      
+      document.getElementById('actName').value = '';
+      document.getElementById('actPredecessors').value = '';
+      
+      renderActivities();
+      calculateCPM();
+      autoSave();
+    }
+
+    function removeActivity(id) {
+      activities = activities.filter(a => a.id !== id);
+      renderActivities();
+      calculateCPM();
+      autoSave();
+    }
+
+    function renderActivities() {
+      const tbody = document.getElementById('activitiesBody');
+      const emptyState = document.getElementById('emptyState');
+      const select = document.getElementById('delayActivity');
+
+      if (activities.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.style.display = 'block';
+        select.innerHTML = '<option value="">-- Select Activity --</option>';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      
+      tbody.innerHTML = activities.map(act => {
+        const startDate = new Date(act.startDate);
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + act.duration + act.delayedDuration - 1);
+        
+        const esDate = new Date(startDate);
+        esDate.setDate(esDate.getDate() + act.es);
+        
+        const efDate = new Date(esDate);
+        efDate.setDate(efDate.getDate() + act.duration + act.delayedDuration - 1);
+
+        return `
+          <tr class="${act.isCritical ? 'critical' : ''}">
+            <td><strong>${act.id}</strong></td>
+            <td>${act.name}</td>
+            <td>${act.duration} ${act.delayedDuration > 0 ? `<span class="text-red">(+${act.delayedDuration})</span>` : ''}</td>
+            <td>${act.predecessors.length > 0 ? act.predecessors.join(', ') : '-'}</td>
+            <td>${act.startDate}</td>
+            <td>${endDate.toISOString().split('T')[0]}</td>
+            <td>${act.es}</td>
+            <td>${act.ef}</td>
+            <td>${act.ls}</td>
+            <td>${act.lf}</td>
+            <td>${act.float}</td>
+            <td>
+              ${act.isCritical 
+                ? '<span class="badge badge-critical">CRITICAL</span>' 
+                : '<span class="badge badge-normal">Normal</span>'}
+            </td>
+            <td>
+              <button class="btn btn-danger" onclick="removeActivity(${act.id})">
+                Delete
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      select.innerHTML = '<option value="">-- Select Activity --</option>' +
+        activities.map(act => `<option value="${act.id}">${act.id} - ${act.name}</option>`).join('');
+    }
+
+    // ===== CPM CALCULATION =====
+    function calculateCPM() {
+      if (activities.length === 0) return;
+
+      activities.forEach(act => {
+        act.es = 0; act.ef = 0; act.ls = 0; act.lf = 0; act.float = 0; act.isCritical = false;
+      });
+
+      activities.forEach(act => {
+        if (act.predecessors.length === 0) {
+          act.es = 0;
+        } else {
+          act.es = Math.max(...act.predecessors.map(predId => {
+            const pred = activities.find(a => a.id === predId);
+            return pred ? pred.ef : 0;
+          }));
+        }
+        act.ef = act.es + act.duration + act.delayedDuration;
+      });
+
+      const projectDuration = Math.max(...activities.map(a => a.ef));
+
+      activities.reverse().forEach(act => {
+        const successors = activities.filter(a => a.predecessors.includes(act.id));
+        if (successors.length === 0) {
+          act.lf = projectDuration;
+        } else {
+          act.lf = Math.min(...successors.map(succ => succ.ls));
+        }
+        act.ls = act.lf - act.duration - act.delayedDuration;
+        act.float = act.ls - act.es;
+        act.isCritical = act.float === 0;
+      });
+
+      activities.reverse();
+      renderActivities();
+      updateResults(projectDuration);
+      renderGanttChart(projectDuration);
+    }
+
+    // ===== DELAY ANALYSIS =====
+    function applyDelay() {
+      const activityId = parseInt(document.getElementById('delayActivity').value);
+      const delayType = document.getElementById('delayType').value;
+      const delayDuration = parseInt(document.getElementById('delayDuration').value);
+
+      if (!activityId || !delayDuration) {
+        alert('Please select an activity and enter delay duration');
+        return;
+      }
+
+      const activity = activities.find(a => a.id === activityId);
+      if (!activity) return;
+
+      activity.delayedDuration = delayDuration;
+      delayEvent = { activityId, activityName: activity.name, type: delayType, duration: delayDuration };
+
+      calculateCPM();
+      autoSave();
+      
+      const originalDuration = document.getElementById('originalDuration').textContent;
+      const revisedDuration = document.getElementById('revisedDuration').textContent;
+      const eot = parseInt(revisedDuration) - parseInt(originalDuration);
+      document.getElementById('eotClaim').textContent = eot > 0 ? eot : 0;
+    }
+
+    function updateResults(projectDuration) {
+      const originalDuration = Math.max(...activities.map(a => a.ef - a.delayedDuration));
+      const revisedDuration = projectDuration;
+      const delay = revisedDuration - originalDuration;
+
+      document.getElementById('originalDuration').textContent = originalDuration;
+      document.getElementById('revisedDuration').textContent = revisedDuration;
+      document.getElementById('projectDelay').textContent = delay > 0 ? delay : 0;
+      
+      if (delay > 0) {
+        document.getElementById('projectDelay').parentElement.classList.add('highlight');
+      } else {
+        document.getElementById('projectDelay').parentElement.classList.remove('highlight');
+      }
+    }
+
+    // ===== GANTT CHART =====
+    function renderGanttChart(projectDuration) {
+      const container = document.getElementById('ganttChart');
+      const scaleContainer = document.getElementById('timelineScale');
+      
+      if (activities.length === 0) {
+        container.innerHTML = '';
+        scaleContainer.innerHTML = '';
+        return;
+      }
+
+      const scaleHTML = [];
+      for (let i = 0; i <= projectDuration; i += 5) {
+        scaleHTML.push(`<div class="timeline-tick">Day ${i}</div>`);
+      }
+      scaleContainer.innerHTML = scaleHTML.join('');
+
+      const chartHTML = activities.map(act => {
+        const totalDuration = act.duration + act.delayedDuration;
+        const leftPercent = (act.es / projectDuration) * 100;
+        const widthPercent = (totalDuration / projectDuration) * 100;
+        
+        let barClass = 'normal';
+        if (act.isCritical) barClass = 'critical';
+        if (act.delayedDuration > 0) barClass = 'delayed';
+
+        return `
+          <div class="gantt-row">
+            <div class="gantt-label">${act.id}. ${act.name}</div>
+            <div class="gantt-bar-container">
+              <div class="gantt-bar ${barClass}" style="left: ${leftPercent}%; width: ${widthPercent}%;">
+                ${totalDuration}d
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = chartHTML;
+    }
+
+    // ===== PERSISTENCE =====
+    function autoSave() {
+      if (activities.length > 0) {
+        const data = { activities, delayEvent, projectId };
+        localStorage.setItem('dia_project_data', JSON.stringify(data));
+      }
+    }
+
+    function saveProject() {
+      if (activities.length === 0) {
+        alert('No data to save.');
+        return;
+      }
+      const data = { activities, delayEvent, projectId, savedAt: new Date().toISOString() };
+      localStorage.setItem('dia_project_data', JSON.stringify(data));
+      
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `DIA_Project_${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      alert('Project saved successfully! (Also backed up to browser storage)');
+    }
+
+    function importProject(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.activities && Array.isArray(data.activities)) {
+            activities = data.activities;
+            delayEvent = data.delayEvent || null;
+            projectId = data.projectId || (activities.length > 0 ? Math.max(...activities.map(a => a.id)) + 1 : 1);
+            localStorage.setItem('dia_project_data', JSON.stringify(data));
+            renderActivities();
+            calculateCPM();
+            alert('Project imported successfully!');
+          } else {
+            alert('Invalid file format. Please select a valid DIA project file.');
+          }
+        } catch (error) {
+          alert('Error reading file: ' + error.message);
+        }
+      };
+      reader.readAsText(file);
+      input.value = '';
+    }
+
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem('dia_project_data');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          activities = data.activities || [];
+          delayEvent = data.delayEvent || null;
+          projectId = data.projectId || 1;
+          renderActivities();
+          calculateCPM();
+        } catch (e) {
+          console.error('Failed to load auto-saved data', e);
+        }
+      }
+    }
+
+    // ===== UTILITIES =====
+    function clearAll() {
+      if (confirm('Are you sure you want to clear all activities?')) {
+        activities = [];
+        delayEvent = null;
+        projectId = 1;
+        localStorage.removeItem('dia_project_data');
+        renderActivities();
+        document.getElementById('originalDuration').textContent = '0';
+        document.getElementById('revisedDuration').textContent = '0';
+        document.getElementById('projectDelay').textContent = '0';
+        document.getElementById('eotClaim').textContent = '0';
+        document.getElementById('ganttChart').innerHTML = '';
+        document.getElementById('timelineScale').innerHTML = '';
+      }
+    }
+
+    function exportToExcel() {
+      if (activities.length === 0) {
+        alert('No data to export');
+        return;
+      }
+
+      let csv = 'ID,Activity Name,Duration,Predecessors,Start Date,ES,EF,LS,LF,Float,Is Critical\n';
+      activities.forEach(act => {
+        csv += `${act.id},"${act.name}",${act.duration},"${act.predecessors.join(',')}",${act.startDate},${act.es},${act.ef},${act.ls},${act.lf},${act.float},${act.isCritical}\n`;
+      });
+
+      if (delayEvent) {
+        csv += `\nDelay Event Analysis\n`;
+        csv += `Activity,${delayEvent.activityName}\n`;
+        csv += `Delay Type,${delayEvent.type}\n`;
+        csv += `Delay Duration,${delayEvent.duration} days\n`;
+        csv += `EOT Claim,${document.getElementById('eotClaim').textContent} days\n`;
+      }
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `delay-impact-analysis-${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+
+    // ===== INITIALIZATION =====
+    window.addEventListener('load', () => {
+      loadFromLocalStorage();
+    });
+  </script>
+
+</body>
+</html>
