@@ -21,7 +21,7 @@
             --accent-light: #f4d06f;
             --text-primary: #e8eef7;
             --text-secondary: #a0aec0;
-            --card-bg: rgba(15, 31, 56, 0.85);
+            --card-bg: rgba(15, 31, 56, 0.8);
             --nav-height: 70px;
             --nav-bg: rgba(10, 10, 12, 0.95);
             --border: rgba(212, 175, 55, 0.2);
@@ -33,7 +33,7 @@
             background-color: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-top: calc(var(--nav-height) + 40px);
+            padding-top: calc(var(--nav-height) + 30px);
             padding-left: 20px;
             padding-right: 20px;
             padding-bottom: 40px;
@@ -57,6 +57,33 @@
             pointer-events: none;
         }
 
+        /* ✅ FIXED BACK TO ENG. TOOLS BUTTON */
+        .btn-back-fixed {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 5%;
+            z-index: 999;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .btn-back-fixed:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
         /* ✅ UNIFIED NAVIGATION BAR STYLES */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
@@ -73,76 +100,7 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        /* ✅ TOP RIGHT ACTIONS */
-        .top-right-actions {
-            position: fixed;
-            top: calc(var(--nav-height) + 20px);
-            right: 5%;
-            z-index: 999;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .action-btn-shared {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            height: 44px;
-            padding: 0 1.2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .back-to-tools-btn {
-            background: var(--bg-primary);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-        }
-        .back-to-tools-btn:hover {
-            background: var(--accent);
-            color: var(--bg-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        /* ✅ 2. SHIMMER EFFECT ON PREMIUM BUTTON */
-        .btn-premium-top {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
-            border: 1px solid transparent;
-            color: var(--bg-primary);
-            font-weight: 700;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-premium-top::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transform: skewX(-25deg);
-            animation: shimmer 3s infinite;
-        }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-        .btn-premium-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
-        }
-
-        /* ✅ 4. LIVE CREDIBILITY COUNTER */
+        /* ✅ 3. LIVE CREDIBILITY COUNTER */
         .credibility-bar {
             width: 100%;
             max-width: 1400px;
@@ -150,9 +108,7 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
         .cred-item { text-align: center; }
         .cred-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
@@ -186,13 +142,13 @@
             gap: 10px;
         }
 
-        /* ✅ 3. DAILY GOLDEN TIP */
+        /* ✅ 2. DAILY GOLDEN TIP */
         .golden-tip-box {
             background: rgba(212, 175, 55, 0.08);
             border-left: 3px solid var(--accent);
             padding: 12px 15px;
             border-radius: 0 8px 8px 0;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-size: 0.9rem;
             color: var(--text-secondary);
             display: flex;
@@ -469,7 +425,7 @@
             color: var(--accent-light);
         }
 
-        /* ✅ 5. EASTER EGG TOAST NOTIFICATION */
+        /* ✅ 4. EASTER EGG TOAST NOTIFICATION */
         .easter-egg-toast {
             position: fixed;
             bottom: 30px;
@@ -504,9 +460,15 @@
             .legend-wrapper { flex-direction: row; width: 100%; justify-content: space-around; }
             .btn-container, .action-btn-group { flex-direction: column; align-items: center; }
             .btn-action, .action-btn-group button { width: 100%; max-width: 400px; justify-content: center; }
-            
-            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; }
-            .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .btn-back-fixed {
+                right: 20px;
+                top: calc(var(--nav-height) + 10px);
+                padding: 8px 14px;
+                font-size: 12px;
+            }
             .credibility-bar { gap: 20px; }
             .cred-number { font-size: 1.4rem; }
         }
@@ -517,9 +479,13 @@
     <!-- ✅ 1. INTERACTIVE BACKGROUND CANVAS -->
     <canvas id="network-canvas"></canvas>
 
+    <!-- ✅ FIXED BACK TO ENG. TOOLS BUTTON -->
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="btn-back-fixed">
+        <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+    </a>
+
     <!-- ✅ UNIFIED NAVIGATION BAR -->
     <nav>
-        <!-- Added ID for Easter Egg -->
         <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
             <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
             <span>Home</span>
@@ -539,14 +505,7 @@
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-       <div class="top-right-actions">
-        </a>
-        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
-            <i class="fas fa-arrow-left"></i> Back to Eng. Tools
-        </a>
-    </div>
-
-    <!-- ✅ 4. LIVE CREDIBILITY COUNTER -->
+    <!-- ✅ 3. LIVE CREDIBILITY COUNTER -->
     <div class="credibility-bar">
         <div class="cred-item">
             <span class="cred-number" data-target="500">0</span>
@@ -568,7 +527,7 @@
             <i class="fas fa-info-circle"></i> Project Initial Data
         </div>
 
-        <!-- ✅ 3. DAILY GOLDEN TIP (Specific to this tool) -->
+        <!-- ✅ 2. DAILY GOLDEN TIP -->
         <div class="golden-tip-box">
             <i class="fas fa-lightbulb"></i>
             <span class="tip-text" id="golden-tip">Loading golden tip...</span>
@@ -618,7 +577,7 @@
                 <input type="text" class="form-input" placeholder="0" oninput="formatInput(this)">
             </div>
 
-            <!-- ✅ PROJECT ACTION BUTTONS -->
+            <!-- ✅ NEW: PROJECT ACTION BUTTONS -->
             <div class="form-group" style="grid-column: 1 / -1; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 20px;">
                 <label class="form-label">Project Management Actions</label>
                 <div class="action-btn-group">
@@ -631,6 +590,7 @@
                     <button class="btn-action btn-sm btn-danger" onclick="newProject()">
                         <i class="fas fa-plus-circle"></i> New Project
                     </button>
+                    <!-- Hidden file input for import -->
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importProject(this)">
                 </div>
             </div>
@@ -760,7 +720,7 @@
 
     </div>
 
-    <!-- ✅ DUAL DOWNLOAD BUTTONS -->
+    <!-- ✅ DUAL DOWNLOAD BUTTONS (PORTRAIT & LANDSCAPE) -->
     <div class="btn-container">
         <button class="btn-action secondary" onclick="downloadReport1()">
             <i class="fas fa-file-alt"></i> Download Text Report (Portrait)
@@ -770,14 +730,14 @@
         </button>
     </div>
 
-    <!-- ✅ 5. EASTER EGG TOAST -->
+    <!-- ✅ 4. EASTER EGG TOAST -->
     <div class="easter-egg-toast" id="easter-toast">
         <i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...
     </div>
 
     <script>
         // ==========================================
-        // ✅ 1. INTERACTIVE NETWORK BACKGROUND
+        // ✅ 1. INTERACTIVE NETWORK BACKGROUND (FIXED MOUSE TRACKING)
         // ==========================================
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
@@ -791,9 +751,17 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
+        // ✅ FIXED: Calculate exact mouse position relative to the canvas
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        // Reset mouse when leaving the window to prevent stuck lines
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
         });
 
         class Particle {
@@ -845,13 +813,14 @@
                         ctx.stroke();
                     }
                 }
-                if (mouse.x != null) {
+                // Connect to mouse with exact coordinates
+                if (mouse.x != null && mouse.y != null) {
                     const dx = particles[i].x - mouse.x;
                     const dy = particles[i].y - mouse.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < 150) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - distance/500})`;
+                        ctx.strokeStyle = `rgba(244, 208, 111, ${0.4 - distance/500})`;
                         ctx.lineWidth = 1.5;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -864,19 +833,20 @@
         animateNetwork();
 
         // ==========================================
-        // ✅ 2. DAILY GOLDEN TIP ROTATOR (Tool Specific)
+        // ✅ 2. DAILY GOLDEN TIP (EVM Specific)
         // ==========================================
         const tips = [
-            "💡 Tip: Always ensure the sum of your monthly BAC percentages equals exactly 100%.",
-            "💡 Tip: Use the 'Save Project' button frequently to export your data as a secure JSON file.",
-            "💡 Tip: The S-Curve chart automatically hides future AC/EV data based on your 'Elapsed Time' input.",
-            "💡 Tip: A CPI less than 1.0 means your project is currently over budget. Investigate immediately!",
-            "💡 Tip: You can import previously saved JSON files to resume your work instantly without re-typing."
+            "💡 Tip: Always ensure your BAC (Budget at Completion) matches the approved baseline budget before entering monthly distributions.",
+            "💡 Tip: The sum of your monthly BAC percentages must equal exactly 100% for accurate forecasting.",
+            "💡 Tip: A CPI (Cost Performance Index) greater than 1.0 indicates you are under budget, while less than 1.0 means cost overrun.",
+            "💡 Tip: Use the 'Save Project' feature frequently to export your data as a JSON file for safekeeping and future imports.",
+            "💡 Tip: Elapsed Time should reflect the current reporting period to ensure the S-Curve accurately represents progress to date."
         ];
         let tipIndex = 0;
         const tipElement = document.getElementById('golden-tip');
         
         function rotateTip() {
+            if(!tipElement) return;
             tipElement.style.opacity = 0;
             setTimeout(() => {
                 tipElement.innerText = tips[tipIndex];
@@ -888,7 +858,7 @@
         setInterval(rotateTip, 6000);
 
         // ==========================================
-        // ✅ 3. LIVE CREDIBILITY COUNTER ANIMATION
+        // ✅ 3. LIVE CREDIBILITY COUNTER
         // ==========================================
         const counters = document.querySelectorAll('.cred-number');
         const speed = 200;
@@ -909,7 +879,6 @@
                 updateCount();
             });
         };
-        window.addEventListener('load', animateCounters);
 
         // ==========================================
         // ✅ 4. EASTER EGG (5 Rapid Clicks on Logo)
@@ -919,24 +888,26 @@
         let clickCount = 0;
         let lastClickTime = 0;
 
-        logoTrigger.addEventListener('click', (e) => {
-            const currentTime = new Date().getTime();
-            if (currentTime - lastClickTime < 800) {
-                clickCount++;
-            } else {
-                clickCount = 1;
-            }
-            lastClickTime = currentTime;
+        if(logoTrigger) {
+            logoTrigger.addEventListener('click', (e) => {
+                const currentTime = new Date().getTime();
+                if (currentTime - lastClickTime < 800) {
+                    clickCount++;
+                } else {
+                    clickCount = 1;
+                }
+                lastClickTime = currentTime;
 
-            if (clickCount >= 5) {
-                e.preventDefault();
-                toast.classList.add('show');
-                clickCount = 0;
-                setTimeout(() => {
-                    window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
-                }, 2000);
-            }
-        });
+                if (clickCount >= 5) {
+                    e.preventDefault();
+                    if(toast) toast.classList.add('show');
+                    clickCount = 0;
+                    setTimeout(() => {
+                        window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+                    }, 2000);
+                }
+            });
+        }
 
         // ==========================================
         // ✅ 5. ORIGINAL EVM TOOL LOGIC (UNCHANGED)
@@ -1215,6 +1186,7 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
+                    
                     document.getElementById('inpCurrency').value = data.currency || 'USD';
                     document.getElementById('inpCompany').value = data.company || '';
                     document.getElementById('inpProject').value = data.project || '';
@@ -1254,7 +1226,7 @@
                 }
             };
             reader.readAsText(file);
-            input.value = ''; 
+            input.value = '';
         }
 
         function newProject() {
@@ -1286,6 +1258,11 @@
                 updateCalculations();
             }
         }
+
+        // ===== INITIALIZATION =====
+        window.addEventListener('load', () => {
+            animateCounters(); // ✅ Trigger credibility counter
+        });
     </script>
 </body>
 </html>
