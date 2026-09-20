@@ -41,6 +41,19 @@
       padding-top: calc(var(--nav-height) + 30px);
       padding-bottom: 60px;
       background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ✅ 1. INTERACTIVE NETWORK BACKGROUND */
+    #network-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* =========================================
@@ -52,7 +65,7 @@
       border-bottom: 1px solid var(--border-color); z-index: 1000;
       display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
     }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
     .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
     .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
     .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
@@ -113,7 +126,7 @@
       color: var(--accent-gold);
     }
 
-    /* ✅ NEW PREMIUM BUTTON STYLE */
+    /* ✅ 2. SHIMMER EFFECT ON PREMIUM BUTTON */
     .btn-premium {
       background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
       color: #000;
@@ -127,17 +140,50 @@
       align-items: center;
       gap: 6px;
       border: none;
+      position: relative;
+      overflow: hidden;
     }
-
+    .btn-premium::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      transform: skewX(-25deg);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      20% { left: 200%; }
+      100% { left: 200%; }
+    }
     .btn-premium:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
     }
 
+    /* ✅ 4. LIVE CREDIBILITY COUNTER */
+    .credibility-bar {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .cred-item { text-align: center; }
+    .cred-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
+    .cred-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
     .container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 30px;
+      position: relative;
+      z-index: 1;
     }
 
     .section {
@@ -164,6 +210,23 @@
       background: var(--accent-gold);
       border-radius: 2px;
     }
+
+    /* ✅ 3. DAILY GOLDEN TIP */
+    .golden-tip-box {
+      background: rgba(212, 175, 55, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 12px 15px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+    .golden-tip-box i { color: var(--accent); margin-top: 3px; }
+    .tip-text { transition: opacity 0.3s ease; }
 
     .input-grid {
       display: grid;
@@ -399,6 +462,33 @@
 
     .info-box i { color: var(--accent-gold); font-size: 18px; }
 
+    /* ✅ 5. EASTER EGG TOAST NOTIFICATION */
+    .easter-egg-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #d4af37, #f4d06f);
+      color: var(--bg-primary);
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .easter-egg-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     /* ✅ RESPONSIVE */
     @media (max-width: 1024px) {
       .input-grid { grid-template-columns: 1fr 1fr; }
@@ -414,14 +504,19 @@
       .header-actions { flex-direction: column; width: 100%; }
       .input-grid { grid-template-columns: 1fr; }
       .btn-premium, .btn-back { width: 100%; justify-content: center; }
+      .credibility-bar { gap: 20px; }
+      .cred-number { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ✅ 1. INTERACTIVE BACKGROUND CANVAS -->
+  <canvas id="network-canvas"></canvas>
+
   <!-- ✅ NAVIGATION BAR -->
   <nav>
-    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
       <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
       <span>Home</span>
     </a>
@@ -440,6 +535,22 @@
   </nav>
 
   <div class="container">
+    <!-- ✅ 4. LIVE CREDIBILITY COUNTER -->
+    <div class="credibility-bar">
+      <div class="cred-item">
+        <span class="cred-number" data-target="500">0</span>
+        <span class="cred-label">Active Users</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-number" data-target="12">0</span>
+        <span class="cred-label">Pro Tools</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-number" data-target="41">0</span>
+        <span class="cred-label">Expert Articles</span>
+      </div>
+    </div>
+
     <!-- TOOL HEADER -->
     <header class="header">
       <h1>
@@ -447,7 +558,6 @@
         Cash Flow <span>Predictor</span>
       </h1>
       
-      <!-- ✅ NEW BUTTONS WRAPPER -->
       <div class="header-actions">
         <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-CFP-PRO-013" class="btn-premium">
           <i class="fas fa-crown"></i>
@@ -464,6 +574,12 @@
     <section class="section">
       <h2 class="section-title">Project Setup</h2>
       
+      <!-- ✅ 3. DAILY GOLDEN TIP -->
+      <div class="golden-tip-box">
+        <i class="fas fa-lightbulb"></i>
+        <span class="tip-text" id="golden-tip">Loading golden tip...</span>
+      </div>
+
       <div class="info-box">
         <i class="fas fa-info-circle"></i>
         <span>Enter project parameters to generate monthly cash flow forecast based on S-curve distribution or custom progress measurements.</span>
@@ -587,13 +703,183 @@
     </section>
   </div>
 
+  <!-- ✅ 5. EASTER EGG TOAST -->
+  <div class="easter-egg-toast" id="easter-toast">
+    <i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...
+  </div>
+
   <script>
-    // ✅ Mobile Menu Toggle
+    // ==========================================
+    // ✅ 1. INTERACTIVE NETWORK BACKGROUND
+    // ==========================================
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const numberOfParticles = Math.min(60, (canvas.width * canvas.height) / 15000);
+      for (let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateNetwork() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - distance/800})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+        if (mouse.x != null) {
+          const dx = particles[i].x - mouse.x;
+          const dy = particles[i].y - mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - distance/500})`;
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateNetwork);
+    }
+    animateNetwork();
+
+    // ==========================================
+    // ✅ 2. DAILY GOLDEN TIP (Cash Flow Specific)
+    // ==========================================
+    const tips = [
+      "💡 Tip: Always include a contingency reserve (typically 5-10%) in your total budget to absorb unforeseen cash flow gaps.",
+      "💡 Tip: Front-loaded cash flows are common in EPC projects due to advance payments and early procurement of long-lead items.",
+      "💡 Tip: A negative cash flow in early months is normal if advance payments don't cover initial mobilization costs.",
+      "💡 Tip: Use the 'Custom' distribution model to input actual historical progress percentages for highly accurate forecasting.",
+      "💡 Tip: Regularly compare your forecasted S-Curve against actual cumulative cash flow to detect early warning signs of budget overrun."
+    ];
+    let tipIndex = 0;
+    const tipElement = document.getElementById('golden-tip');
+    
+    function rotateTip() {
+      if(!tipElement) return;
+      tipElement.style.opacity = 0;
+      setTimeout(() => {
+        tipElement.innerText = tips[tipIndex];
+        tipElement.style.opacity = 1;
+        tipIndex = (tipIndex + 1) % tips.length;
+      }, 300);
+    }
+    rotateTip();
+    setInterval(rotateTip, 6000);
+
+    // ==========================================
+    // ✅ 3. LIVE CREDIBILITY COUNTER
+    // ==========================================
+    const counters = document.querySelectorAll('.cred-number');
+    const speed = 200;
+
+    const animateCounters = () => {
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const inc = target / speed;
+          if (count < target) {
+            counter.innerText = Math.ceil(count + inc);
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + (target > 100 ? '+' : '');
+          }
+        };
+        updateCount();
+      });
+    };
+
+    // ==========================================
+    // ✅ 4. EASTER EGG (5 Rapid Clicks on Logo)
+    // ==========================================
+    const logoTrigger = document.getElementById('easter-egg-trigger');
+    const toast = document.getElementById('easter-toast');
+    let clickCount = 0;
+    let lastClickTime = 0;
+
+    if(logoTrigger) {
+      logoTrigger.addEventListener('click', (e) => {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < 800) {
+          clickCount++;
+        } else {
+          clickCount = 1;
+        }
+        lastClickTime = currentTime;
+
+        if (clickCount >= 5) {
+          e.preventDefault();
+          if(toast) toast.classList.add('show');
+          clickCount = 0;
+          setTimeout(() => {
+            window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+          }, 2000);
+        }
+      });
+    }
+
+    // ==========================================
+    // ✅ 5. ORIGINAL CASH FLOW TOOL LOGIC (UNCHANGED)
+    // ==========================================
     function toggleMobileMenu() {
       document.getElementById('navLinks').classList.toggle('active');
     }
 
-    // ===== DATA STORE =====
     let cashFlowData = [];
     let projectConfig = {};
 
@@ -601,7 +887,6 @@
       USD: '$', EUR: '€', GBP: '£', IRR: '﷼', AED: 'د.إ'
     };
 
-    // ===== DISTRIBUTION MODELS =====
     function onDistributionChange() {
       const model = document.getElementById('distributionModel').value;
       const shapeSelect = document.getElementById('scurveShape');
@@ -609,25 +894,21 @@
     }
 
     function generateScurveWeights(months, shapeFactor) {
-      // Beta distribution approximation for S-curve
       const weights = [];
       const alpha = shapeFactor * 2;
       const beta = (1 - shapeFactor) * 2;
       
       for (let i = 1; i <= months; i++) {
         const x = i / months;
-        // Simplified beta CDF approximation
         const weight = Math.pow(x, alpha) / (Math.pow(x, alpha) + Math.pow(1 - x, beta));
         weights.push(weight);
       }
       
-      // Convert to incremental weights
       const incremental = [weights[0]];
       for (let i = 1; i < weights.length; i++) {
         incremental.push(weights[i] - weights[i - 1]);
       }
       
-      // Normalize
       const sum = incremental.reduce((a, b) => a + b, 0);
       return incremental.map(w => w / sum);
     }
@@ -654,7 +935,6 @@
       return Array(months).fill(1 / months);
     }
 
-    // ===== CASH FLOW GENERATION =====
     function generateCashFlow() {
       const projectName = document.getElementById('projectName').value.trim();
       const totalBudget = parseFloat(document.getElementById('totalBudget').value);
@@ -670,7 +950,6 @@
 
       projectConfig = { projectName, totalBudget, currency, duration, model, shapeFactor, advancePercent };
 
-      // Generate weights based on model
       let weights;
       switch (model) {
         case 'scurve': weights = generateScurveWeights(duration, shapeFactor); break;
@@ -678,20 +957,16 @@
         case 'backloaded': weights = generateBackloadedWeights(duration); break;
         case 'uniform': weights = generateUniformWeights(duration); break;
         case 'custom':
-          // Initialize with uniform for custom editing
           weights = generateUniformWeights(duration);
           break;
       }
 
-      // Calculate advance payment
       const advanceAmount = totalBudget * (advancePercent / 100);
       const remainingBudget = totalBudget - advanceAmount;
 
-      // Build monthly data
       cashFlowData = [];
       let cumulative = 0;
 
-      // Month 0: Advance Payment
       if (advancePercent > 0) {
         cashFlowData.push({
           month: 0,
@@ -704,7 +979,6 @@
         cumulative = advanceAmount;
       }
 
-      // Monthly cash flows
       for (let i = 1; i <= duration; i++) {
         const monthlyAmount = remainingBudget * weights[i - 1];
         cumulative += monthlyAmount;
@@ -732,7 +1006,6 @@
       }
     }
 
-    // ===== TABLE RENDERING =====
     function renderCashFlowTable() {
       const container = document.getElementById('cashFlowContainer');
       const currency = projectConfig.currency || 'USD';
@@ -817,7 +1090,6 @@
     }
 
     function recalculateCustom() {
-      // Recalculate cumulative and percentages
       let cumulative = 0;
       const total = cashFlowData.reduce((s, r) => s + r.monthlyAmount, 0);
       
@@ -836,7 +1108,6 @@
       autoSave();
     }
 
-    // ===== CHARTS =====
     function renderCharts() {
       const chartsSection = document.getElementById('chartsSection');
       if (cashFlowData.length === 0) {
@@ -869,7 +1140,6 @@
       const maxCumulative = cashFlowData[cashFlowData.length - 1].cumulativeAmount;
       const dataPoints = cashFlowData.length;
 
-      // Grid lines
       ctx.strokeStyle = 'rgba(212, 175, 55, 0.1)';
       ctx.lineWidth = 1;
       for (let i = 0; i <= 5; i++) {
@@ -879,7 +1149,6 @@
         ctx.lineTo(width - padding.right, y);
         ctx.stroke();
         
-        // Y-axis labels
         const value = maxCumulative - (maxCumulative / 5) * i;
         ctx.fillStyle = '#a0aec0';
         ctx.font = '11px Inter';
@@ -887,7 +1156,6 @@
         ctx.fillText(formatShort(value), padding.left - 8, y + 4);
       }
 
-      // X-axis labels
       ctx.textAlign = 'center';
       const step = Math.max(1, Math.floor(dataPoints / 10));
       for (let i = 0; i < dataPoints; i += step) {
@@ -896,7 +1164,6 @@
         ctx.fillText(cashFlowData[i].label, x, height - padding.bottom + 20);
       }
 
-      // S-curve line
       ctx.strokeStyle = '#d4af37';
       ctx.lineWidth = 3;
       ctx.beginPath();
@@ -908,7 +1175,6 @@
       });
       ctx.stroke();
 
-      // Fill area under curve
       ctx.lineTo(padding.left + chartWidth, padding.top + chartHeight);
       ctx.lineTo(padding.left, padding.top + chartHeight);
       ctx.closePath();
@@ -918,7 +1184,6 @@
       ctx.fillStyle = gradient;
       ctx.fill();
 
-      // Data points
       cashFlowData.forEach((row, i) => {
         const x = padding.left + (chartWidth / (dataPoints - 1)) * i;
         const y = padding.top + chartHeight - (row.cumulativeAmount / maxCumulative) * chartHeight;
@@ -952,7 +1217,6 @@
       const barWidth = (chartWidth / dataPoints) * 0.7;
       const gap = (chartWidth / dataPoints) * 0.3;
 
-      // Grid lines
       ctx.strokeStyle = 'rgba(212, 175, 55, 0.1)';
       ctx.lineWidth = 1;
       for (let i = 0; i <= 5; i++) {
@@ -969,7 +1233,6 @@
         ctx.fillText(formatShort(value), padding.left - 8, y + 4);
       }
 
-      // Bars
       monthlyData.forEach((row, i) => {
         const x = padding.left + (chartWidth / dataPoints) * i + gap / 2;
         const barHeight = (row.monthlyAmount / maxMonthly) * chartHeight;
@@ -981,7 +1244,6 @@
         ctx.fillStyle = gradient;
         ctx.fillRect(x, y, barWidth, barHeight);
 
-        // X-axis labels
         if (dataPoints <= 24 || i % Math.ceil(dataPoints / 12) === 0) {
           ctx.fillStyle = '#a0aec0';
           ctx.font = '11px Inter';
@@ -991,7 +1253,6 @@
       });
     }
 
-    // ===== STATISTICS =====
     function updateStats() {
       const currency = projectConfig.currency || 'USD';
       const symbol = currencySymbols[currency];
@@ -1008,7 +1269,6 @@
       document.getElementById('statAdvance').textContent = `${symbol}${formatShort(advance)}`;
     }
 
-    // ===== UTILITIES =====
     function formatNumber(num) {
       const currency = projectConfig.currency || 'USD';
       const symbol = currencySymbols[currency];
@@ -1021,7 +1281,6 @@
       return num.toFixed(0);
     }
 
-    // ===== PERSISTENCE =====
     function autoSave() {
       if (cashFlowData.length > 0) {
         const data = { cashFlowData, projectConfig };
@@ -1063,7 +1322,6 @@
             cashFlowData = data.cashFlowData;
             projectConfig = data.projectConfig;
             
-            // Restore form values
             document.getElementById('projectName').value = projectConfig.projectName || '';
             document.getElementById('totalBudget').value = projectConfig.totalBudget || '';
             document.getElementById('currency').value = projectConfig.currency || 'USD';
@@ -1155,11 +1413,11 @@
 
     // ===== INITIALIZATION =====
     window.addEventListener('load', () => {
+      animateCounters(); // ✅ Trigger credibility counter
       onDistributionChange();
       loadFromLocalStorage();
     });
 
-    // Redraw charts on resize
     window.addEventListener('resize', () => {
       if (cashFlowData.length > 0) renderCharts();
     });
