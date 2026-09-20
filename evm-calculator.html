@@ -48,32 +48,57 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        /* ✅ BACK TO ENG. TOOLS BUTTON STYLE */
-        .back-to-tools-btn {
+        /* ✅ TOP RIGHT ACTIONS WRAPPER */
+        .top-right-actions {
             position: fixed;
             top: calc(var(--nav-height) + 20px);
             right: 5%;
             z-index: 999;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* ✅ SHARED BUTTON SIZING (Ensures exact same dimensions) */
+        .action-btn-shared {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 0.6rem 1.2rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--accent);
+            height: 44px; /* Fixed height for identical size */
+            padding: 0 1.2rem;
             border-radius: 50px;
-            color: var(--accent);
-            text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
+            text-decoration: none;
             transition: all 0.3s ease;
+            white-space: nowrap;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
+        /* Back to Tools Specific Style */
+        .back-to-tools-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
         .back-to-tools-btn:hover {
             background: var(--accent);
             color: var(--bg-primary);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Premium Tool Specific Style (Keeps original gold color) */
+        .btn-premium-top {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            border: 1px solid transparent;
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+        .btn-premium-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
         }
 
         /* ✅ EQUAL HEIGHT LAYOUT CONTAINER */
@@ -166,30 +191,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ✅ PREMIUM TOOL BUTTON STYLE */
-        .btn-premium {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            margin-top: 30px;
-        }
-        .btn-premium:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
-        }
-
         /* ✅ RESPONSIVE DESIGN */
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -199,11 +200,15 @@
             .full-width { grid-column: span 1; }
             .section-header { flex-direction: column; gap: 10px; align-items: flex-start; }
             
-            /* Adjust button for mobile */
-            .back-to-tools-btn {
+            /* Adjust top buttons for mobile */
+            .top-right-actions {
                 right: 20px;
                 top: calc(var(--nav-height) + 10px);
-                padding: 0.5rem 1rem;
+                gap: 8px;
+            }
+            .action-btn-shared {
+                height: 38px;
+                padding: 0 1rem;
                 font-size: 0.8rem;
             }
         }
@@ -231,10 +236,15 @@
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- ✅ BACK TO ENG. TOOLS BUTTON -->
-    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools-btn">
-        <i class="fas fa-arrow-left"></i> Back to Eng. Tools
-    </a>
+    <!-- ✅ TOP RIGHT ACTIONS (Both buttons grouped together) -->
+    <div class="top-right-actions">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-EVM-PRO-010" class="action-btn-shared btn-premium-top">
+            <i class="fas fa-crown"></i> Get the Premium tool
+        </a>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
+            <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+        </a>
+    </div>
 
     <!-- ✅ TWO-COLUMN LAYOUT WITH EQUAL HEIGHT -->
     <div class="main-layout">
@@ -330,11 +340,8 @@
                 <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
                 <p>Enter project data to see real-time analysis.</p>
             </div>
-
-            <!-- ✅ GET PREMIUM TOOL BUTTON (Scrolls to Product #10) -->
-            <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-EVM-PRO-010" class="btn-premium">
-                <i class="fas fa-crown"></i> Get The Premium Tool
-            </a>
+            
+            <!-- ✅ Premium button removed from here and moved to top-right -->
         </div>
 
     </div>
