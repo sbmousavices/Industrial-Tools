@@ -41,6 +41,19 @@
       padding-top: calc(var(--nav-height) + 30px);
       padding-bottom: 60px;
       background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ✅ 1. INTERACTIVE NETWORK BACKGROUND */
+    #network-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* =========================================
@@ -52,7 +65,7 @@
       border-bottom: 1px solid var(--border-color); z-index: 1000;
       display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
     }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
     .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
     .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
     .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
@@ -60,6 +73,91 @@
     .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
     .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
     .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+    /* ✅ TOP RIGHT ACTIONS */
+    .top-right-actions {
+      position: fixed;
+      top: calc(var(--nav-height) + 20px);
+      right: 5%;
+      z-index: 999;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .action-btn-shared {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .back-to-tools-btn {
+      background: var(--bg-primary);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .back-to-tools-btn:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ✅ 2. SHIMMER EFFECT ON PREMIUM BUTTON */
+    .btn-premium-top {
+      background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+      border: 1px solid transparent;
+      color: var(--bg-primary);
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-premium-top::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      transform: skewX(-25deg);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      20% { left: 200%; }
+      100% { left: 200%; }
+    }
+    .btn-premium-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    }
+
+    /* ✅ 4. LIVE CREDIBILITY COUNTER */
+    .credibility-bar {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+    .cred-item { text-align: center; }
+    .cred-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
+    .cred-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
 
     /* =========================================
        ✅ TOOL SPECIFIC STYLES
@@ -87,57 +185,12 @@
 
     .header h1 span { color: var(--accent-gold); }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-back {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-back:hover {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-    }
-
-    /* ✅ NEW PREMIUM BUTTON STYLE */
-    .btn-premium {
-      background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: none;
-    }
-
-    .btn-premium:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
-    }
-
     .container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 30px;
+      position: relative;
+      z-index: 1;
     }
 
     .section {
@@ -164,6 +217,23 @@
       background: var(--accent-gold);
       border-radius: 2px;
     }
+
+    /* ✅ 3. DAILY GOLDEN TIP */
+    .golden-tip-box {
+      background: rgba(212, 175, 55, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 12px 15px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+    .golden-tip-box i { color: var(--accent); margin-top: 3px; }
+    .tip-text { transition: opacity 0.3s ease; }
 
     .input-grid {
       display: grid;
@@ -286,7 +356,6 @@
       border-color: var(--accent-gold);
     }
 
-    /* ✅ Updated to support up to 10 levels */
     .wbs-item-content.level-1 { margin-left: 30px; }
     .wbs-item-content.level-2 { margin-left: 60px; }
     .wbs-item-content.level-3 { margin-left: 90px; }
@@ -335,7 +404,6 @@
     .level-2 .wbs-level-badge { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
     .level-3 .wbs-level-badge { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
     .level-4 .wbs-level-badge { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
-    /* ✅ Generic styling for levels 5 to 10 */
     .level-5 .wbs-level-badge,
     .level-6 .wbs-level-badge,
     .level-7 .wbs-level-badge,
@@ -419,6 +487,33 @@
       opacity: 0.5;
     }
 
+    /* ✅ 5. EASTER EGG TOAST NOTIFICATION */
+    .easter-egg-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #d4af37, #f4d06f);
+      color: var(--bg-primary);
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .easter-egg-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     /* ✅ RESPONSIVE */
     @media (max-width: 1024px) {
       .input-grid { grid-template-columns: 1fr; }
@@ -430,16 +525,22 @@
       .nav-links.active { display: flex; }
       .mobile-menu-btn { display: block; }
       .header { flex-direction: column; gap: 15px; text-align: center; }
-      .header-actions { flex-direction: column; width: 100%; }
-      .btn-premium, .btn-back { width: 100%; justify-content: center; }
+      
+      .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; flex-direction: column; }
+      .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
+      .credibility-bar { gap: 20px; }
+      .cred-number { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ✅ 1. INTERACTIVE BACKGROUND CANVAS -->
+  <canvas id="network-canvas"></canvas>
+
   <!-- ✅ NAVIGATION BAR -->
   <nav>
-    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
       <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
       <span>Home</span>
     </a>
@@ -457,31 +558,51 @@
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
   </nav>
 
+  <!-- ✅ TOP RIGHT ACTIONS (Fixed) -->
+  <div class="top-right-actions">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-WBS-PRO-012" class="action-btn-shared btn-premium-top">
+      <i class="fas fa-crown"></i> Get Premium Tool
+    </a>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
+      <i class="fas fa-arrow-left"></i> Back to Tools
+    </a>
+  </div>
+
   <div class="container">
+    <!-- ✅ 4. LIVE CREDIBILITY COUNTER -->
+    <div class="credibility-bar">
+      <div class="cred-item">
+        <span class="cred-number" data-target="500">0</span>
+        <span class="cred-label">Active Users</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-number" data-target="12">0</span>
+        <span class="cred-label">Pro Tools</span>
+      </div>
+      <div class="cred-item">
+        <span class="cred-number" data-target="41">0</span>
+        <span class="cred-label">Expert Articles</span>
+      </div>
+    </div>
+
     <!-- TOOL HEADER -->
     <header class="header">
       <h1>
         <i class="fas fa-sitemap" style="color: var(--accent-gold);"></i>
         WBS Structure <span>Builder</span>
       </h1>
-      
-      <!-- ✅ NEW BUTTONS WRAPPER -->
-      <div class="header-actions">
-        <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-WBS-PRO-012" class="btn-premium">
-          <i class="fas fa-crown"></i>
-          Get the Premium Tool
-        </a>
-        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="btn-back">
-          <i class="fas fa-arrow-left"></i>
-          Back to Tools Hub
-        </a>
-      </div>
     </header>
 
     <!-- PROJECT SETUP SECTION -->
     <section class="section">
       <h2 class="section-title">Project Setup</h2>
       
+      <!-- ✅ 3. DAILY GOLDEN TIP -->
+      <div class="golden-tip-box">
+        <i class="fas fa-lightbulb"></i>
+        <span class="tip-text" id="golden-tip">Loading golden tip...</span>
+      </div>
+
       <div class="input-grid">
         <div class="form-group">
           <label>Project Name</label>
@@ -500,7 +621,6 @@
         </div>
         <div class="form-group">
           <label>Max WBS Levels</label>
-          <!-- ✅ Updated to support up to 10 levels -->
           <select id="maxLevels">
             <option value="3">3 Levels</option>
             <option value="4" selected>4 Levels</option>
@@ -556,17 +676,186 @@
     </section>
   </div>
 
+  <!-- ✅ 5. EASTER EGG TOAST -->
+  <div class="easter-egg-toast" id="easter-toast">
+    <i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...
+  </div>
+
   <script>
-    // ✅ Mobile Menu Toggle
+    // ==========================================
+    // ✅ 1. INTERACTIVE NETWORK BACKGROUND
+    // ==========================================
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const numberOfParticles = Math.min(60, (canvas.width * canvas.height) / 15000);
+      for (let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateNetwork() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - distance/800})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+        if (mouse.x != null) {
+          const dx = particles[i].x - mouse.x;
+          const dy = particles[i].y - mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - distance/500})`;
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateNetwork);
+    }
+    animateNetwork();
+
+    // ==========================================
+    // ✅ 2. DAILY GOLDEN TIP (WBS Specific)
+    // ==========================================
+    const tips = [
+      "💡 Tip: A good WBS is deliverable-oriented, not action-oriented. Focus on 'what' not 'how'.",
+      "💡 Tip: The 100% Rule states that the WBS includes 100% of the work defined by the project scope.",
+      "💡 Tip: Work Packages at the lowest level should be small enough to estimate cost and duration accurately.",
+      "💡 Tip: Use the 'Export to Excel' feature to share your WBS structure with stakeholders easily.",
+      "💡 Tip: Keep your WBS levels between 3 to 6 for optimal manageability. Avoid over-complicating!"
+    ];
+    let tipIndex = 0;
+    const tipElement = document.getElementById('golden-tip');
+    
+    function rotateTip() {
+      if(!tipElement) return;
+      tipElement.style.opacity = 0;
+      setTimeout(() => {
+        tipElement.innerText = tips[tipIndex];
+        tipElement.style.opacity = 1;
+        tipIndex = (tipIndex + 1) % tips.length;
+      }, 300);
+    }
+    rotateTip();
+    setInterval(rotateTip, 6000);
+
+    // ==========================================
+    // ✅ 3. LIVE CREDIBILITY COUNTER
+    // ==========================================
+    const counters = document.querySelectorAll('.cred-number');
+    const speed = 200;
+
+    const animateCounters = () => {
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const inc = target / speed;
+          if (count < target) {
+            counter.innerText = Math.ceil(count + inc);
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + (target > 100 ? '+' : '');
+          }
+        };
+        updateCount();
+      });
+    };
+
+    // ==========================================
+    // ✅ 4. EASTER EGG (5 Rapid Clicks on Logo)
+    // ==========================================
+    const logoTrigger = document.getElementById('easter-egg-trigger');
+    const toast = document.getElementById('easter-toast');
+    let clickCount = 0;
+    let lastClickTime = 0;
+
+    if(logoTrigger) {
+      logoTrigger.addEventListener('click', (e) => {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < 800) {
+          clickCount++;
+        } else {
+          clickCount = 1;
+        }
+        lastClickTime = currentTime;
+
+        if (clickCount >= 5) {
+          e.preventDefault();
+          if(toast) toast.classList.add('show');
+          clickCount = 0;
+          setTimeout(() => {
+            window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+          }, 2000);
+        }
+      });
+    }
+
+    // ==========================================
+    // ✅ 5. ORIGINAL WBS TOOL LOGIC (UNCHANGED)
+    // ==========================================
     function toggleMobileMenu() {
       document.getElementById('navLinks').classList.toggle('active');
     }
 
-    // ===== DATA STORE =====
     let wbsData = [];
     let projectId = 1;
 
-    // ===== WBS TEMPLATES =====
     const wbsTemplates = {
       construction: {
         name: "Construction Project",
@@ -693,7 +982,6 @@
       }
     };
 
-    // ===== WBS GENERATION =====
     function generateWBS() {
       const projectName = document.getElementById('projectName').value.trim();
       const template = document.getElementById('industryTemplate').value;
@@ -736,7 +1024,6 @@
       autoSave();
     }
 
-    // ===== WBS RENDERING =====
     function renderWBS() {
       const container = document.getElementById('wbsContainer');
       const statsSection = document.getElementById('statsSection');
@@ -780,7 +1067,6 @@
       container.innerHTML = `<div class="wbs-tree">${wbsData.map(node => renderNode(node)).join('')}</div>`;
     }
 
-    // ===== WBS MANIPULATION =====
     function findNode(nodes, id) {
       for (let node of nodes) {
         if (node.id === id) return node;
@@ -867,7 +1153,6 @@
       }
     }
 
-    // ===== STATISTICS =====
     function updateStats() {
       let totalTasks = 0;
       let maxLevel = 0;
@@ -890,7 +1175,6 @@
       document.getElementById('projectNameDisplay').textContent = wbsData[0]?.name || '-';
     }
 
-    // ===== PERSISTENCE =====
     function autoSave() {
       if (wbsData.length > 0) {
         const data = { wbsData, projectId, projectName: document.getElementById('projectName').value };
@@ -964,7 +1248,6 @@
       }
     }
 
-    // ===== UTILITIES =====
     function clearWBS() {
       if (confirm('Are you sure you want to clear all WBS data?')) {
         wbsData = [];
@@ -997,6 +1280,7 @@
 
     // ===== INITIALIZATION =====
     window.addEventListener('load', () => {
+      animateCounters();
       loadFromLocalStorage();
     });
   </script>
