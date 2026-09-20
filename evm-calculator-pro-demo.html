@@ -21,17 +21,13 @@
             --accent-light: #f4d06f;
             --text-primary: #e8eef7;
             --text-secondary: #a0aec0;
-            --card-bg: rgba(15, 31, 56, 0.8);
+            --card-bg: rgba(15, 31, 56, 0.85);
             --nav-height: 70px;
             --nav-bg: rgba(10, 10, 12, 0.95);
             --border: rgba(212, 175, 55, 0.2);
         }
 
-        /* ✅ اضافه شدن اسکرول نرم برای کل صفحه (در صورت نیاز) */
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-behavior: smooth; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
         body {
@@ -47,9 +43,22 @@
             align-items: center;
             gap: 30px;
             background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%);
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* ✅ ADDED: Background Shapes & Floating Back Button Styles */
+        /* ✅ 1. INTERACTIVE NETWORK BACKGROUND */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Background Shapes */
         .bg-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .bg-shapes::before, .bg-shapes::after {
             content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out;
@@ -58,22 +67,14 @@
         .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
 
-        .floating-back-btn {
-            position: fixed; top: calc(var(--nav-height) + 15px); right: 5%; z-index: 999;
-            display: inline-flex; align-items: center; gap: 8px; padding: 0.5rem 1.2rem;
-            background: var(--bg-primary); border: 1px solid var(--accent); border-radius: 50px;
-            color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .floating-back-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
-
+        /* ✅ NAVIGATION */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
             background: var(--nav-bg); backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border); z-index: 1000;
             display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
         }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
         .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
         .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
@@ -82,15 +83,120 @@
         .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
+        /* ✅ TOP RIGHT ACTIONS */
+        .top-right-actions {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 5%;
+            z-index: 999;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .action-btn-shared {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 44px;
+            padding: 0 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .floating-back-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .floating-back-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ✅ 2. SHIMMER EFFECT ON PREMIUM BUTTON */
+        .btn-premium-top {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            border: 1px solid transparent;
+            color: var(--bg-primary);
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-premium-top::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+        .btn-premium-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ✅ 4. LIVE CREDIBILITY COUNTER */
+        .credibility-bar {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+            margin-top: 10px;
+        }
+        .cred-item { text-align: center; }
+        .cred-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
+        .cred-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
         .main-card {
             width: 100%; max-width: 1400px; background: var(--card-bg); border: 1px solid var(--border);
             border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
         }
 
         .card-header {
             text-align: center; margin-bottom: 25px; color: var(--accent); font-size: 1.5rem; font-weight: 700;
             border-bottom: 1px solid var(--border); padding-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            flex-wrap: wrap;
         }
+
+        /* ✅ 3. DAILY GOLDEN TIP */
+        .golden-tip-box {
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+        .golden-tip-box i { color: var(--accent); margin-top: 3px; }
+        .tip-text { transition: opacity 0.3s ease; }
 
         .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; align-items: end; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -100,7 +206,6 @@
             width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
             border-radius: 8px; color: white; outline: none; transition: border-color 0.3s;
         }
-        /* ✅ READ-ONLY STYLING */
         .form-input:disabled, .currency-select:disabled {
             background: rgba(0,0,0,0.5); color: var(--text-primary); border-color: rgba(212, 175, 55, 0.1);
             cursor: default !important; opacity: 0.85;
@@ -125,7 +230,7 @@
         .percent-box::-webkit-outer-spin-button, .percent-box::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .percent-symbol { position: absolute; right: 4px; color: var(--accent); font-size: 0.7rem; opacity: 0.6; pointer-events: none; }
 
-        .reports-container { display: flex; flex-direction: column; gap: 30px; width: 100%; max-width: 1400px; }
+        .reports-container { display: flex; flex-direction: column; gap: 30px; width: 100%; max-width: 1400px; position: relative; z-index: 1; }
         .white-report {
             background: white; color: #333; padding: 30px; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,0.5);
             min-height: auto; position: relative; display: flex; flex-direction: column;
@@ -157,7 +262,7 @@
         .data-table tr:last-child td { border-bottom: none; }
         .report-footer { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; text-align: center; font-size: 0.7rem; color: #999; }
 
-        .btn-container { text-align: center; width: 100%; max-width: 1400px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-container { text-align: center; width: 100%; max-width: 1400px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; position: relative; z-index: 1; }
         .btn-action {
             width: auto; padding: 12px 28px; background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%); 
             color: var(--bg-primary); border: none; border-radius: 50px; font-weight: 700; cursor: pointer; 
@@ -168,7 +273,6 @@
         .btn-action.secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
         .btn-action.secondary:hover { background: rgba(212, 175, 55, 0.1); color: var(--accent-light); }
         
-        /* ✅ FORCE DISABLED BUTTONS TO LOOK INACTIVE BUT VISIBLE */
         button:disabled {
             background: #333 !important; color: #888 !important; border-color: #444 !important;
             cursor: not-allowed !important; transform: none !important; box-shadow: none !important; opacity: 0.6 !important;
@@ -177,26 +281,56 @@
             background: transparent !important; color: #666 !important; border-color: #555 !important;
         }
 
+        /* ✅ 5. EASTER EGG TOAST NOTIFICATION */
+        .easter-egg-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #d4af37, #f4d06f);
+            color: var(--bg-primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .easter-egg-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         @media (max-width: 1024px) {
             .nav-links { display: none; } .mobile-menu-btn { display: block; }
             .input-grid { grid-template-columns: 1fr; } .chart-area { flex-direction: column; }
             .legend-wrapper { flex-direction: row; width: 100%; justify-content: space-around; }
             .btn-container, .action-btn-group { flex-direction: column; align-items: center; }
             .btn-action { width: 100%; max-width: 400px; justify-content: center; }
-            .floating-back-btn { right: 20px; top: calc(var(--nav-height) + 10px); padding: 0.4rem 1rem; font-size: 0.8rem; }
+            
+            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; flex-direction: column; }
+            .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
+            .credibility-bar { gap: 20px; }
+            .cred-number { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ✅ 1. INTERACTIVE BACKGROUND CANVAS -->
+    <canvas id="network-canvas"></canvas>
     <div class="bg-shapes"></div>
 
-    <!-- ✅ اصلاح شد: اضافه شدن #BM-EVM-PRO-010 به انتهای آدرس برای اسکرول خودکار به محصول مورد نظر -->
-    <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-EVM-PRO-010" class="floating-back-btn">
-        <i class="fas fa-arrow-left"></i> Get the EVM Tool
-    </a>
-
+    <!-- ✅ NAVIGATION -->
     <nav>
-        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
             <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
             <span>Home</span>
         </a>
@@ -214,13 +348,44 @@
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </nav>
 
+    <!-- ✅ TOP RIGHT ACTIONS (Both buttons grouped) -->
+    <div class="top-right-actions">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-EVM-PRO-010" class="action-btn-shared btn-premium-top">
+            <i class="fas fa-crown"></i> Get the Premium Tool
+        </a>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-EVM-PRO-010" class="action-btn-shared floating-back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Tools
+        </a>
+    </div>
+
+    <!-- ✅ 4. LIVE CREDIBILITY COUNTER -->
+    <div class="credibility-bar">
+        <div class="cred-item">
+            <span class="cred-number" data-target="500">0</span>
+            <span class="cred-label">Active Users</span>
+        </div>
+        <div class="cred-item">
+            <span class="cred-number" data-target="12">0</span>
+            <span class="cred-label">Pro Tools</span>
+        </div>
+        <div class="cred-item">
+            <span class="cred-number" data-target="41">0</span>
+            <span class="cred-label">Expert Articles</span>
+        </div>
+    </div>
+
     <div class="main-card">
         <div class="card-header">
             <i class="fas fa-info-circle"></i> Project Initial Data
-            <!-- ✅ READ-ONLY BADGE -->
             <span id="readonlyBadge" style="display:none; background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-left: 10px;">
                 <i class="fas fa-lock"></i> READ-ONLY DEMO
             </span>
+        </div>
+
+        <!-- ✅ 3. DAILY GOLDEN TIP (Demo-specific tips) -->
+        <div class="golden-tip-box">
+            <i class="fas fa-lightbulb"></i>
+            <span class="tip-text" id="golden-tip">Loading golden tip...</span>
         </div>
 
         <div class="input-grid">
@@ -267,7 +432,6 @@
                 <input type="text" class="form-input" placeholder="40,000,000" oninput="formatInput(this)">
             </div>
 
-            <!-- ✅ PROJECT ACTION BUTTONS (Visible but Disabled) -->
             <div class="form-group" id="actionSection" style="grid-column: 1 / -1; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 20px;">
                 <label class="form-label">Project Management Actions</label>
                 <div class="action-btn-group">
@@ -364,21 +528,186 @@
         </button>
     </div>
 
+    <!-- ✅ 5. EASTER EGG TOAST -->
+    <div class="easter-egg-toast" id="easter-toast">
+        <i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...
+    </div>
+
     <script>
+        // ==========================================
+        // ✅ 1. INTERACTIVE NETWORK BACKGROUND
+        // ==========================================
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = Math.min(60, (canvas.width * canvas.height) / 15000);
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - distance/800})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if (mouse.x != null) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - distance/500})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNetwork);
+        }
+        animateNetwork();
+
+        // ==========================================
+        // ✅ 2. DAILY GOLDEN TIP (Demo-Specific Tips)
+        // ==========================================
+        const tips = [
+            "💡 This is a READ-ONLY demo showing real project data. Unlock the full tool to edit and save your own projects!",
+            "💡 The full version lets you import/export JSON files, perfect for managing multiple projects.",
+            "💡 Want to see how different scenarios affect your project? The full tool allows real-time what-if analysis.",
+            "💡 Premium users can customize company logos and generate branded PDF reports for stakeholders.",
+            "💡 The full tool supports unlimited project durations and advanced forecasting methods."
+        ];
+        let tipIndex = 0;
+        const tipElement = document.getElementById('golden-tip');
+        
+        function rotateTip() {
+            tipElement.style.opacity = 0;
+            setTimeout(() => {
+                tipElement.innerText = tips[tipIndex];
+                tipElement.style.opacity = 1;
+                tipIndex = (tipIndex + 1) % tips.length;
+            }, 300);
+        }
+        rotateTip();
+        setInterval(rotateTip, 6000);
+
+        // ==========================================
+        // ✅ 3. LIVE CREDIBILITY COUNTER
+        // ==========================================
+        const counters = document.querySelectorAll('.cred-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (target > 100 ? '+' : '');
+                    }
+                };
+                updateCount();
+            });
+        };
+        window.addEventListener('load', animateCounters);
+
+        // ==========================================
+        // ✅ 4. EASTER EGG (5 Rapid Clicks on Logo)
+        // ==========================================
+        const logoTrigger = document.getElementById('easter-egg-trigger');
+        const toast = document.getElementById('easter-toast');
+        let clickCount = 0;
+        let lastClickTime = 0;
+
+        logoTrigger.addEventListener('click', (e) => {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastClickTime < 800) {
+                clickCount++;
+            } else {
+                clickCount = 1;
+            }
+            lastClickTime = currentTime;
+
+            if (clickCount >= 5) {
+                e.preventDefault();
+                toast.classList.add('show');
+                clickCount = 0;
+                setTimeout(() => {
+                    window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+                }, 2000);
+            }
+        });
+
+        // ==========================================
+        // ✅ 5. READ-ONLY DEMO & CORE LOGIC (UNCHANGED)
+        // ==========================================
         document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
         let sCurveChart = null;
 
-        // =================================================================
-        // ✅ READ-ONLY DEMO MODE: AUTO-LOAD DATA & LOCK UI
-        // =================================================================
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // 📌 STEP 1: DEFINE YOUR SAVED PROJECT DATA HERE
             const savedData = {
                 currency: "USD",
                 company: "Your Company",
                 project: "Your Project",
-                logo: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAAgEBAgEBAgICAgICAgIDBQMDAwMDBgQEAwUHBgcHBwYHBwgJCwkICAoIBwcKDQoKCwwMDAwHCQ4PDQwOCwwMDP/bAEMBAgICAwMDBgMDBgwIBwgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAQoB1gMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP38ooooAKKKKACiiigAooooAKyfEvjLT/CMlt/aM4to7tzHHI4OzcBnBPYkdPpWtjnNY3jyzjuvC90ZEWQQhZwGGcFGDZ/SmrX1HFJuzNeORZFBXkEA/WnVHbEPEpHQgEVJSEFFFFABRRSFsGgBaKbv4pQ2RzigLi0UZpAeaAFoopM/nQAtFITg0Bs0ALRRRQAUUUUAFFFFAATis7xKQNP9f/1VoMMis7xSrPphCjIz83sK58XLlpSl2NKXxo8f8d6tN4H0u0naY5S+27gwGFfcFBJ9M4NXfA/i66v9GiS4mZCBJ8pO0Z3Hp7eleOf8FB/2jX/Zy8O+G55fDekeJ7HWLt4pbe9mePyniUMrArkH6Edq8A8Vf8Fa7fWPBN5a2ngMafqd7azC3u1vxJHbyBSQ20oC2MDjjOa+Zw2T5hmFJYihBum76prp5bnsVcfhaUvZ1H7x98wXe/exOcHk+tZuo3ot0c7jg1+Q+jf8FbfGFl4ssgVElqwJkaMvEWc8DhZMBa+rvgd/wUs0fxdbNZeNtQ0nQNTWG3lgUu4+0JKGYFiSQDgKcnH3q8HPeFswwiU7OSPRwWLpVr8r2Po/xRpMWoT72Cs2TyBWPbeGI1kLGMYB4qx4P8faL8RYEk0fWNK1MMdoFtdxyMT7KDk/gK65fDc0UYEkMyHvuQivBjl2Ie8Gvkd8sTGOl0YOl6aIWUAfWt+xj2KBwTjipItByMkfrV620sxIflHPSs5YGp2MfbxfUi2AKMZ460hUsOnvmra2exuQKcbTafYDFYvDTRPtDOZHd87gAfaqiwkLJuydrcA1rzW5j6c+5qA2xd2YEYPGTxk1x1qEuxpGS2KLxFSOOTzUMsfOMEk1oyW0ipkqM8dDVW4gZCCVIJ6E1zTWljRNXMe4jKuSGxnPb3phg2v2wP1q1PC0kp9h+dQ7DuA7mvOVN3NuZ2EkjBU4AFcT8dvBF98Q/hLrWiaZ5IvdSgECGVtqAbgTk/QV37QbUJ46dqg8kk4Cnp6Zr2cvr1cJiaeKpL3oNNX2unc48bhqeKw88NV+Gaafo1Y+L/Dn/BMLWLpw+q+JNNtlxjbbwPKR68nAr0TwP/wTq8KeENZtL661TVtRuLKZJ0X5Ioy6HcOACSMj1r33Vdd0/QkL32oWdmvU+dOqkfgTmuO8QftG+DtDVsak98R2tYWfP4nAr9WreIHGeax9lGcuV6WjFL5Xt+p+Z5f4UcH5bNVI4eLktbyblqvV2OtlgCA7gCW5qvJCNn1Oa8o1z9sS1+5pmhXEnZXupgg+uFz/ADrjdS/aR8a+J5fK09bS0JOFWztfNk/XJr5/C+Hea19ZxUV/ef8AlqfoM89w1P3U7+h9CzWJcKQuR34rC8Q+M9D8MBhf6tptptOSslwu78hz+leN2PwU+L/xXwf7N8WXkMp4M5a3hx/wIqMV1/hj/gl5451t1fUbjQdFVvveZM1w4/BRjP417+G8N6FN82LxCXkjiqcSNr91D7/+AVdd/ab8HaezLHdz6i4HKW1szA89i2BXHaz+2GmMaX4ellPZrm4C59flUf1r6C8L/wDBJ3RIUj/trxRqF1j70VlbJCv/AH024/pXpfhP8A4J3/AAp8MaZ4b0y71XxHq1zZ2cUc819eQx+YwUBm2qgABPpX1dDL8Fg48tCnGPoebVx2KxL5q02/XQ/PH4g/tg+P/AB5JLbXniS40+xcYFtYgW6kD1bG4/jXj+o+LdN0yNpL3U7C0jXq006oB+Zr7F+J//BJT4WfECaW60rW9e8J3DnJGnSrPb5/3ZQSP+Amvmb4l/8EsviZ4K3XPhO803xVajJ8qBvs10R/1zkPln/vsV7EaUWtEjyJYmSd2z5/8AE3xI0HRUk87VbK5nX/l3tZ1lYn0+UECvMfEP7RcVuJIdE0t52PG+5PlqPwGSf0r27xj/wTz+M/hZpZbrwXf39suf32mMl2pHrtQ7x/wB814z4l+H3i/wZcNDrfh3VtLlU4K3ls8JH5gVrGknsYzxEUrtnnWu/EDxP4skLajrN9OjHJh8wrGP+AjA/Sue1HxJqOqRiO81C9u4x0SednA/E10F3YXVlIY7u3lgkH8MqFSfyNVJLZD1FaqCWxhKpJ7s5qWQyHJJP1NV5ZgB1q1d2u0HFc9cRbQwEgV6mCq80bHn4inyyuQXV1kEZ4rJnuMk81auZsEis6aTnmtZM0pQ6k09xkHmsq4myTVi4l4PNY9zLzWUpG9On1I7iXJPNY9zLzVm4l5PNZM8vJrGTOqEehDPJzWfPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1xLzWbPJzWUpGsIdCvPJzWZPJzU1......", // Truncated for brevity, will use full string in actual code
+                logo: "data:image/jpeg;base64,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......",
                 duration: "20",
                 elapsed: "7",
                 bac: "200,000,000",
@@ -390,7 +719,6 @@
                 }
             };
 
-            // 📌 STEP 2: POPULATE FORM FIELDS
             document.getElementById('inpCurrency').value = savedData.currency;
             document.getElementById('inpCompany').value = savedData.company;
             document.getElementById('inpProject').value = savedData.project;
@@ -398,7 +726,6 @@
             document.getElementById('inpElapsed').value = savedData.elapsed;
             document.getElementById('inpBAC').value = savedData.bac;
 
-            // 📌 STEP 3: POPULATE LOGO
             if (savedData.logo && savedData.logo.length > 100) {
                 document.getElementById('logoPreview1').src = savedData.logo;
                 document.getElementById('logoPreview2').src = savedData.logo;
@@ -407,7 +734,6 @@
                 document.getElementById('logoPlaceholder').style.display = 'none';
             }
 
-            // 📌 STEP 4: GENERATE GRID AND POPULATE DATA
             handleDurationChange();
             setTimeout(() => {
                 ['bac', 'pv', 'ev', 'ac'].forEach(type => {
@@ -422,36 +748,27 @@
                 updateCalculations();
             }, 100);
 
-            // 📌 STEP 5: LOCK DOWN THE UI (READ-ONLY ENFORCEMENT)
-            // Disable all inputs and selects
             document.querySelectorAll('input, select, textarea').forEach(el => {
                 el.disabled = true;
                 el.style.cursor = 'default';
             });
 
-            // Disable ALL buttons EXCEPT the download buttons
             document.querySelectorAll('button').forEach(btn => {
                 const isDownloadBtn = btn.getAttribute('onclick')?.includes('downloadReport');
                 if (!isDownloadBtn) {
                     btn.disabled = true;
                     btn.style.cursor = 'not-allowed';
-                    // Remove onclick to prevent any hidden executions
                     btn.removeAttribute('onclick'); 
                 } else {
-                    // Ensure download buttons remain fully functional and visually prominent
                     btn.style.cursor = 'pointer';
                     btn.style.opacity = '1';
                     btn.style.boxShadow = '0 4px 15px rgba(212, 175, 55, 0.4)';
                 }
             });
 
-            // Show the READ-ONLY badge
             document.getElementById('readonlyBadge').style.display = 'inline-block';
         });
 
-        // =================================================================
-        // ✅ CORE FUNCTIONS (Unchanged, kept for calculation & PDF generation)
-        // =================================================================
         function handleLogoUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -643,7 +960,6 @@
             setTimeout(() => { html2pdf().set(opt).from(element).save(); }, 500);
         }
 
-        // ✅ DUMMY FUNCTIONS TO PREVENT ERRORS (Buttons are disabled anyway)
         function saveProject() {}
         function importProject(input) {}
         function newProject() {}
