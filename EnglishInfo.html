@@ -226,7 +226,20 @@ background: var(--bg-primary);
 color: var(--text-primary);
 line-height: 1.7;
 overflow-x: hidden;
+position: relative;
 }
+
+/* ✅ 1. INTERACTIVE NETWORK BACKGROUND - MOUSE LINES ONLY */
+#network-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
 /* ✅ READING PROGRESS BAR */
 #progress-container {
 position: fixed;
@@ -623,17 +636,40 @@ animation: blink 0.7s infinite;
 .btn-primary { background: var(--gradient); color: var(--bg-primary); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5); }
 
-/* ✨✨✨ NEW HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON ✨ */
+/* ✨✨✨ HIGHLIGHT STYLE FOR VIEW PRODUCTS BUTTON + SHIMMER ✨ */
 .hero-buttons .btn-primary {
     position: relative;
     z-index: 1;
-    /* Make it slightly larger to stand out */
     transform: scale(1.05); 
-    /* Stronger initial glow */
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-    /* Apply the pulse animation */
     animation: hero-btn-pulse 2s infinite ease-in-out;
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Subtle white border for extra pop */
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden; /* ✅ Required for shimmer effect */
+}
+
+/* ✅ NEW: SHIMMER ANIMATION ON VIEW PRODUCTS BUTTON */
+.hero-buttons .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    );
+    transform: skewX(-25deg);
+    animation: shimmer-sweep 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer-sweep {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
 }
 
 @keyframes hero-btn-pulse {
@@ -651,13 +687,16 @@ animation: blink 0.7s infinite;
     }
 }
 
-/* Ensure hover effect still works nicely on top of animation */
 .hero-buttons .btn-primary:hover {
-    animation: none; /* Stop pulsing on hover so user can click easily */
+    animation: none;
     transform: scale(1.1) translateY(-3px);
     box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8);
 }
-/* ✨✨ END NEW HIGHLIGHT STYLE ✨✨ */
+.hero-buttons .btn-primary:hover::after {
+    animation: none;
+    left: 200%;
+}
+/* ✨✨ END HIGHLIGHT STYLE ✨✨ */
 
 .btn-outline { background: transparent; color: var(--text-primary); border: 2px solid var(--border); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
@@ -795,7 +834,7 @@ background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
 @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-section { padding: 5rem 5%; }
+section { padding: 5rem 5%; position: relative; z-index: 1; }
 .container { max-width: 1200px; margin: 0 auto; }
 .section-header { text-align: center; margin-bottom: 3.5rem; }
 .section-subtitle { color: var(--accent); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
@@ -1303,6 +1342,8 @@ padding: 3rem 5%;
 background: var(--bg-secondary);
 border-top: 1px solid var(--border);
 text-align: center;
+position: relative;
+z-index: 1;
 }
 .share-container {
 max-width: 600px;
@@ -1351,7 +1392,7 @@ box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 .share-btn { width: 45px; height: 45px; font-size: 1rem; }
 .share-title { font-size: 1.2rem; }
 }
-footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); }
+footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 footer p { color: var(--text-secondary); font-size: 0.9rem; }
 .download-notification {
 position: fixed;
@@ -1443,7 +1484,7 @@ border-radius: 15px;
 /* Wrapper for chat button positioning - Moved down to avoid overlap */
 #custom-chat-wrapper {
     position: fixed;
-    top: 135px; /* ✅ Increased from 80px to 135px (1.5x height) */
+    top: 135px;
     left: 30px;
     z-index: 10000;
     display: flex;
@@ -1477,7 +1518,7 @@ border-radius: 15px;
 #chat-box {
     display: none;
     position: fixed;
-    top: 185px; /* ✅ Adjusted to match new wrapper position */
+    top: 185px;
     left: 30px;
     width: 320px;
     height: 450px;
@@ -1591,20 +1632,23 @@ border-radius: 15px;
 /* Mobile Responsive for Chat */
 @media (max-width: 768px) {
     #custom-chat-wrapper {
-        top: 130px; /* ✅ Adjusted for mobile stats bar */
+        top: 130px;
         left: 20px;
     }
     #chat-box {
         width: calc(100% - 40px);
         left: 20px;
-        top: 180px; /* ✅ Adjusted for mobile */
+        top: 180px;
         height: 60vh;
     }
 }
-/* ✅ REMOVED ALL NFT GALLERY SPA STYLES (#nft-gallery-view, .nft-back-btn) */
 </style>
 </head>
 <body>
+
+<!-- ✅ 1. INTERACTIVE NETWORK CANVAS -->
+<canvas id="network-canvas"></canvas>
+
 <!-- ✅ READING PROGRESS BAR -->
 <div id="progress-container">
 <div id="progress-bar"></div>
@@ -2092,8 +2136,6 @@ onerror="this.style.display='none'; this.nextElementSibling.style.display='block
 <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Planning & Project Control Excellence</p>
 </footer>
 
-<!-- ✅ REMOVED NFT GALLERY SPA VIEW AND IFRAME -->
-
 <!-- ✅ CUSTOM CHATBOT INTERFACE (QWEN INTEGRATION) - REPOSITIONED -->
 <div id="custom-chat-wrapper">
     <button id="chat-toggle">💬 Chat</button>
@@ -2112,8 +2154,97 @@ onerror="this.style.display='none'; this.nextElementSibling.style.display='block
 </div>
 
 <script>
-// ✅ REMOVED SPA NAVIGATION FUNCTIONS (showNFTGallery, showMainView)
+// ==========================================
+// ✅ 1. INTERACTIVE NETWORK BACKGROUND - MOUSE LINES ONLY
+// ==========================================
+const canvas = document.getElementById('network-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouse = { x: null, y: null };
 
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// Calculate exact mouse position relative to the canvas
+window.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+});
+
+window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+});
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.size = Math.random() * 1.5 + 0.5;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particles = [];
+    const numberOfParticles = Math.min(40, (canvas.width * canvas.height) / 25000);
+    for (let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle());
+    }
+}
+initParticles();
+
+function animateNetwork() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        
+        // ONLY connect particles to mouse (no particle-to-particle lines)
+        if (mouse.x != null && mouse.y != null) {
+            const dx = particles[i].x - mouse.x;
+            const dy = particles[i].y - mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 200) {
+                const opacity = 0.5 - (distance / 400);
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(244, 208, 111, ${opacity})`;
+                ctx.lineWidth = 1.2;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
+    }
+    requestAnimationFrame(animateNetwork);
+}
+animateNetwork();
+
+// Re-init particles on resize
+window.addEventListener('resize', () => {
+    setTimeout(initParticles, 100);
+});
+</script>
+
+<script>
 // Chatbot Configuration
 const WORKER_URL = 'https://late-moon-4f8a.sbmousavi-ces.workers.dev/';
 
