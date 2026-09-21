@@ -8,7 +8,15 @@ With over 25 years of field experience in Oil & Gas, EPC, and Industrial project
 
 ---
 
-##  Available Free Tools
+## 📚 Featured Guide on Medium
+
+📖 **Read our comprehensive guide:** [11 Free Excel Templates Every Project Manager Needs in 2026](https://medium.com/@sbmousavi/11-free-excel-templates-every-project-manager-needs-in-2026-5f6eaa077777)
+
+Discover detailed insights about these tools, real-world use cases, and step-by-step implementation guides on Medium.
+
+---
+
+## 🚀 Available Free Tools
 
 | # | Tool Name | Description | Best For |
 |---|-----------|-------------|----------|
@@ -23,14 +31,6 @@ With over 25 years of field experience in Oil & Gas, EPC, and Industrial project
 | 9 | **Project Tracker** | Comprehensive task, resource, and progress log. | Daily Project Operations |
 | 10 | **Event Planner** | Logistics and milestone tracking for project events. | Commissioning & Handover |
 | 11 | **TO-DO LIST** | Advanced, categorized task management with priority flags. | Personal Productivity |
-
----
-
-##  Featured Guide on Medium
-
-📖 **Read our comprehensive guide:** [**11 Free Excel Templates Every Project Manager Needs in 2026**](https://medium.com/@sbmousavi/11-free-excel-templates-every-project-manager-needs-in-2026-5f6eaa077777)
-
-Discover detailed insights about these tools, real-world use cases, and step-by-step implementation guides on Medium.
 
 ---
 
