@@ -8,11 +8,15 @@ With over 25 years of field experience in Oil & Gas, EPC, and Industrial project
 
 ---
 
-## 📚 Featured Guide on Medium
+## 📚 Featured Articles & Guides on Medium
 
-📖 **Read our comprehensive guide:** [11 Free Excel Templates Every Project Manager Needs in 2026](https://medium.com/@sbmousavi/11-free-excel-templates-every-project-manager-needs-in-2026-5f6eaa077777)
+Explore our latest in-depth guides and resources curated for professionals:
 
-Discover detailed insights about these tools, real-world use cases, and step-by-step implementation guides on Medium.
+- 🏗️ **Industrial Project Management:** [11 Free Excel Templates Every Project Manager Needs in 2026](https://medium.com/@sbmousavi/11-free-excel-templates-every-project-manager-needs-in-2026-5f6eaa077777)
+  *Discover detailed insights about EVM, WBS, Cash Flow tools, and step-by-step implementation guides.*
+
+- 💻 **Web Design & Development:** [Stop Using Bloated Themes: 5 Premium & Free Web Design Assets](https://medium.com/@sbmousavi/stop-using-bloated-themes-5-premium-free-web-design-assets-for-modern-developers-161fe2af4623)
+  *Upgrade your portfolio with lightweight, responsive, and SEO-optimized templates, including a free glassmorphism theme.*
 
 ---
 
