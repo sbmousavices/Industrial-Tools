@@ -256,6 +256,37 @@
         .product-features li { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem; padding-left: 1.5rem; position: relative; }
         .product-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-green); font-weight: bold; }
 
+        /* ✅ TWO COLUMN LIST FOR FREE DEMO (Added to Head) */
+        .two-column-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 15px;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.2rem 0;
+            border: none;
+        }
+        .two-column-list li {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.4;
+            border: none;
+        }
+        .two-column-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .two-column-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .product-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
         .btn-product {
             padding: 0.7rem 1.3rem; border-radius: 50px; font-weight: 600; text-decoration: none;
@@ -523,27 +554,36 @@
                 </div>
             </a>
 
-            <!-- 2. FREE DEMO -->
+            <!-- 2. FREE DEMO (FIXED & CLEANED UP) -->
             <div class="product-card reveal">
                 <div class="product-banner" style="background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);">
                     <span class="product-badge product-badge-free">FREE DEMO</span>
                     <i class="fas fa-heartbeat"></i>
                 </div>
                 <div class="product-body">
-                    <span class="product-category">Free Tool</span>
-                    <h3 class="product-title">Project Health Report Template</h3>
-                    <p class="product-description">A macro-enabled Excel tool for project health reporting, production line scheduling, OEE analysis, and project monitoring.</p>
-                    <ul class="product-features">
-                        <li>Free demo version</li>
-                        <li>No payment required</li>
-                        <li>Try before purchase</li>
+                    <span class="product-category">Macro-enabled Excel</span>
+                    <h3 class="product-title">Project Planning Template File</h3>
+                    
+                    <ul class="two-column-list">
+                        <li>Project Planner-Gantt Chart</li>
+                        <li>OPEN vs. CLOSED TRACKER</li>
+                        <li>Project Health Report</li>
+                        <li>DETAILED LEADS TRACKER</li>
+                        <li>PROJECT PERFORMANCE</li>
+                        <li>Project Timeline Title</li>
+                        <li>Touch base tracker</li>
+                        <li>Cash flow forecast</li>
+                        <li>Project tracker</li>
+                        <li>Event planner</li>
+                        <li>TO-DO LIST</li>
                     </ul>
+
                     <div class="product-meta">
                         <span class="product-price">FREE</span>
                         <span class="product-delivery"><i class="fas fa-bolt"></i> Instant</span>
                     </div>
                     <div class="product-actions">
-                        <a href="Demo_Project_Health_Report_Template.xlsm" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Project Health Report Demo')">
+                        <a href="https://sbmousavices.github.io/Industrial-Tools/Template.rar" download class="btn-product btn-download-product" onclick="event.stopPropagation(); trackEvent('/demo-download', 'Downloaded: Project Health Report Demo')">
                             <i class="fas fa-download"></i> Download Demo
                         </a>
                     </div>
