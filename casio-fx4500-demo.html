@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casio fx-4500PA (Demo) | Behzad Mousavi</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #network-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        .top-right-actions {
+            position: fixed; top: calc(var(--nav-height) + 20px); right: 5%; z-index: 999;
+            display: flex; gap: 12px; align-items: center;
+        }
+        .action-btn-shared {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            height: 44px; padding: 0 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.3s ease; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .back-to-tools-btn { background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent); }
+        .back-to-tools-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .btn-premium-top {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%); border: 1px solid transparent; color: var(--bg-primary); font-weight: 700; position: relative; overflow: hidden;
+        }
+        .btn-premium-top::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg); animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+        .btn-premium-top:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
+
+        .main-layout {
+            max-width: 500px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1;
+        }
+
+        /* CASIO FX-4500PA BODY */
+        .casio-body {
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 2px solid #0a0a0a;
+        }
+
+        .casio-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding: 0 5px;
+        }
+        .casio-brand { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: 3px; }
+        .casio-model { font-size: 0.9rem; color: #d4af37; font-weight: 700; font-style: italic; }
+        .dot-matrix { font-size: 0.75rem; color: #888; letter-spacing: 2px; }
+
+        /* LCD DISPLAY */
+        .lcd-frame {
+            background: #0a0a0a;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 3px solid #1a1a1a;
+        }
+        .lcd-screen {
+            background: linear-gradient(180deg, #8b956d 0%, #7a8560 100%);
+            border-radius: 4px;
+            padding: 15px;
+            min-height: 90px;
+            font-family: 'Share Tech Mono', monospace;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .lcd-screen::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+            pointer-events: none;
+        }
+        .lcd-indicators {
+            position: absolute; top: 5px; left: 10px; right: 10px;
+            display: flex; justify-content: space-between;
+            font-size: 0.7rem; color: #2a2a2a; font-weight: 700;
+        }
+        .lcd-line {
+            color: #1a1a1a;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+        .lcd-line.top { font-size: 1.1rem; min-height: 26px; opacity: 0.7; }
+        .lcd-line.bottom { font-size: 1.8rem; font-weight: 700; min-height: 35px; }
+
+        /* BUTTON GRID */
+        .btn-section {
+            margin-bottom: 10px;
+        }
+        .btn-row {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .btn-row-6 { grid-template-columns: repeat(6, 1fr); }
+        .btn-row-5 { grid-template-columns: repeat(5, 1fr); }
+
+        .calc-btn {
+            position: relative;
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-shadow: 0 3px 0 #0a0a0a, 0 4px 6px rgba(0,0,0,0.4);
+            display: flex; align-items: center; justify-content: center;
+            height: 42px;
+            user-select: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+        .calc-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 #0a0a0a, inset 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .calc-btn .shift-label {
+            position: absolute; top: 2px; left: 4px;
+            font-size: 0.55rem; color: #d4af37; font-weight: 700;
+        }
+        .calc-btn .alpha-label {
+            position: absolute; top: 2px; right: 4px;
+            font-size: 0.55rem; color: #e74c3c; font-weight: 700;
+        }
+
+        /* Button Colors */
+        .calc-btn.orange {
+            background: linear-gradient(180deg, #e67e22 0%, #d35400 100%);
+            color: #fff;
+        }
+        .calc-btn.blue {
+            background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
+            color: #fff;
+        }
+        .calc-btn.red {
+            background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+            color: #fff;
+        }
+        .calc-btn.gray {
+            background: linear-gradient(180deg, #555 0%, #444 100%);
+        }
+        .calc-btn.dark {
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .calc-btn.wide { grid-column: span 2; }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; }
+            .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
+            .calc-btn { height: 38px; font-size: 0.75rem; }
+            .lcd-line.bottom { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="network-canvas"></canvas>
+
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="top-right-actions">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-EVM-PRO-010" class="action-btn-shared btn-premium-top">
+            <i class="fas fa-crown"></i> Get Premium
+        </a>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
+            <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+        </a>
+    </div>
+
+    <div class="main-layout">
+        <div class="casio-body">
+            <div class="casio-header">
+                <div>
+                    <div class="casio-brand">CASIO</div>
+                    <div class="casio-model">fx-4500PA</div>
+                </div>
+                <div class="dot-matrix">DOT MATRIX LCD</div>
+            </div>
+
+            <div class="lcd-frame">
+                <div class="lcd-screen">
+                    <div class="lcd-indicators">
+                        <span id="mode-ind">DEMO</span>
+                        <span id="deg-ind">D</span>
+                        <span id="shift-ind"></span>
+                        <span id="mem-ind">M</span>
+                    </div>
+                    <div class="lcd-line top" id="disp-top">DEMO VERSION</div>
+                    <div class="lcd-line bottom" id="disp-bottom">PURCHASE TO USE</div>
+                </div>
+            </div>
+
+            <!-- Row 1: Function buttons -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn" onclick="insertFunc('sin')"><span class="shift-label">sin⁻¹</span>sin</button>
+                    <button class="calc-btn" onclick="insertFunc('cos')"><span class="shift-label">cos⁻¹</span>cos</button>
+                    <button class="calc-btn" onclick="insertFunc('tan')"><span class="shift-label">tan⁻¹</span>tan</button>
+                    <button class="calc-btn" onclick="insertFunc('log')"><span class="shift-label">10ˣ</span>log</button>
+                    <button class="calc-btn" onclick="insertFunc('ln')"><span class="shift-label">e</span>ln</button>
+                    <button class="calc-btn" onclick="insertFunc('sqrt')"><span class="shift-label">x²</span>√</button>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn" onclick="insertVal('(')"><span class="shift-label">x⁻¹</span>(</button>
+                    <button class="calc-btn" onclick="insertVal(')')"><span class="shift-label">n!</span>)</button>
+                    <button class="calc-btn" onclick="insertVal('^')"><span class="shift-label">ˣ√</span>x^y</button>
+                    <button class="calc-btn" onclick="insertFunc('hyp')"><span class="shift-label">hyp⁻¹</span>hyp</button>
+                    <button class="calc-btn" onclick="insertVal('π')"><span class="shift-label">e</span>π</button>
+                    <button class="calc-btn" onclick="insertVal('%')"><span class="shift-label">,</span>%</button>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn gray" onclick="insertVal('7')"><span class="alpha-label">S</span>7</button>
+                    <button class="calc-btn gray" onclick="insertVal('8')"><span class="alpha-label">T</span>8</button>
+                    <button class="calc-btn gray" onclick="insertVal('9')"><span class="alpha-label">U</span>9</button>
+                    <button class="calc-btn red" onclick="deleteChar()">DEL</button>
+                    <button class="calc-btn red" onclick="clearAll()">AC</button>
+                    <button class="calc-btn gray" onclick="insertVal('/')"><span class="alpha-label">V</span>÷</button>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn gray" onclick="insertVal('4')"><span class="alpha-label">J</span>4</button>
+                    <button class="calc-btn gray" onclick="insertVal('5')"><span class="alpha-label">K</span>5</button>
+                    <button class="calc-btn gray" onclick="insertVal('6')"><span class="alpha-label">L</span>6</button>
+                    <button class="calc-btn gray" onclick="insertVal('*')"><span class="alpha-label">M</span>×</button>
+                    <button class="calc-btn gray" onclick="insertVal('-')"><span class="alpha-label">N</span>-</button>
+                    <button class="calc-btn gray" onclick="insertVal('+')"><span class="alpha-label">O</span>+</button>
+                </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn gray" onclick="insertVal('1')"><span class="alpha-label">A</span>1</button>
+                    <button class="calc-btn gray" onclick="insertVal('2')"><span class="alpha-label">B</span>2</button>
+                    <button class="calc-btn gray" onclick="insertVal('3')"><span class="alpha-label">C</span>3</button>
+                    <button class="calc-btn gray" onclick="insertVal('0')"><span class="alpha-label">D</span>0</button>
+                    <button class="calc-btn gray" onclick="insertVal('.')"><span class="alpha-label">E</span>.</button>
+                    <button class="calc-btn gray" onclick="insertVal('EXP')"><span class="alpha-label">F</span>EXP</button>
+                </div>
+            </div>
+
+            <!-- Row 6 -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn" onclick="insertVal('Ans')">Ans</button>
+                    <button class="calc-btn" onclick="memoryRecall()">RCL</button>
+                    <button class="calc-btn" onclick="memoryAdd()">M+</button>
+                    <button class="calc-btn" onclick="memorySub()">M-</button>
+                    <button class="calc-btn" onclick="toggleShift()"><span class="shift-label" style="color:#fff">SHIFT</span>α</button>
+                    <button class="calc-btn blue" onclick="calculate()">EXE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // ✅ 1. INTERACTIVE NETWORK BACKGROUND (Kept for visual appeal)
+        // ==========================================
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const n = Math.min(60, (canvas.width * canvas.height) / 15000);
+            for (let i = 0; i < n; i++) particles.push(new Particle());
+        }
+        initParticles();
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 120) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - d/800})`;
+                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    }
+                }
+                if (mouse.x != null) {
+                    const dx = particles[i].x - mouse.x; const dy = particles[i].y - mouse.y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 150) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - d/500})`;
+                        ctx.lineWidth = 1.5; ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNetwork);
+        }
+        animateNetwork();
+
+        // ==========================================
+        // ✅ 2. DEMO MODE: Calculator logic disabled
+        // ==========================================
+        const dispTop = document.getElementById('disp-top');
+        const dispBottom = document.getElementById('disp-bottom');
+        
+        function insertVal(val) { 
+            // Demo mode: No action
+        }
+        
+        function insertFunc(func) { 
+            // Demo mode: No action
+        }
+        
+        function deleteChar() { 
+            // Demo mode: No action
+        }
+        
+        function clearAll() { 
+            dispTop.innerText = 'DEMO VERSION';
+            dispBottom.innerText = 'PURCHASE TO USE';
+        }
+        
+        function toggleShift() { 
+            // Demo mode: No action
+        }
+        
+        function memoryAdd() { 
+            // Demo mode: No action
+        }
+        
+        function memorySub() { 
+            // Demo mode: No action
+        }
+        
+        function memoryRecall() { 
+            // Demo mode: No action
+        }
+        
+        function calculate() { 
+            dispTop.innerText = 'DEMO MODE';
+            dispBottom.innerText = 'FULL VERSION';
+        }
+
+        // Prevent keyboard input in demo mode
+        document.addEventListener('keydown', (e) => {
+            if (['Enter', 'Backspace', 'Escape'].includes(e.key) || /[\d\.\+\-\*\/\(\)\^]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Calculator | Behzad Mousavi</title>
+    
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ✅ MATH.JS FOR ACCURATE ENGINEERING CALCULATIONS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 31, 56, 0.85);
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --danger: #f87171;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ✅ 1. INTERACTIVE NETWORK BACKGROUND */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ✅ NAVIGATION BAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ TOP RIGHT ACTIONS */
+        .top-right-actions {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 5%;
+            z-index: 999;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .action-btn-shared {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 44px;
+            padding: 0 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .back-to-tools-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .back-to-tools-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ✅ SHIMMER EFFECT ON PREMIUM BUTTON */
+        .btn-premium-top {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            border: 1px solid transparent;
+            color: var(--bg-primary);
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-premium-top::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+        .btn-premium-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ✅ MAIN LAYOUT (Centered for Calculator) */
+        .main-layout {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ✅ CALCULATOR STYLES */
+        .calculator {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+        }
+
+        .calc-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .calc-header h2 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .calc-header p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .display-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .display-history {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            min-height: 20px;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .display-current {
+            color: var(--accent-light);
+            font-size: 2rem;
+            font-weight: 600;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .calc-btn {
+            padding: 16px 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calc-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .calc-btn:active { transform: translateY(0); }
+
+        .calc-btn.operator { color: var(--accent); font-size: 1.2rem; }
+        .calc-btn.function { color: var(--accent-light); font-size: 0.95rem; font-weight: 500; }
+        
+        .calc-btn.clear {
+            color: var(--danger);
+            border-color: rgba(248, 113, 113, 0.3);
+        }
+        .calc-btn.clear:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .calc-btn.equals {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+            font-size: 1.3rem;
+        }
+        .calc-btn.equals:hover {
+            background: var(--accent-light);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ✅ DAILY GOLDEN TIP (Adapted for Calculator) */
+        .golden-tip-box {
+            background: rgba(212, 175, 55, 0.08);
+            border-left: 3px solid var(--accent);
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+        .golden-tip-box i { color: var(--accent); margin-top: 3px; }
+        .tip-text { transition: opacity 0.3s ease; }
+
+        /* ✅ LIVE CREDIBILITY COUNTER */
+        .credibility-bar {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .cred-item { text-align: center; }
+        .cred-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
+        .cred-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ✅ EASTER EGG TOAST NOTIFICATION */
+        .easter-egg-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #d4af37, #f4d06f);
+            color: var(--bg-primary);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .easter-egg-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; }
+            .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
+            .credibility-bar { gap: 20px; }
+            .cred-number { font-size: 1.4rem; }
+            .calc-btn { padding: 14px 4px; font-size: 1rem; }
+            .display-current { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ 1. INTERACTIVE BACKGROUND CANVAS -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- ✅ NAVIGATION BAR -->
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- ✅ TOP RIGHT ACTIONS -->
+    <div class="top-right-actions">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-CALC-PRO-014" class="action-btn-shared btn-premium-top">
+            <i class="fas fa-crown"></i> Get the Premium
+        </a>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
+            <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+        </a>
+    </div>
+
+    <!-- ✅ LIVE CREDIBILITY COUNTER -->
+    <div class="credibility-bar">
+        <div class="cred-item">
+            <span class="cred-number" data-target="1500">0</span>
+            <span class="cred-label">Calculations Done</span>
+        </div>
+        <div class="cred-item">
+            <span class="cred-number" data-target="25">0</span>
+            <span class="cred-label">Functions</span>
+        </div>
+        <div class="cred-item">
+            <span class="cred-number" data-target="99">0</span>
+            <span class="cred-label">% Accuracy</span>
+        </div>
+    </div>
+
+    <!-- ✅ MAIN LAYOUT (Calculator) -->
+    <div class="main-layout">
+        <div class="calculator">
+            <div class="calc-header">
+                <h2><i class="fas fa-calculator"></i> Engineering Calculator</h2>
+                <p>Supports: sin, cos, tan, log, ln, sqrt, ^, pi, e</p>
+            </div>
+
+            <!-- ✅ DAILY GOLDEN TIP (Calculator Edition) -->
+            <div class="golden-tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <span class="tip-text" id="golden-tip">Loading calculator tip...</span>
+            </div>
+
+            <div class="display-container">
+                <div class="display-history" id="history"></div>
+                <div class="display-current" id="display">0</div>
+            </div>
+
+            <div class="calc-grid">
+                <!-- Row 1 -->
+                <button class="calc-btn function" onclick="appendFunction('sin(')">sin</button>
+                <button class="calc-btn function" onclick="appendFunction('cos(')">cos</button>
+                <button class="calc-btn function" onclick="appendFunction('tan(')">tan</button>
+                <button class="calc-btn clear" onclick="deleteLast()"><i class="fas fa-backspace"></i></button>
+                <button class="calc-btn clear" onclick="clearDisplay()">AC</button>
+
+                <!-- Row 2 -->
+                <button class="calc-btn function" onclick="appendValue('(')">(</button>
+                <button class="calc-btn function" onclick="appendValue(')')">)</button>
+                <button class="calc-btn function" onclick="appendValue('^')">^</button>
+                <button class="calc-btn function" onclick="appendFunction('sqrt(')">√</button>
+                <button class="calc-btn operator" onclick="appendValue('/')">÷</button>
+
+                <!-- Row 3 -->
+                <button class="calc-btn" onclick="appendValue('7')">7</button>
+                <button class="calc-btn" onclick="appendValue('8')">8</button>
+                <button class="calc-btn" onclick="appendValue('9')">9</button>
+                <button class="calc-btn function" onclick="appendFunction('log10(')">log</button>
+                <button class="calc-btn operator" onclick="appendValue('*')">×</button>
+
+                <!-- Row 4 -->
+                <button class="calc-btn" onclick="appendValue('4')">4</button>
+                <button class="calc-btn" onclick="appendValue('5')">5</button>
+                <button class="calc-btn" onclick="appendValue('6')">6</button>
+                <button class="calc-btn function" onclick="appendFunction('log(')">ln</button>
+                <button class="calc-btn operator" onclick="appendValue('-')">-</button>
+
+                <!-- Row 5 -->
+                <button class="calc-btn" onclick="appendValue('1')">1</button>
+                <button class="calc-btn" onclick="appendValue('2')">2</button>
+                <button class="calc-btn" onclick="appendValue('3')">3</button>
+                <button class="calc-btn function" onclick="appendValue('pi')">π</button>
+                <button class="calc-btn operator" onclick="appendValue('+')">+</button>
+
+                <!-- Row 6 -->
+                <button class="calc-btn" onclick="appendValue('0')">0</button>
+                <button class="calc-btn" onclick="appendValue('.')">.</button>
+                <button class="calc-btn function" onclick="appendValue('e')">e</button>
+                <button class="calc-btn function" onclick="appendValue('ans')">ans</button>
+                <button class="calc-btn equals" onclick="calculate()">=</button>
+            </div.>
+        </div>
+    </div>
+
+    <!-- ✅ EASTER EGG TOAST -->
+    <div class="easter-egg-toast" id="easter-toast">
+        <i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...
+    </div>
+
+    <script>
+        // ==========================================
+        // ✅ 1. INTERACTIVE NETWORK BACKGROUND
+        // ==========================================
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = Math.min(60, (canvas.width * canvas.height) / 15000);
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - distance/800})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                if (mouse.x != null) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - distance/500})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNetwork);
+        }
+        animateNetwork();
+
+        // ==========================================
+        // ✅ 2. DAILY GOLDEN TIP ROTATOR (Calculator Tips)
+        // ==========================================
+        const tips = [
+            "💡 Tip: Use the 'ans' button to instantly reuse the result of your previous calculation.",
+            "💡 Tip: For exponents, use the '^' symbol (e.g., 2^3 equals 8).",
+            "💡 Tip: The 'log' button calculates base-10 logarithm, while 'ln' calculates the natural logarithm (base e).",
+            "💡 Tip: Always close your parentheses ')' when using functions like sin( or sqrt( to avoid errors.",
+            "💡 Tip: You can use your computer keyboard to type numbers and press 'Enter' to calculate!"
+        ];
+        let tipIndex = 0;
+        const tipElement = document.getElementById('golden-tip');
+        
+        function rotateTip() {
+            tipElement.style.opacity = 0;
+            setTimeout(() => {
+                tipElement.innerText = tips[tipIndex];
+                tipElement.style.opacity = 1;
+                tipIndex = (tipIndex + 1) % tips.length;
+            }, 300);
+        }
+        rotateTip();
+        setInterval(rotateTip, 6000);
+
+        // ==========================================
+        // ✅ 3. LIVE CREDIBILITY COUNTER ANIMATION
+        // ==========================================
+        const counters = document.querySelectorAll('.cred-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (target > 100 ? '+' : '');
+                    }
+                };
+                updateCount();
+            });
+        };
+        window.addEventListener('load', animateCounters);
+
+        // ==========================================
+        // ✅ 4. EASTER EGG (5 Rapid Clicks on Logo)
+        // ==========================================
+        const logoTrigger = document.getElementById('easter-egg-trigger');
+        const toast = document.getElementById('easter-toast');
+        let clickCount = 0;
+        let lastClickTime = 0;
+
+        logoTrigger.addEventListener('click', (e) => {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastClickTime < 800) {
+                clickCount++;
+            } else {
+                clickCount = 1;
+            }
+            lastClickTime = currentTime;
+
+            if (clickCount >= 5) {
+                e.preventDefault();
+                toast.classList.add('show');
+                clickCount = 0;
+                setTimeout(() => {
+                    window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+                }, 2000);
+            }
+        });
+
+        // ==========================================
+        // ✅ 5. CALCULATOR LOGIC
+        // ==========================================
+        let display = document.getElementById('display');
+        let history = document.getElementById('history');
+        let currentExpression = '';
+        let lastAnswer = 0;
+
+        function appendValue(val) {
+            if (display.innerText === '0' || display.innerText === 'Error') {
+                currentExpression = '';
+            }
+            currentExpression += val;
+            updateDisplay();
+        }
+
+        function appendFunction(func) {
+            if (display.innerText === '0' || display.innerText === 'Error') {
+                currentExpression = '';
+            }
+            currentExpression += func;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            let formatted = currentExpression
+                .replace(/\*/g, '×')
+                .replace(/\//g, '÷')
+                .replace(/pi/g, 'π');
+            display.innerText = formatted || '0';
+        }
+
+        function clearDisplay() {
+            currentExpression = '';
+            history.innerText = '';
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (display.innerText === 'Error') {
+                clearDisplay();
+                return;
+            }
+            if (currentExpression.endsWith('sin(') || currentExpression.endsWith('cos(') || currentExpression.endsWith('tan(') || currentExpression.endsWith('log(') || currentExpression.endsWith('sqrt(')) {
+                currentExpression = currentExpression.slice(0, -4);
+            } else if (currentExpression.endsWith('log10(')) {
+                currentExpression = currentExpression.slice(0, -6);
+            } else {
+                currentExpression = currentExpression.slice(0, -1);
+            }
+            updateDisplay();
+        }
+
+        function calculate() {
+            if (!currentExpression) return;
+
+            try {
+                let evalExpression = currentExpression.replace(/ans/g, lastAnswer);
+                let result = math.evaluate(evalExpression);
+                
+                if (typeof result === 'number' && !Number.isInteger(result)) {
+                    result = parseFloat(result.toFixed(8));
+                }
+
+                history.innerText = display.innerText + ' =';
+                display.innerText = result;
+                lastAnswer = result;
+                currentExpression = result.toString();
+            } catch (error) {
+                display.innerText = 'Error';
+                currentExpression = '';
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            if (/[0-9.]/.test(key)) appendValue(key);
+            if (['+', '-', '*', '/', '(', ')', '^'].includes(key)) appendValue(key);
+            if (key === 'Enter') { event.preventDefault(); calculate(); }
+            if (key === 'Backspace') deleteLast();
+            if (key === 'Escape') clearDisplay();
+        });
+    </script>
+</body>
+</html>
