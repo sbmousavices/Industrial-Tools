@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Universal Converter Tool | Date & Engineering Units | Behzad Mousavi</title>
+    <meta name="description" content="Free all-in-one converter tool for developers and engineers. Convert Date (Jalali/Gregorian), Length, Weight, and Data Storage instantly.">
+    <meta name="keywords" content="Universal Converter, Date Converter, Jalali to Gregorian, Unit Converter, Length, Weight, Data Storage, Engineering Tools, Behzad Mousavi">
+    <meta name="author" content="Behzad Mousavi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sbmousavices.github.io/Theme/converter.html">
+
+    <meta name="theme-color" content="#d4af37">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script data-goatcounter="https://bmousavi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --bg-card: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --text-muted: #94a3b8;
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding-top: var(--nav-height);
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex; align-items: center; gap: 8px; padding: 0.6rem 1.5rem; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        .bg-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .bg-shapes::before, .bg-shapes::after { content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite ease-in-out; }
+        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
+
+        .floating-back-btn {
+            position: fixed; top: calc(var(--nav-height) + 15px); right: 5%; z-index: 999;
+            display: inline-flex; align-items: center; gap: 8px; padding: 0.5rem 1.2rem;
+            background: rgba(10, 22, 40, 0.8); backdrop-filter: blur(8px);
+            border: 1px solid var(--accent); border-radius: 50px; color: var(--accent);
+            text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease;
+        }
+        .floating-back-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 5% 4rem; }
+        .section-header { text-align: center; margin-bottom: 1.5rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-divider { width: 60px; height: 3px; background: var(--gradient); margin: 0 auto; border-radius: 2px; }
+
+        .converter-panel {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group { margin-bottom: 1rem; }
+        .input-group label {
+            display: block; font-size: 0.85rem; color: var(--accent-light);
+            margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .input-group select, .input-group input {
+            width: 100%; padding: 12px 14px; background: var(--bg-primary);
+            border: 1px solid var(--border); border-radius: 8px;
+            color: var(--text-primary); font-size: 0.95rem; font-family: inherit;
+            outline: none; transition: all 0.3s;
+        }
+        .input-group select:focus, .input-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+        .input-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; }
+
+        .converter-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) { .converter-grid { grid-template-columns: 1fr; } }
+
+        .swap-btn-container { display: flex; justify-content: center; margin: 0.5rem 0; }
+        .swap-btn {
+            background: var(--bg-primary); border: 1px solid var(--border);
+            color: var(--accent); width: 44px; height: 44px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s; font-size: 1rem;
+        }
+        .swap-btn:hover { background: var(--accent); color: var(--bg-primary); transform: rotate(180deg); }
+
+        .convert-action { text-align: center; margin-top: 1rem; }
+        .btn-convert {
+            background: var(--gradient); color: var(--bg-primary);
+            border: none; padding: 12px 32px; border-radius: 8px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s; font-family: inherit; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-convert:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); }
+        .btn-convert:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .result-box {
+            margin-top: 1.5rem; padding: 1rem; background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed var(--accent); border-radius: 12px; text-align: center;
+            display: none;
+        }
+        .result-box.active { display: block; animation: fadeIn 0.4s ease; }
+        .result-value { font-size: 1.8rem; font-weight: 800; color: var(--accent-light); margin: 0.3rem 0; font-family: 'Playfair Display', serif; word-break: break-all; }
+        .result-detail { font-size: 0.85rem; color: var(--text-secondary); }
+        .error-msg { color: #e74c3c; font-size: 0.85rem; margin-top: 0.5rem; display: none; text-align: center; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        footer { background: var(--bg-secondary); padding: 2rem 5%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
+        footer p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .floating-back-btn { right: 20px; top: calc(var(--nav-height) + 10px); font-size: 0.8rem; padding: 0.4rem 1rem; }
+            .converter-panel { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes"></div>
+
+    <a href="https://sbmousavices.github.io/Theme/index.html" class="floating-back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+      <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+      <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+      <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+      <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+      <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+      <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Universal <span>Converter</span></h2>
+            <div class="section-divider"></div>
+            <p style="color: var(--text-secondary); margin-top: 0.8rem;">Convert Date, Length, Weight, and Data Storage instantly.</p>
+        </div>
+
+        <div class="converter-panel">
+            <div class="input-group">
+                <label>Category</label>
+                <select id="categorySelect" onchange="updateUI()">
+                    <option value="date">📅 Date (Gregorian / Jalali)</option>
+                    <option value="length">📏 Length</option>
+                    <option value="weight">⚖️ Weight</option>
+                    <option value="data">💾 Data Storage</option>
+                </select>
+            </div>
+
+            <div class="input-group" id="dateDirectionGroup">
+                <label>Conversion Direction</label>
+                <select id="dateDirection">
+                    <option value="g2j">Gregorian to Jalali (Shamsi)</option>
+                    <option value="j2g">Jalali (Shamsi) to Gregorian</option>
+                </select>
+            </div>
+
+            <div class="input-group" id="valueInputGroup">
+                <label>Value</label>
+                <input type="text" id="inputValue" placeholder="Enter value or date (YYYY-MM-DD)">
+            </div>
+
+            <div id="unitSelectors">
+                <div class="converter-grid">
+                    <div class="input-group">
+                        <label>From</label>
+                        <select id="fromUnit"></select>
+                    </div>
+                    <div class="input-group">
+                        <label>To</label>
+                        <select id="toUnit"></select>
+                    </div>
+                </div>
+                <div class="swap-btn-container">
+                    <button class="swap-btn" onclick="swapUnits()" title="Swap"><i class="fas fa-exchange-alt"></i></button>
+                </div>
+            </div>
+
+            <div class="convert-action">
+                <button class="btn-convert" id="convertBtn" onclick="performConversion()">
+                    <i class="fas fa-sync-alt"></i> Convert Now
+                </button>
+                <div class="error-msg" id="errorMsg"></div>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <div class="result-detail" id="resultDetail">Converted Result</div>
+                <div class="result-value" id="resultValue">0</div>
+                <div class="result-detail" id="resultFormula" style="font-size: 0.75rem; opacity: 0.7;"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Behzad Mousavi. All Rights Reserved. | Professional Digital Solutions</p>
+    </footer>
+
+    <script>
+        const unitRates = {
+            length: { m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.34, yd: 0.9144, ft: 0.3048, in: 0.0254 },
+            weight: { kg: 1, g: 0.001, mg: 0.000001, lb: 0.453592, oz: 0.0283495, t: 1000 },
+            data: { b: 1, kb: 1024, mb: 1048576, gb: 1073741824, tb: 1099511627776 }
+        };
+
+        const unitNames = {
+            length: { m: 'Meters (m)', km: 'Kilometers (km)', cm: 'Centimeters (cm)', mm: 'Millimeters (mm)', mi: 'Miles (mi)', yd: 'Yards (yd)', ft: 'Feet (ft)', in: 'Inches (in)' },
+            weight: { kg: 'Kilograms (kg)', g: 'Grams (g)', mg: 'Milligrams (mg)', lb: 'Pounds (lb)', oz: 'Ounces (oz)', t: 'Metric Tons (t)' },
+            data: { b: 'Bytes (B)', kb: 'Kilobytes (KB)', mb: 'Megabytes (MB)', gb: 'Gigabytes (GB)', tb: 'Terabytes (TB)' }
+        };
+
+        function init() {
+            updateUI();
+        }
+
+        function updateUI() {
+            const category = document.getElementById('categorySelect').value;
+            const dateDirectionGroup = document.getElementById('dateDirectionGroup');
+            const unitSelectors = document.getElementById('unitSelectors');
+            const inputValue = document.getElementById('inputValue');
+
+            if (category === 'date') {
+                dateDirectionGroup.style.display = 'block';
+                unitSelectors.style.display = 'none';
+                inputValue.placeholder = "Enter date (YYYY-MM-DD)";
+                inputValue.type = 'text';
+            } else {
+                dateDirectionGroup.style.display = 'none';
+                unitSelectors.style.display = 'block';
+                inputValue.placeholder = "Enter value";
+                inputValue.type = 'number';
+                populateUnits(category);
+            }
+
+            hideResult();
+            hideError();
+        }
+
+        function populateUnits(category) {
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            const units = unitNames[category];
+            const keys = Object.keys(units);
+
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+
+            keys.forEach(key => {
+                fromSelect.add(new Option(units[key], key));
+                toSelect.add(new Option(units[key], key));
+            });
+
+            if (keys.length > 1) {
+                fromSelect.selectedIndex = 0;
+                toSelect.selectedIndex = 1;
+            }
+        }
+
+        function swapUnits() {
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+        }
+
+        function performConversion() {
+            const category = document.getElementById('categorySelect').value;
+            hideError();
+            hideResult();
+
+            if (category === 'date') {
+                convertDate();
+            } else {
+                convertUnits(category);
+            }
+        }
+
+        function convertDate() {
+            const input = document.getElementById('inputValue').value.trim();
+            const direction = document.getElementById('dateDirection').value;
+
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+                showError("Please enter a valid date in YYYY-MM-DD format.");
+                return;
+            }
+
+            const [y, m, d] = input.split('-').map(Number);
+            let resultStr = "";
+            let formula = "";
+
+            if (direction === 'g2j') {
+                const jDate = gregorianToJalali(y, m, d);
+                resultStr = `${jDate[0]}-${String(jDate[1]).padStart(2, '0')}-${String(jDate[2]).padStart(2, '0')}`;
+                formula = "Gregorian to Jalali (Shamsi)";
+            } else {
+                const gDate = jalaliToGregorian(y, m, d);
+                resultStr = `${gDate[0]}-${String(gDate[1]).padStart(2, '0')}-${String(gDate[2]).padStart(2, '0')}`;
+                formula = "Jalali (Shamsi) to Gregorian";
+            }
+
+            displayResult(resultStr, "Converted Date", formula);
+        }
+
+        function convertUnits(category) {
+            const value = parseFloat(document.getElementById('inputValue').value);
+            if (isNaN(value)) {
+                showError("Please enter a valid number.");
+                return;
+            }
+
+            const from = document.getElementById('fromUnit').value;
+            const to = document.getElementById('toUnit').value;
+            
+            const rates = unitRates[category];
+            const baseValue = value * rates[from];
+            const result = baseValue / rates[to];
+            const formula = `1 ${from} = ${formatNumber(rates[from] / rates[to])} ${to}`;
+
+            displayResult(formatNumber(result), `${formatNumber(value)} ${from.toUpperCase()} = ${formatNumber(result)} ${to.toUpperCase()}`, formula);
+        }
+
+        function displayResult(value, detail, formula) {
+            document.getElementById('resultDetail').textContent = detail;
+            document.getElementById('resultValue').textContent = value;
+            document.getElementById('resultFormula').textContent = formula;
+            document.getElementById('resultBox').classList.add('active');
+        }
+
+        function hideResult() {
+            document.getElementById('resultBox').classList.remove('active');
+        }
+
+        function showError(msg) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = msg;
+            errorMsg.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function formatNumber(num) {
+            if (typeof num === 'string') return num;
+            if (num >= 1000000) return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
+            if (num < 0.0001 && num > 0) return num.toExponential(4);
+            return parseFloat(num.toFixed(6)).toString();
+        }
+
+        function gregorianToJalali(gy, gm, gd) {
+            var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+            var gy2 = (gm > 2) ? (gy + 1) : gy;
+            var days = 355666 + (365 * gy) + ~~((gy2 + 3) / 4) - ~~((gy2 + 99) / 100) + ~~((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
+            var jy = -1595 + (33 * ~~(days / 12053));
+            days %= 12053;
+            jy += 4 * ~~(days / 1461);
+            days %= 1461;
+            if (days > 365) { jy += ~~((days - 1) / 365); days = (days - 1) % 365; }
+            var jm = (days < 186) ? 1 + ~~(days / 31) : 7 + ~~((days - 186) / 30);
+            var jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
+            return [jy, jm, jd];
+        }
+
+        function jalaliToGregorian(jy, jm, jd) {
+            var jy2 = jy + 1595;
+            var days = -355668 + (365 * jy2) + (~~(jy2 / 33) * 8) + ~~(((jy2 % 33) + 3) / 4) + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+            var gy = 400 * ~~(days / 146097);
+            days %= 146097;
+            if (days > 36524) { gy += 100 * ~~(--days / 36524); days %= 36524; if (days >= 365) days++; }
+            gy += 4 * ~~(days / 1461);
+            days %= 1461;
+            if (days > 365) { gy += ~~((days - 1) / 365); days = (days - 1) % 365; }
+            var gd = days + 1;
+            var sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var gm;
+            for (gm = 0; gm < 13; gm++) {
+                var v = sal_a[gm];
+                if (gd <= v) break;
+                gd -= v;
+            }
+            return [gy, gm, gd];
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if(navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute'; navLinks.style.top = '70px'; navLinks.style.left = '0';
+                navLinks.style.width = '100%'; navLinks.style.background = 'var(--nav-bg)';
+                navLinks.style.flexDirection = 'column'; navLinks.style.padding = '20px';
+                navLinks.style.borderBottom = '1px solid var(--border)';
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
