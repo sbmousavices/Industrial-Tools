@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casio fx-4500PA | Behzad Mousavi</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 
     <style>
         :root {
@@ -62,16 +63,6 @@
         }
         .back-to-tools-btn { background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent); }
         .back-to-tools-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
-        .btn-premium-top {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%); border: 1px solid transparent; color: var(--bg-primary); font-weight: 700; position: relative; overflow: hidden;
-        }
-        .btn-premium-top::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transform: skewX(-25deg); animation: shimmer 3s infinite;
-        }
-        @keyframes shimmer { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-        .btn-premium-top:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
 
         .main-layout {
             max-width: 500px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1;
@@ -79,31 +70,33 @@
 
         /* CASIO FX-4500PA BODY */
         .casio-body {
-            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%);
             border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            padding: 25px 20px 30px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15);
             border: 2px solid #0a0a0a;
+            position: relative;
         }
 
         .casio-header {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 15px; padding: 0 5px;
         }
-        .casio-brand { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: 3px; }
-        .casio-model { font-size: 0.9rem; color: #d4af37; font-weight: 700; font-style: italic; }
-        .dot-matrix { font-size: 0.75rem; color: #888; letter-spacing: 2px; }
+        .casio-brand { font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 3px; font-family: 'Orbitron', sans-serif; }
+        .casio-model { font-size: 0.95rem; color: #d4af37; font-weight: 700; font-style: italic; font-family: 'Orbitron', sans-serif; }
+        .dot-matrix { font-size: 0.75rem; color: #888; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; }
 
         /* LCD DISPLAY */
         .lcd-frame {
             background: #0a0a0a;
             border-radius: 8px;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 20px;
             border: 3px solid #1a1a1a;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
         }
         .lcd-screen {
-            background: linear-gradient(180deg, #8b956d 0%, #7a8560 100%);
+            background: linear-gradient(180deg, #9ea792 0%, #8b956d 100%);
             border-radius: 4px;
             padding: 15px;
             min-height: 90px;
@@ -133,7 +126,7 @@
 
         /* BUTTON GRID */
         .btn-section {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .btn-row {
             display: grid;
@@ -145,7 +138,7 @@
 
         .calc-btn {
             position: relative;
-            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+            background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
             border: 1px solid #1a1a1a;
             border-radius: 5px;
             color: #fff;
@@ -192,6 +185,9 @@
         .calc-btn.dark {
             background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
         }
+        .calc-btn.light-gray {
+            background: linear-gradient(180deg, #666 0%, #555 100%);
+        }
 
         .calc-btn.wide { grid-column: span 2; }
 
@@ -229,9 +225,6 @@
     </nav>
 
     <div class="top-right-actions">
-        <a href="https://sbmousavices.github.io/Industrial-Tools/#BM-EVM-PRO-010" class="action-btn-shared btn-premium-top">
-            <i class="fas fa-crown"></i> Get Premium
-        </a>
         <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
             <i class="fas fa-arrow-left"></i> Back to Eng. Tools
         </a>
@@ -260,19 +253,31 @@
                 </div>
             </div>
 
-            <!-- Row 1: Function buttons -->
+            <!-- Row 1: Mode buttons -->
+            <div class="btn-section">
+                <div class="btn-row btn-row-6">
+                    <button class="calc-btn" onclick="setMode('COMP')"><span class="shift-label">MODE</span>MODE 1</button>
+                    <button class="calc-btn" onclick="setMode('SD')"><span class="shift-label">MODE</span>MODE 2</button>
+                    <button class="calc-btn" onclick="setMode('REG')"><span class="shift-label">MODE</span>MODE 3</button>
+                    <button class="calc-btn" onclick="setMode('BASE')"><span class="shift-label">MODE</span>MODE 4</button>
+                    <button class="calc-btn orange" onclick="toggleShift()"><span class="shift-label" style="color:#fff">SHIFT</span>α</button>
+                    <button class="calc-btn" onclick="toggleAlpha()"><span class="alpha-label" style="color:#fff">ALPHA</span>α</button>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn" onclick="insertFunc('sin')"><span class="shift-label">sin⁻¹</span>sin</button>
                     <button class="calc-btn" onclick="insertFunc('cos')"><span class="shift-label">cos⁻¹</span>cos</button>
                     <button class="calc-btn" onclick="insertFunc('tan')"><span class="shift-label">tan⁻¹</span>tan</button>
                     <button class="calc-btn" onclick="insertFunc('log')"><span class="shift-label">10ˣ</span>log</button>
-                    <button class="calc-btn" onclick="insertFunc('ln')"><span class="shift-label">e</span>ln</button>
+                    <button class="calc-btn" onclick="insertFunc('ln')"><span class="shift-label">eˣ</span>ln</button>
                     <button class="calc-btn" onclick="insertFunc('sqrt')"><span class="shift-label">x²</span>√</button>
                 </div>
             </div>
 
-            <!-- Row 2 -->
+            <!-- Row 3 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn" onclick="insertVal('(')"><span class="shift-label">x⁻¹</span>(</button>
@@ -284,7 +289,7 @@
                 </div>
             </div>
 
-            <!-- Row 3 -->
+            <!-- Row 4 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn gray" onclick="insertVal('7')"><span class="alpha-label">S</span>7</button>
@@ -296,7 +301,7 @@
                 </div>
             </div>
 
-            <!-- Row 4 -->
+            <!-- Row 5 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn gray" onclick="insertVal('4')"><span class="alpha-label">J</span>4</button>
@@ -308,7 +313,7 @@
                 </div>
             </div>
 
-            <!-- Row 5 -->
+            <!-- Row 6 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn gray" onclick="insertVal('1')"><span class="alpha-label">A</span>1</button>
@@ -320,7 +325,7 @@
                 </div>
             </div>
 
-            <!-- Row 6 -->
+            <!-- Row 7 -->
             <div class="btn-section">
                 <div class="btn-row btn-row-6">
                     <button class="calc-btn" onclick="insertVal('Ans')">Ans</button>
@@ -409,16 +414,16 @@
         let memory = 0;
         let isDegree = true;
         let isShift = false;
+        let isAlpha = false;
+        let currentMode = 'COMP';
         let isNewCalc = false;
 
         const dispTop = document.getElementById('disp-top');
         const dispBottom = document.getElementById('disp-bottom');
-        const shiftInd = document.getElementById('shift-ind');
+        const modeInd = document.getElementById('mode-ind');
         const degInd = document.getElementById('deg-ind');
+        const shiftInd = document.getElementById('shift-ind');
         const memInd = document.getElementById('mem-ind');
-
-        function toRad(x) { return isDegree ? x * Math.PI / 180 : x; }
-        function toDeg(x) { return isDegree ? x : x * 180 / Math.PI; }
 
         function factorial(n) {
             if (n < 0) return NaN;
@@ -426,6 +431,23 @@
             let result = 1;
             for (let i = 2; i <= n; i++) result *= i;
             return result;
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            modeInd.innerText = mode;
+        }
+
+        function toggleShift() {
+            isShift = !isShift;
+            isAlpha = false;
+            shiftInd.innerText = isShift ? 'S' : '';
+        }
+
+        function toggleAlpha() {
+            isAlpha = !isAlpha;
+            isShift = false;
+            shiftInd.innerText = isAlpha ? 'A' : '';
         }
 
         function insertVal(val) {
@@ -444,7 +466,6 @@
 
         function insertFunc(func) {
             if (isShift) {
-                // Shift functions
                 const shiftFuncs = {
                     'sin': 'asin', 'cos': 'acos', 'tan': 'atan',
                     'log': '10^', 'ln': 'e^', 'sqrt': '^2', 'hyp': 'ahyp'
@@ -483,11 +504,6 @@
             isNewCalc = false;
         }
 
-        function toggleShift() {
-            isShift = !isShift;
-            shiftInd.innerText = isShift ? 'S' : '';
-        }
-
         function memoryAdd() {
             try {
                 let val = parseFloat(dispBottom.innerText);
@@ -514,7 +530,6 @@
         }
 
         function evaluate(expr) {
-            // Replace functions with JavaScript equivalents
             let jsExpr = expr
                 .replace(/π/g, 'Math.PI')
                 .replace(/Ans/g, lastAnswer)
