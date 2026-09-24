@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casio fx-4500PA | Behzad Mousavi</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 
     <style>
         :root {
             --bg-primary: #0a1628;
             --accent: #d4af37;
-            --accent-light: #f4d06f;
-            --text-primary: #e8eef7;
-            --text-secondary: #a0aec0;
             --nav-height: 70px;
             --nav-bg: rgba(10, 10, 12, 0.95);
             --border: rgba(212, 175, 55, 0.2);
@@ -25,16 +21,10 @@
         
         body {
             background-color: var(--bg-primary);
-            color: var(--text-primary);
+            color: #e8eef7;
             min-height: 100vh;
             padding-top: calc(var(--nav-height) + 40px);
             overflow-x: hidden;
-            position: relative;
-        }
-
-        #network-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
         }
 
         nav {
@@ -43,77 +33,72 @@
             border-bottom: 1px solid var(--border); z-index: 1000;
             display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
         }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
         .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
         .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a { color: #a0aec0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
-        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
-        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #e8eef7; font-size: 1.5rem; cursor: pointer; }
 
         .top-right-actions {
             position: fixed; top: calc(var(--nav-height) + 20px); right: 5%; z-index: 999;
-            display: flex; gap: 12px; align-items: center;
         }
-        .action-btn-shared {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        .back-to-tools-btn {
+            display: inline-flex; align-items: center; gap: 8px;
             height: 44px; padding: 0 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
-            text-decoration: none; transition: all 0.3s ease; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none; background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent);
+            transition: all 0.3s ease;
         }
-        .back-to-tools-btn { background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent); }
-        .back-to-tools-btn:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .back-to-tools-btn:hover { background: var(--accent); color: var(--bg-primary); }
 
         .main-layout {
-            max-width: 500px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1;
+            max-width: 380px; margin: 40px auto; padding: 0 20px;
         }
 
-        /* CASIO FX-4500PA BODY */
+        /* CASIO BODY - Exact Physical Replica */
         .casio-body {
-            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%);
-            border-radius: 20px;
-            padding: 25px 20px 30px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15);
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 15px;
+            padding: 18px 15px 22px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             border: 2px solid #0a0a0a;
-            position: relative;
         }
 
         .casio-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 15px; padding: 0 5px;
+            margin-bottom: 10px; padding: 0 3px;
         }
-        .casio-brand { font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: 3px; font-family: 'Orbitron', sans-serif; }
-        .casio-model { font-size: 0.95rem; color: #d4af37; font-weight: 700; font-style: italic; font-family: 'Orbitron', sans-serif; }
-        .dot-matrix { font-size: 0.75rem; color: #888; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; }
+        .casio-brand { 
+            font-size: 1.2rem; font-weight: 900; color: #fff; letter-spacing: 2px;
+        }
+        .casio-model { 
+            font-size: 0.75rem; color: #d4af37; font-weight: 700; font-style: italic;
+        }
+        .dot-matrix { 
+            font-size: 0.65rem; color: #aaa; letter-spacing: 1px; font-weight: 600;
+        }
 
-        /* LCD DISPLAY */
+        /* LCD DISPLAY - White/Light Background */
         .lcd-frame {
             background: #0a0a0a;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 3px solid #1a1a1a;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+            border-radius: 5px;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #0a0a0a;
         }
         .lcd-screen {
-            background: linear-gradient(180deg, #9ea792 0%, #8b956d 100%);
-            border-radius: 4px;
-            padding: 15px;
-            min-height: 90px;
+            background: linear-gradient(180deg, #f5f5f0 0%, #e8e8e0 100%);
+            border-radius: 3px;
+            padding: 10px 12px;
+            min-height: 75px;
             font-family: 'Share Tech Mono', monospace;
             position: relative;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
-        }
-        .lcd-screen::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
-            pointer-events: none;
         }
         .lcd-indicators {
-            position: absolute; top: 5px; left: 10px; right: 10px;
+            position: absolute; top: 3px; left: 6px; right: 6px;
             display: flex; justify-content: space-between;
-            font-size: 0.7rem; color: #2a2a2a; font-weight: 700;
+            font-size: 0.6rem; color: #333; font-weight: 700;
         }
         .lcd-line {
             color: #1a1a1a;
@@ -121,89 +106,120 @@
             position: relative;
             z-index: 1;
         }
-        .lcd-line.top { font-size: 1.1rem; min-height: 26px; opacity: 0.7; }
-        .lcd-line.bottom { font-size: 1.8rem; font-weight: 700; min-height: 35px; }
-
-        /* BUTTON GRID */
-        .btn-section {
-            margin-bottom: 8px;
+        .lcd-line.top { 
+            font-size: 0.95rem; 
+            min-height: 22px; 
+            opacity: 0.8;
+            letter-spacing: 0.5px;
         }
+        .lcd-line.bottom { 
+            font-size: 1.6rem; 
+            font-weight: 700; 
+            min-height: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* BUTTON GRID - 5 Columns */
+        .btn-section { margin-bottom: 5px; }
         .btn-row {
             display: grid;
-            gap: 6px;
-            margin-bottom: 6px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin-bottom: 4px;
         }
-        .btn-row-6 { grid-template-columns: repeat(6, 1fr); }
-        .btn-row-5 { grid-template-columns: repeat(5, 1fr); }
 
         .calc-btn {
             position: relative;
-            background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
             border: 1px solid #1a1a1a;
-            border-radius: 5px;
+            border-radius: 3px;
             color: #fff;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.1s;
-            box-shadow: 0 3px 0 #0a0a0a, 0 4px 6px rgba(0,0,0,0.4);
+            transition: all 0.08s;
+            box-shadow: 0 2px 0 #0a0a0a, 0 3px 4px rgba(0,0,0,0.4);
             display: flex; align-items: center; justify-content: center;
-            height: 42px;
+            height: 38px;
             user-select: none;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
         .calc-btn:active {
-            transform: translateY(3px);
+            transform: translateY(2px);
             box-shadow: 0 0 0 #0a0a0a, inset 0 2px 4px rgba(0,0,0,0.6);
         }
 
-        .calc-btn .shift-label {
-            position: absolute; top: 2px; left: 4px;
-            font-size: 0.55rem; color: #d4af37; font-weight: 700;
-        }
-        .calc-btn .alpha-label {
-            position: absolute; top: 2px; right: 4px;
-            font-size: 0.55rem; color: #e74c3c; font-weight: 700;
+        /* Small top row buttons */
+        .calc-btn.tiny {
+            height: 28px;
+            font-size: 0.6rem;
+            font-weight: 500;
         }
 
-        /* Button Colors */
-        .calc-btn.orange {
-            background: linear-gradient(180deg, #e67e22 0%, #d35400 100%);
-            color: #fff;
+        /* Shift Labels (Yellow) */
+        .calc-btn .shift-label {
+            position: absolute; 
+            top: 1px; left: 2px;
+            font-size: 0.45rem; 
+            color: #f4d06f; 
+            font-weight: 700;
         }
-        .calc-btn.blue {
-            background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
-            color: #fff;
+        
+        /* Alpha Labels (Red/Pink) */
+        .calc-btn .alpha-label {
+            position: absolute; 
+            top: 1px; right: 2px;
+            font-size: 0.45rem; 
+            color: #e74c3c; 
+            font-weight: 700;
         }
-        .calc-btn.red {
+
+        /* Button Colors - Exact Match to Real Calculator */
+        .calc-btn.shift-yellow {
+            background: linear-gradient(180deg, #f4d06f 0%, #d4af37 100%);
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        .calc-btn.alpha-red {
             background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
             color: #fff;
+            font-weight: 700;
         }
-        .calc-btn.gray {
-            background: linear-gradient(180deg, #555 0%, #444 100%);
-        }
-        .calc-btn.dark {
-            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
-        }
-        .calc-btn.light-gray {
+        .calc-btn.del-gray {
             background: linear-gradient(180deg, #666 0%, #555 100%);
+            color: #fff;
         }
-
-        .calc-btn.wide { grid-column: span 2; }
+        .calc-btn.ac-gray {
+            background: linear-gradient(180deg, #666 0%, #555 100%);
+            color: #fff;
+        }
+        .calc-btn.exe-blue {
+            background: linear-gradient(180deg, #3498db 0%, #2874a6 100%);
+            color: #fff;
+            font-weight: 700;
+        }
+        .calc-btn.number {
+            background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 100%);
+            color: #fff;
+            font-size: 0.85rem;
+        }
+        .calc-btn.function {
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+            color: #fff;
+            font-size: 0.7rem;
+        }
 
         @media (max-width: 900px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
-            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); gap: 8px; }
-            .action-btn-shared { height: 38px; padding: 0 1rem; font-size: 0.8rem; }
-            .calc-btn { height: 38px; font-size: 0.75rem; }
-            .lcd-line.bottom { font-size: 1.5rem; }
+            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); }
+            .calc-btn { height: 34px; font-size: 0.7rem; }
+            .calc-btn.tiny { height: 24px; font-size: 0.55rem; }
+            .lcd-line.bottom { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-
-    <canvas id="network-canvas"></canvas>
 
     <nav>
         <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
@@ -225,7 +241,7 @@
     </nav>
 
     <div class="top-right-actions">
-        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="action-btn-shared back-to-tools-btn">
+        <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools-btn">
             <i class="fas fa-arrow-left"></i> Back to Eng. Tools
         </a>
     </div>
@@ -253,161 +269,173 @@
                 </div>
             </div>
 
-            <!-- Row 1: Mode buttons -->
+            <!-- Row 1: Tiny mode buttons -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn" onclick="setMode('COMP')"><span class="shift-label">MODE</span>MODE 1</button>
-                    <button class="calc-btn" onclick="setMode('SD')"><span class="shift-label">MODE</span>MODE 2</button>
-                    <button class="calc-btn" onclick="setMode('REG')"><span class="shift-label">MODE</span>MODE 3</button>
-                    <button class="calc-btn" onclick="setMode('BASE')"><span class="shift-label">MODE</span>MODE 4</button>
-                    <button class="calc-btn orange" onclick="toggleShift()"><span class="shift-label" style="color:#fff">SHIFT</span>α</button>
-                    <button class="calc-btn" onclick="toggleAlpha()"><span class="alpha-label" style="color:#fff">ALPHA</span>α</button>
+                <div class="btn-row">
+                    <button class="calc-btn tiny" onclick="setMode('COMP')">MODE</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('defm')">Defm</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('expm')">EXPM</button>
+                    <button class="calc-btn tiny" onclick="clearAll()">CLR</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('p03')">P0~P3</button>
                 </div>
             </div>
 
-            <!-- Row 2 -->
+            <!-- Row 2: More tiny buttons -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn" onclick="insertFunc('sin')"><span class="shift-label">sin⁻¹</span>sin</button>
-                    <button class="calc-btn" onclick="insertFunc('cos')"><span class="shift-label">cos⁻¹</span>cos</button>
-                    <button class="calc-btn" onclick="insertFunc('tan')"><span class="shift-label">tan⁻¹</span>tan</button>
-                    <button class="calc-btn" onclick="insertFunc('log')"><span class="shift-label">10ˣ</span>log</button>
-                    <button class="calc-btn" onclick="insertFunc('ln')"><span class="shift-label">eˣ</span>ln</button>
-                    <button class="calc-btn" onclick="insertFunc('sqrt')"><span class="shift-label">x²</span>√</button>
+                <div class="btn-row">
+                    <button class="calc-btn tiny" onclick="insertFunc('deg')">Deg</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('rad')">Rad</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('gra')">Gra</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('fix')">Fix</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('sci')">Sci</button>
                 </div>
             </div>
 
-            <!-- Row 3 -->
+            <!-- Row 3: SHIFT, ALPHA, and function buttons -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn" onclick="insertVal('(')"><span class="shift-label">x⁻¹</span>(</button>
-                    <button class="calc-btn" onclick="insertVal(')')"><span class="shift-label">n!</span>)</button>
-                    <button class="calc-btn" onclick="insertVal('^')"><span class="shift-label">ˣ√</span>x^y</button>
-                    <button class="calc-btn" onclick="insertFunc('hyp')"><span class="shift-label">hyp⁻¹</span>hyp</button>
-                    <button class="calc-btn" onclick="insertVal('π')"><span class="shift-label">e</span>π</button>
-                    <button class="calc-btn" onclick="insertVal('%')"><span class="shift-label">,</span>%</button>
+                <div class="btn-row">
+                    <button class="calc-btn shift-yellow tiny" onclick="toggleShift()">SHIFT</button>
+                    <button class="calc-btn alpha-red tiny" onclick="toggleAlpha()">ALPHA</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('calc')">CALC</button>
+                    <button class="calc-btn tiny" onclick="insertFunc('solve')">SOLVE</button>
+                    <button class="calc-btn tiny" onclick="toggleMode()">MODE</button>
                 </div>
             </div>
 
-            <!-- Row 4 -->
+            <!-- Row 4: Scientific functions -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn gray" onclick="insertVal('7')"><span class="alpha-label">S</span>7</button>
-                    <button class="calc-btn gray" onclick="insertVal('8')"><span class="alpha-label">T</span>8</button>
-                    <button class="calc-btn gray" onclick="insertVal('9')"><span class="alpha-label">U</span>9</button>
-                    <button class="calc-btn red" onclick="deleteChar()">DEL</button>
-                    <button class="calc-btn red" onclick="clearAll()">AC</button>
-                    <button class="calc-btn gray" onclick="insertVal('/')"><span class="alpha-label">V</span>÷</button>
+                <div class="btn-row">
+                    <button class="calc-btn function" onclick="insertFunc('sin')">
+                        <span class="shift-label">sin⁻¹</span>sin
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('cos')">
+                        <span class="shift-label">cos⁻¹</span>cos
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('tan')">
+                        <span class="shift-label">tan⁻¹</span>tan
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('log')">
+                        <span class="shift-label">10</span>log
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('ln')">
+                        <span class="shift-label">eˣ</span>ln
+                    </button>
                 </div>
             </div>
 
-            <!-- Row 5 -->
+            <!-- Row 5: More functions -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn gray" onclick="insertVal('4')"><span class="alpha-label">J</span>4</button>
-                    <button class="calc-btn gray" onclick="insertVal('5')"><span class="alpha-label">K</span>5</button>
-                    <button class="calc-btn gray" onclick="insertVal('6')"><span class="alpha-label">L</span>6</button>
-                    <button class="calc-btn gray" onclick="insertVal('*')"><span class="alpha-label">M</span>×</button>
-                    <button class="calc-btn gray" onclick="insertVal('-')"><span class="alpha-label">N</span>-</button>
-                    <button class="calc-btn gray" onclick="insertVal('+')"><span class="alpha-label">O</span>+</button>
+                <div class="btn-row">
+                    <button class="calc-btn function" onclick="insertVal('(')">
+                        <span class="shift-label">x⁻¹</span>(
+                    </button>
+                    <button class="calc-btn function" onclick="insertVal(')')">
+                        <span class="shift-label">n!</span>)
+                    </button>
+                    <button class="calc-btn function" onclick="insertVal('^')">
+                        <span class="shift-label">ˣ√</span>x^y
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('hyp')">
+                        <span class="shift-label">hyp¹</span>hyp
+                    </button>
+                    <button class="calc-btn function" onclick="insertFunc('sqrt')">
+                        <span class="shift-label">x²</span>√
+                    </button>
                 </div>
             </div>
 
-            <!-- Row 6 -->
+            <!-- Row 6: Numbers 7-9, DEL, AC -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn gray" onclick="insertVal('1')"><span class="alpha-label">A</span>1</button>
-                    <button class="calc-btn gray" onclick="insertVal('2')"><span class="alpha-label">B</span>2</button>
-                    <button class="calc-btn gray" onclick="insertVal('3')"><span class="alpha-label">C</span>3</button>
-                    <button class="calc-btn gray" onclick="insertVal('0')"><span class="alpha-label">D</span>0</button>
-                    <button class="calc-btn gray" onclick="insertVal('.')"><span class="alpha-label">E</span>.</button>
-                    <button class="calc-btn gray" onclick="insertVal('EXP')"><span class="alpha-label">F</span>EXP</button>
+                <div class="btn-row">
+                    <button class="calc-btn number" onclick="insertVal('7')">
+                        <span class="alpha-label">S</span>7
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('8')">
+                        <span class="alpha-label">T</span>8
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('9')">
+                        <span class="alpha-label">U</span>9
+                    </button>
+                    <button class="calc-btn del-gray" onclick="deleteChar()">DEL</button>
+                    <button class="calc-btn ac-gray" onclick="clearAll()">AC</button>
                 </div>
             </div>
 
-            <!-- Row 7 -->
+            <!-- Row 7: Numbers 4-6, ×, ÷ -->
             <div class="btn-section">
-                <div class="btn-row btn-row-6">
-                    <button class="calc-btn" onclick="insertVal('Ans')">Ans</button>
-                    <button class="calc-btn" onclick="memoryRecall()">RCL</button>
-                    <button class="calc-btn" onclick="memoryAdd()">M+</button>
-                    <button class="calc-btn" onclick="memorySub()">M-</button>
-                    <button class="calc-btn" onclick="toggleShift()"><span class="shift-label" style="color:#fff">SHIFT</span>α</button>
-                    <button class="calc-btn blue" onclick="calculate()">EXE</button>
+                <div class="btn-row">
+                    <button class="calc-btn number" onclick="insertVal('4')">
+                        <span class="alpha-label">J</span>4
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('5')">
+                        <span class="alpha-label">K</span>5
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('6')">
+                        <span class="alpha-label">L</span>6
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('*')">
+                        <span class="alpha-label">M</span>×
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('/')">
+                        <span class="alpha-label">V</span>÷
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 8: Numbers 1-3, +, - -->
+            <div class="btn-section">
+                <div class="btn-row">
+                    <button class="calc-btn number" onclick="insertVal('1')">
+                        <span class="alpha-label">A</span>1
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('2')">
+                        <span class="alpha-label">B</span>2
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('3')">
+                        <span class="alpha-label">C</span>3
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('+')">
+                        <span class="alpha-label">O</span>+
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('-')">
+                        <span class="alpha-label">N</span>-
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 9: 0, ., EXP, Ans, π -->
+            <div class="btn-section">
+                <div class="btn-row">
+                    <button class="calc-btn number" onclick="insertVal('0')">
+                        <span class="alpha-label">D</span>0
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('.')">
+                        <span class="alpha-label">E</span>.
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('EXP')">
+                        <span class="alpha-label">F</span>EXP
+                    </button>
+                    <button class="calc-btn number" onclick="insertVal('Ans')">Ans</button>
+                    <button class="calc-btn number" onclick="insertVal('π')">
+                        <span class="shift-label">e</span>π
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 10: STO, RCL, M+, M-, EXE -->
+            <div class="btn-section">
+                <div class="btn-row">
+                    <button class="calc-btn function" onclick="insertFunc('sto')">STO</button>
+                    <button class="calc-btn function" onclick="memoryRecall()">RCL</button>
+                    <button class="calc-btn function" onclick="memoryAdd()">M+</button>
+                    <button class="calc-btn function" onclick="memorySub()">M-</button>
+                    <button class="calc-btn exe-blue" onclick="calculate()">EXE</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // NETWORK BACKGROUND
-        const canvas = document.getElementById('network-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(212, 175, 55, 0.5)';
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const n = Math.min(60, (canvas.width * canvas.height) / 15000);
-            for (let i = 0; i < n; i++) particles.push(new Particle());
-        }
-        initParticles();
-
-        function animateNetwork() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(); particles[i].draw();
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const d = Math.sqrt(dx * dx + dy * dy);
-                    if (d < 120) {
-                        ctx.beginPath(); ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 - d/800})`;
-                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
-                    }
-                }
-                if (mouse.x != null) {
-                    const dx = particles[i].x - mouse.x; const dy = particles[i].y - mouse.y;
-                    const d = Math.sqrt(dx * dx + dy * dy);
-                    if (d < 150) {
-                        ctx.beginPath(); ctx.strokeStyle = `rgba(244, 208, 111, ${0.3 - d/500})`;
-                        ctx.lineWidth = 1.5; ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateNetwork);
-        }
-        animateNetwork();
-
         // CALCULATOR LOGIC
         let expression = '';
         let lastAnswer = 0;
@@ -448,6 +476,13 @@
             isAlpha = !isAlpha;
             isShift = false;
             shiftInd.innerText = isAlpha ? 'A' : '';
+        }
+
+        function toggleMode() {
+            const modes = ['COMP', 'SD', 'REG', 'BASE'];
+            const idx = modes.indexOf(currentMode);
+            currentMode = modes[(idx + 1) % modes.length];
+            modeInd.innerText = currentMode;
         }
 
         function insertVal(val) {
@@ -576,7 +611,7 @@
         document.addEventListener('keydown', (e) => {
             const key = e.key;
             if (/[\d.]/.test(key)) insertVal(key);
-            if (['+', '-', '*', '/', '(', ')', '^', '%'].includes(key)) insertVal(key);
+            if (['+', '-', '*', '/', '(', ')', '^'].includes(key)) insertVal(key);
             if (key === 'Enter') { e.preventDefault(); calculate(); }
             if (key === 'Backspace') deleteChar();
             if (key === 'Escape') clearAll();
