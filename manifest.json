@@ -1,13 +1,13 @@
 {
-  "name": "BM Planning",
+  "name": "BM Planning - Industrial Tools",
   "short_name": "BM Planning",
-  "description": "Professional Planning & Project Control Manager Portfolio",
-  "start_url": "https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html",
+  "description": "Professional Planning & Project Control Tools by Behzad Mousavi",
+  "start_url": "https://sbmousavices.github.io/Industrial-Tools/",
   "scope": "/Industrial-Tools/",
   "display": "standalone",
   "background_color": "#0a1628",
   "theme_color": "#d4af37",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png",
@@ -20,15 +20,9 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "https://sbmousavices.github.io/Industrial-Tools/icon-192.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "apple-touch-icon"
     }
   ],
-  "categories": ["business", "productivity"],
+  "categories": ["business", "productivity", "utilities"],
   "lang": "en",
   "dir": "ltr"
 }
