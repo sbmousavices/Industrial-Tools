@@ -11,7 +11,6 @@ const urlsToCache = [
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
 ];
 
-// 1. Install Event
 self.addEventListener('install', event => {
   console.log('Service Worker: Installing...');
   event.waitUntil(
@@ -25,7 +24,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// 2. Activate Event
 self.addEventListener('activate', event => {
   console.log('Service Worker: Activating...');
   event.waitUntil(
@@ -43,14 +41,13 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// 3. Fetch Event (Network First, Fallback to Cache)
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Fix: Allow caching of CORS resources (like CDNs)
+        // اصلاح شده: اجازه کش کردن منابع CORS (مثل CDN ها)
         if (!response || response.status !== 200) return response;
         
         const responseToCache = response.clone();
@@ -60,7 +57,7 @@ self.addEventListener('fetch', event => {
         return response;
       })
       .catch(() => {
-        // Offline Fallback
+        // حالت آفلاین
         if (event.request.mode === 'navigate' || event.request.destination === 'document') {
           return caches.match(OFFLINE_PAGE);
         }
