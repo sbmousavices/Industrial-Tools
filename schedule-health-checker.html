@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Schedule Health Analyzer | BM Planning</title>
+    <meta name="description" content="Free online schedule health checker for Primavera P6 and MS Project. Analyze DCMA 14-Point compliance, find open ends, negative lags, and critical path issues.">
+    <meta name="keywords" content="schedule health check, Primavera P6 analyzer, DCMA 14-point, XER analyzer, XML schedule checker, project schedule quality">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --gradient-dark: linear-gradient(135deg, #b8941f 0%, #d4af37 100%);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 30px);
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { 
+            display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; 
+            border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; 
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; 
+        }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* TOP RIGHT ACTIONS */
+        .top-right-actions {
+            position: fixed; top: calc(var(--nav-height) + 15px); right: 30px;
+            display: flex; align-items: center; gap: 10px; z-index: 999;
+        }
+        .back-btn, .premium-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+            border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s ease; white-space: nowrap;
+        }
+        .back-btn {
+            background: var(--card-bg); border: 1px solid var(--accent); color: var(--accent);
+        }
+        .back-btn:hover { background: var(--accent); color: var(--bg-primary); }
+        .premium-btn {
+            background: var(--gradient); color: var(--bg-primary); border: 1px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .premium-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 5%; }
+        
+        .tool-header { text-align: center; margin-bottom: 3rem; }
+        .tool-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+        .tool-header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tool-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Upload Zone */
+        .upload-zone {
+            background: var(--card-bg);
+            border: 2px dashed var(--border);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-5px);
+        }
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        .upload-zone h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .upload-zone p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .upload-btn {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        .upload-btn:hover { transform: scale(1.05); }
+        #fileInput { display: none; }
+
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2rem;
+            padding: 8px 16px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 50px;
+            color: var(--success);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            margin-top: 3rem;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .score-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .score-circle {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 8px solid var(--bg-secondary);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .issues-list {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .issue-item {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .issue-item:last-child { border-bottom: none; }
+        .issue-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .issue-icon.danger { background: rgba(231, 76, 60, 0.15); color: var(--danger); }
+        .issue-icon.warning { background: rgba(243, 156, 18, 0.15); color: var(--warning); }
+        .issue-icon.success { background: rgba(46, 204, 113, 0.15); color: var(--success); }
+        
+        .issue-content h4 { font-size: 1.1rem; margin-bottom: 0.3rem; color: var(--text-primary); }
+        .issue-content p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { top: calc(var(--nav-height) + 10px); right: 15px; gap: 8px; flex-direction: column; }
+            .back-btn, .premium-btn { padding: 8px 14px; font-size: 0.75rem; width: 100%; justify-content: center; }
+            .container { padding: 2rem 1rem; }
+            .upload-zone { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ NAVIGATION BAR WITH SIGN IN -->
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- ✅ TOP RIGHT ACTIONS: Premium + Back to Tools -->
+<div class="top-right-actions">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/schedule-health-checker-premium.html" class="premium-btn">
+        <i class="fas fa-crown"></i> Get the Premium
+    </a>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Tools
+    </a>
+</div>
+
+<div class="container">
+    <div class="tool-header">
+        <h1>Smart Schedule <span>Health Analyzer</span></h1>
+        <p>Upload your Primavera P6 (XML/XER) or MS Project file. Get an instant DCMA 14-Point compliant health report directly in your browser.</p>
+    </div>
+
+    <!-- Upload Zone -->
+    <div class="upload-zone" id="dropZone">
+        <i class="fas fa-file-code upload-icon"></i>
+        <h3>Drag & Drop your schedule file here</h3>
+        <p>Supported formats: .xml, .xer, .mpp (Max 50MB)</p>
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-folder-open"></i> Browse Files
+        </button>
+        <input type="file" id="fileInput" accept=".xml,.xer,.mpp">
+        
+        <div class="privacy-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>100% Private: Files are processed locally in your browser. Never uploaded.</span>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section" id="resultsSection">
+        <div class="score-card">
+            <div class="score-circle" id="healthScore">--</div>
+            <h2>Schedule Health Score</h2>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Based on industry-standard scheduling best practices.</p>
+        </div>
+
+        <div class="issues-list" id="issuesList">
+            <!-- Issues will be injected here by JS -->
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="upload-btn" onclick="resetAnalyzer()">
+                <i class="fas fa-redo"></i> Analyze Another File
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const resultsSection = document.getElementById('resultsSection');
+
+    // Drag & Drop Effects
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files.length) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) handleFile(e.target.files[0]);
+    });
+
+    function handleFile(file) {
+        // Show loading state
+        dropZone.innerHTML = `
+            <i class="fas fa-circle-notch fa-spin upload-icon" style="color: var(--accent);"></i>
+            <h3>Analyzing "${file.name}"...</h3>
+            <p>Please wait while we check schedule logic.</p>
+        `;
+
+        // Simulate processing delay (We will replace this with real XML parsing next)
+        setTimeout(() => {
+            showMockResults();
+        }, 2000);
+    }
+
+    function showMockResults() {
+        dropZone.style.display = 'none';
+        resultsSection.style.display = 'block';
+        
+        // Mock Score
+        document.getElementById('healthScore').textContent = '72';
+        document.getElementById('healthScore').style.borderColor = 'var(--warning)';
+
+        // Mock Issues
+        const issues = [
+            { type: 'danger', icon: 'fa-unlink', title: 'Missing Logic (Open Ends)', desc: 'Found 14 activities with no predecessors or successors. This breaks the critical path calculation.' },
+            { type: 'warning', icon: 'fa-clock', title: 'High Total Float', desc: '28 activities have a Total Float greater than 44 days. Review constraints on these activities.' },
+            { type: 'danger', icon: 'fa-exclamation-triangle', title: 'Negative Lag Detected', desc: '3 relationships contain negative lag. This is generally discouraged in CPM scheduling.' },
+            { type: 'success', icon: 'fa-check-circle', title: 'Valid Date Logic', desc: 'All actual start and finish dates are logically consistent.' }
+        ];
+
+        const issuesList = document.getElementById('issuesList');
+        issuesList.innerHTML = issues.map(issue => `
+            <div class="issue-item">
+                <div class="issue-icon ${issue.type}">
+                    <i class="fas ${issue.icon}"></i>
+                </div>
+                <div class="issue-content">
+                    <h4>${issue.title}</h4>
+                    <p>${issue.desc}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function resetAnalyzer() {
+        resultsSection.style.display = 'none';
+        dropZone.style.display = 'block';
+        dropZone.innerHTML = `
+            <i class="fas fa-file-code upload-icon"></i>
+            <h3>Drag & Drop your schedule file here</h3>
+            <p>Supported formats: .xml, .xer, .mpp (Max 50MB)</p>
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-folder-open"></i> Browse Files
+            </button>
+            <input type="file" id="fileInput" accept=".xml,.xer,.mpp">
+            <div class="privacy-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>100% Private: Files are processed locally in your browser. Never uploaded.</span>
+            </div>
+        `;
+        fileInput.value = '';
+    }
+</script>
+
+</body>
+</html>
