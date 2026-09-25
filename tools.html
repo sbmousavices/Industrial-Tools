@@ -193,7 +193,7 @@
             transform: translateX(0);
         }
 
-        /* ✅ SOCIAL PROOF STYLES (NEW) */
+        /* ✅ SOCIAL PROOF STYLES (PREMIUM VERTICAL LAYOUT) */
         .social-proof-section {
             max-width: 1200px;
             margin: 5rem auto;
@@ -231,51 +231,59 @@
             letter-spacing: 1px;
         }
 
+        /* Premium Vertical Testimonials Layout */
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
         .testimonial-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 2rem;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 1.5rem 2rem;
             position: relative;
             transition: all 0.3s ease;
         }
         .testimonial-card:hover {
+            background: rgba(19, 40, 71, 0.9);
             border-color: var(--accent);
-            transform: translateY(-5px);
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         .testimonial-card::before {
             content: '\201C';
             font-family: 'Playfair Display', serif;
             font-size: 4rem;
             color: var(--accent);
-            opacity: 0.3;
+            opacity: 0.15;
             position: absolute;
             top: 10px;
-            left: 20px;
+            right: 20px;
             line-height: 1;
         }
         .testimonial-text {
-            font-style: italic;
+            font-size: 1.05rem;
             color: var(--text-primary);
+            line-height: 1.7;
             margin-bottom: 1.5rem;
-            line-height: 1.6;
+            font-style: italic;
             position: relative;
             z-index: 1;
-            font-size: 0.95rem;
         }
         .testimonial-author {
             display: flex;
             align-items: center;
             gap: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
         }
         .author-avatar {
-            width: 45px;
-            height: 45px;
+            width: 48px;
+            height: 48px;
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
@@ -284,15 +292,42 @@
             color: var(--bg-primary);
             font-weight: 800;
             font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .author-info {
+            display: flex;
+            flex-direction: column;
         }
         .author-info h4 {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-primary);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .verified-badge {
+            font-size: 0.65rem;
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .verified-badge::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
         }
         .author-info span {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
+            margin-top: 2px;
         }
 
         /* ✅ PAYMENT SECTION STYLES */
@@ -336,6 +371,7 @@
             .page-header h1 { font-size: 1.8rem; }
             .back-btn { top: calc(var(--nav-height) + 10px); right: 15px; padding: 8px 16px; font-size: 0.8rem; }
             .stat-item h3 { font-size: 2rem; }
+            .testimonial-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -508,7 +544,7 @@
         </div>
     </div>
 
-    <!-- ✅ SOCIAL PROOF SECTION (NEW IDEA 4) -->
+    <!-- ✅ SOCIAL PROOF SECTION (PREMIUM VERTICAL LAYOUT) -->
     <section class="social-proof-section reveal">
         <div class="proof-header">
             <h2>Trusted by <span>Industry Professionals</span></h2>
@@ -540,31 +576,85 @@
                 <div class="testimonial-author">
                     <div class="author-avatar">A.R</div>
                     <div class="author-info">
-                        <h4>Ali R.</h4>
+                        <h4>Ali R. <span class="verified-badge">Verified</span></h4>
                         <span>Senior Planning Engineer, Middle East EPC</span>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
-                <p class="testimonial-text">"Finally, a tool that understands real EVM calculations without the Excel headaches. The S-Curve generation is flawless."</p>
+                <p class="testimonial-text">"Finally, a tool that understands real EVM calculations without the Excel headaches. The S-Curve generation is flawless and the reports are client-ready."</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">M.K</div>
                     <div class="author-info">
-                        <h4>Mohammad K.</h4>
+                        <h4>Mohammad K. <span class="verified-badge">Verified</span></h4>
                         <span>Project Control Manager, Oil & Gas</span>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
-                <p class="testimonial-text">"The interactive checklist is a game-changer for our monthly audits. It keeps our entire team aligned with contract requirements."</p>
+                <p class="testimonial-text">"The interactive checklist is a game-changer for our monthly audits. It keeps our entire team aligned with contract requirements and prevents missed items."</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">S.T</div>
                     <div class="author-info">
-                        <h4>Sara T.</h4>
+                        <h4>Sara T. <span class="verified-badge">Verified</span></h4>
                         <span>QA/QC Coordinator, Petrochemical</span>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ✅ PAYMENT & CONTACT SECTION -->
+    <section class="payment-section reveal" id="payment-section">
+        <div class="proof-header">
+            <h2>Payment & <span>Contact</span></h2>
+            <p>Secure your tools with a simple and transparent process.</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-wallet"></i></div>
+                <h3 class="info-title">USDT Wallet (TRC-20)</h3>
+                <div class="info-value-box" id="walletAddress">TS3n4CdRUJY9zQ8yigRXMJRJd951L3rCv2</div>
+                <button class="copy-btn" onclick="copyText('walletAddress', 'walletMessage')">
+                    <i class="fas fa-copy"></i> Copy Wallet Address
+                </button>
+                <div class="copy-message" id="walletMessage"></div>
+            </div>
+
+            <div class="info-card" style="text-align: left; padding: 1.5rem; cursor: default;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div class="info-icon" style="margin: 0 auto 1rem;"><i class="fas fa-paper-plane"></i></div>
+                    <h3 class="info-title">Send Direct Message</h3>
+                </div>
+                
+                <form action="https://formsubmit.co/sbmousavi@proton.me" method="POST">
+                    <input type="hidden" name="_next" value="https://sbmousavices.github.io/Industrial-Tools/">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="New Purchase Inquiry from Website">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Full Name</label>
+                    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Email Address</label>
+                    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Product Code</label>
+                    <input type="text" id="productCodeInput" name="product_code" placeholder="Click on a product to auto-fill" style="width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none;">
+
+                    <label style="display: block; font-size: 0.8rem; color: var(--accent-light); margin-bottom: 6px; font-weight: 600;">Description / Transaction Hash</label>
+                    <textarea name="message" placeholder="Describe your request or paste TX Hash..." required style="width: 100%; padding: 10px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: 'Inter', sans-serif; outline: none; min-height: 80px; resize: vertical;"></textarea>
+
+                    <button type="submit" class="copy-btn" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="purchase-cta">
+            <p>After payment, you can use the form above to send your transaction details directly.</p>
+            <p>Our team will contact you as soon as possible to deliver your tools.</p>
         </div>
     </section>
 
