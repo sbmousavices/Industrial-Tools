@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Success Predictor | BM Planning</title>
+    <meta name="description" content="Predict your project success score in 2 minutes. Get a personalized 30-60-90 day action plan based on PMBOK best practices.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --bg-card: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 40px);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        .bg-shapes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
+        }
+        .bg-shapes::before, .bg-shapes::after {
+            content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15;
+        }
+        .bg-shapes::before { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+        .bg-shapes::after { width: 600px; height: 600px; background: #4a90e2; bottom: -200px; left: -200px; }
+
+        /* ========== NAVBAR ========== */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: #a0aec0; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #e8eef7; font-size: 1.5rem; cursor: pointer; }
+
+        .top-right-actions {
+            position: fixed; top: calc(var(--nav-height) + 20px); right: 5%; z-index: 999;
+        }
+        .back-to-tools-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            height: 44px; padding: 0 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; background: var(--bg-primary); border: 1px solid var(--accent); color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        .back-to-tools-btn:hover { background: var(--accent); color: var(--bg-primary); }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 5%;
+            z-index: 999;
+        }
+        .mobile-menu.show { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 0.8rem 0;
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
+        .mobile-menu .btn-signin {
+            display: block !important;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.8rem !important;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* ========== INTRO SCREEN ========== */
+        .intro-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.8s ease;
+        }
+        .intro-icon {
+            width: 100px; height: 100px;
+            margin: 0 auto 2rem;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem;
+            color: var(--bg-primary);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 50px rgba(212, 175, 55, 0.6); }
+        }
+        .intro-screen h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .intro-screen h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .intro-screen p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .feature {
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .feature i { color: var(--accent); font-size: 1.2rem; }
+        .feature span { font-size: 0.9rem; color: var(--text-primary); }
+        .btn-start {
+            padding: 1rem 3rem;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ========== QUIZ SCREEN ========== */
+        .quiz-screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-container {
+            background: rgba(212, 175, 55, 0.1);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        .question-counter {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .question-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .question-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .question-card .question-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .option {
+            padding: 1.2rem 1.5rem;
+            background: rgba(212, 175, 55, 0.03);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: left;
+        }
+        .option:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateX(5px);
+        }
+        .option.selected {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+        }
+        .option-radio {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .option.selected .option-radio {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+        .option.selected .option-radio::after {
+            content: '✓';
+            color: var(--bg-primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .btn-nav {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 1rem;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-prev {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+        }
+        .btn-prev:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-next {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========== LOADING SCREEN ========== */
+        .loading-screen {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .radar-animation {
+            width: 150px; height: 150px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        .radar-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: radarPulse 2s infinite;
+        }
+        .radar-circle:nth-child(1) { width: 50px; height: 50px; animation-delay: 0s; }
+        .radar-circle:nth-child(2) { width: 100px; height: 100px; animation-delay: 0.4s; }
+        .radar-circle:nth-child(3) { width: 150px; height: 150px; animation-delay: 0.8s; }
+        @keyframes radarPulse {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        }
+        .radar-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px; height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent);
+        }
+        .loading-screen h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .loading-screen p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .loading-steps {
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .loading-step {
+            padding: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .loading-step.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .loading-step i { color: var(--accent); width: 20px; }
+
+        /* ========== RESULTS SCREEN ========== */
+        .results-screen {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        .score-card {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .score-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: var(--gradient);
+        }
+        .score-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .score-value {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 10vw, 6rem);
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .score-status {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .score-status.excellent { color: var(--success); }
+        .score-status.good { color: var(--warning); }
+        .score-status.at-risk { color: var(--danger); }
+        .score-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1rem;
+        }
+
+        .radar-container {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .radar-container h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        #radarCanvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .issues-card, .action-card, .resources-card, .share-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .issues-card h3, .action-card h3, .resources-card h3, .share-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .issues-card h3 i { color: var(--danger); }
+        .action-card h3 i, .resources-card h3 i { color: var(--accent); }
+
+        .issue-item {
+            padding: 1.2rem;
+            background: rgba(231, 76, 60, 0.05);
+            border-left: 4px solid var(--danger);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .issue-number {
+            width: 30px; height: 30px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .issue-content h4 { font-size: 1.1rem; margin-bottom: 0.3rem; color: var(--text-primary); }
+        .issue-content p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .action-phase {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .action-phase h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .action-phase ul { list-style: none; padding: 0; }
+        .action-phase li {
+            padding: 0.6rem 0;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+        .action-phase li i { color: var(--success); margin-top: 0.3rem; flex-shrink: 0; }
+
+        .resource-item {
+            padding: 1rem 1.2rem;
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+        .resource-item:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateX(5px);
+        }
+        .resource-item i { color: var(--accent); font-size: 1.2rem; }
+        .resource-item span { flex: 1; font-size: 0.95rem; }
+        .resource-item .fa-arrow-right { color: var(--text-secondary); }
+
+        .share-card { text-align: center; }
+        .share-card p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .share-linkedin { background: #0077b5; }
+        .share-twitter { background: #000000; }
+        .share-copy { background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-primary); }
+
+        .restart-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .restart-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { right: 20px; top: calc(var(--nav-height) + 10px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 2rem 1rem; }
+            .question-card, .score-card, .issues-card, .action-card, .resources-card, .share-card { padding: 1.5rem; }
+            .header { padding: 1rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-shapes"></div>
+
+<!-- ========== NAVBAR ========== -->
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <!-- ✅ Added class="active" to make it gold -->
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a>
+    <a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a>
+    <a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a>
+    <!-- ✅ Added class="active" to make it gold -->
+    <a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a>
+    <a href="https://sbmousavices.github.io/Articles/">Articles</a>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a>
+    <a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a>
+</div>
+
+<!-- Back Button -->
+<div class="top-right-actions">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools-btn">
+        <i class="fas fa-arrow-left"></i> Back to Eng. Tools
+    </a>
+</div>
+
+<div class="container">
+
+    <!-- INTRO SCREEN -->
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h1>Project <span>Success Predictor</span></h1>
+        <p>Predict your project's success probability in just 2 minutes. Get a personalized 30-60-90 day action plan based on PMBOK best practices and 25+ years of industry experience.</p>
+        
+        <div class="features">
+            <div class="feature"><i class="fas fa-bullseye"></i><span>Success Score out of 100</span></div>
+            <div class="feature"><i class="fas fa-chart-radar"></i><span>Radar Chart Analysis</span></div>
+            <div class="feature"><i class="fas fa-exclamation-triangle"></i><span>Top 3 Critical Issues</span></div>
+            <div class="feature"><i class="fas fa-calendar-check"></i><span>30-60-90 Day Action Plan</span></div>
+            <div class="feature"><i class="fas fa-book"></i><span>Recommended Resources</span></div>
+            <div class="feature"><i class="fas fa-share-nodes"></i><span>Share on LinkedIn</span></div>
+        </div>
+
+        <button class="btn-start" onclick="startQuiz()">
+            <i class="fas fa-rocket"></i> Start Prediction
+        </button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div class="quiz-screen" id="quizScreen">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="question-counter" id="questionCounter">Question 1 of 7</div>
+        <div id="questionContainer"></div>
+        <div class="quiz-nav">
+            <button class="btn-nav btn-prev" id="prevBtn" onclick="prevQuestion()" style="visibility: hidden;">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn-nav btn-next" id="nextBtn" onclick="nextQuestion()" disabled>
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="radar-animation">
+            <div class="radar-circle"></div>
+            <div class="radar-circle"></div>
+            <div class="radar-circle"></div>
+            <div class="radar-center"></div>
+        </div>
+        <h2>Analyzing Your Project...</h2>
+        <p>Our AI is processing your responses</p>
+        <div class="loading-steps">
+            <div class="loading-step" id="step1"><i class="fas fa-check-circle"></i> Calculating Success Score...</div>
+            <div class="loading-step" id="step2"><i class="fas fa-check-circle"></i> Identifying Critical Issues...</div>
+            <div class="loading-step" id="step3"><i class="fas fa-check-circle"></i> Generating Action Plan...</div>
+            <div class="loading-step" id="step4"><i class="fas fa-check-circle"></i> Matching Resources...</div>
+        </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div class="results-screen" id="resultsScreen"></div>
+
+</div>
+
+<footer class="footer">
+    <p>&copy; 2026 Behzad Mousavi | BM Planning - Project Control Excellence</p>
+</footer>
+
+<script>
+// ========== MOBILE MENU ==========
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('show');
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.mobile-menu-btn');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
+
+// ========== QUIZ DATA ==========
+const questions = [
+    {
+        id: 'wbs',
+        title: 'Work Breakdown Structure (WBS)',
+        desc: 'How detailed is your WBS for this project?',
+        options: [
+            { text: 'Not defined or only high-level phases', score: 1 },
+            { text: 'Defined to deliverable level only', score: 2 },
+            { text: 'Defined to work package level (8/80 rule)', score: 3 },
+            { text: 'Fully defined with WBS dictionary and ownership', score: 4 }
+        ]
+    },
+    {
+        id: 'baseline',
+        title: 'Baseline Schedule',
+        desc: 'What is the status of your project baseline?',
+        options: [
+            { text: 'No formal baseline exists', score: 1 },
+            { text: 'Baseline created but not formally approved', score: 2 },
+            { text: 'Approved baseline with change control process', score: 3 },
+            { text: 'Approved baseline with regular re-baselining protocol', score: 4 }
+        ]
+    },
+    {
+        id: 'progress',
+        title: 'Progress Measurement',
+        desc: 'How do you measure activity completion?',
+        options: [
+            { text: 'Based on time elapsed or gut feeling', score: 1 },
+            { text: 'Based on milestones achieved', score: 2 },
+            { text: 'Based on weighted milestones or units completed', score: 3 },
+            { text: 'Based on physical percent complete with earned value', score: 4 }
+        ]
+    },
+    {
+        id: 'risk',
+        title: 'Risk Management',
+        desc: 'How mature is your risk management process?',
+        options: [
+            { text: 'No risk register or formal process', score: 1 },
+            { text: 'Risk register exists but rarely updated', score: 2 },
+            { text: 'Active risk register with regular reviews', score: 3 },
+            { text: 'Quantitative risk analysis with contingency reserves', score: 4 }
+        ]
+    },
+    {
+        id: 'evm',
+        title: 'EVM Performance (CPI/SPI)',
+        desc: 'What are your current CPI and SPI trends?',
+        options: [
+            { text: 'Below 0.85 (Significant overruns)', score: 1 },
+            { text: 'Between 0.85 and 0.95 (Minor issues)', score: 2 },
+            { text: 'Between 0.95 and 1.05 (On track)', score: 3 },
+            { text: 'Above 1.05 (Performing better than planned)', score: 4 }
+        ]
+    },
+    {
+        id: 'change',
+        title: 'Change Management',
+        desc: 'How do you handle scope changes?',
+        options: [
+            { text: 'Changes accepted informally without documentation', score: 1 },
+            { text: 'Changes documented but no formal approval', score: 2 },
+            { text: 'Formal change control board with impact analysis', score: 3 },
+            { text: 'Integrated change control with baseline updates', score: 4 }
+        ]
+    },
+    {
+        id: 'team',
+        title: 'Team Experience',
+        desc: 'How experienced is your team with similar projects?',
+        options: [
+            { text: 'Most team members are new to this type of project', score: 1 },
+            { text: 'Some experience but limited track record', score: 2 },
+            { text: 'Majority have delivered similar projects successfully', score: 3 },
+            { text: 'Highly experienced team with proven methodologies', score: 4 }
+        ]
+    }
+];
+
+let currentQuestion = 0;
+let answers = {};
+
+function startQuiz() {
+    document.getElementById('introScreen').style.display = 'none';
+    document.getElementById('quizScreen').style.display = 'block';
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    const container = document.getElementById('questionContainer');
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    
+    let html = `
+        <div class="question-card">
+            <h2>${q.title}</h2>
+            <p class="question-desc">${q.desc}</p>
+            <div class="options">
+    `;
+    
+    q.options.forEach((opt, idx) => {
+        const selected = answers[q.id] === idx ? 'selected' : '';
+        html += `
+            <div class="option ${selected}" onclick="selectOption(${idx})">
+                <div class="option-radio"></div>
+                <div class="option-text">${opt.text}</div>
+            </div>
+        `;
+    });
+    
+    html += '</div></div>';
+    container.innerHTML = html;
+    
+    document.getElementById('prevBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+    document.getElementById('nextBtn').disabled = answers[q.id] === undefined;
+    document.getElementById('nextBtn').innerHTML = currentQuestion === questions.length - 1 
+        ? 'Calculate Score <i class="fas fa-calculator"></i>' 
+        : 'Next <i class="fas fa-arrow-right"></i>';
+}
+
+function selectOption(idx) {
+    answers[questions[currentQuestion].id] = idx;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (answers[questions[currentQuestion].id] === undefined) return;
+    
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+    } else {
+        showLoading();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
+function showLoading() {
+    document.getElementById('quizScreen').style.display = 'none';
+    document.getElementById('loadingScreen').style.display = 'block';
+    
+    const steps = ['step1', 'step2', 'step3', 'step4'];
+    steps.forEach((step, idx) => {
+        setTimeout(() => {
+            document.getElementById(step).classList.add('show');
+        }, (idx + 1) * 800);
+    });
+    
+    setTimeout(() => {
+        showResults();
+    }, 4000);
+}
+
+function calculateScore() {
+    let total = 0;
+    questions.forEach(q => {
+        total += q.options[answers[q.id]].score;
+    });
+    return Math.round((total / (questions.length * 4)) * 100);
+}
+
+function getScoreStatus(score) {
+    if (score >= 80) return { label: 'Excellent', class: 'excellent', desc: 'Your project has strong foundations. Focus on continuous improvement and risk monitoring to maintain this high performance.' };
+    if (score >= 60) return { label: 'Good - Needs Attention', class: 'good', desc: 'Your project is on a decent path but has areas that need immediate attention. Follow the action plan below to prevent future issues.' };
+    return { label: 'At Risk', class: 'at-risk', desc: 'Your project shows critical warning signs. Immediate corrective action is required. Follow the 30-60-90 day plan carefully.' };
+}
+
+function getCriticalIssues() {
+    const scored = questions.map(q => ({
+        id: q.id,
+        title: q.title,
+        score: q.options[answers[q.id]].score,
+        desc: q.options[answers[q.id]].text
+    }));
+    scored.sort((a, b) => a.score - b.score);
+    return scored.slice(0, 3);
+}
+
+function getActionPlan(issues) {
+    const plans = {
+        wbs: {
+            phase1: ['Conduct WBS workshop with key stakeholders', 'Break down deliverables to work package level', 'Assign clear ownership to each work package'],
+            phase2: ['Create WBS dictionary with acceptance criteria', 'Link work packages to schedule activities', 'Validate with team leads'],
+            phase3: ['Integrate WBS with cost accounts', 'Establish WBS-based reporting', 'Regular WBS audits']
+        },
+        baseline: {
+            phase1: ['Freeze current schedule as interim baseline', 'Get formal approval from sponsor', 'Document baseline assumptions'],
+            phase2: ['Implement change control process', 'Track variances against baseline', 'Monthly baseline health reviews'],
+            phase3: ['Establish re-baselining criteria', 'Historical variance analysis', 'Lessons learned documentation']
+        },
+        progress: {
+            phase1: ['Define physical % complete rules per activity type', 'Train team on progress measurement', 'Implement weekly progress updates'],
+            phase2: ['Link progress to earned value calculations', 'Validate progress with site visits', 'Cross-check with deliverable completion'],
+            phase3: ['Automate progress reporting', 'Implement earned value dashboards', 'Continuous improvement of measurement rules']
+        },
+        risk: {
+            phase1: ['Conduct risk identification workshop', 'Create initial risk register', 'Assign risk owners'],
+            phase2: ['Perform qualitative risk analysis', 'Develop risk response plans', 'Weekly risk review meetings'],
+            phase3: ['Quantitative risk analysis (Monte Carlo)', 'Establish contingency reserves', 'Risk auditing process']
+        },
+        evm: {
+            phase1: ['Calculate current CPI and SPI', 'Identify root causes of variances', 'Develop corrective action plan'],
+            phase2: ['Implement weekly EVM reporting', 'Forecast EAC and ETC', 'Management review of variances'],
+            phase3: ['Trend analysis and forecasting', 'Performance improvement initiatives', 'Benchmark against industry standards']
+        },
+        change: {
+            phase1: ['Document all pending changes', 'Establish change control board', 'Define change request form'],
+            phase2: ['Implement impact analysis process', 'Track change log', 'Regular CCB meetings'],
+            phase3: ['Integrate changes with baseline updates', 'Change impact reporting', 'Lessons learned on change management']
+        },
+        team: {
+            phase1: ['Skills gap analysis', 'Identify training needs', 'Pair inexperienced with experienced members'],
+            phase2: ['Conduct targeted training sessions', 'Establish mentoring program', 'Knowledge transfer workshops'],
+            phase3: ['Build competency framework', 'Cross-training initiatives', 'Team performance metrics']
+        }
+    };
+    
+    return issues.map(issue => ({
+        ...issue,
+        plan: plans[issue.id]
+    }));
+}
+
+function drawRadarChart(scores) {
+    const canvas = document.getElementById('radarCanvas');
+    const ctx = canvas.getContext('2d');
+    const size = Math.min(500, window.innerWidth - 100);
+    canvas.width = size;
+    canvas.height = size;
+    
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size * 0.35;
+    const labels = ['WBS', 'Baseline', 'Progress', 'Risk', 'EVM', 'Change', 'Team'];
+    const n = labels.length;
+    
+    ctx.clearRect(0, 0, size, size);
+    
+    for (let level = 1; level <= 4; level++) {
+        ctx.beginPath();
+        const r = (radius / 4) * level;
+        for (let i = 0; i <= n; i++) {
+            const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+            const x = centerX + r * Math.cos(angle);
+            const y = centerY + r * Math.sin(angle);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.2)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+    
+    for (let i = 0; i < n; i++) {
+        const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(centerX + radius * Math.cos(angle), centerY + radius * Math.sin(angle));
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+        ctx.stroke();
+    }
+    
+    ctx.beginPath();
+    scores.forEach((score, i) => {
+        const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        const r = (radius / 4) * score;
+        const x = centerX + r * Math.cos(angle);
+        const y = centerY + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+    ctx.fill();
+    ctx.strokeStyle = '#d4af37';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    ctx.fillStyle = '#e8eef7';
+    ctx.font = 'bold 14px Inter';
+    ctx.textAlign = 'center';
+    labels.forEach((label, i) => {
+        const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        const x = centerX + (radius + 30) * Math.cos(angle);
+        const y = centerY + (radius + 30) * Math.sin(angle);
+        ctx.fillText(label, x, y);
+    });
+}
+
+function showResults() {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('resultsScreen').style.display = 'block';
+    
+    const score = calculateScore();
+    const status = getScoreStatus(score);
+    const issues = getCriticalIssues();
+    const actionPlans = getActionPlan(issues);
+    const scores = questions.map(q => q.options[answers[q.id]].score);
+    
+    const resources = [
+        { title: 'Critical Path Analysis Guide', url: 'https://sbmousavices.github.io/Articles/', icon: 'fa-route' },
+        { title: 'Risk Management Best Practices', url: 'https://sbmousavices.github.io/Articles/', icon: 'fa-shield-alt' },
+        { title: 'EVM & Performance Reporting', url: 'https://sbmousavices.github.io/Articles/', icon: 'fa-chart-line' },
+        { title: 'WBS Development for EPC Projects', url: 'https://sbmousavices.github.io/Articles/', icon: 'fa-sitemap' }
+    ];
+    
+    let html = `
+        <div class="score-card">
+            <div class="score-label">Project Success Score</div>
+            <div class="score-value">${score}/100</div>
+            <div class="score-status ${status.class}">${status.label}</div>
+            <p class="score-description">${status.desc}</p>
+        </div>
+        
+        <div class="radar-container">
+            <h3><i class="fas fa-chart-radar"></i> Performance Radar</h3>
+            <canvas id="radarCanvas"></canvas>
+        </div>
+        
+        <div class="issues-card">
+            <h3><i class="fas fa-exclamation-triangle"></i> Top 3 Critical Issues</h3>
+            ${issues.map((issue, idx) => `
+                <div class="issue-item">
+                    <div class="issue-number">${idx + 1}</div>
+                    <div class="issue-content">
+                        <h4>${issue.title}</h4>
+                        <p>${issue.desc}</p>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        
+        <div class="action-card">
+            <h3><i class="fas fa-calendar-check"></i> Your 30-60-90 Day Action Plan</h3>
+            ${actionPlans.map((plan) => `
+                <div class="action-phase">
+                    <h4><i class="fas fa-bullseye"></i> Focus Area: ${plan.title}</h4>
+                    <h4 style="margin-top: 1rem;"><i class="fas fa-calendar-day"></i> Days 1-30: Foundation</h4>
+                    <ul>
+                        ${plan.plan.phase1.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                    </ul>
+                    <h4 style="margin-top: 1rem;"><i class="fas fa-calendar-week"></i> Days 31-60: Implementation</h4>
+                    <ul>
+                        ${plan.plan.phase2.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                    </ul>
+                    <h4 style="margin-top: 1rem;"><i class="fas fa-calendar-alt"></i> Days 61-90: Optimization</h4>
+                    <ul>
+                        ${plan.plan.phase3.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('')}
+        </div>
+        
+        <div class="resources-card">
+            <h3><i class="fas fa-book"></i> Recommended Resources</h3>
+            ${resources.map(r => `
+                <a href="${r.url}" target="_blank" class="resource-item">
+                    <i class="fas ${r.icon}"></i>
+                    <span>${r.title}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            `).join('')}
+        </div>
+        
+        <div class="share-card">
+            <h3>Share Your Results</h3>
+            <p>Help others in the industry by sharing this tool</p>
+            <div class="share-buttons">
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sbmousavices.github.io/Industrial-Tools/project-success-predictor.html" target="_blank" class="share-btn share-linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://sbmousavices.github.io/Industrial-Tools/project-success-predictor.html&text=I just scored ${score}/100 on the Project Success Predictor! Check your project health now." target="_blank" class="share-btn share-twitter">
+                    <i class="fab fa-x-twitter"></i> Twitter
+                </a>
+                <button class="share-btn share-copy" onclick="copyLink()">
+                    <i class="fas fa-link"></i> Copy Link
+                </button>
+            </div>
+        </div>
+        
+        <button class="restart-btn" onclick="restartQuiz()">
+            <i class="fas fa-redo"></i> Take Quiz Again
+        </button>
+    `;
+    
+    document.getElementById('resultsScreen').innerHTML = html;
+    
+    setTimeout(() => {
+        drawRadarChart(scores);
+    }, 100);
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = {};
+    document.getElementById('resultsScreen').style.display = 'none';
+    document.getElementById('introScreen').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function copyLink() {
+    navigator.clipboard.writeText('https://sbmousavices.github.io/Industrial-Tools/project-success-predictor.html').then(() => {
+        alert('Link copied to clipboard!');
+    });
+}
+</script>
+
+</body>
+</html>
