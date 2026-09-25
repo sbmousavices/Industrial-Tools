@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Your Project Management Style? | BM Planning</title>
+    <meta name="description" content="Take this 2-minute quiz to discover your project management archetype. Share your results on LinkedIn!">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ✅ NAVIGATION BAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { 
+            display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; 
+            border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; 
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; 
+        }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ BACK TO TOOLS BUTTON */
+        .back-btn {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+        }
+        .back-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .quiz-header {
+            margin-bottom: 3rem;
+        }
+        .quiz-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .quiz-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .quiz-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* QUIZ CARD */
+        .quiz-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: left;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .question-number {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .option:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateX(5px);
+        }
+        .option-letter {
+            width: 32px; height: 32px;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* RESULT CARD */
+        .result-card {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .result-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--gradient);
+        }
+        .result-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .result-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .share-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .share-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            text-decoration: none;
+        }
+        .btn-linkedin {
+            background: #0077b5;
+            color: white;
+        }
+        .btn-linkedin:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0, 119, 181, 0.4); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            margin-left: 1rem;
+        }
+        .btn-secondary:hover { background: var(--accent); color: var(--bg-primary); }
+
+        .tools-cta {
+            margin-top: 2.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed var(--accent);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        .tools-cta h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-light);
+            margin-bottom: 0.5rem;
+        }
+        .tools-cta p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .tools-cta a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+        }
+        .tools-cta a:hover { color: var(--accent-light); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .back-btn { top: calc(var(--nav-height) + 10px); right: 15px; padding: 8px 16px; font-size: 0.8rem; }
+            .quiz-card, .result-card { padding: 1.5rem; }
+            .btn { width: 100%; justify-content: center; margin: 0.5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ NAVIGATION BAR -->
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <!-- ✅ SIGN IN BUTTON ADDED HERE -->
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- ✅ BACK TO TOOLS BUTTON ADDED HERE -->
+<a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Tools
+</a>
+
+<div class="container">
+    <div class="quiz-header">
+        <h1>What is Your <span>Project Management Style?</span></h1>
+        <p>Answer 5 quick questions to discover your professional archetype and get a personalized badge for LinkedIn.</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- QUIZ AREA -->
+    <div class="quiz-card" id="quizArea">
+        <div class="question-number" id="questionNumber">Question 1 of 5</div>
+        <div class="question-text" id="questionText">Loading...</div>
+        <div class="options" id="optionsContainer"></div>
+    </div>
+
+    <!-- RESULT AREA -->
+    <div class="result-card" id="resultArea">
+        <div class="result-icon" id="resultIcon"></div>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        
+        <div class="share-section">
+            <p>Share your result with your professional network!</p>
+            <button class="btn btn-linkedin" onclick="shareToLinkedIn()">
+                <i class="fab fa-linkedin"></i> Share on LinkedIn
+            </button>
+            <button class="btn btn-secondary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i> Try Again
+            </button>
+        </div>
+
+        <div class="tools-cta">
+            <h3><i class="fas fa-tools"></i> Level Up Your Skills</h3>
+            <p>Match your style with our professional free tools:</p>
+            <p>
+                ⏱️ <a href="https://sbmousavices.github.io/Industrial-Tools/interactive-checklist.html">Interactive Project Checklist</a> | 
+                📊 <a href="https://sbmousavices.github.io/Industrial-Tools/wpa-template.html">Online WPA Tool</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== QUIZ DATA ==========
+    const questions = [
+        {
+            text: "A major, unexpected delay occurs in the critical path. What is your FIRST reaction?",
+            options: [
+                { text: "Immediately analyze the float and re-sequence the remaining activities.", type: "time" },
+                { text: "Assess the root cause and update the risk register with mitigation plans.", type: "risk" },
+                { text: "Calculate the cost impact and forecast the new Estimate at Completion (EAC).", type: "cost" },
+                { text: "Call a meeting with stakeholders to negotiate a realistic schedule adjustment.", type: "people" }
+            ]
+        },
+        {
+            text: "Which project management metric do you check every single morning?",
+            options: [
+                { text: "Schedule Performance Index (SPI) and Critical Path status.", type: "time" },
+                { text: "Risk Exposure and open mitigation action items.", type: "risk" },
+                { text: "Cost Performance Index (CPI) and Cash Flow status.", type: "cost" },
+                { text: "Team velocity and stakeholder satisfaction feedback.", type: "people" }
+            ]
+        },
+        {
+            text: "The client requests a significant scope change halfway through the project. You...",
+            options: [
+                { text: "Analyze the impact on the baseline schedule before approving anything.", type: "time" },
+                { text: "Evaluate the new risks this change introduces to the project.", type: "risk" },
+                { text: "Demand a formal change order with adjusted budget and EVM re-baselining.", type: "cost" },
+                { text: "Facilitate a collaborative workshop to find a win-win solution for both sides.", type: "people" }
+            ]
+        },
+        {
+            text: "What is your favorite tool or methodology?",
+            options: [
+                { text: "Primavera P6 / MS Project with advanced CPM analysis.", type: "time" },
+                { text: "Monte Carlo Simulation and Qualitative Risk Matrices.", type: "risk" },
+                { text: "Earned Value Management (EVM) dashboards and S-Curves.", type: "cost" },
+                { text: "Agile frameworks, communication plans, and team building.", type: "people" }
+            ]
+        },
+        {
+            text: "The project is finishing two weeks ahead of schedule. What do you do?",
+            options: [
+                { text: "Optimize the remaining float and pull forward successor activities.", type: "time" },
+                { text: "Conduct a thorough 'Lessons Learned' session to document risk responses.", type: "risk" },
+                { text: "Re-forecast the final budget and return unused contingency reserves.", type: "cost" },
+                { text: "Organize a team celebration and recognize individual contributions.", type: "people" }
+            ]
+        }
+    ];
+
+    const archetypes = {
+        time: {
+            icon: "fa-hourglass-half",
+            title: "The Time Lord",
+            desc: "You are the master of schedules. Deadlines, Critical Path Method (CPM), and float optimization are your superpowers. You ensure that projects cross the finish line exactly when they are supposed to, or even earlier!"
+        },
+        risk: {
+            icon: "fa-shield-alt",
+            title: "The Risk Hunter",
+            desc: "You always see the storm before it arrives. Your proactive approach to risk identification, quantitative analysis, and mitigation planning saves projects from catastrophic failures. You are the project's ultimate safety net."
+        },
+        cost: {
+            icon: "fa-coins",
+            title: "The Budget Master",
+            desc: "Numbers speak louder than words to you. With a deep understanding of Earned Value Management (EVM), CPI, and SPI, you ensure that every dollar is accounted for and the project remains financially healthy."
+        },
+        people: {
+            icon: "fa-users",
+            title: "The Agile Diplomat",
+            desc: "You know that projects are built by people, not just plans. Your exceptional stakeholder management, negotiation skills, and adaptability make you the glue that holds complex projects together."
+        }
+    };
+
+    // ========== STATE ==========
+    let currentQuestion = 0;
+    let scores = { time: 0, risk: 0, cost: 0, people: 0 };
+    let finalArchetype = '';
+
+    // ========== FUNCTIONS ==========
+    function loadQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        document.getElementById('questionText').textContent = q.text;
+        
+        // Update progress bar
+        const progress = ((currentQuestion) / questions.length) * 100;
+        document.getElementById('progressBar').style.width = `${progress}%`;
+
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = '';
+
+        const letters = ['A', 'B', 'C', 'D'];
+        q.options.forEach((opt, index) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerHTML = `
+                <div class="option-letter">${letters[index]}</div>
+                <div class="option-text">${opt.text}</div>
+            `;
+            div.onclick = () => selectOption(opt.type);
+            optionsContainer.appendChild(div);
+        });
+    }
+
+    function selectOption(type) {
+        scores[type]++;
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            // Add a tiny delay for smooth transition
+            document.getElementById('quizArea').style.opacity = '0';
+            setTimeout(() => {
+                loadQuestion();
+                document.getElementById('quizArea').style.opacity = '1';
+            }, 300);
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('progressBar').style.width = '100%';
+        document.getElementById('quizArea').style.display = 'none';
+        
+        // Calculate highest score
+        let maxScore = 0;
+        for (const [key, value] of Object.entries(scores)) {
+            if (value > maxScore) {
+                maxScore = value;
+                finalArchetype = key;
+            }
+        }
+        
+        // Fallback if tie or zero (default to first)
+        if (!finalArchetype) finalArchetype = 'time';
+
+        const result = archetypes[finalArchetype];
+        document.getElementById('resultIcon').innerHTML = `<i class="fas ${result.icon}"></i>`;
+        document.getElementById('resultTitle').textContent = result.title;
+        document.getElementById('resultDesc').textContent = result.desc;
+        
+        document.getElementById('resultArea').style.display = 'block';
+    }
+
+    function shareToLinkedIn() {
+        const result = archetypes[finalArchetype];
+        const url = encodeURIComponent('https://sbmousavices.github.io/Industrial-Tools/pm-style-quiz.html');
+        const text = encodeURIComponent(`I just took the Project Management Style Quiz and I am "${result.title}"! 🎯\n\n${result.desc}\n\nWhat is your PM style? Take the quiz here:`);
+        
+        const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}&summary=${text}`;
+        window.open(linkedinUrl, '_blank', 'width=600,height=600');
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        scores = { time: 0, risk: 0, cost: 0, people: 0 };
+        finalArchetype = '';
+        document.getElementById('resultArea').style.display = 'none';
+        document.getElementById('quizArea').style.display = 'block';
+        document.getElementById('quizArea').style.opacity = '1';
+        loadQuestion();
+    }
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+</script>
+
+</body>
+</html>
