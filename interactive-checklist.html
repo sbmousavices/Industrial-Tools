@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Interactive Project Control Checklist | BM Planning</title>
+    <meta name="description" content="Free interactive checklist for project control managers. Track 50+ critical EPC project control activities, save progress, and export PDF reports.">
+    <meta name="keywords" content="project control checklist, EPC checklist, construction checklist, project management, free checklist, interactive checklist">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent 40%);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* BACK BUTTON */
+        .back-btn {
+            position: fixed; top: calc(var(--nav-height) + 15px); right: 30px;
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+            background: var(--card-bg); border: 1px solid var(--accent); border-radius: 50px;
+            color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s ease; z-index: 999;
+        }
+        .back-btn:hover { background: var(--accent); color: var(--bg-primary); }
+
+        /* MAIN CONTAINER */
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 5%; }
+
+        /* HEADER */
+        .checklist-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .checklist-header::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .checklist-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+        .checklist-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .checklist-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* PROGRESS BAR */
+        .progress-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: calc(var(--nav-height) + 20px);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .progress-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .progress-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-secondary:hover { background: var(--accent); color: var(--bg-primary); }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover { background: #c0392b; }
+
+        /* CATEGORIES */
+        .category {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .category-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(19, 40, 71, 0.8) 100%);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-header:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(19, 40, 71, 0.9) 100%);
+        }
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-title i {
+            color: var(--accent);
+        }
+        .category-progress {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .category-body {
+            padding: 1.5rem 2rem;
+        }
+
+        /* CHECKLIST ITEMS */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        .checklist-item:hover {
+            background: rgba(212, 175, 55, 0.03);
+        }
+        .checklist-item.completed {
+            opacity: 0.7;
+        }
+        .checklist-item.completed .item-text {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .checkbox:hover {
+            border-color: var(--accent);
+        }
+        .checkbox.checked {
+            background: var(--gradient);
+            border-color: var(--accent);
+        }
+        .checkbox.checked::after {
+            content: '✓';
+            color: var(--bg-primary);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .item-note {
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+            margin-top: 0.5rem;
+        }
+        .item-note:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .item-note::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* FOOTER CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(19, 40, 71, 0.8) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .footer-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            nav, .back-btn, .progress-section, .footer-cta, .btn { display: none !important; }
+            body { padding-top: 0; background: white; }
+            .category { break-inside: avoid; }
+            .checklist-item { break-inside: avoid; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .back-btn { top: calc(var(--nav-height) + 10px); right: 15px; padding: 8px 14px; font-size: 0.75rem; }
+            .progress-section { position: static; }
+            .category-header { padding: 1rem 1.5rem; }
+            .category-body { padding: 1rem 1.5rem; }
+            .checklist-item { padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Tools
+</a>
+
+<div class="container">
+    
+    <!-- HEADER -->
+    <div class="checklist-header">
+        <h1>Interactive <span>Project Control Checklist</span></h1>
+        <p>Track 50+ critical EPC project control activities. Save your progress automatically and export a professional PDF report when complete.</p>
+    </div>
+
+    <!-- PROGRESS SECTION -->
+    <div class="progress-section">
+        <div class="progress-header">
+            <div class="progress-title">Overall Progress</div>
+            <div class="progress-percentage" id="totalPercentage">0%</div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="totalProgressBar" style="width: 0%"></div>
+        </div>
+        <div class="progress-stats">
+            <span id="completedCount">0 completed</span>
+            <span id="totalCount">0 total</span>
+        </div>
+        <div class="progress-actions">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Print / Save PDF
+            </button>
+            <button class="btn btn-secondary" onclick="resetChecklist()">
+                <i class="fas fa-redo"></i> Reset All
+            </button>
+        </div>
+    </div>
+
+    <!-- CHECKLIST CATEGORIES -->
+    <div id="checklistContainer"></div>
+
+<script>
+// ========== CHECKLIST DATA ==========
+const checklistData = [
+    {
+        id: 'planning',
+        title: 'Planning & Scheduling',
+        icon: 'fa-calendar-alt',
+        items: [
+            'Baseline schedule approved by all stakeholders',
+            'Work Breakdown Structure (WBS) defined to work package level',
+            'Critical path identified and documented',
+            'Float analysis completed for all activities',
+            'Resource loading and leveling performed',
+            'Schedule risk analysis conducted',
+            'Baseline change control process established',
+            'Monthly schedule updates performed on time',
+            'Schedule variance (SV) calculated and reported',
+            'Recovery plan developed for delayed activities'
+        ]
+    },
+    {
+        id: 'evm',
+        title: 'Earned Value Management (EVM)',
+        icon: 'fa-chart-line',
+        items: [
+            'Performance Measurement Baseline (PMB) established',
+            'Control accounts defined and assigned',
+            'Earned value calculation method defined per activity',
+            'CPI and SPI calculated monthly',
+            'Variance analysis (CV, SV) performed',
+            'Estimate at Completion (EAC) forecasted',
+            'Estimate to Complete (ETC) calculated',
+            'Variance at Completion (VAC) monitored',
+            'TCPI calculated for remaining work',
+            'EVM reports submitted to management'
+        ]
+    },
+    {
+        id: 'risk',
+        title: 'Risk Management',
+        icon: 'fa-exclamation-triangle',
+        items: [
+            'Risk management plan documented',
+            'Risk register created and maintained',
+            'Risk identification workshops conducted',
+            'Qualitative risk analysis performed',
+            'Quantitative risk analysis (Monte Carlo) completed',
+            'Risk response plans developed',
+            'Risk owners assigned',
+            'Contingency reserves calculated',
+            'Monthly risk reviews conducted',
+            'Risk audit process established'
+        ]
+    },
+    {
+        id: 'quality',
+        title: 'Quality Control',
+        icon: 'fa-check-circle',
+        items: [
+            'Quality management plan approved',
+            'Inspection and test plans (ITP) defined',
+            'Quality checkpoints established',
+            'Non-conformance reports (NCR) tracked',
+            'Corrective actions implemented',
+            'Quality audits conducted regularly',
+            'Lessons learned documented',
+            'Quality metrics monitored',
+            'Supplier quality evaluations performed',
+            'Final quality acceptance obtained'
+        ]
+    },
+    {
+        id: 'documentation',
+        title: 'Documentation & Reporting',
+        icon: 'fa-file-alt',
+        items: [
+            'Document control system established',
+            'Monthly progress reports submitted',
+            'Meeting minutes documented and distributed',
+            'Change orders tracked and approved',
+            'Correspondence log maintained',
+            'As-built drawings updated',
+            'Final project report prepared',
+            'Lessons learned workshop conducted',
+            'Project closure documentation complete',
+            'Archival process completed'
+        ]
+    }
+];
+
+// ========== STATE MANAGEMENT ==========
+let checklistState = {};
+
+function loadState() {
+    const saved = localStorage.getItem('projectControlChecklist');
+    if (saved) {
+        checklistState = JSON.parse(saved);
+    } else {
+        checklistState = {};
+    }
+}
+
+function saveState() {
+    localStorage.setItem('projectControlChecklist', JSON.stringify(checklistState));
+}
+
+// ========== RENDER CHECKLIST ==========
+function renderChecklist() {
+    const container = document.getElementById('checklistContainer');
+    container.innerHTML = '';
+
+    checklistData.forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'category';
+
+        const completedInCategory = category.items.filter((_, idx) => 
+            checklistState[`${category.id}_${idx}`]
+        ).length;
+
+        categoryDiv.innerHTML = `
+            <div class="category-header">
+                <div class="category-title">
+                    <i class="fas ${category.icon}"></i>
+                    ${category.title}
+                </div>
+                <div class="category-progress">
+                    ${completedInCategory}/${category.items.length} completed
+                </div>
+            </div>
+            <div class="category-body">
+                ${category.items.map((item, idx) => {
+                    const key = `${category.id}_${idx}`;
+                    const isChecked = checklistState[key] || false;
+                    const note = checklistState[`${key}_note`] || '';
+                    
+                    return `
+                        <div class="checklist-item ${isChecked ? 'completed' : ''}">
+                            <div class="checkbox ${isChecked ? 'checked' : ''}" onclick="toggleItem('${key}')"></div>
+                            <div class="item-content">
+                                <div class="item-text">${item}</div>
+                                <textarea class="item-note" placeholder="Add notes..." onchange="updateNote('${key}', this.value)">${note}</textarea>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+
+        container.appendChild(categoryDiv);
+    });
+
+    updateProgress();
+}
+
+// ========== TOGGLE ITEM ==========
+function toggleItem(key) {
+    checklistState[key] = !checklistState[key];
+    saveState();
+    renderChecklist();
+}
+
+// ========== UPDATE NOTE ==========
+function updateNote(key, note) {
+    checklistState[`${key}_note`] = note;
+    saveState();
+}
+
+// ========== UPDATE PROGRESS ==========
+function updateProgress() {
+    let totalItems = 0;
+    let completedItems = 0;
+
+    checklistData.forEach(category => {
+        totalItems += category.items.length;
+        category.items.forEach((_, idx) => {
+            const key = `${category.id}_${idx}`;
+            if (checklistState[key]) {
+                completedItems++;
+            }
+        });
+    });
+
+    const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
+
+    document.getElementById('totalPercentage').textContent = percentage + '%';
+    document.getElementById('totalProgressBar').style.width = percentage + '%';
+    document.getElementById('completedCount').textContent = completedItems + ' completed';
+    document.getElementById('totalCount').textContent = totalItems + ' total';
+}
+
+// ========== RESET CHECKLIST ==========
+function resetChecklist() {
+    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+        checklistState = {};
+        saveState();
+        renderChecklist();
+    }
+}
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', () => {
+    loadState();
+    renderChecklist();
+});
+</script>
+
+</body>
+</html>
