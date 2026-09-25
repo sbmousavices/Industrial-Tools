@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPA Premium Features | BM Planning</title>
+    <meta name="description" content="Discover the advanced features of WPA Premium: Multi-project management, risk analysis, advanced forecasts, Excel import/export, and professional PDF reports.">
+    
+    <!-- ✅ FONTS & ICONS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --gradient-dark: linear-gradient(135deg, #b8941f 0%, #d4af37 100%);
+            --success: #2ecc71;
+            --info: #3498db;
+            --premium-glow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent 40%);
+        }
+
+        /* ✅ NAVIGATION BAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ✅ TOP RIGHT ACTION BUTTON */
+        .top-action-btn {
+            position: fixed;
+            top: calc(var(--nav-height) + 20px);
+            right: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .top-action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ✅ MAIN CONTAINER */
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 5%; }
+
+        /* ✅ HERO SECTION */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+        .premium-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px; background: var(--gradient); color: var(--bg-primary);
+            border-radius: 50px; font-size: 0.8rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        }
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .hero-section h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-section p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ✅ FEATURES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--premium-glow);
+        }
+        .feature-card:hover::before { transform: scaleX(1); }
+        
+        .feature-icon {
+            width: 60px; height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--accent);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        .feature-card:hover .feature-icon {
+            background: var(--gradient);
+            color: var(--bg-primary);
+            transform: scale(1.1);
+        }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ✅ DETAILED BREAKDOWN */
+        .breakdown-section {
+            margin-bottom: 5rem;
+        }
+        .breakdown-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+        .breakdown-section h2 span { color: var(--accent); }
+        
+        .breakdown-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+        .breakdown-item:nth-child(even) { flex-direction: row-reverse; }
+        
+        .breakdown-content { flex: 1; }
+        .breakdown-content h3 {
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .breakdown-content p { color: var(--text-secondary); margin-bottom: 1rem; }
+        .breakdown-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .breakdown-content ul li {
+            padding: 0.5rem 0;
+            color: var(--text-primary);
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.95rem;
+        }
+        .breakdown-content ul li i { color: var(--success); }
+
+        .breakdown-visual {
+            flex: 1;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            min-height: 200px;
+        }
+        .visual-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        .visual-placeholder i { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display: block; }
+
+        /* ✅ CTA SECTION */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(19, 40, 71, 0.8) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .btn-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 1rem 3rem;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+        }
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ✅ FOOTER */
+        .footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ✅ RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-action-btn { top: calc(var(--nav-height) + 10px); right: 15px; padding: 8px 16px; font-size: 0.8rem; }
+            .breakdown-item, .breakdown-item:nth-child(even) { flex-direction: column; }
+            .hero-section h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ NAVIGATION BAR -->
+    <nav>
+        <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+            <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+            <span>Home</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+            <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+            <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+            <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+            <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+            <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- ✅ TOP RIGHT ACTION BUTTON -->
+    <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-WPA-PRO-015" class="top-action-btn">
+        <i class="fas fa-crown"></i> Back to Purchase
+    </a>
+
+    <div class="container">
+        
+        <!-- ✅ HERO SECTION -->
+        <div class="hero-section">
+            <div class="premium-badge">
+                <i class="fas fa-crown"></i> Premium Edition
+            </div>
+            <h1>Unlock the Full Power of <br><span>Work Performance Analysis</span></h1>
+            <p>Designed for professional Project Control Managers and Planning Engineers. Elevate your reporting, forecasting, and risk management with enterprise-grade features.</p>
+        </div>
+
+        <!-- ✅ KEY FEATURES GRID -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-folder-open"></i></div>
+                <h3>Multi-Project Management</h3>
+                <p>Create, save, and seamlessly switch between unlimited projects. Your data is securely stored locally in your browser, allowing you to pick up exactly where you left off.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <h3>Advanced Risk Analysis</h3>
+                <p>Built-in 5x5 Probability-Impact Risk Matrix. Identify, categorize, and mitigate project risks with automated scoring (Critical, High, Medium, Low).</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-crystal-ball"></i></div>
+                <h3>Professional Forecasts</h3>
+                <p>Calculate EAC, ETC, VAC, and TCPI using 4 distinct PMBOK-aligned methods (Typical, Atypical, Both SPI&CPI, or Manual Estimate).</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-excel"></i></div>
+                <h3>Excel Import & Export</h3>
+                <p>Seamlessly import your existing activity data from CSV/Excel templates, or export your complete WPA report (including risks) back to Excel with one click.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>Premium PDF Reports</h3>
+                <p>Generate stunning, print-ready, multi-page PDF reports featuring your company branding, executive summaries, charts, and detailed breakdowns.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Interactive Dashboards</h3>
+                <p>Visualize your project health with 6+ advanced Chart.js graphs, including S-Curves, Variance Bar Charts, Weight Distribution, and Risk Pies.</p>
+            </div>
+        </div>
+
+        <!-- ✅ DETAILED BREAKDOWN -->
+        <div class="breakdown-section">
+            <h2>Why Upgrade to <span>Premium?</span></h2>
+            
+            <div class="breakdown-item">
+                <div class="breakdown-content">
+                    <h3><i class="fas fa-check-circle"></i> Uncompromising Accuracy</h3>
+                    <p>The free version is great for quick checks, but the Premium version is built for real-world EPC and industrial projects. It handles complex weight distributions, auto-calculates Earned Value (EV) and Planned Value (PV) from quantities, and validates that your total weight equals exactly 100%.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Auto-calculation of EV, PV, and Variance</li>
+                        <li><i class="fas fa-check"></i> Real-time weight validation alerts</li>
+                        <li><i class="fas fa-check"></i> Support for multiple currencies (USD, EUR, IRR, AED)</li>
+                    </ul>
+                </div>
+                <div class="breakdown-visual">
+                    <div class="visual-placeholder">
+                        <i class="fas fa-calculator"></i>
+                        <span>Precision Engineering Calculations</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <div class="breakdown-content">
+                    <h3><i class="fas fa-check-circle"></i> Stakeholder-Ready Reporting</h3>
+                    <p>Stop copying and pasting data into Word or Excel. The Premium tool generates a comprehensive, professionally formatted report in seconds. It includes an Executive Summary, Detailed WPA Table, Risk Analysis Summary, Forecast Analysis, and actionable Recommendations.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> One-click PDF Export (A4 optimized)</li>
+                        <li><i class="fas fa-check"></i> Clean, corporate-friendly design</li>
+                        <li><i class="fas fa-check"></i> Signature blocks for PM and PCM approval</li>
+                    </ul>
+                </div>
+                <div class="breakdown-visual">
+                    <div class="visual-placeholder">
+                        <i class="fas fa-file-signature"></i>
+                        <span>Professional Report Generation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <div class="breakdown-content">
+                    <h3><i class="fas fa-check-circle"></i> Proactive Risk & Forecast Management</h3>
+                    <p>Don't just report the past; predict the future. The Premium version integrates a full Risk Register with a visual heat map. Combined with advanced forecasting (TCPI to meet BAC or EAC), you can provide your management with actionable insights, not just raw data.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Visual 5x5 Risk Heat Map</li>
+                        <li><i class="fas fa-check"></i> Automated TCPI and VAC calculations</li>
+                        <li><i class="fas fa-check"></i> Smart insights based on CPI/SPI thresholds</li>
+                    </ul>
+                </div>
+                <div class="breakdown-visual">
+                    <div class="visual-placeholder">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Proactive Project Control</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ CTA SECTION -->
+        <div class="cta-section">
+            <h2>Ready to Elevate Your Project Controls?</h2>
+            <p>Join hundreds of professional planners who trust BM Planning tools for their critical project reporting. Get instant access to the Premium WPA Tool today.</p>
+            <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-WPA-PRO-015" class="btn-cta">
+                <i class="fas fa-rocket"></i> Get WPA Premium Now
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ✅ FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 Behzad Mousavi | BM Planning - Project Control Excellence</p>
+    </footer>
+
+</body>
+</html>

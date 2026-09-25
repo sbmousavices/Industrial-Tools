@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPA Premium - Advanced Work Performance Analysis | BM Planning</title>
+    <meta name="description" content="Professional WPA Premium tool with multi-project management, risk analysis, advanced forecasts (EAC/ETC/TCPI), Excel import/export, and PDF reports.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/4.2.0/html2pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --gradient-dark: linear-gradient(135deg, #b8941f 0%, #d4af37 100%);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --premium-glow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 30px);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent 40%);
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* TOP RIGHT ACTIONS */
+        .top-right-actions {
+            position: fixed; top: calc(var(--nav-height) + 15px); right: 30px;
+            display: flex; align-items: center; gap: 10px; z-index: 999;
+        }
+        .back-btn, .free-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+            border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s ease; white-space: nowrap;
+        }
+        .back-btn {
+            background: var(--card-bg); border: 1px solid var(--accent); color: var(--accent);
+        }
+        .back-btn:hover { background: var(--accent); color: var(--bg-primary); }
+        .free-btn {
+            background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary);
+        }
+        .free-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* MAIN CONTAINER */
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
+
+        /* PREMIUM HEADER */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(19, 40, 71, 0.8) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--premium-glow);
+        }
+        .tool-header::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .premium-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 16px; background: var(--gradient); color: var(--bg-primary);
+            border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        .tool-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 0.5rem;
+        }
+        .tool-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tool-header p { color: var(--text-secondary); font-size: 1rem; max-width: 700px; margin: 0 auto; }
+
+        /* PROJECT SELECTOR */
+        .project-selector {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .project-selector-left {
+            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+        }
+        .project-selector label {
+            font-weight: 600; color: var(--accent); font-size: 0.9rem;
+        }
+        .project-selector select {
+            padding: 0.6rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            min-width: 250px;
+        }
+
+        /* STEP INDICATOR */
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
+        .step-number {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .step.active .step-number {
+            background: var(--gradient);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+        .step.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        .step-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .step.active .step-label { color: var(--accent); font-weight: 600; }
+        .step.completed .step-label { color: var(--success); }
+        .step-premium {
+            display: inline-block;
+            font-size: 0.6rem;
+            color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            padding: 1px 6px;
+            border-radius: 10px;
+            margin-left: 4px;
+            font-weight: 700;
+        }
+
+        /* STEP CONTENT */
+        .step-content { display: none; animation: fadeIn 0.5s; }
+        .step-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 i { color: var(--accent); }
+
+        /* FORM STYLES */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.8rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        tr:hover { background: rgba(212, 175, 55, 0.03); }
+        td input, td select, td textarea {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+        td input:focus, td select:focus, td textarea:focus { outline: none; border-color: var(--accent); }
+        .calculated {
+            background: rgba(212, 175, 55, 0.08);
+            font-weight: 600;
+            color: var(--accent-light);
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .status-ahead { color: var(--success); font-weight: 700; }
+        .status-ontime { color: var(--info); font-weight: 700; }
+        .status-delayed { color: var(--danger); font-weight: 700; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-secondary:hover { background: var(--accent); color: var(--bg-primary); }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        .btn-success:hover { background: #27ae60; }
+        .btn-info {
+            background: var(--info);
+            color: white;
+        }
+        .btn-info:hover { background: #2874a6; }
+        .btn-premium {
+            background: var(--gradient-dark);
+            color: var(--bg-primary);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* WEIGHT VALIDATION */
+        .weight-validation {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .weight-valid { background: rgba(46, 204, 113, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .weight-invalid { background: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+
+        /* SUMMARY CARDS */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .summary-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .summary-card .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .summary-card .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        .summary-card .sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* CHART CONTAINER */
+        .chart-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            height: 400px;
+            position: relative;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* RISK MATRIX */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: auto repeat(5, 1fr);
+            gap: 4px;
+            margin: 1.5rem 0;
+        }
+        .risk-cell {
+            padding: 1rem 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .risk-low { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+        .risk-medium { background: rgba(243, 156, 18, 0.2); color: var(--warning); }
+        .risk-high { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
+        .risk-critical { background: rgba(231, 76, 60, 0.4); color: white; }
+        .risk-header { background: var(--bg-secondary); color: var(--accent); font-weight: 700; }
+
+        /* ALERT */
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .alert-info { background: rgba(52, 152, 219, 0.15); color: var(--info); border: 1px solid var(--info); }
+        .alert-warning { background: rgba(243, 156, 18, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+        .alert-success { background: rgba(46, 204, 113, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .alert-premium { 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(15, 31, 56, 0.8) 100%); 
+            color: var(--accent-light); 
+            border: 1px solid var(--accent); 
+        }
+
+        /* REPORT */
+        .report-section {
+            background: white;
+            color: #1a1a1a;
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .report-section h2 { color: var(--bg-primary); border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .report-section h3 { color: var(--bg-primary); margin: 1.5rem 0 0.8rem; }
+        .report-section table { background: white; }
+        .report-section th { background: var(--bg-primary); color: var(--accent); }
+        .report-section td { color: #333; border-bottom: 1px solid #ddd; }
+        .report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--accent); }
+        .report-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--accent); font-weight: 900; }
+        .report-premium-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--premium-glow);
+        }
+        .modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-close {
+            float: right;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--accent); }
+
+        /* PRINT STYLES */
+        @media print {
+            nav, .top-right-actions, .steps-container, .btn-row, .no-print, .project-selector { display: none !important; }
+            body { padding-top: 0; background: white; }
+            .report-section { box-shadow: none; }
+            .container { max-width: 100%; padding: 0; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { top: calc(var(--nav-height) + 10px); right: 15px; gap: 8px; }
+            .back-btn, .free-btn { padding: 8px 14px; font-size: 0.75rem; }
+            .step { min-width: 80px; }
+            .step-label { font-size: 0.7rem; }
+            .card { padding: 1.2rem; }
+            .report-section { padding: 1.5rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="top-right-actions">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-btn">
+        <i class="fas fa-th"></i> Back to Eng. Tools
+    </a>
+</div>
+
+<div class="container">
+    
+    <!-- PREMIUM HEADER -->
+    <div class="tool-header">
+        <div class="premium-badge">
+            <i class="fas fa-crown"></i> Premium Edition
+        </div>
+        <h1>Advanced <span>Work Performance Analysis</span></h1>
+        <p>Professional WPA tool with multi-project management, risk analysis, advanced forecasts, Excel import/export, and premium PDF reports.</p>
+    </div>
+
+    <!-- PROJECT SELECTOR -->
+    <div class="project-selector no-print">
+        <div class="project-selector-left">
+            <label><i class="fas fa-folder-open"></i> Active Project:</label>
+            <select id="projectSelector" onchange="switchProject()">
+                <option value="">-- Select Project --</option>
+            </select>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="showNewProjectModal()">
+                <i class="fas fa-plus"></i> New Project
+            </button>
+            <button class="btn btn-secondary" onclick="showImportModal()">
+                <i class="fas fa-file-import"></i> Import
+            </button>
+            <button class="btn btn-secondary" onclick="exportToExcel()">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </button>
+            <button class="btn btn-danger" onclick="deleteCurrentProject()">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="steps-container no-print">
+        <div class="step active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-label">Project Info</div>
+        </div>
+        <div class="step" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-label">Activities</div>
+        </div>
+        <div class="step" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-label">Risk Analysis <span class="step-premium">PRO</span></div>
+        </div>
+        <div class="step" data-step="4">
+            <div class="step-number">4</div>
+            <div class="step-label">Dashboard</div>
+        </div>
+        <div class="step" data-step="5">
+            <div class="step-number">5</div>
+            <div class="step-label">Forecast <span class="step-premium">PRO</span></div>
+        </div>
+        <div class="step" data-step="6">
+            <div class="step-number">6</div>
+            <div class="step-label">Final Report</div>
+        </div>
+    </div>
+
+    <!-- STEP 1: PROJECT INFO -->
+    <div class="step-content active" id="step1">
+        <div class="card">
+            <h2><i class="fas fa-info-circle"></i> Project Information</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Project Name *</label>
+                    <input type="text" id="projectName" placeholder="e.g. South Pars Phase 14">
+                </div>
+                <div class="form-group">
+                    <label>Contract Number</label>
+                    <input type="text" id="contractNo" placeholder="e.g. EPC-2024-001">
+                </div>
+                <div class="form-group">
+                    <label>Client / Owner</label>
+                    <input type="text" id="clientName" placeholder="e.g. NIOC">
+                </div>
+                <div class="form-group">
+                    <label>Contractor</label>
+                    <input type="text" id="contractorName" placeholder="e.g. OIEC">
+                </div>
+                <div class="form-group">
+                    <label>Report Period *</label>
+                    <input type="text" id="reportPeriod" placeholder="e.g. Monthly Report - March 2026">
+                </div>
+                <div class="form-group">
+                    <label>Cutting Date *</label>
+                    <input type="date" id="cuttingDate">
+                </div>
+                <div class="form-group">
+                    <label>Baseline Start Date</label>
+                    <input type="date" id="baselineStart">
+                </div>
+                <div class="form-group">
+                    <label>Baseline Finish Date</label>
+                    <input type="date" id="baselineFinish">
+                </div>
+                <div class="form-group">
+                    <label>Total Contract Value</label>
+                    <input type="number" id="contractValue" placeholder="e.g. 50000000">
+                </div>
+                <div class="form-group">
+                    <label>Total Budget at Completion (BAC)</label>
+                    <input type="number" id="bac" placeholder="e.g. 50000000">
+                </div>
+                <div class="form-group">
+                    <label>Currency</label>
+                    <select id="currency">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="IRR">IRR - Iranian Rial</option>
+                        <option value="AED">AED - UAE Dirham</option>
+                        <option value="GBP">GBP - British Pound</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Project Manager</label>
+                    <input type="text" id="projectManager" placeholder="Name of PM">
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-premium">
+            <i class="fas fa-crown"></i>
+            <span><strong>Premium Feature:</strong> Your data is automatically saved. You can manage multiple projects and switch between them anytime.</span>
+        </div>
+
+        <div class="btn-row">
+            <div></div>
+            <button class="btn btn-primary" onclick="goToStep(2)">
+                Next: Add Activities <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 2: ACTIVITIES -->
+    <div class="step-content" id="step2">
+        <div class="card">
+            <h2><i class="fas fa-tasks"></i> Work Packages / Activities <span style="font-size: 0.8rem; color: var(--text-secondary); font-family: Inter;">(Unlimited)</span></h2>
+            
+            <div id="weightValidation" class="weight-validation weight-valid">
+                <i class="fas fa-check-circle"></i>
+                <span>Total Weight: <strong id="totalWeight">0</strong>% / 100%</span>
+            </div>
+
+            <div class="table-container">
+                <table id="activitiesTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th style="width: 90px;">Code</th>
+                            <th>Description</th>
+                            <th style="width: 70px;">Weight %</th>
+                            <th style="width: 80px;">Unit</th>
+                            <th style="width: 90px;">Planned Qty</th>
+                            <th style="width: 90px;">Actual Qty</th>
+                            <th style="width: 80px;">Planned %</th>
+                            <th style="width: 80px;">Actual %</th>
+                            <th style="width: 70px;">EV</th>
+                            <th style="width: 70px;">PV</th>
+                            <th style="width: 70px;">Var</th>
+                            <th style="width: 80px;">Status</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="activitiesBody"></tbody>
+                    <tfoot>
+                        <tr style="background: var(--bg-secondary); font-weight: 700;">
+                            <td colspan="3" style="text-align: right; padding-right: 1rem;">TOTAL:</td>
+                            <td id="footWeight">0%</td>
+                            <td></td>
+                            <td id="footPlannedQty">0</td>
+                            <td id="footActualQty">0</td>
+                            <td id="footPlannedPct">0%</td>
+                            <td id="footActualPct">0%</td>
+                            <td id="footEV">0%</td>
+                            <td id="footPV">0%</td>
+                            <td id="footVar">0%</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="btn-row">
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="addActivity()">
+                        <i class="fas fa-plus"></i> Add Activity
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadSampleData()">
+                        <i class="fas fa-magic"></i> Load Sample
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(1)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(3)">
+                Next: Risk Analysis <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 3: RISK ANALYSIS (PREMIUM) -->
+    <div class="step-content" id="step3">
+        <div class="card">
+            <h2><i class="fas fa-exclamation-triangle"></i> Risk Register <span class="step-premium">PRO</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Identify, analyze, and mitigate project risks with probability-impact matrix.</p>
+            
+            <div class="table-container">
+                <table id="risksTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th style="width: 80px;">Risk ID</th>
+                            <th>Risk Description</th>
+                            <th style="width: 90px;">Category</th>
+                            <th style="width: 80px;">Probability (1-5)</th>
+                            <th style="width: 80px;">Impact (1-5)</th>
+                            <th style="width: 70px;">Score</th>
+                            <th style="width: 80px;">Level</th>
+                            <th>Mitigation Strategy</th>
+                            <th style="width: 90px;">Owner</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="risksBody"></tbody>
+                </table>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="addRisk()">
+                    <i class="fas fa-plus"></i> Add Risk
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-th"></i> Risk Matrix (Probability × Impact)</h2>
+            <div id="riskMatrix" class="risk-matrix"></div>
+            <div class="summary-grid" style="margin-top: 1.5rem;">
+                <div class="summary-card">
+                    <div class="label">Total Risks</div>
+                    <div class="value" id="totalRisks">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Critical</div>
+                    <div class="value" id="criticalRisks" style="color: var(--danger);">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">High</div>
+                    <div class="value" id="highRisks" style="color: var(--warning);">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Medium</div>
+                    <div class="value" id="mediumRisks" style="color: var(--info);">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Low</div>
+                    <div class="value" id="lowRisks" style="color: var(--success);">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(2)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(4)">
+                Next: Dashboard <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 4: DASHBOARD -->
+    <div class="step-content" id="step4">
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Planned Value (PV)</div>
+                <div class="value" id="sumPV">0%</div>
+                <div class="sub">Baseline Progress</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Earned Value (EV)</div>
+                <div class="value" id="sumEV">0%</div>
+                <div class="sub">Actual Progress</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Actual Cost (AC)</div>
+                <div class="value" id="sumAC">0%</div>
+                <div class="sub">Spent Budget</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Variance (SV)</div>
+                <div class="value" id="sumVar">0%</div>
+                <div class="sub" id="sumVarLabel">On Track</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">SPI</div>
+                <div class="value" id="sumSPI">0.00</div>
+                <div class="sub" id="sumSPILabel">Schedule</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">CPI</div>
+                <div class="value" id="sumCPI">0.00</div>
+                <div class="sub" id="sumCPILabel">Cost</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> S-Curve: Planned vs Actual vs Actual Cost</h2>
+            <div class="chart-container">
+                <canvas id="sCurveChart"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card">
+                <h2><i class="fas fa-chart-bar"></i> Variance by Work Package</h2>
+                <div class="chart-container">
+                    <canvas id="varianceChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> Weight Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card">
+                <h2><i class="fas fa-chart-area"></i> SPI & CPI Trend</h2>
+                <div class="chart-container">
+                    <canvas id="spiCpiChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-bullseye"></i> Risk Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(3)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(5)">
+                Next: Forecast <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 5: FORECAST (PREMIUM) -->
+    <div class="step-content" id="step5">
+        <div class="card">
+            <h2><i class="fas fa-crystal-ball"></i> Advanced Forecasts <span class="step-premium">PRO</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Calculate EAC, ETC, and TCPI using 4 different methods based on PMBOK standards.</p>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Actual Cost (AC) - Total spent to date</label>
+                    <input type="number" id="actualCost" placeholder="e.g. 25000000" onchange="calculateForecasts()">
+                </div>
+                <div class="form-group">
+                    <label>Forecast Method</label>
+                    <select id="forecastMethod" onchange="calculateForecasts()">
+                        <option value="typical">Typical (EAC = BAC / CPI)</option>
+                        <option value="atypical">Atypical (EAC = AC + (BAC - EV))</option>
+                        <option value="both">Both SPI & CPI (EAC = AC + ((BAC-EV)/(SPI×CPI)))</option>
+                        <option value="manual">Manual Estimate at Complete</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Manual EAC (if selected above)</label>
+                    <input type="number" id="manualEAC" placeholder="Enter manual EAC" onchange="calculateForecasts()">
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Budget at Completion (BAC)</div>
+                <div class="value" id="fcBAC">0</div>
+                <div class="sub">Original Budget</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Estimate at Completion (EAC)</div>
+                <div class="value" id="fcEAC">0</div>
+                <div class="sub" id="fcEACmethod">Forecasted Total</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Estimate to Complete (ETC)</div>
+                <div class="value" id="fcETC">0</div>
+                <div class="sub">Remaining Cost</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Variance at Completion (VAC)</div>
+                <div class="value" id="fcVAC">0</div>
+                <div class="sub" id="fcVAClabel">BAC - EAC</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">TCPI (BAC)</div>
+                <div class="value" id="fcTCPI1">0.00</div>
+                <div class="sub">To meet BAC</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">TCPI (EAC)</div>
+                <div class="value" id="fcTCPI2">0.00</div>
+                <div class="sub">To meet EAC</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> Forecast Visualization</h2>
+            <div class="chart-container">
+                <canvas id="forecastChart"></canvas>
+            </div>
+        </div>
+
+        <div class="alert alert-premium">
+            <i class="fas fa-lightbulb"></i>
+            <div>
+                <strong>Premium Insight:</strong> 
+                <span id="forecastInsight">Enter Actual Cost to see detailed forecast analysis.</span>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(4)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(6)">
+                Next: Final Report <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 6: FINAL REPORT -->
+    <div class="step-content" id="step6">
+        <div class="btn-row no-print" style="margin-bottom: 1.5rem;">
+            <button class="btn btn-secondary" onclick="goToStep(5)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="resetAll()">
+                    <i class="fas fa-redo"></i> New Project
+                </button>
+                <button class="btn btn-info" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
+                <button class="btn btn-success" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Report
+                </button>
+            </div>
+        </div>
+
+        <div class="report-section" id="reportContent">
+            <div class="report-header">
+                <div>
+                    <div class="report-logo">BM Planning</div>
+                    <div class="report-premium-badge">Premium Report</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.85rem; color: #666;">Work Performance Analysis</div>
+                    <div style="font-weight: 700; color: var(--bg-primary);" id="rptPeriod">-</div>
+                </div>
+            </div>
+
+            <h2>1. Project Information</h2>
+            <table style="width: 100%;">
+                <tr><td style="width: 30%; font-weight: 600;">Project Name:</td><td id="rptProject">-</td></tr>
+                <tr><td style="font-weight: 600;">Contract No:</td><td id="rptContract">-</td></tr>
+                <tr><td style="font-weight: 600;">Client:</td><td id="rptClient">-</td></tr>
+                <tr><td style="font-weight: 600;">Contractor:</td><td id="rptContractor">-</td></tr>
+                <tr><td style="font-weight: 600;">Project Manager:</td><td id="rptPM">-</td></tr>
+                <tr><td style="font-weight: 600;">Cutting Date:</td><td id="rptDate">-</td></tr>
+                <tr><td style="font-weight: 600;">Contract Value / BAC:</td><td id="rptValue">-</td></tr>
+            </table>
+
+            <h2>2. Executive Summary</h2>
+            <div class="summary-grid" style="margin-top: 1rem;">
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">Planned Progress</div>
+                    <div class="value" id="rptPV" style="color: var(--info);">0%</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">Actual Progress</div>
+                    <div class="value" id="rptEV" style="color: var(--accent);">0%</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">SPI</div>
+                    <div class="value" id="rptSPI" style="color: var(--success);">0.00</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">CPI</div>
+                    <div class="value" id="rptCPI" style="color: var(--success);">0.00</div>
+                </div>
+            </div>
+
+            <h2>3. Detailed Work Performance Analysis</h2>
+            <div class="table-container" style="margin-top: 1rem;">
+                <table id="reportTable">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                            <th>Planned %</th>
+                            <th>Actual %</th>
+                            <th>EV</th>
+                            <th>PV</th>
+                            <th>Variance</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportBody"></tbody>
+                </table>
+            </div>
+
+            <h2>4. Risk Analysis Summary</h2>
+            <div id="rptRiskSummary" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;"></div>
+
+            <h2>5. Forecast Analysis</h2>
+            <div id="rptForecast" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;"></div>
+
+            <h2>6. Performance Analysis & Interpretation</h2>
+            <div id="rptAnalysis" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 1rem;"></div>
+
+            <h2>7. Progress Payment Summary</h2>
+            <table style="width: 100%; margin-top: 1rem;">
+                <tr><td style="width: 50%; font-weight: 600;">Total Contract Value:</td><td id="rptTotalValue">-</td></tr>
+                <tr><td style="font-weight: 600;">Earned Value (Amount):</td><td id="rptEarnedAmount">-</td></tr>
+                <tr><td style="font-weight: 600;">Planned Value (Amount):</td><td id="rptPlannedAmount">-</td></tr>
+                <tr><td style="font-weight: 600;">Variance (Amount):</td><td id="rptVarAmount">-</td></tr>
+                <tr><td style="font-weight: 600;">Recommended Payment:</td><td id="rptPayment" style="font-weight: 700; color: var(--success);">-</td></tr>
+            </table>
+
+            <h2>8. Recommendations</h2>
+            <div id="rptRecommendations" style="background: #fff8e1; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning); margin-top: 1rem;"></div>
+
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--accent); display: flex; justify-content: space-between;">
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 3rem; font-weight: 600;">Prepared by:</div>
+                    <div style="border-top: 1px solid #333; padding-top: 0.5rem;" id="rptPreparedBy">Project Control Manager</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 3rem; font-weight: 600;">Approved by:</div>
+                    <div style="border-top: 1px solid #333; padding-top: 0.5rem;" id="rptApprovedBy">Project Manager</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; color: #999; font-size: 0.8rem;">
+                Generated by BM Planning WPA Premium Tool | https://sbmousavices.github.io/Industrial-Tools/
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- NEW PROJECT MODAL -->
+<div class="modal-overlay" id="newProjectModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('newProjectModal')">&times;</button>
+        <h3><i class="fas fa-plus-circle"></i> Create New Project</h3>
+        <div class="form-group" style="margin-bottom: 1rem;">
+            <label>Project Name</label>
+            <input type="text" id="newProjectName" placeholder="Enter project name">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="closeModal('newProjectModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="createNewProject()">Create Project</button>
+        </div>
+    </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('importModal')">&times;</button>
+        <h3><i class="fas fa-file-import"></i> Import Data from Excel/CSV</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Upload a CSV file with columns: Code, Description, Weight, Unit, PlannedQty, ActualQty, PlannedPct, ActualPct</p>
+        <input type="file" id="importFile" accept=".csv,.xlsx,.xls" style="margin-bottom: 1rem;">
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="downloadTemplate()">
+                <i class="fas fa-download"></i> Download Template
+            </button>
+            <button class="btn btn-primary" onclick="importFromExcel()">Import Data</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ========== DATA STORE ==========
+let projects = {};
+let currentProjectId = null;
+let activities = [];
+let risks = [];
+let activityIdCounter = 1;
+let riskIdCounter = 1;
+let charts = {};
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', () => {
+    loadProjectsFromStorage();
+    populateProjectSelector();
+    
+    if (Object.keys(projects).length === 0) {
+        createNewProject('My First Project', true);
+    } else {
+        const firstId = Object.keys(projects)[0];
+        loadProject(firstId);
+    }
+});
+
+// ========== PROJECT MANAGEMENT ==========
+function loadProjectsFromStorage() {
+    const saved = localStorage.getItem('wpa_premium_projects');
+    if (saved) {
+        try { projects = JSON.parse(saved); } catch (e) { projects = {}; }
+    }
+}
+
+function saveProjectsToStorage() {
+    localStorage.setItem('wpa_premium_projects', JSON.stringify(projects));
+}
+
+function populateProjectSelector() {
+    const selector = document.getElementById('projectSelector');
+    selector.innerHTML = '<option value="">-- Select Project --</option>';
+    Object.keys(projects).forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = projects[id].projectInfo.projectName || 'Unnamed Project';
+        if (id === currentProjectId) opt.selected = true;
+        selector.appendChild(opt);
+    });
+}
+
+function switchProject() {
+    const id = document.getElementById('projectSelector').value;
+    if (id && projects[id]) {
+        loadProject(id);
+    }
+}
+
+function loadProject(id) {
+    currentProjectId = id;
+    const proj = projects[id];
+    
+    // Load project info
+    Object.keys(proj.projectInfo).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) el.value = proj.projectInfo[key] || '';
+    });
+    
+    activities = proj.activities || [];
+    risks = proj.risks || [];
+    activityIdCounter = proj.activityIdCounter || 1;
+    riskIdCounter = proj.riskIdCounter || 1;
+    
+    renderActivities();
+    renderRisks();
+    populateProjectSelector();
+    setupAutoSave();
+}
+
+function saveCurrentProject() {
+    if (!currentProjectId) return;
+    
+    const projectInfo = {};
+    ['projectName', 'contractNo', 'clientName', 'contractorName', 'reportPeriod', 
+     'cuttingDate', 'baselineStart', 'baselineFinish', 'contractValue', 'bac', 
+     'currency', 'projectManager'].forEach(key => {
+        const el = document.getElementById(key);
+        if (el) projectInfo[key] = el.value;
+    });
+    
+    projects[currentProjectId] = {
+        projectInfo,
+        activities,
+        risks,
+        activityIdCounter,
+        riskIdCounter,
+        lastModified: new Date().toISOString()
+    };
+    
+    saveProjectsToStorage();
+    populateProjectSelector();
+}
+
+function showNewProjectModal() {
+    document.getElementById('newProjectName').value = '';
+    document.getElementById('newProjectModal').classList.add('show');
+}
+
+function createNewProject(name = null, silent = false) {
+    if (!silent) {
+        name = document.getElementById('newProjectName').value.trim();
+        if (!name) { alert('Please enter a project name'); return; }
+        closeModal('newProjectModal');
+    }
+    
+    const id = 'proj_' + Date.now();
+    projects[id] = {
+        projectInfo: { projectName: name || 'New Project' },
+        activities: [],
+        risks: [],
+        activityIdCounter: 1,
+        riskIdCounter: 1
+    };
+    
+    currentProjectId = id;
+    activities = [];
+    risks = [];
+    activityIdCounter = 1;
+    riskIdCounter = 1;
+    
+    // Clear form
+    document.querySelectorAll('#step1 input, #step1 select').forEach(el => el.value = '');
+    document.getElementById('projectName').value = name || 'New Project';
+    
+    renderActivities();
+    renderRisks();
+    saveProjectsToStorage();
+    populateProjectSelector();
+    goToStep(1);
+}
+
+function deleteCurrentProject() {
+    if (!currentProjectId) return;
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) return;
+    
+    delete projects[currentProjectId];
+    saveProjectsToStorage();
+    
+    const remaining = Object.keys(projects);
+    if (remaining.length > 0) {
+        loadProject(remaining[0]);
+    } else {
+        createNewProject('My First Project', true);
+    }
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+
+// ========== STEP NAVIGATION ==========
+function goToStep(stepNum) {
+    if (stepNum === 2 && !validateProjectInfo()) return;
+    if (stepNum === 3 && !validateActivities()) return;
+    if (stepNum === 4) updateDashboard();
+    if (stepNum === 5) calculateForecasts();
+    if (stepNum === 6) generateReport();
+
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + stepNum).classList.add('active');
+    
+    document.querySelectorAll('.step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        el.classList.remove('active', 'completed');
+        if (s === stepNum) el.classList.add('active');
+        else if (s < stepNum) el.classList.add('completed');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.step').forEach(step => {
+    step.addEventListener('click', () => {
+        const s = parseInt(step.dataset.step);
+        goToStep(s);
+    });
+});
+
+// ========== VALIDATION ==========
+function validateProjectInfo() {
+    const name = document.getElementById('projectName').value.trim();
+    const period = document.getElementById('reportPeriod').value.trim();
+    const date = document.getElementById('cuttingDate').value;
+    if (!name || !period || !date) {
+        alert('Please fill in Project Name, Report Period, and Cutting Date.');
+        return false;
+    }
+    return true;
+}
+
+function validateActivities() {
+    const total = activities.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0);
+    if (Math.abs(total - 100) > 0.5) {
+        alert(`Total weight must equal 100%. Current total: ${total.toFixed(2)}%`);
+        return false;
+    }
+    if (activities.length === 0) {
+        alert('Please add at least one activity.');
+        return false;
+    }
+    return true;
+}
+
+// ========== ACTIVITIES MANAGEMENT ==========
+function addActivity(data = null) {
+    const activity = data || {
+        id: activityIdCounter++,
+        code: '',
+        description: '',
+        weight: 0,
+        unit: 'LS',
+        plannedQty: 0,
+        actualQty: 0,
+        plannedPct: 0,
+        actualPct: 0
+    };
+    if (!data) activities.push(activity);
+    renderActivities();
+    saveCurrentProject();
+}
+
+function removeActivity(id) {
+    activities = activities.filter(a => a.id !== id);
+    renderActivities();
+    saveCurrentProject();
+}
+
+function updateActivity(id, field, value) {
+    const act = activities.find(a => a.id === id);
+    if (!act) return;
+    
+    if (['weight', 'plannedQty', 'actualQty', 'plannedPct', 'actualPct'].includes(field)) {
+        act[field] = parseFloat(value) || 0;
+    } else {
+        act[field] = value;
+    }
+
+    calculateMetrics(act);
+    renderActivities();
+    saveCurrentProject();
+}
+
+function calculateMetrics(act) {
+    const weight = parseFloat(act.weight) || 0;
+    const plannedPct = parseFloat(act.plannedPct) || 0;
+    const actualPct = parseFloat(act.actualPct) || 0;
+    act.pv = (weight * plannedPct) / 100;
+    act.ev = (weight * actualPct) / 100;
+    act.variance = act.ev - act.pv;
+    if (act.variance > 0.1) act.status = 'ahead';
+    else if (act.variance < -0.1) act.status = 'delayed';
+    else act.status = 'ontime';
+}
+
+function renderActivities() {
+    const tbody = document.getElementById('activitiesBody');
+    tbody.innerHTML = '';
+    
+    activities.forEach((act, idx) => {
+        calculateMetrics(act);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td><input type="text" value="${act.code}" onchange="updateActivity(${act.id}, 'code', this.value)" placeholder="ENG-01"></td>
+            <td><input type="text" value="${act.description}" onchange="updateActivity(${act.id}, 'description', this.value)" placeholder="Engineering - Piping"></td>
+            <td><input type="number" step="0.01" value="${act.weight}" onchange="updateActivity(${act.id}, 'weight', this.value)" style="text-align: center;"></td>
+            <td><input type="text" value="${act.unit}" onchange="updateActivity(${act.id}, 'unit', this.value)" style="text-align: center;"></td>
+            <td><input type="number" step="0.01" value="${act.plannedQty}" onchange="updateActivity(${act.id}, 'plannedQty', this.value)"></td>
+            <td><input type="number" step="0.01" value="${act.actualQty}" onchange="updateActivity(${act.id}, 'actualQty', this.value)"></td>
+            <td><input type="number" step="0.01" value="${act.plannedPct.toFixed(2)}" onchange="updateActivity(${act.id}, 'plannedPct', this.value)" style="text-align: center;"></td>
+            <td><input type="number" step="0.01" value="${act.actualPct.toFixed(2)}" onchange="updateActivity(${act.id}, 'actualPct', this.value)" style="text-align: center;"></td>
+            <td class="calculated">${act.ev.toFixed(2)}%</td>
+            <td class="calculated">${act.pv.toFixed(2)}%</td>
+            <td class="calculated" style="color: ${act.variance >= 0 ? 'var(--success)' : 'var(--danger)'}">${act.variance >= 0 ? '+' : ''}${act.variance.toFixed(2)}%</td>
+            <td class="status-${act.status}">${act.status === 'ahead' ? '▲ Ahead' : act.status === 'delayed' ? '▼ Delayed' : '● On Track'}</td>
+            <td><button class="btn btn-danger" onclick="removeActivity(${act.id})"><i class="fas fa-trash"></i></button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Update footer
+    const totals = activities.reduce((t, a) => {
+        t.weight += parseFloat(a.weight) || 0;
+        t.plannedQty += parseFloat(a.plannedQty) || 0;
+        t.actualQty += parseFloat(a.actualQty) || 0;
+        t.plannedPct += parseFloat(a.plannedPct) || 0;
+        t.actualPct += parseFloat(a.actualPct) || 0;
+        t.ev += a.ev;
+        t.pv += a.pv;
+        t.variance += a.variance;
+        return t;
+    }, { weight: 0, plannedQty: 0, actualQty: 0, plannedPct: 0, actualPct: 0, ev: 0, pv: 0, variance: 0 });
+
+    document.getElementById('footWeight').textContent = totals.weight.toFixed(2) + '%';
+    document.getElementById('footPlannedQty').textContent = totals.plannedQty.toFixed(2);
+    document.getElementById('footActualQty').textContent = totals.actualQty.toFixed(2);
+    document.getElementById('footPlannedPct').textContent = totals.plannedPct.toFixed(2) + '%';
+    document.getElementById('footActualPct').textContent = totals.actualPct.toFixed(2) + '%';
+    document.getElementById('footEV').textContent = totals.ev.toFixed(2) + '%';
+    document.getElementById('footPV').textContent = totals.pv.toFixed(2) + '%';
+    document.getElementById('footVar').textContent = (totals.variance >= 0 ? '+' : '') + totals.variance.toFixed(2) + '%';
+
+    // Weight validation
+    const valDiv = document.getElementById('weightValidation');
+    const totalW = document.getElementById('totalWeight');
+    totalW.textContent = totals.weight.toFixed(2);
+    if (Math.abs(totals.weight - 100) < 0.5) {
+        valDiv.className = 'weight-validation weight-valid';
+        valDiv.innerHTML = '<i class="fas fa-check-circle"></i><span>Total Weight: <strong>' + totals.weight.toFixed(2) + '%</strong> / 100% ✓</span>';
+    } else {
+        valDiv.className = 'weight-validation weight-invalid';
+        valDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Total Weight: <strong>' + totals.weight.toFixed(2) + '%</strong> / 100% ✗ (Must equal 100%)</span>';
+    }
+}
+
+function loadSampleData() {
+    if (!confirm('This will replace current activities with sample data. Continue?')) return;
+    activities = [
+        { id: activityIdCounter++, code: 'ENG', description: 'Engineering', weight: 20, unit: 'LS', plannedQty: 100, actualQty: 85, plannedPct: 100, actualPct: 85 },
+        { id: activityIdCounter++, code: 'PRC', description: 'Procurement', weight: 35, unit: 'LS', plannedQty: 100, actualQty: 70, plannedPct: 80, actualPct: 56 },
+        { id: activityIdCounter++, code: 'CON', description: 'Construction', weight: 35, unit: 'LS', plannedQty: 100, actualQty: 40, plannedPct: 50, actualPct: 20 },
+        { id: activityIdCounter++, code: 'CMO', description: 'Commissioning', weight: 10, unit: 'LS', plannedQty: 100, actualQty: 0, plannedPct: 10, actualPct: 0 }
+    ];
+    renderActivities();
+    saveCurrentProject();
+}
+
+// ========== RISK MANAGEMENT ==========
+function addRisk(data = null) {
+    const risk = data || {
+        id: riskIdCounter++,
+        riskId: 'R-' + String(riskIdCounter).padStart(3, '0'),
+        description: '',
+        category: 'Schedule',
+        probability: 3,
+        impact: 3,
+        mitigation: '',
+        owner: ''
+    };
+    if (!data) risks.push(risk);
+    renderRisks();
+    saveCurrentProject();
+}
+
+function removeRisk(id) {
+    risks = risks.filter(r => r.id !== id);
+    renderRisks();
+    saveCurrentProject();
+}
+
+function updateRisk(id, field, value) {
+    const risk = risks.find(r => r.id === id);
+    if (!risk) return;
+    
+    if (['probability', 'impact'].includes(field)) {
+        risk[field] = parseInt(value) || 0;
+    } else {
+        risk[field] = value;
+    }
+    
+    renderRisks();
+    saveCurrentProject();
+}
+
+function getRiskLevel(score) {
+    if (score >= 20) return { level: 'Critical', class: 'risk-critical' };
+    if (score >= 12) return { level: 'High', class: 'risk-high' };
+    if (score >= 6) return { level: 'Medium', class: 'risk-medium' };
+    return { level: 'Low', class: 'risk-low' };
+}
+
+function renderRisks() {
+    const tbody = document.getElementById('risksBody');
+    tbody.innerHTML = '';
+    
+    let counts = { critical: 0, high: 0, medium: 0, low: 0 };
+    
+    risks.forEach((risk, idx) => {
+        const score = (risk.probability || 0) * (risk.impact || 0);
+        const riskInfo = getRiskLevel(score);
+        
+        if (riskInfo.level === 'Critical') counts.critical++;
+        else if (riskInfo.level === 'High') counts.high++;
+        else if (riskInfo.level === 'Medium') counts.medium++;
+        else counts.low++;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td><input type="text" value="${risk.riskId}" onchange="updateRisk(${risk.id}, 'riskId', this.value)"></td>
+            <td><textarea onchange="updateRisk(${risk.id}, 'description', this.value)" placeholder="Risk description">${risk.description}</textarea></td>
+            <td>
+                <select onchange="updateRisk(${risk.id}, 'category', this.value)">
+                    <option ${risk.category === 'Schedule' ? 'selected' : ''}>Schedule</option>
+                    <option ${risk.category === 'Cost' ? 'selected' : ''}>Cost</option>
+                    <option ${risk.category === 'Quality' ? 'selected' : ''}>Quality</option>
+                    <option ${risk.category === 'Technical' ? 'selected' : ''}>Technical</option>
+                    <option ${risk.category === 'External' ? 'selected' : ''}>External</option>
+                </select>
+            </td>
+            <td><input type="number" min="1" max="5" value="${risk.probability}" onchange="updateRisk(${risk.id}, 'probability', this.value)" style="text-align: center;"></td>
+            <td><input type="number" min="1" max="5" value="${risk.impact}" onchange="updateRisk(${risk.id}, 'impact', this.value)" style="text-align: center;"></td>
+            <td class="calculated">${score}</td>
+            <td class="${riskInfo.class}" style="font-weight: 700; text-align: center;">${riskInfo.level}</td>
+            <td><textarea onchange="updateRisk(${risk.id}, 'mitigation', this.value)" placeholder="Mitigation strategy">${risk.mitigation}</textarea></td>
+            <td><input type="text" value="${risk.owner}" onchange="updateRisk(${risk.id}, 'owner', this.value)"></td>
+            <td><button class="btn btn-danger" onclick="removeRisk(${risk.id})"><i class="fas fa-trash"></i></button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+    
+    document.getElementById('totalRisks').textContent = risks.length;
+    document.getElementById('criticalRisks').textContent = counts.critical;
+    document.getElementById('highRisks').textContent = counts.high;
+    document.getElementById('mediumRisks').textContent = counts.medium;
+    document.getElementById('lowRisks').textContent = counts.low;
+    
+    renderRiskMatrix();
+}
+
+function renderRiskMatrix() {
+    const matrix = document.getElementById('riskMatrix');
+    matrix.innerHTML = '';
+    
+    // Header row
+    matrix.innerHTML += '<div class="risk-cell risk-header">P \\ I</div>';
+    for (let i = 1; i <= 5; i++) {
+        matrix.innerHTML += `<div class="risk-cell risk-header">Impact ${i}</div>`;
+    }
+    
+    // Data rows (from 5 to 1)
+    for (let p = 5; p >= 1; p--) {
+        matrix.innerHTML += `<div class="risk-cell risk-header">Prob ${p}</div>`;
+        for (let i = 1; i <= 5; i++) {
+            const score = p * i;
+            const info = getRiskLevel(score);
+            const count = risks.filter(r => r.probability === p && r.impact === i).length;
+            matrix.innerHTML += `<div class="risk-cell ${info.class}">${count > 0 ? count : ''}</div>`;
+        }
+    }
+}
+
+// ========== DASHBOARD ==========
+function updateDashboard() {
+    const totals = activities.reduce((t, a) => {
+        t.ev += a.ev;
+        t.pv += a.pv;
+        t.variance += a.variance;
+        return t;
+    }, { ev: 0, pv: 0, variance: 0 });
+
+    const ac = parseFloat(document.getElementById('actualCost').value) || 0;
+    const bac = parseFloat(document.getElementById('bac').value) || parseFloat(document.getElementById('contractValue').value) || 0;
+    const acPct = bac > 0 ? (ac / bac) * 100 : 0;
+    
+    const spi = totals.pv > 0 ? totals.ev / totals.pv : 0;
+    const cpi = acPct > 0 ? totals.ev / acPct : 0;
+
+    document.getElementById('sumPV').textContent = totals.pv.toFixed(2) + '%';
+    document.getElementById('sumEV').textContent = totals.ev.toFixed(2) + '%';
+    document.getElementById('sumAC').textContent = acPct.toFixed(2) + '%';
+    document.getElementById('sumVar').textContent = (totals.variance >= 0 ? '+' : '') + totals.variance.toFixed(2) + '%';
+    document.getElementById('sumSPI').textContent = spi.toFixed(2);
+    document.getElementById('sumCPI').textContent = cpi.toFixed(2);
+
+    const varLabel = document.getElementById('sumVarLabel');
+    if (totals.variance > 0.5) { varLabel.textContent = 'Ahead of Schedule'; varLabel.style.color = 'var(--success)'; }
+    else if (totals.variance < -0.5) { varLabel.textContent = 'Behind Schedule'; varLabel.style.color = 'var(--danger)'; }
+    else { varLabel.textContent = 'On Track'; varLabel.style.color = 'var(--info)'; }
+
+    const spiLabel = document.getElementById('sumSPILabel');
+    if (spi > 1.05) { spiLabel.textContent = 'Excellent'; spiLabel.style.color = 'var(--success)'; }
+    else if (spi < 0.95) { spiLabel.textContent = 'Needs Attention'; spiLabel.style.color = 'var(--danger)'; }
+    else { spiLabel.textContent = 'Acceptable'; spiLabel.style.color = 'var(--info)'; }
+
+    const cpiLabel = document.getElementById('sumCPILabel');
+    if (cpi > 1.05) { cpiLabel.textContent = 'Under Budget'; cpiLabel.style.color = 'var(--success)'; }
+    else if (cpi < 0.95) { cpiLabel.textContent = 'Over Budget'; cpiLabel.style.color = 'var(--danger)'; }
+    else { cpiLabel.textContent = 'On Budget'; cpiLabel.style.color = 'var(--info)'; }
+
+    renderCharts(totals, spi, cpi);
+}
+
+function renderCharts(totals, spi, cpi) {
+    Object.values(charts).forEach(c => c.destroy());
+
+    // S-Curve Chart
+    const sCtx = document.getElementById('sCurveChart').getContext('2d');
+    const ac = parseFloat(document.getElementById('actualCost').value) || 0;
+    const bac = parseFloat(document.getElementById('bac').value) || parseFloat(document.getElementById('contractValue').value) || 0;
+    const acPct = bac > 0 ? (ac / bac) * 100 : 0;
+    
+    charts.sCurve = new Chart(sCtx, {
+        type: 'line',
+        data: {
+            labels: activities.map(a => a.code || 'Activity'),
+            datasets: [
+                {
+                    label: 'Planned Value (PV)',
+                    data: activities.map(a => a.pv),
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    tension: 0.4, fill: true
+                },
+                {
+                    label: 'Earned Value (EV)',
+                    data: activities.map(a => a.ev),
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    tension: 0.4, fill: true
+                },
+                {
+                    label: 'Actual Cost (AC)',
+                    data: activities.map((a, i) => i === activities.length - 1 ? acPct : null),
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    tension: 0.4, fill: false, pointRadius: 8
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eef7' } } },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { ticks: { color: '#a0aec0', callback: v => v + '%' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } }
+            }
+        }
+    });
+
+    // Variance Chart
+    const vCtx = document.getElementById('varianceChart').getContext('2d');
+    charts.variance = new Chart(vCtx, {
+        type: 'bar',
+        data: {
+            labels: activities.map(a => a.code || 'Activity'),
+            datasets: [{
+                label: 'Variance (%)',
+                data: activities.map(a => a.variance),
+                backgroundColor: activities.map(a => a.variance >= 0 ? '#2ecc71' : '#e74c3c')
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eef7' } } },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { ticks: { color: '#a0aec0', callback: v => v + '%' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } }
+            }
+        }
+    });
+
+    // Weight Distribution
+    const wCtx = document.getElementById('weightChart').getContext('2d');
+    charts.weight = new Chart(wCtx, {
+        type: 'doughnut',
+        data: {
+            labels: activities.map(a => (a.code || 'Activity') + ' - ' + (a.description || '')),
+            datasets: [{
+                data: activities.map(a => a.weight),
+                backgroundColor: ['#d4af37', '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f39c12', '#1abc9c', '#e67e22']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'right', labels: { color: '#e8eef7', font: { size: 11 } } } }
+        }
+    });
+
+    // SPI/CPI Trend
+    const scCtx = document.getElementById('spiCpiChart').getContext('2d');
+    charts.spiCpi = new Chart(scCtx, {
+        type: 'bar',
+        data: {
+            labels: ['SPI', 'CPI'],
+            datasets: [{
+                label: 'Performance Index',
+                data: [spi, cpi],
+                backgroundColor: [spi >= 1 ? '#2ecc71' : '#e74c3c', cpi >= 1 ? '#2ecc71' : '#e74c3c']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eef7' } } },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { 
+                    ticks: { color: '#a0aec0' }, 
+                    grid: { color: 'rgba(212, 175, 55, 0.1)' },
+                    min: 0, max: 2
+                }
+            }
+        }
+    });
+
+    // Risk Distribution
+    const rCtx = document.getElementById('riskChart').getContext('2d');
+    let counts = { Critical: 0, High: 0, Medium: 0, Low: 0 };
+    risks.forEach(r => {
+        const score = (r.probability || 0) * (r.impact || 0);
+        const info = getRiskLevel(score);
+        counts[info.level]++;
+    });
+    
+    charts.risk = new Chart(rCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(counts),
+            datasets: [{
+                data: Object.values(counts),
+                backgroundColor: ['#e74c3c', '#f39c12', '#3498db', '#2ecc71']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'right', labels: { color: '#e8eef7' } } }
+        }
+    });
+}
+
+// ========== FORECASTS ==========
+function calculateForecasts() {
+    const totals = activities.reduce((t, a) => {
+        t.ev += a.ev; t.pv += a.pv;
+        return t;
+    }, { ev: 0, pv: 0 });
+    
+    const bac = parseFloat(document.getElementById('bac').value) || parseFloat(document.getElementById('contractValue').value) || 0;
+    const ac = parseFloat(document.getElementById('actualCost').value) || 0;
+    const method = document.getElementById('forecastMethod').value;
+    const manualEAC = parseFloat(document.getElementById('manualEAC').value) || 0;
+    
+    const evPct = totals.ev;
+    const acPct = bac > 0 ? (ac / bac) * 100 : 0;
+    const cpi = acPct > 0 ? evPct / acPct : 0;
+    const spi = totals.pv > 0 ? totals.ev / totals.pv : 0;
+    
+    let eac = 0, etc = 0, methodName = '';
+    
+    if (method === 'typical') {
+        eac = cpi > 0 ? bac / cpi : 0;
+        methodName = 'Typical (BAC / CPI)';
+    } else if (method === 'atypical') {
+        eac = ac + (bac - (bac * evPct / 100));
+        methodName = 'Atypical (AC + BAC - EV)';
+    } else if (method === 'both') {
+        const divisor = spi * cpi;
+        eac = divisor > 0 ? ac + (bac - (bac * evPct / 100)) / divisor : 0;
+        methodName = 'Both SPI & CPI';
+    } else if (method === 'manual') {
+        eac = manualEAC;
+        methodName = 'Manual Estimate';
+    }
+    
+    etc = eac - ac;
+    const vac = bac - eac;
+    const tcpi1 = (bac - (bac * evPct / 100)) > 0 && (bac - ac) > 0 ? (bac - (bac * evPct / 100)) / (bac - ac) : 0;
+    const tcpi2 = eac > 0 && (eac - ac) > 0 ? (bac - (bac * evPct / 100)) / (eac - ac) : 0;
+    
+    const currency = document.getElementById('currency').value;
+    
+    document.getElementById('fcBAC').textContent = currency + ' ' + bac.toLocaleString();
+    document.getElementById('fcEAC').textContent = currency + ' ' + Math.round(eac).toLocaleString();
+    document.getElementById('fcEACmethod').textContent = methodName;
+    document.getElementById('fcETC').textContent = currency + ' ' + Math.round(etc).toLocaleString();
+    document.getElementById('fcVAC').textContent = (vac >= 0 ? '+' : '') + currency + ' ' + Math.round(vac).toLocaleString();
+    document.getElementById('fcVAC').style.color = vac >= 0 ? 'var(--success)' : 'var(--danger)';
+    document.getElementById('fcTCPI1').textContent = tcpi1.toFixed(2);
+    document.getElementById('fcTCPI2').textContent = tcpi2.toFixed(2);
+    
+    // Insight
+    let insight = '';
+    if (bac === 0 || ac === 0) {
+        insight = 'Please enter BAC and Actual Cost to see forecast analysis.';
+    } else if (eac > bac * 1.1) {
+        insight = `<strong style="color: var(--danger);">CRITICAL:</strong> Project is forecasted to exceed budget by ${((eac/bac - 1) * 100).toFixed(1)}%. Immediate corrective action required.`;
+    } else if (eac > bac) {
+        insight = `<strong style="color: var(--warning);">WARNING:</strong> Project is forecasted to exceed budget by ${((eac/bac - 1) * 100).toFixed(1)}%. Monitor closely.`;
+    } else {
+        insight = `<strong style="color: var(--success);">GOOD:</strong> Project is forecasted to complete ${((1 - eac/bac) * 100).toFixed(1)}% under budget.`;
+    }
+    document.getElementById('forecastInsight').innerHTML = insight;
+    
+    renderForecastChart(bac, eac, ac, bac * evPct / 100);
+}
+
+function renderForecastChart(bac, eac, ac, ev) {
+    const ctx = document.getElementById('forecastChart');
+    if (!ctx) return;
+    
+    if (charts.forecast) charts.forecast.destroy();
+    
+    const currency = document.getElementById('currency').value;
+    
+    charts.forecast = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['BAC', 'EAC', 'AC', 'EV'],
+            datasets: [{
+                label: 'Amount (' + currency + ')',
+                data: [bac, eac, ac, ev],
+                backgroundColor: ['#3498db', '#d4af37', '#e74c3c', '#2ecc71']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { 
+                legend: { labels: { color: '#e8eef7' } },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => currency + ' ' + ctx.parsed.y.toLocaleString()
+                    }
+                }
+            },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { 
+                    ticks: { 
+                        color: '#a0aec0',
+                        callback: v => currency + ' ' + (v/1000000).toFixed(1) + 'M'
+                    }, 
+                    grid: { color: 'rgba(212, 175, 55, 0.1)' } 
+                }
+            }
+        }
+    });
+}
+
+// ========== REPORT GENERATION ==========
+function generateReport() {
+    const totals = activities.reduce((t, a) => {
+        t.ev += a.ev; t.pv += a.pv; t.variance += a.variance;
+        return t;
+    }, { ev: 0, pv: 0, variance: 0 });
+    
+    const bac = parseFloat(document.getElementById('bac').value) || parseFloat(document.getElementById('contractValue').value) || 0;
+    const ac = parseFloat(document.getElementById('actualCost').value) || 0;
+    const acPct = bac > 0 ? (ac / bac) * 100 : 0;
+    const spi = totals.pv > 0 ? totals.ev / totals.pv : 0;
+    const cpi = acPct > 0 ? totals.ev / acPct : 0;
+    const currency = document.getElementById('currency').value;
+
+    // Header
+    document.getElementById('rptPeriod').textContent = document.getElementById('reportPeriod').value || '-';
+    document.getElementById('rptProject').textContent = document.getElementById('projectName').value || '-';
+    document.getElementById('rptContract').textContent = document.getElementById('contractNo').value || '-';
+    document.getElementById('rptClient').textContent = document.getElementById('clientName').value || '-';
+    document.getElementById('rptContractor').textContent = document.getElementById('contractorName').value || '-';
+    document.getElementById('rptPM').textContent = document.getElementById('projectManager').value || '-';
+    document.getElementById('rptDate').textContent = document.getElementById('cuttingDate').value || '-';
+    document.getElementById('rptValue').textContent = bac ? currency + ' ' + bac.toLocaleString() : '-';
+
+    // Summary
+    document.getElementById('rptPV').textContent = totals.pv.toFixed(2) + '%';
+    document.getElementById('rptEV').textContent = totals.ev.toFixed(2) + '%';
+    document.getElementById('rptSPI').textContent = spi.toFixed(2);
+    document.getElementById('rptCPI').textContent = cpi.toFixed(2);
+
+    // Detailed table
+    const tbody = document.getElementById('reportBody');
+    tbody.innerHTML = '';
+    activities.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${a.code}</td>
+            <td>${a.description}</td>
+            <td>${a.weight.toFixed(2)}%</td>
+            <td>${a.plannedPct.toFixed(2)}%</td>
+            <td>${a.actualPct.toFixed(2)}%</td>
+            <td>${a.ev.toFixed(2)}%</td>
+            <td>${a.pv.toFixed(2)}%</td>
+            <td style="color: ${a.variance >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">${a.variance >= 0 ? '+' : ''}${a.variance.toFixed(2)}%</td>
+            <td style="font-weight: 600;">${a.status === 'ahead' ? '▲ Ahead' : a.status === 'delayed' ? '▼ Delayed' : '● On Track'}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Risk Summary
+    let counts = { Critical: 0, High: 0, Medium: 0, Low: 0 };
+    risks.forEach(r => {
+        const score = (r.probability || 0) * (r.impact || 0);
+        const info = getRiskLevel(score);
+        counts[info.level]++;
+    });
+    
+    let riskHTML = `<p><strong>Total Identified Risks:</strong> ${risks.length}</p>`;
+    riskHTML += `<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem;">`;
+    riskHTML += `<div style="background: rgba(231, 76, 60, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #c0392b;">Critical: ${counts.Critical}</strong></div>`;
+    riskHTML += `<div style="background: rgba(243, 156, 18, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #d68910;">High: ${counts.High}</strong></div>`;
+    riskHTML += `<div style="background: rgba(52, 152, 219, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #2874a6;">Medium: ${counts.Medium}</strong></div>`;
+    riskHTML += `<div style="background: rgba(46, 204, 113, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #1e8449;">Low: ${counts.Low}</strong></div>`;
+    riskHTML += `</div>`;
+    
+    if (risks.length > 0) {
+        riskHTML += `<h3 style="margin-top: 1.5rem;">Top Risks:</h3><ul style="padding-left: 1.5rem;">`;
+        risks.slice(0, 5).forEach(r => {
+            const score = (r.probability || 0) * (r.impact || 0);
+            const info = getRiskLevel(score);
+            riskHTML += `<li><strong>${r.riskId}</strong> - ${r.description || 'No description'} <span style="color: #666;">(Score: ${score}, ${info.level})</span></li>`;
+        });
+        riskHTML += `</ul>`;
+    }
+    document.getElementById('rptRiskSummary').innerHTML = riskHTML;
+
+    // Forecast
+    const method = document.getElementById('forecastMethod').value;
+    let eac = 0;
+    if (method === 'typical') eac = cpi > 0 ? bac / cpi : 0;
+    else if (method === 'atypical') eac = ac + (bac - (bac * totals.ev / 100));
+    else if (method === 'both') {
+        const divisor = spi * cpi;
+        eac = divisor > 0 ? ac + (bac - (bac * totals.ev / 100)) / divisor : 0;
+    } else if (method === 'manual') eac = parseFloat(document.getElementById('manualEAC').value) || 0;
+    
+    const etc = eac - ac;
+    const vac = bac - eac;
+    
+    let forecastHTML = `<table style="width: 100%;">
+        <tr><td style="width: 50%; font-weight: 600;">Budget at Completion (BAC):</td><td>${currency} ${bac.toLocaleString()}</td></tr>
+        <tr><td style="font-weight: 600;">Estimate at Completion (EAC):</td><td>${currency} ${Math.round(eac).toLocaleString()}</td></tr>
+        <tr><td style="font-weight: 600;">Estimate to Complete (ETC):</td><td>${currency} ${Math.round(etc).toLocaleString()}</td></tr>
+        <tr><td style="font-weight: 600;">Variance at Completion (VAC):</td><td style="color: ${vac >= 0 ? 'var(--success)' : 'var(--danger)'};">${vac >= 0 ? '+' : ''}${currency} ${Math.round(vac).toLocaleString()}</td></tr>
+        <tr><td style="font-weight: 600;">Actual Cost to Date (AC):</td><td>${currency} ${ac.toLocaleString()}</td></tr>
+    </table>`;
+    document.getElementById('rptForecast').innerHTML = forecastHTML;
+
+    // Analysis
+    const analysisDiv = document.getElementById('rptAnalysis');
+    let analysisHTML = `<p><strong>Overall Project Status:</strong> `;
+    if (totals.variance > 0.5) analysisHTML += `The project is <strong style="color: var(--success);">AHEAD OF SCHEDULE</strong> by ${totals.variance.toFixed(2)}%. `;
+    else if (totals.variance < -0.5) analysisHTML += `The project is <strong style="color: var(--danger);">BEHIND SCHEDULE</strong> by ${Math.abs(totals.variance).toFixed(2)}%. `;
+    else analysisHTML += `The project is <strong style="color: var(--info);">ON TRACK</strong>. `;
+    
+    analysisHTML += `</p><p><strong>SPI:</strong> ${spi.toFixed(2)} - `;
+    if (spi > 1.05) analysisHTML += 'Excellent schedule performance.';
+    else if (spi >= 0.95) analysisHTML += 'Acceptable schedule performance.';
+    else analysisHTML += 'CRITICAL: Significant schedule delay.';
+    
+    analysisHTML += `</p><p><strong>CPI:</strong> ${cpi.toFixed(2)} - `;
+    if (cpi > 1.05) analysisHTML += 'Excellent cost performance.';
+    else if (cpi >= 0.95) analysisHTML += 'Acceptable cost performance.';
+    else analysisHTML += 'CRITICAL: Significant cost overrun.';
+    analysisHTML += `</p>`;
+
+    const delayed = activities.filter(a => a.status === 'delayed');
+    if (delayed.length > 0) {
+        analysisHTML += `<p><strong>Critical Areas:</strong><ul style="margin-top: 0.5rem; padding-left: 1.5rem;">`;
+        delayed.forEach(a => { analysisHTML += `<li><strong>${a.code}</strong> - ${a.description}: Variance ${a.variance.toFixed(2)}%</li>`; });
+        analysisHTML += `</ul></p>`;
+    }
+    analysisDiv.innerHTML = analysisHTML;
+
+    // Payment
+    const earnedAmount = (bac * totals.ev) / 100;
+    const plannedAmount = (bac * totals.pv) / 100;
+    const varAmount = earnedAmount - plannedAmount;
+    document.getElementById('rptTotalValue').textContent = currency + ' ' + bac.toLocaleString();
+    document.getElementById('rptEarnedAmount').textContent = currency + ' ' + earnedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    document.getElementById('rptPlannedAmount').textContent = currency + ' ' + plannedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    document.getElementById('rptVarAmount').textContent = (varAmount >= 0 ? '+' : '') + currency + ' ' + varAmount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    document.getElementById('rptPayment').textContent = currency + ' ' + earnedAmount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+
+    // Recommendations
+    const recDiv = document.getElementById('rptRecommendations');
+    let recHTML = '<ul style="padding-left: 1.5rem;">';
+    if (spi < 0.95) recHTML += '<li>Implement a recovery schedule and conduct weekly progress reviews.</li>';
+    if (cpi < 0.95) recHTML += '<li>Conduct cost audit and identify cost overrun root causes.</li>';
+    if (delayed.length > 0) recHTML += '<li>Conduct root cause analysis for delayed work packages.</li>';
+    if (counts.Critical > 0) recHTML += `<li>Address ${counts.Critical} critical risk(s) immediately with mitigation plans.</li>`;
+    if (eac > bac * 1.1) recHTML += '<li>Project forecasted to exceed budget by >10%. Consider re-baselining.</li>';
+    recHTML += '<li>Continue regular progress monitoring and reporting.</li>';
+    recHTML += '<li>Schedule coordination meeting with all stakeholders.</li>';
+    recHTML += '</ul>';
+    recDiv.innerHTML = recHTML;
+    
+    document.getElementById('rptPreparedBy').textContent = document.getElementById('projectManager').value || 'Project Control Manager';
+    document.getElementById('rptApprovedBy').textContent = 'Project Manager';
+}
+
+// ========== IMPORT / EXPORT ==========
+function showImportModal() {
+    document.getElementById('importModal').classList.add('show');
+}
+
+function downloadTemplate() {
+    const ws = XLSX.utils.json_to_sheet([
+        { Code: 'ENG', Description: 'Engineering', Weight: 20, Unit: 'LS', PlannedQty: 100, ActualQty: 85, PlannedPct: 100, ActualPct: 85 },
+        { Code: 'PRC', Description: 'Procurement', Weight: 35, Unit: 'LS', PlannedQty: 100, ActualQty: 70, PlannedPct: 80, ActualPct: 56 }
+    ]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Activities');
+    XLSX.writeFile(wb, 'WPA_Template.xlsx');
+}
+
+function importFromExcel() {
+    const file = document.getElementById('importFile').files[0];
+    if (!file) { alert('Please select a file'); return; }
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = new Uint8Array(e.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+            const ws = wb.Sheets[wb.SheetNames[0]];
+            const json = XLSX.utils.sheet_to_json(ws);
+            
+            activities = [];
+            json.forEach(row => {
+                activities.push({
+                    id: activityIdCounter++,
+                    code: row.Code || '',
+                    description: row.Description || '',
+                    weight: parseFloat(row.Weight) || 0,
+                    unit: row.Unit || 'LS',
+                    plannedQty: parseFloat(row.PlannedQty) || 0,
+                    actualQty: parseFloat(row.ActualQty) || 0,
+                    plannedPct: parseFloat(row.PlannedPct) || 0,
+                    actualPct: parseFloat(row.ActualPct) || 0
+                });
+            });
+            
+            renderActivities();
+            saveCurrentProject();
+            closeModal('importModal');
+            alert(`Successfully imported ${activities.length} activities!`);
+        } catch (err) {
+            alert('Error reading file: ' + err.message);
+        }
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+function exportToExcel() {
+    if (activities.length === 0) { alert('No activities to export'); return; }
+    
+    const data = activities.map(a => ({
+        Code: a.code,
+        Description: a.description,
+        Weight: a.weight,
+        Unit: a.unit,
+        PlannedQty: a.plannedQty,
+        ActualQty: a.actualQty,
+        'Planned%': a.plannedPct,
+        'Actual%': a.actualPct,
+        EV: a.ev,
+        PV: a.pv,
+        Variance: a.variance,
+        Status: a.status
+    }));
+    
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Activities');
+    
+    if (risks.length > 0) {
+        const riskData = risks.map(r => ({
+            'Risk ID': r.riskId,
+            Description: r.description,
+            Category: r.category,
+            Probability: r.probability,
+            Impact: r.impact,
+            Score: (r.probability || 0) * (r.impact || 0),
+            Mitigation: r.mitigation,
+            Owner: r.owner
+        }));
+        const ws2 = XLSX.utils.json_to_sheet(riskData);
+        XLSX.utils.book_append_sheet(wb, ws2, 'Risks');
+    }
+    
+    const projectName = document.getElementById('projectName').value || 'WPA';
+    XLSX.writeFile(wb, `${projectName}_WPA_Report.xlsx`);
+}
+
+function exportToPDF() {
+    const element = document.getElementById('reportContent');
+    const opt = {
+        margin: 10,
+        filename: (document.getElementById('projectName').value || 'WPA') + '_Premium_Report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().from(element).set(opt).save();
+}
+
+// ========== STORAGE ==========
+function setupAutoSave() {
+    document.querySelectorAll('#step1 input, #step1 select').forEach(el => {
+        el.removeEventListener('change', saveCurrentProject);
+        el.removeEventListener('input', saveCurrentProject);
+        el.addEventListener('change', saveCurrentProject);
+        el.addEventListener('input', saveCurrentProject);
+    });
+}
+
+function resetAll() {
+    if (!confirm('This will create a new blank project. Current project will be saved. Continue?')) return;
+    createNewProject('New Project ' + (Object.keys(projects).length + 1));
+    goToStep(1);
+}
+</script>
+
+</body>
+</html>

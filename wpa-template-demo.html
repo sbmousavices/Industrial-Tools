@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPA Premium Demo - Advanced Work Performance Analysis | BM Planning</title>
+    <meta name="description" content="Interactive demo of the Professional WPA Premium tool. Explore multi-project management, risk analysis, advanced forecasts, and reporting.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/4.2.0/html2pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1f38;
+            --card-bg: #132847;
+            --accent: #d4af37;
+            --accent-light: #f4d06f;
+            --text-primary: #e8eef7;
+            --text-secondary: #a0aec0;
+            --nav-height: 70px;
+            --nav-bg: rgba(10, 10, 12, 0.95);
+            --border: rgba(212, 175, 55, 0.2);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);
+            --gradient-dark: linear-gradient(135deg, #b8941f 0%, #d4af37 100%);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --premium-glow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: calc(var(--nav-height) + 30px);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent 40%);
+        }
+
+        /* DEMO BANNER */
+        .demo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: repeating-linear-gradient(45deg, var(--danger), var(--danger) 10px, #c0392b 10px, #c0392b 20px);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            z-index: 1001;
+            text-transform: uppercase;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; top: 30px; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+        .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* TOP RIGHT ACTIONS */
+        .top-right-actions {
+            position: fixed; top: calc(var(--nav-height) + 45px); right: 30px;
+            display: flex; align-items: center; gap: 10px; z-index: 999;
+        }
+        .back-btn, .free-btn, .purchase-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+            border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s ease; white-space: nowrap;
+        }
+        .purchase-btn {
+            background: var(--gradient); color: var(--bg-primary); border: 1px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .purchase-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
+        .back-btn {
+            background: var(--card-bg); border: 1px solid var(--accent); color: var(--accent);
+        }
+        .back-btn:hover { background: var(--accent); color: var(--bg-primary); }
+        .free-btn {
+            background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary);
+        }
+        .free-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* MAIN CONTAINER */
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
+
+        /* PREMIUM HEADER */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(19, 40, 71, 0.8) 100%);
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--premium-glow);
+        }
+        .tool-header::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .premium-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 16px; background: var(--gradient); color: var(--bg-primary);
+            border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        .demo-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 16px; background: var(--danger); color: white;
+            border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-left: 10px;
+        }
+        .tool-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 0.5rem;
+        }
+        .tool-header h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tool-header p { color: var(--text-secondary); font-size: 1rem; max-width: 700px; margin: 0 auto; }
+
+        /* PROJECT SELECTOR */
+        .project-selector {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            opacity: 0.7; /* Dimmed in demo */
+            pointer-events: none; /* Disabled in demo */
+        }
+        .project-selector-left {
+            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+        }
+        .project-selector label {
+            font-weight: 600; color: var(--accent); font-size: 0.9rem;
+        }
+        .project-selector select {
+            padding: 0.6rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            min-width: 250px;
+        }
+
+        /* STEP INDICATOR */
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
+        .step-number {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .step.active .step-number {
+            background: var(--gradient);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+        .step.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        .step-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .step.active .step-label { color: var(--accent); font-weight: 600; }
+        .step.completed .step-label { color: var(--success); }
+        .step-premium {
+            display: inline-block;
+            font-size: 0.6rem;
+            color: var(--accent);
+            background: rgba(212, 175, 55, 0.15);
+            padding: 1px 6px;
+            border-radius: 10px;
+            margin-left: 4px;
+            font-weight: 700;
+        }
+
+        /* STEP CONTENT */
+        .step-content { display: none; animation: fadeIn 0.5s; }
+        .step-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 i { color: var(--accent); }
+
+        /* FORM STYLES */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.8rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        tr:hover { background: rgba(212, 175, 55, 0.03); }
+        td input, td select, td textarea {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+        td input:focus, td select:focus, td textarea:focus { outline: none; border-color: var(--accent); }
+        .calculated {
+            background: rgba(212, 175, 55, 0.08);
+            font-weight: 600;
+            color: var(--accent-light);
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .status-ahead { color: var(--success); font-weight: 700; }
+        .status-ontime { color: var(--info); font-weight: 700; }
+        .status-delayed { color: var(--danger); font-weight: 700; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-secondary:hover { background: var(--accent); color: var(--bg-primary); }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        .btn-success:hover { background: #27ae60; }
+        .btn-info {
+            background: var(--info);
+            color: white;
+        }
+        .btn-info:hover { background: #2874a6; }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* WEIGHT VALIDATION */
+        .weight-validation {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .weight-valid { background: rgba(46, 204, 113, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .weight-invalid { background: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+
+        /* SUMMARY CARDS */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .summary-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .summary-card .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .summary-card .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        .summary-card .sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* CHART CONTAINER */
+        .chart-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            height: 400px;
+            position: relative;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* RISK MATRIX */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: auto repeat(5, 1fr);
+            gap: 4px;
+            margin: 1.5rem 0;
+        }
+        .risk-cell {
+            padding: 1rem 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .risk-low { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+        .risk-medium { background: rgba(243, 156, 18, 0.2); color: var(--warning); }
+        .risk-high { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
+        .risk-critical { background: rgba(231, 76, 60, 0.4); color: white; }
+        .risk-header { background: var(--bg-secondary); color: var(--accent); font-weight: 700; }
+
+        /* ALERT */
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .alert-info { background: rgba(52, 152, 219, 0.15); color: var(--info); border: 1px solid var(--info); }
+        .alert-warning { background: rgba(243, 156, 18, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+        .alert-success { background: rgba(46, 204, 113, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .alert-premium { 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(15, 31, 56, 0.8) 100%); 
+            color: var(--accent-light); 
+            border: 1px solid var(--accent); 
+        }
+
+        /* REPORT */
+        .report-section {
+            background: white;
+            color: #1a1a1a;
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .report-section::after {
+            content: 'DEMO VERSION - WATERMARKED';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(231, 76, 60, 0.08);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .report-section h2 { color: var(--bg-primary); border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .report-section h3 { color: var(--bg-primary); margin: 1.5rem 0 0.8rem; }
+        .report-section table { background: white; }
+        .report-section th { background: var(--bg-primary); color: var(--accent); }
+        .report-section td { color: #333; border-bottom: 1px solid #ddd; }
+        .report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--accent); }
+        .report-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--accent); font-weight: 900; }
+        .report-premium-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--gradient);
+            color: var(--bg-primary);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--premium-glow);
+            animation: fadeIn 0.3s ease;
+        }
+        .modal i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .modal p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--accent); }
+
+        /* PRINT STYLES */
+        @media print {
+            nav, .top-right-actions, .steps-container, .btn-row, .no-print, .project-selector, .demo-banner { display: none !important; }
+            body { padding-top: 0; background: white; }
+            .report-section { box-shadow: none; }
+            .container { max-width: 100%; padding: 0; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .top-right-actions { top: calc(var(--nav-height) + 40px); right: 15px; gap: 8px; flex-direction: column; }
+            .back-btn, .free-btn, .purchase-btn { padding: 8px 14px; font-size: 0.75rem; width: 100%; justify-content: center; }
+            .step { min-width: 80px; }
+            .step-label { font-size: 0.7rem; }
+            .card { padding: 1.2rem; }
+            .report-section { padding: 1.5rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+    <i class="fas fa-lock" style="margin-right: 8px;"></i> Demo Mode: Export features are locked. Purchase Premium to unlock full functionality.
+</div>
+
+<nav>
+    <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo">
+        <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning">
+        <span>Home</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+        <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+        <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+        <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+        <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+        <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+    </ul>
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="top-right-actions">
+    <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-WPA-PRO-015" class="purchase-btn">
+        <i class="fas fa-crown"></i> Purchase Premium
+    <a href="https://sbmousavices.github.io/Industrial-Tools/wpa-template-description.html" class="back-btn">
+        <i class="fas fa-th"></i> See Description
+    </a>
+</div>
+
+<div class="container">
+    
+    <!-- PREMIUM HEADER -->
+    <div class="tool-header">
+        <div>
+            <span class="premium-badge"><i class="fas fa-crown"></i> Premium Edition</span>
+            <span class="demo-badge"><i class="fas fa-eye"></i> Live Demo</span>
+        </div>
+        <h1>Advanced <span>Work Performance Analysis</span></h1>
+        <p>Explore the full power of professional WPA. This demo is pre-loaded with sample data. Navigate through the steps to see the dashboard, risk matrix, and premium reports in action.</p>
+    </div>
+
+    <!-- PROJECT SELECTOR (Disabled in Demo) -->
+    <div class="project-selector no-print">
+        <div class="project-selector-left">
+            <label><i class="fas fa-folder-open"></i> Active Project:</label>
+            <select id="projectSelector" disabled>
+                <option value="demo" selected>South Pars Phase 14 (Demo Project)</option>
+            </select>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="showLockedModal('Create unlimited projects')">
+                <i class="fas fa-plus"></i> New Project
+            </button>
+            <button class="btn btn-secondary" onclick="showLockedModal('Import data from Excel/CSV')">
+                <i class="fas fa-file-import"></i> Import
+            </button>
+            <button class="btn btn-secondary" onclick="showLockedModal('Export full reports to Excel')">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="steps-container no-print">
+        <div class="step active" data-step="1" onclick="goToStep(1)">
+            <div class="step-number">1</div>
+            <div class="step-label">Project Info</div>
+        </div>
+        <div class="step" data-step="2" onclick="goToStep(2)">
+            <div class="step-number">2</div>
+            <div class="step-label">Activities</div>
+        </div>
+        <div class="step" data-step="3" onclick="goToStep(3)">
+            <div class="step-number">3</div>
+            <div class="step-label">Risk Analysis <span class="step-premium">PRO</span></div>
+        </div>
+        <div class="step" data-step="4" onclick="goToStep(4)">
+            <div class="step-number">4</div>
+            <div class="step-label">Dashboard</div>
+        </div>
+        <div class="step" data-step="5" onclick="goToStep(5)">
+            <div class="step-number">5</div>
+            <div class="step-label">Forecast <span class="step-premium">PRO</span></div>
+        </div>
+        <div class="step" data-step="6" onclick="goToStep(6)">
+            <div class="step-number">6</div>
+            <div class="step-label">Final Report</div>
+        </div>
+    </div>
+
+    <!-- STEP 1: PROJECT INFO -->
+    <div class="step-content active" id="step1">
+        <div class="card">
+            <h2><i class="fas fa-info-circle"></i> Project Information</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Project Name *</label>
+                    <input type="text" id="projectName" value="South Pars Phase 14" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Contract Number</label>
+                    <input type="text" id="contractNo" value="EPC-2024-089" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Client / Owner</label>
+                    <input type="text" id="clientName" value="NIOC" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Contractor</label>
+                    <input type="text" id="contractorName" value="OIEC" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Report Period *</label>
+                    <input type="text" id="reportPeriod" value="Monthly Report - March 2026" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Cutting Date *</label>
+                    <input type="date" id="cuttingDate" value="2026-03-31" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Baseline Start Date</label>
+                    <input type="date" id="baselineStart" value="2024-01-01" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Baseline Finish Date</label>
+                    <input type="date" id="baselineFinish" value="2027-12-31" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Total Contract Value</label>
+                    <input type="number" id="contractValue" value="150000000" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Total Budget at Completion (BAC)</label>
+                    <input type="number" id="bac" value="150000000" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Currency</label>
+                    <select id="currency" disabled>
+                        <option value="USD" selected>USD - US Dollar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Project Manager</label>
+                    <input type="text" id="projectManager" value="Behzad Mousavi" readonly style="opacity: 0.8;">
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-premium">
+            <i class="fas fa-info-circle"></i>
+            <span><strong>Demo Mode:</strong> Fields are read-only. In the Premium version, you can fully edit this information and save multiple projects.</span>
+        </div>
+
+        <div class="btn-row">
+            <div></div>
+            <button class="btn btn-primary" onclick="goToStep(2)">
+                Next: View Activities <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 2: ACTIVITIES -->
+    <div class="step-content" id="step2">
+        <div class="card">
+            <h2><i class="fas fa-tasks"></i> Work Packages / Activities</h2>
+            
+            <div id="weightValidation" class="weight-validation weight-valid">
+                <i class="fas fa-check-circle"></i>
+                <span>Total Weight: <strong id="totalWeight">100</strong>% / 100%</span>
+            </div>
+
+            <div class="table-container">
+                <table id="activitiesTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th style="width: 90px;">Code</th>
+                            <th>Description</th>
+                            <th style="width: 70px;">Weight %</th>
+                            <th style="width: 80px;">Unit</th>
+                            <th style="width: 90px;">Planned Qty</th>
+                            <th style="width: 90px;">Actual Qty</th>
+                            <th style="width: 80px;">Planned %</th>
+                            <th style="width: 80px;">Actual %</th>
+                            <th style="width: 70px;">EV</th>
+                            <th style="width: 70px;">PV</th>
+                            <th style="width: 70px;">Var</th>
+                            <th style="width: 80px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activitiesBody"></tbody>
+                    <tfoot>
+                        <tr style="background: var(--bg-secondary); font-weight: 700;">
+                            <td colspan="3" style="text-align: right; padding-right: 1rem;">TOTAL:</td>
+                            <td id="footWeight">100%</td>
+                            <td></td>
+                            <td id="footPlannedQty">400</td>
+                            <td id="footActualQty">265</td>
+                            <td id="footPlannedPct">60%</td>
+                            <td id="footActualPct">46.5%</td>
+                            <td id="footEV">46.5%</td>
+                            <td id="footPV">60%</td>
+                            <td id="footVar">-13.5%</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(1)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(3)">
+                Next: Risk Analysis <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 3: RISK ANALYSIS (PREMIUM) -->
+    <div class="step-content" id="step3">
+        <div class="card">
+            <h2><i class="fas fa-exclamation-triangle"></i> Risk Register <span class="step-premium">PRO</span></h2>
+            
+            <div class="table-container">
+                <table id="risksTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th style="width: 80px;">Risk ID</th>
+                            <th>Risk Description</th>
+                            <th style="width: 90px;">Category</th>
+                            <th style="width: 80px;">Prob (1-5)</th>
+                            <th style="width: 80px;">Impact (1-5)</th>
+                            <th style="width: 70px;">Score</th>
+                            <th style="width: 80px;">Level</th>
+                            <th>Mitigation Strategy</th>
+                            <th style="width: 90px;">Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody id="risksBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-th"></i> Risk Matrix (Probability × Impact)</h2>
+            <div id="riskMatrix" class="risk-matrix"></div>
+            <div class="summary-grid" style="margin-top: 1.5rem;">
+                <div class="summary-card">
+                    <div class="label">Total Risks</div>
+                    <div class="value" id="totalRisks">4</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Critical</div>
+                    <div class="value" id="criticalRisks" style="color: var(--danger);">1</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">High</div>
+                    <div class="value" id="highRisks" style="color: var(--warning);">1</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Medium</div>
+                    <div class="value" id="mediumRisks" style="color: var(--info);">1</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">Low</div>
+                    <div class="value" id="lowRisks" style="color: var(--success);">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(2)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(4)">
+                Next: Dashboard <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 4: DASHBOARD -->
+    <div class="step-content" id="step4">
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Planned Value (PV)</div>
+                <div class="value" id="sumPV">60.00%</div>
+                <div class="sub">Baseline Progress</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Earned Value (EV)</div>
+                <div class="value" id="sumEV">46.50%</div>
+                <div class="sub">Actual Progress</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Actual Cost (AC)</div>
+                <div class="value" id="sumAC">55.00%</div>
+                <div class="sub">Spent Budget</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Variance (SV)</div>
+                <div class="value" id="sumVar" style="color: var(--danger);">-13.50%</div>
+                <div class="sub" id="sumVarLabel" style="color: var(--danger);">Behind Schedule</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">SPI</div>
+                <div class="value" id="sumSPI" style="color: var(--danger);">0.78</div>
+                <div class="sub" id="sumSPILabel" style="color: var(--danger);">Needs Attention</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">CPI</div>
+                <div class="value" id="sumCPI" style="color: var(--danger);">0.85</div>
+                <div class="sub" id="sumCPILabel" style="color: var(--danger);">Over Budget</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> S-Curve: Planned vs Actual vs Actual Cost</h2>
+            <div class="chart-container">
+                <canvas id="sCurveChart"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card">
+                <h2><i class="fas fa-chart-bar"></i> Variance by Work Package</h2>
+                <div class="chart-container">
+                    <canvas id="varianceChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> Weight Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(3)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(5)">
+                Next: Forecast <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 5: FORECAST (PREMIUM) -->
+    <div class="step-content" id="step5">
+        <div class="card">
+            <h2><i class="fas fa-crystal-ball"></i> Advanced Forecasts <span class="step-premium">PRO</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Calculate EAC, ETC, and TCPI using 4 different methods based on PMBOK standards.</p>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Actual Cost (AC) - Total spent to date</label>
+                    <input type="number" id="actualCost" value="82500000" readonly style="opacity: 0.8;">
+                </div>
+                <div class="form-group">
+                    <label>Forecast Method</label>
+                    <select id="forecastMethod" disabled>
+                        <option value="typical" selected>Typical (EAC = BAC / CPI)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Budget at Completion (BAC)</div>
+                <div class="value" id="fcBAC">USD 150,000,000</div>
+                <div class="sub">Original Budget</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Estimate at Completion (EAC)</div>
+                <div class="value" id="fcEAC" style="color: var(--danger);">USD 177,777,778</div>
+                <div class="sub" id="fcEACmethod">Typical (BAC / CPI)</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Estimate to Complete (ETC)</div>
+                <div class="value" id="fcETC">USD 95,277,778</div>
+                <div class="sub">Remaining Cost</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Variance at Completion (VAC)</div>
+                <div class="value" id="fcVAC" style="color: var(--danger);">-USD 27,777,778</div>
+                <div class="sub" id="fcVAClabel">BAC - EAC</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">TCPI (BAC)</div>
+                <div class="value" id="fcTCPI1" style="color: var(--danger);">1.18</div>
+                <div class="sub">To meet BAC</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">TCPI (EAC)</div>
+                <div class="value" id="fcTCPI2">0.85</div>
+                <div class="sub">To meet EAC</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> Forecast Visualization</h2>
+            <div class="chart-container">
+                <canvas id="forecastChart"></canvas>
+            </div>
+        </div>
+
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <strong>Demo Insight:</strong> Project is forecasted to exceed budget by 18.5%. In the Premium version, you can adjust the forecast method and see dynamic updates.
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(4)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" onclick="goToStep(6)">
+                Next: Final Report <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- STEP 6: FINAL REPORT -->
+    <div class="step-content" id="step6">
+        <div class="btn-row no-print" style="margin-bottom: 1.5rem;">
+            <button class="btn btn-secondary" onclick="goToStep(5)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <div class="btn-group">
+                <button class="btn btn-info" onclick="showLockedModal('Export watermark-free PDF reports')">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
+                <button class="btn btn-success" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Report
+                </button>
+            </div>
+        </div>
+
+        <div class="report-section" id="reportContent">
+            <div class="report-header">
+                <div>
+                    <div class="report-logo">BM Planning</div>
+                    <div class="report-premium-badge">Premium Report</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.85rem; color: #666;">Work Performance Analysis</div>
+                    <div style="font-weight: 700; color: var(--bg-primary);" id="rptPeriod">Monthly Report - March 2026</div>
+                </div>
+            </div>
+
+            <h2>1. Project Information</h2>
+            <table style="width: 100%;">
+                <tr><td style="width: 30%; font-weight: 600;">Project Name:</td><td id="rptProject">South Pars Phase 14</td></tr>
+                <tr><td style="font-weight: 600;">Contract No:</td><td id="rptContract">EPC-2024-089</td></tr>
+                <tr><td style="font-weight: 600;">Client:</td><td id="rptClient">NIOC</td></tr>
+                <tr><td style="font-weight: 600;">Contractor:</td><td id="rptContractor">OIEC</td></tr>
+                <tr><td style="font-weight: 600;">Project Manager:</td><td id="rptPM">Behzad Mousavi</td></tr>
+                <tr><td style="font-weight: 600;">Cutting Date:</td><td id="rptDate">2026-03-31</td></tr>
+                <tr><td style="font-weight: 600;">Contract Value / BAC:</td><td id="rptValue">USD 150,000,000</td></tr>
+            </table>
+
+            <h2>2. Executive Summary</h2>
+            <div class="summary-grid" style="margin-top: 1rem;">
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">Planned Progress</div>
+                    <div class="value" id="rptPV" style="color: var(--info);">60.00%</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">Actual Progress</div>
+                    <div class="value" id="rptEV" style="color: var(--accent);">46.50%</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">SPI</div>
+                    <div class="value" id="rptSPI" style="color: var(--danger);">0.78</div>
+                </div>
+                <div class="summary-card" style="background: #f8f9fa; border: 1px solid #ddd;">
+                    <div class="label" style="color: #666;">CPI</div>
+                    <div class="value" id="rptCPI" style="color: var(--danger);">0.85</div>
+                </div>
+            </div>
+
+            <h2>3. Detailed Work Performance Analysis</h2>
+            <div class="table-container" style="margin-top: 1rem;">
+                <table id="reportTable">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                            <th>Planned %</th>
+                            <th>Actual %</th>
+                            <th>EV</th>
+                            <th>PV</th>
+                            <th>Variance</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportBody"></tbody>
+                </table>
+            </div>
+
+            <h2>4. Risk Analysis Summary</h2>
+            <div id="rptRiskSummary" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;"></div>
+
+            <h2>5. Forecast Analysis</h2>
+            <div id="rptForecast" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;"></div>
+
+            <h2>6. Performance Analysis & Interpretation</h2>
+            <div id="rptAnalysis" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent); margin-top: 1rem;"></div>
+
+            <h2>7. Progress Payment Summary</h2>
+            <table style="width: 100%; margin-top: 1rem;">
+                <tr><td style="width: 50%; font-weight: 600;">Total Contract Value:</td><td id="rptTotalValue">USD 150,000,000</td></tr>
+                <tr><td style="font-weight: 600;">Earned Value (Amount):</td><td id="rptEarnedAmount">USD 69,750,000.00</td></tr>
+                <tr><td style="font-weight: 600;">Planned Value (Amount):</td><td id="rptPlannedAmount">USD 90,000,000.00</td></tr>
+                <tr><td style="font-weight: 600;">Variance (Amount):</td><td id="rptVarAmount" style="color: var(--danger);">-USD 20,250,000.00</td></tr>
+                <tr><td style="font-weight: 600;">Recommended Payment:</td><td id="rptPayment" style="font-weight: 700; color: var(--success);">USD 69,750,000.00</td></tr>
+            </table>
+
+            <h2>8. Recommendations</h2>
+            <div id="rptRecommendations" style="background: #fff8e1; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning); margin-top: 1rem;"></div>
+
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--accent); display: flex; justify-content: space-between;">
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 3rem; font-weight: 600;">Prepared by:</div>
+                    <div style="border-top: 1px solid #333; padding-top: 0.5rem;" id="rptPreparedBy">Behzad Mousavi</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="margin-bottom: 3rem; font-weight: 600;">Approved by:</div>
+                    <div style="border-top: 1px solid #333; padding-top: 0.5rem;" id="rptApprovedBy">Project Manager</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; color: #999; font-size: 0.8rem;">
+                Generated by BM Planning WPA Premium Tool (Demo) | https://sbmousavices.github.io/Industrial-Tools/
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- LOCKED FEATURE MODAL -->
+<div class="modal-overlay" id="lockedModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeLockedModal()">&times;</button>
+        <i class="fas fa-crown"></i>
+        <h3>Premium Feature Locked</h3>
+        <p id="lockedMessage">This feature is only available in the full Premium version. Upgrade now to unlock unlimited projects, Excel import/export, and watermark-free PDF reports.</p>
+        <div class="btn-row" style="justify-content: center;">
+            <a href="https://sbmousavices.github.io/Industrial-Tools/wpa-template-premium.html" class="btn btn-primary" style="text-decoration: none;">
+                <i class="fas fa-shopping-cart"></i> Purchase Premium
+            </a>
+            <button class="btn btn-secondary" onclick="closeLockedModal()">Maybe Later</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ========== DEMO DATA ==========
+const demoActivities = [
+    { id: 1, code: 'ENG', description: 'Engineering', weight: 20, unit: 'LS', plannedQty: 100, actualQty: 85, plannedPct: 100, actualPct: 85 },
+    { id: 2, code: 'PRC', description: 'Procurement', weight: 35, unit: 'LS', plannedQty: 100, actualQty: 70, plannedPct: 80, actualPct: 56 },
+    { id: 3, code: 'CON', description: 'Construction', weight: 35, unit: 'LS', plannedQty: 100, actualQty: 40, plannedPct: 50, actualPct: 20 },
+    { id: 4, code: 'CMO', description: 'Commissioning', weight: 10, unit: 'LS', plannedQty: 100, actualQty: 0, plannedPct: 10, actualPct: 0 }
+];
+
+const demoRisks = [
+    { id: 1, riskId: 'R-001', description: 'Delayed delivery of critical long-lead items', category: 'Schedule', probability: 4, impact: 4, mitigation: 'Expedite shipping, identify alternative suppliers', owner: 'Procurement Mgr' },
+    { id: 2, riskId: 'R-002', description: 'Severe weather impacting construction productivity', category: 'External', probability: 3, impact: 4, mitigation: 'Adjust work shifts, provide weather protection', owner: 'Construction Mgr' },
+    { id: 3, riskId: 'R-003', description: 'Design changes requested by client', category: 'Technical', probability: 3, impact: 3, mitigation: 'Strict change control process, impact analysis', owner: 'Engineering Mgr' },
+    { id: 4, riskId: 'R-004', description: 'Shortage of skilled welders on site', category: 'Resource', probability: 2, impact: 3, mitigation: 'Partner with local training institutes', owner: 'HR Manager' }
+];
+
+let charts = {};
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', () => {
+    loadDemoData();
+});
+
+function loadDemoData() {
+    // Load Activities
+    const tbody = document.getElementById('activitiesBody');
+    tbody.innerHTML = '';
+    demoActivities.forEach((act, idx) => {
+        act.pv = (act.weight * act.plannedPct) / 100;
+        act.ev = (act.weight * act.actualPct) / 100;
+        act.variance = act.ev - act.pv;
+        act.status = act.variance > 0.1 ? 'ahead' : (act.variance < -0.1 ? 'delayed' : 'ontime');
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${act.code}</td>
+            <td>${act.description}</td>
+            <td style="text-align: center;">${act.weight}%</td>
+            <td style="text-align: center;">${act.unit}</td>
+            <td style="text-align: center;">${act.plannedQty}</td>
+            <td style="text-align: center;">${act.actualQty}</td>
+            <td style="text-align: center;">${act.plannedPct}%</td>
+            <td style="text-align: center;">${act.actualPct}%</td>
+            <td class="calculated">${act.ev.toFixed(2)}%</td>
+            <td class="calculated">${act.pv.toFixed(2)}%</td>
+            <td class="calculated" style="color: ${act.variance >= 0 ? 'var(--success)' : 'var(--danger)'}">${act.variance >= 0 ? '+' : ''}${act.variance.toFixed(2)}%</td>
+            <td class="status-${act.status}" style="text-align: center;">${act.status === 'ahead' ? '▲ Ahead' : act.status === 'delayed' ? '▼ Delayed' : '● On Track'}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Load Risks
+    const riskBody = document.getElementById('risksBody');
+    riskBody.innerHTML = '';
+    let counts = { critical: 0, high: 0, medium: 0, low: 0 };
+    
+    demoRisks.forEach((risk, idx) => {
+        const score = risk.probability * risk.impact;
+        let level = '', riskClass = '';
+        if (score >= 20) { level = 'Critical'; riskClass = 'risk-critical'; counts.critical++; }
+        else if (score >= 12) { level = 'High'; riskClass = 'risk-high'; counts.high++; }
+        else if (score >= 6) { level = 'Medium'; riskClass = 'risk-medium'; counts.medium++; }
+        else { level = 'Low'; riskClass = 'risk-low'; counts.low++; }
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${risk.riskId}</td>
+            <td>${risk.description}</td>
+            <td>${risk.category}</td>
+            <td style="text-align: center;">${risk.probability}</td>
+            <td style="text-align: center;">${risk.impact}</td>
+            <td class="calculated">${score}</td>
+            <td class="${riskClass}" style="font-weight: 700; text-align: center;">${level}</td>
+            <td>${risk.mitigation}</td>
+            <td>${risk.owner}</td>
+        `;
+        riskBody.appendChild(tr);
+    });
+
+    document.getElementById('totalRisks').textContent = demoRisks.length;
+    document.getElementById('criticalRisks').textContent = counts.critical;
+    document.getElementById('highRisks').textContent = counts.high;
+    document.getElementById('mediumRisks').textContent = counts.medium;
+    document.getElementById('lowRisks').textContent = counts.low;
+
+    // Render Risk Matrix
+    const matrix = document.getElementById('riskMatrix');
+    matrix.innerHTML = '<div class="risk-cell risk-header">P \\ I</div>';
+    for (let i = 1; i <= 5; i++) matrix.innerHTML += `<div class="risk-cell risk-header">Impact ${i}</div>`;
+    for (let p = 5; p >= 1; p--) {
+        matrix.innerHTML += `<div class="risk-cell risk-header">Prob ${p}</div>`;
+        for (let i = 1; i <= 5; i++) {
+            const score = p * i;
+            let cls = 'risk-low';
+            if (score >= 20) cls = 'risk-critical';
+            else if (score >= 12) cls = 'risk-high';
+            else if (score >= 6) cls = 'risk-medium';
+            const count = demoRisks.filter(r => r.probability === p && r.impact === i).length;
+            matrix.innerHTML += `<div class="risk-cell ${cls}">${count > 0 ? count : ''}</div>`;
+        }
+    }
+
+    // Populate Report Tables
+    const reportBody = document.getElementById('reportBody');
+    reportBody.innerHTML = '';
+    demoActivities.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${a.code}</td>
+            <td>${a.description}</td>
+            <td>${a.weight.toFixed(2)}%</td>
+            <td>${a.plannedPct.toFixed(2)}%</td>
+            <td>${a.actualPct.toFixed(2)}%</td>
+            <td>${a.ev.toFixed(2)}%</td>
+            <td>${a.pv.toFixed(2)}%</td>
+            <td style="color: ${a.variance >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">${a.variance >= 0 ? '+' : ''}${a.variance.toFixed(2)}%</td>
+            <td style="font-weight: 600;">${a.status === 'ahead' ? '▲ Ahead' : a.status === 'delayed' ? '▼ Delayed' : '● On Track'}</td>
+        `;
+        reportBody.appendChild(tr);
+    });
+
+    // Risk Report Summary
+    let riskHTML = `<p><strong>Total Identified Risks:</strong> ${demoRisks.length}</p>`;
+    riskHTML += `<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem;">`;
+    riskHTML += `<div style="background: rgba(231, 76, 60, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #c0392b;">Critical: ${counts.critical}</strong></div>`;
+    riskHTML += `<div style="background: rgba(243, 156, 18, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #d68910;">High: ${counts.high}</strong></div>`;
+    riskHTML += `<div style="background: rgba(52, 152, 219, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #2874a6;">Medium: ${counts.medium}</strong></div>`;
+    riskHTML += `<div style="background: rgba(46, 204, 113, 0.2); padding: 1rem; border-radius: 8px; text-align: center;"><strong style="color: #1e8449;">Low: ${counts.low}</strong></div>`;
+    riskHTML += `</div>`;
+    riskHTML += `<h3 style="margin-top: 1.5rem;">Top Risks:</h3><ul style="padding-left: 1.5rem;">`;
+    demoRisks.slice(0, 3).forEach(r => {
+        const score = r.probability * r.impact;
+        riskHTML += `<li><strong>${r.riskId}</strong> - ${r.description} <span style="color: #666;">(Score: ${score})</span></li>`;
+    });
+    riskHTML += `</ul>`;
+    document.getElementById('rptRiskSummary').innerHTML = riskHTML;
+
+    // Forecast Report
+    const forecastHTML = `<table style="width: 100%;">
+        <tr><td style="width: 50%; font-weight: 600;">Budget at Completion (BAC):</td><td>USD 150,000,000</td></tr>
+        <tr><td style="font-weight: 600;">Estimate at Completion (EAC):</td><td>USD 177,777,778</td></tr>
+        <tr><td style="font-weight: 600;">Estimate to Complete (ETC):</td><td>USD 95,277,778</td></tr>
+        <tr><td style="font-weight: 600;">Variance at Completion (VAC):</td><td style="color: var(--danger);">-USD 27,777,778</td></tr>
+        <tr><td style="font-weight: 600;">Actual Cost to Date (AC):</td><td>USD 82,500,000</td></tr>
+    </table>`;
+    document.getElementById('rptForecast').innerHTML = forecastHTML;
+
+    // Analysis Report
+    const analysisHTML = `<p><strong>Overall Project Status:</strong> The project is <strong style="color: var(--danger);">BEHIND SCHEDULE</strong> by 13.50%.</p>
+    <p><strong>SPI:</strong> 0.78 - CRITICAL: Significant schedule delay.</p>
+    <p><strong>CPI:</strong> 0.85 - CRITICAL: Significant cost overrun.</p>
+    <p><strong>Critical Areas:</strong><ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+        <li><strong>PRC</strong> - Procurement: Variance -8.40%</li>
+        <li><strong>CON</strong> - Construction: Variance -10.50%</li>
+    </ul></p>`;
+    document.getElementById('rptAnalysis').innerHTML = analysisHTML;
+
+    // Recommendations
+    const recHTML = `<ul style="padding-left: 1.5rem;">
+        <li>Implement a recovery schedule and conduct weekly progress reviews.</li>
+        <li>Conduct cost audit and identify cost overrun root causes.</li>
+        <li>Conduct root cause analysis for delayed work packages (Procurement & Construction).</li>
+        <li>Address 1 critical risk(s) immediately with mitigation plans.</li>
+        <li>Project forecasted to exceed budget by >10%. Consider re-baselining.</li>
+        <li>Schedule coordination meeting with all stakeholders.</li>
+    </ul>`;
+    document.getElementById('rptRecommendations').innerHTML = recHTML;
+
+    // Render Charts
+    renderCharts();
+}
+
+function renderCharts() {
+    // S-Curve
+    const sCtx = document.getElementById('sCurveChart').getContext('2d');
+    charts.sCurve = new Chart(sCtx, {
+        type: 'line',
+        data: {
+            labels: demoActivities.map(a => a.code),
+            datasets: [
+                { label: 'Planned Value (PV)', data: demoActivities.map(a => a.pv), borderColor: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', tension: 0.4, fill: true },
+                { label: 'Earned Value (EV)', data: demoActivities.map(a => a.ev), borderColor: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.1)', tension: 0.4, fill: true },
+                { label: 'Actual Cost (AC)', data: [null, null, null, 55], borderColor: '#e74c3c', backgroundColor: 'rgba(231, 76, 60, 0.1)', tension: 0.4, fill: false, pointRadius: 8 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eef7' } } },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { ticks: { color: '#a0aec0', callback: v => v + '%' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } }
+            }
+        }
+    });
+
+    // Variance
+    const vCtx = document.getElementById('varianceChart').getContext('2d');
+    charts.variance = new Chart(vCtx, {
+        type: 'bar',
+        data: {
+            labels: demoActivities.map(a => a.code),
+            datasets: [{
+                label: 'Variance (%)',
+                data: demoActivities.map(a => a.variance),
+                backgroundColor: demoActivities.map(a => a.variance >= 0 ? '#2ecc71' : '#e74c3c')
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eef7' } } },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { ticks: { color: '#a0aec0', callback: v => v + '%' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } }
+            }
+        }
+    });
+
+    // Weight
+    const wCtx = document.getElementById('weightChart').getContext('2d');
+    charts.weight = new Chart(wCtx, {
+        type: 'doughnut',
+        data: {
+            labels: demoActivities.map(a => a.code + ' - ' + a.description),
+            datasets: [{
+                data: demoActivities.map(a => a.weight),
+                backgroundColor: ['#d4af37', '#3498db', '#2ecc71', '#e74c3c']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'right', labels: { color: '#e8eef7', font: { size: 11 } } } }
+        }
+    });
+
+    // Forecast
+    const fCtx = document.getElementById('forecastChart').getContext('2d');
+    charts.forecast = new Chart(fCtx, {
+        type: 'bar',
+        data: {
+            labels: ['BAC', 'EAC', 'AC', 'EV'],
+            datasets: [{
+                label: 'Amount (USD)',
+                data: [150000000, 177777778, 82500000, 69750000],
+                backgroundColor: ['#3498db', '#e74c3c', '#f39c12', '#2ecc71']
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { 
+                legend: { labels: { color: '#e8eef7' } },
+                tooltip: { callbacks: { label: (ctx) => 'USD ' + (ctx.parsed.y / 1000000).toFixed(1) + 'M' } }
+            },
+            scales: {
+                x: { ticks: { color: '#a0aec0' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } },
+                y: { ticks: { color: '#a0aec0', callback: v => 'USD ' + (v/1000000).toFixed(0) + 'M' }, grid: { color: 'rgba(212, 175, 55, 0.1)' } }
+            }
+        }
+    });
+}
+
+// ========== NAVIGATION ==========
+function goToStep(stepNum) {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + stepNum).classList.add('active');
+    
+    document.querySelectorAll('.step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        el.classList.remove('active', 'completed');
+        if (s === stepNum) el.classList.add('active');
+        else if (s < stepNum) el.classList.add('completed');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ========== LOCKED MODAL ==========
+function showLockedModal(featureName) {
+    document.getElementById('lockedMessage').textContent = `The "${featureName}" feature is only available in the full Premium version. Upgrade now to unlock unlimited projects, Excel import/export, and watermark-free PDF reports.`;
+    document.getElementById('lockedModal').classList.add('show');
+}
+
+function closeLockedModal() {
+    document.getElementById('lockedModal').classList.remove('show');
+}
+</script>
+
+</body>
+</html>
