@@ -346,8 +346,22 @@
                 </div>
             </a>
 
+            <!-- ✅ TOOL 9: INTERACTIVE CHECKLIST (FREE) -->
+            <a href="https://sbmousavices.github.io/Industrial-Tools/interactive-checklist.html" class="tool-card">
+                <div>
+                    <i class="fas fa-clipboard-check tool-icon"></i>
+                    <div class="tool-title">Interactive Project Checklist</div>
+                    <div class="tool-desc">Track 50+ critical EPC project control activities. Save progress automatically, add notes, and export professional PDF reports.</div>
+                </div>
+                <div>
+                    <span class="tool-status status-active">Free Tool</span>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                </div>
+            </a>
+
         </div>
     </div>
+
 <!-- دکمه نصب اپلیکیشن -->
 <button id="install-btn" style="display: none; position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%); color: #0a1628; border: none; padding: 14px 28px; border-radius: 50px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); z-index: 9999; font-family: 'Inter', sans-serif; align-items: center; gap: 8px; font-size: 1rem; transition: transform 0.3s;">
     <i class="fas fa-download"></i> Install App
@@ -360,8 +374,9 @@
     // شناسایی قابلیت نصب توسط مرورگر
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault(); 
-        deferredPrompt = e; 
-        installBtn.style.display = 'flex'; // نمایش دکمه
+        deferredPrompt = e;
+        // برای تست: نمایش دائمی دکمه
+        installBtn.style.display = 'flex'; 
     });
 
     // مدیریت کلیک روی دکمه
