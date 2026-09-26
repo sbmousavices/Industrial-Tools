@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MS Project Exam 2026 — Premium Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+:root{--bg-primary:#0a1628;--bg-secondary:#111827;--bg-card:#1e293b;--border-color:rgba(212,175,55,.2);--text-primary:#e8eef7;--text-secondary:#a0aec0;--accent:#d4af37;--accent-light:#f4d06f;--red:#ef4444;--green:#10b981;--blue:#3b82f6;--input-bg:#0f172a;--nav-height:70px;--nav-bg:rgba(10,10,12,.95);--cream:#fdfbf7;}
+*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:Inter,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding-top:70px;padding-bottom:60px;background-image:radial-gradient(circle at top right,rgba(212,175,55,.08),transparent 40%);overflow-x:hidden}
+#network-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--accent);font-weight:700;font-size:1.2rem;cursor:pointer}
+.nav-logo img{width:32px;height:32px;border-radius:50%;border:1px solid var(--accent)}
+.nav-links{display:flex;gap:.8rem;list-style:none;align-items:center}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.btn-signin{display:inline-flex!important;align-items:center;gap:8px;padding:.6rem 1.5rem!important;border:1px solid var(--accent);border-radius:50px;color:var(--accent)!important;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .3s ease;white-space:nowrap}
+.btn-signin:hover{background:var(--accent);color:var(--bg-primary)!important}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+.container{max-width:1400px;margin:auto;padding:0 30px;position:relative;z-index:1}
+.header{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:12px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.header h1{font-size:23px} .header h1 span{color:var(--accent)} .meta{color:var(--text-secondary);font-size:13px;margin-top:6px}
+.actions{display:flex;gap:10px;align-items:center} button{font:inherit}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary{background:var(--accent);color:#000} .btn-primary:hover{background:var(--accent-light);transform:translateY(-1px)}
+.btn-dark{background:transparent;border:1px solid var(--border-color);color:var(--text-secondary)} .btn-dark:hover{color:var(--accent);border-color:var(--accent)}
+.exam-grid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px}
+.panel{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:12px;padding:22px}
+.progress-wrap{height:7px;background:var(--bg-card);border-radius:20px;overflow:hidden;margin:12px 0 20px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#d4af37,#f4d06f);transition:.25s}
+.q-top{display:flex;justify-content:space-between;gap:15px;color:var(--text-secondary);font-size:12px;margin-bottom:15px}
+.domain{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.7px}
+.question{font-size:18px;line-height:1.7;margin-bottom:20px;font-weight:500}
+.options{display:grid;gap:10px}
+.option{background:var(--input-bg);border:1px solid rgba(212,175,55,.18);border-radius:10px;padding:15px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;transition:.2s}
+.option:hover{border-color:var(--accent);background:#121d30} .option.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:rgba(212,175,55,.08)}
+.letter{min-width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--bg-card);color:var(--accent);font-weight:800}
+.option.selected .letter{background:var(--accent);color:#000}
+.nav-q{display:flex;justify-content:space-between;margin-top:20px;gap:10px}
+.side-title{font-size:14px;font-weight:700;margin-bottom:12px} .timer{font-size:28px;font-weight:800;color:var(--accent);text-align:center;margin:8px 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:18px}
+.stat{background:var(--bg-card);padding:10px 5px;text-align:center;border-radius:8px} .stat b{display:block;font-size:18px} .stat span{font-size:10px;color:var(--text-secondary)}
+.palette{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-height:420px;overflow:auto;padding-right:3px}
+.qnum{height:32px;border:1px solid var(--border-color);background:var(--input-bg);color:var(--text-secondary);border-radius:6px;cursor:pointer;font-size:11px}
+.qnum.answered{background:rgba(16,185,129,.18);border-color:var(--green);color:#a7f3d0}
+.qnum.current{outline:2px solid var(--accent);color:var(--accent)}
+.qnum.flagged{background:rgba(239,68,68,.18);border-color:var(--red);color:#fecaca}
+.info{font-size:11px;color:var(--text-secondary);line-height:1.6;margin-top:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:2000;padding:20px; backdrop-filter: blur(5px);}
+.modal.show{display:grid} .modal-card{max-width:760px;width:100%;max-height:90vh;overflow:auto;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:14px;padding:26px}
+.score{font-size:55px;font-weight:800;color:var(--accent);text-align:center} .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.result-box{background:var(--bg-card);padding:15px;border-radius:10px;text-align:center} .result-box b{display:block;font-size:22px}
+.break-banner{display:none;position:fixed;inset:0;background:rgba(10,22,40,.97);z-index:2500;place-items:center;text-align:center;padding:30px}
+.break-banner.show{display:grid} .break-banner h2{font-size:34px;color:var(--accent)} .break-banner p{color:var(--text-secondary);max-width:650px;line-height:1.8;margin:15px auto}
+
+.reg-modal-card { max-width: 500px; text-align: center; }
+.reg-modal-card h2 { color: var(--accent); font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+.reg-modal-card p { color: var(--text-secondary); margin-bottom: 25px; font-size: 0.95rem; }
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label { display: block; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 6px; font-weight: 600; }
+.form-input { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: 1rem; transition: 0.3s; }
+.form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); }
+.photo-upload-area { border: 2px dashed var(--border-color); border-radius: 12px; padding: 20px; cursor: pointer; transition: 0.3s; position: relative; }
+.photo-upload-area:hover { border-color: var(--accent); background: rgba(212, 175, 55, 0.05); }
+.photo-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin: 0 auto 10px; display: none; background: var(--bg-card); }
+.photo-placeholder-icon { font-size: 2rem; color: var(--text-secondary); margin-bottom: 8px; }
+.photo-upload-text { font-size: 0.85rem; color: var(--text-secondary); }
+.photo-upload-text span { color: var(--accent); font-weight: 600; }
+#photoInput { display: none; }
+
+.back-to-tools-wrapper{width:100%;display:flex;justify-content:flex-end;box-sizing:border-box;padding:12px 24px 0;position:relative;z-index:10}
+.back-to-tools{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--accent);border-radius:50px;background:rgba(0,0,0,.25);color:var(--accent);text-decoration:none;font-size:.85rem;font-weight:600;transition:all .3s ease;white-space:nowrap}
+.back-to-tools:hover{background:var(--accent);color:var(--bg-primary);transform:translateY(-1px)}
+
+.exam-control-center{margin:32px 0 20px;background:rgba(17,24,39,.94);border:1px solid var(--border-color);border-radius:14px;padding:18px 20px;box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.control-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.control-left,.control-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn-premium{background:linear-gradient(135deg,#d4af37 0%,#f4d06f 100%);color:#000;border:0;position:relative;overflow:hidden}
+.btn-premium::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-25deg);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{left:-100%}20%{left:200%}100%{left:200%}}
+.btn-premium:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,175,55,.35)}
+.credibility-bar{display:flex;justify-content:center;gap:45px;flex-wrap:wrap;margin:8px 0 18px}
+.cred-item{text-align:center;min-width:105px}
+.cred-number{font-size:1.55rem;font-weight:800;color:var(--accent);display:block}
+.cred-label{font-size:.72rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px}
+.golden-tip-box{background:rgba(212,175,55,.08);border-left:3px solid var(--accent);padding:12px 15px;border-radius:0 8px 8px 0;margin:0 0 18px;font-size:.86rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:10px;animation:fadeIn .5s ease}
+.golden-tip-box i{color:var(--accent);margin-top:3px}.tip-text{transition:opacity .3s ease}
+.exam-shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.shortcut{background:var(--bg-card);border:1px solid var(--border-color);border-radius:9px;padding:12px;cursor:pointer;color:var(--text-primary);text-align:left;transition:.2s}
+.shortcut:hover{border-color:var(--accent);transform:translateY(-1px)}
+.shortcut i{color:var(--accent);margin-right:7px}.shortcut small{display:block;color:var(--text-secondary);margin-top:5px;font-size:10px}
+.easter-egg-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:linear-gradient(135deg,#d4af37,#f4d06f);color:var(--bg-primary);padding:15px 30px;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 10px 30px rgba(212,175,55,.4);z-index:10000;opacity:0;transition:all .5s cubic-bezier(.68,-.55,.27,1.55);display:flex;align-items:center;gap:10px}
+.easter-egg-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+#certificate-render-area { position: absolute; left: -9999px; top: 0; z-index: -1; }
+
+@media(max-width:900px){.exam-grid{grid-template-columns:1fr}.side-panel{order:-1}.exam-shortcuts{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:var(--nav-height);left:0;width:100%;background:var(--nav-bg);padding:20px;border-bottom:1px solid var(--border-color)}.nav-links.active{display:flex}.mobile-menu-btn{display:block}}
+@media(max-width:600px){.container{padding:0 12px}.header{text-align:center;justify-content:center}.question{font-size:16px}.result-grid{grid-template-columns:1fr}.nav-logo span{font-size:.95rem}.back-to-tools-wrapper{padding:10px 14px 0}.back-to-tools{font-size:.8rem;padding:7px 13px}.exam-shortcuts{grid-template-columns:1fr}.credibility-bar{gap:18px}.control-row{justify-content:center}.control-left,.control-right{justify-content:center}.exam-control-center{margin-top:22px}}
+
+.cert-container { position: relative; width: 297mm; height: 210mm; background: var(--cream); padding: 15mm 20mm; box-sizing: border-box; overflow: hidden; color: #0a1628; font-family: 'Inter', sans-serif; }
+.cert-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.04) 0%, transparent 70%); pointer-events: none; z-index: 1; }
+.cert-brand-name { position: absolute; top: 10mm; left: 50%; transform: translateX(-50%); background: var(--cream); color: #0a1628; padding: 5px 25px; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; border: 2px solid #d4af37; border-radius: 4px; z-index: 20; }
+.cert-title { position: absolute; top: 22mm; left: 50%; transform: translateX(-50%); font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #0a1628; letter-spacing: 3px; white-space: nowrap; font-weight: 700; z-index: 20; margin: 0; }
+.cert-logo { position: absolute; top: 20mm; right: 20mm; width: 15mm; height: 15mm; border-radius: 50%; border: 2px solid #d4af37; object-fit: cover; background: #fff; padding: 2px; z-index: 5; }
+.cert-frame { position: absolute; top: 8mm; left: 8mm; right: 8mm; bottom: 8mm; border: 3px double #d4af37; pointer-events: none; z-index: 2; }
+.cert-frame-inner { position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px solid #0a1628; }
+.cert-corner { position: absolute; width: 15mm; height: 15mm; border: 3px solid #d4af37; z-index: 3; }
+.cert-corner-tl { top: 6mm; left: 6mm; border-right: none; border-bottom: none; }
+.cert-corner-tr { top: 6mm; right: 6mm; border-left: none; border-bottom: none; }
+.cert-corner-bl { bottom: 6mm; left: 6mm; border-right: none; border-top: none; }
+.cert-corner-br { bottom: 6mm; right: 6mm; border-left: none; border-top: none; }
+.cert-content { position: relative; z-index: 5; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 30mm; margin-top: 25mm; color: #0a1628; }
+.cert-subtitle { font-size: 1rem; color: #555; margin-bottom: 10px; font-style: italic; font-family: 'Playfair Display', serif; }
+.cert-photo-box { width: 70px; height: 70px; border-radius: 50%; border: 2px dashed #d4af37; display: flex; justify-content: center; align-items: center; margin: 0 auto 8px auto; background: rgba(212, 175, 55, 0.05); overflow: hidden; }
+.cert-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.cert-recipient-name { font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #0a1628; margin: 5px 0 10px 0; border-bottom: 1px solid #d4af37; padding-bottom: 5px; min-width: 40%; max-width: 100%; display: inline-block; word-break: break-word; line-height: 1.1; white-space: normal; }
+.cert-course-text { font-size: 0.9rem; color: #555; margin: 8px 0 5px 0; }
+.cert-course-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #0a1628; font-weight: 700; margin: 5px 0 15px 0; }
+.cert-score-block { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #0a1628; font-weight: 600; margin-top: 5px; background: rgba(212, 175, 55, 0.15); padding: 5px 15px; border-radius: 20px; display: inline-block; border: 1px solid #d4af37; }
+.cert-date-block { text-align: center; font-size: 0.85rem; color: #555; margin-bottom: 10mm; margin-top: 10px; }
+.cert-date-block span { font-weight: 600; color: #0a1628; }
+.cert-footer { display: flex; justify-content: center; align-items: flex-end; width: 100%; padding: 0 30mm; margin-top: auto; margin-bottom: 15mm; }
+.cert-sig-block { text-align: center; width: 180px; }
+.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 25px; }
+.cert-sig-name { font-family: 'Herr Von Muellerhoff', cursive; font-size: 2.8rem; color: #0a1628; line-height: 1; white-space: nowrap; transform: rotate(-2deg); }
+.cert-sig-swoosh { position: absolute; top: -10px; right: -10px; width: 110%; height: 3px; background: #0a1628; border-radius: 50%; transform: rotate(-8deg); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%); opacity: 0.85; pointer-events: none; }
+.cert-sig-title { font-size: 0.7rem; color: #777; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.cert-disclaimer { position: absolute; bottom: 4mm; left: 0; right: 0; text-align: center; font-size: 0.5rem; color: #888; z-index: 10; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<canvas id="network-canvas"></canvas>
+<nav>
+<a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
+<img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+<span>Home</span>
+</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+<li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+<li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+<li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+<li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+<li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+</ul>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="back-to-tools-wrapper">
+<a href="https://sbmousavices.github.io/Industrial-Tools/exam-main-page.html" class="back-to-tools">
+<i class="fas fa-arrow-left"></i>
+<span>Back to Main Page</span>
+</a>
+</div>
+
+<div class="container">
+<div class="credibility-bar">
+  <div class="cred-item"><span class="cred-number" data-target="500">0</span><span class="cred-label">Active Users</span></div>
+  <div class="cred-item"><span class="cred-number" data-target="12">0</span><span class="cred-label">Pro Tools</span></div>
+  <div class="cred-item"><span class="cred-number" data-target="41">0</span><span class="cred-label">Expert Articles</span></div>
+</div>
+
+<section class="exam-control-center" id="examControls">
+  <div class="control-row">
+    <div class="control-left">
+      <button class="btn btn-dark" onclick="scrollToExam()"><i class="fas fa-file-circle-check"></i> Exam</button>
+      <button class="btn btn-dark" onclick="scrollToNavigator()"><i class="fas fa-table-cells"></i> Navigator</button>
+      <button class="btn btn-dark" onclick="showInstructions()"><i class="fas fa-circle-info"></i> Instructions</button>
+    </div>
+    <div class="control-right">
+      <button class="btn btn-dark" onclick="confirmReset()"><i class="fas fa-rotate"></i> Reset</button>
+      <button class="btn btn-premium" onclick="submitExam()"><i class="fas fa-flag-checkered"></i> Submit Exam</button>
+    </div>
+  </div>
+  <div class="exam-shortcuts">
+    <button class="shortcut" onclick="showInstructions()"><i class="fas fa-book-open"></i> Exam Instructions<small>Structure, timing and navigation rules</small></button>
+    <button class="shortcut" onclick="scrollToNavigator()"><i class="fas fa-grip"></i> Question Navigator<small>Jump directly to any question</small></button>
+    <button class="shortcut" onclick="jumpToFlagged()"><i class="fas fa-flag"></i> Review Flagged<small>Go to the next flagged question</small></button>
+    <button class="shortcut" onclick="submitExam()"><i class="fas fa-check-double"></i> Finish Exam<small>Submit and open your performance report</small></button>
+  </div>
+</section>
+
+<header class="header" id="examTop">
+<div><h1><i class="fas fa-chart-gantt" style="color:var(--accent);margin-right:8px"></i>Microsoft <span>Project</span> Exam 2026 — Premium</h1>
+<div class="meta">60 expert-level questions • 90 minutes • Setup / Tasks / Resources / Tracking / Reporting</div></div>
+</header>
+
+<div class="golden-tip-box">
+  <i class="fas fa-lightbulb"></i>
+  <span class="tip-text" id="golden-tip">Loading golden tip...</span>
+</div>
+
+<div class="exam-grid">
+<main class="panel">
+<div class="q-top"><span id="qCounter">Question 1 of 60</span><span class="domain" id="domain">Project Setup</span></div>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div>
+<div class="question" id="question"></div>
+<div class="options" id="options"></div>
+<div class="nav-q">
+<button class="btn btn-dark" onclick="prevQ()"><i class="fas fa-arrow-left"></i> Previous</button>
+<button class="btn btn-dark" id="flagBtn" onclick="toggleFlag()"><i class="far fa-flag"></i> Flag</button>
+<button class="btn btn-primary" onclick="nextQ()">Next <i class="fas fa-arrow-right"></i></button>
+</div>
+</main>
+
+<aside class="panel side-panel" id="questionNavigator">
+<div class="side-title"><i class="fas fa-clock"></i> Remaining Time</div>
+<div class="timer" id="timer">01:30:00</div>
+<div class="stats">
+<div class="stat"><b id="answered">0</b><span>Answered</span></div>
+<div class="stat"><b id="flagged">0</b><span>Flagged</span></div>
+<div class="stat"><b>60</b><span>Total</span></div>
+</div>
+<div class="side-title">Question Navigator</div>
+<div class="palette" id="palette"></div>
+<div class="info">Green = answered • Red = flagged • Gold outline = current question</div>
+<hr style="border:0;border-top:1px solid var(--border-color);margin:18px 0">
+<div class="side-title">Exam Composition</div>
+<div class="info">Setup: 15% • Tasks: 30% • Resources: 25% • Tracking: 20% • Reporting: 10%</div>
+</aside>
+</div>
+</div>
+
+<!-- Premium Registration Modal -->
+<div class="modal show" id="regModal">
+  <div class="modal-card reg-modal-card">
+    <h2><i class="fas fa-crown" style="margin-right: 8px;"></i>Premium Registration</h2>
+    <p>Enter your details to personalize your MS Project Professional Certificate upon passing the exam.</p>
+    <div class="form-group">
+      <label for="userNameInput">Full Name (as it should appear on certificate)</label>
+      <input type="text" id="userNameInput" class="form-input" placeholder="e.g., Behzad Mousavi">
+    </div>
+    <div class="form-group">
+      <label>Profile Photo</label>
+      <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+        <img id="photoPreview" class="photo-preview" alt="Preview">
+        <div id="photoPlaceholder">
+          <i class="fas fa-cloud-upload-alt photo-placeholder-icon"></i>
+          <div class="photo-upload-text">Click to upload photo<br><span>(JPG, PNG)</span></div>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(this)">
+      </div>
+    </div>
+    <button class="btn btn-premium" style="width: 100%; justify-content: center; padding: 14px; font-size: 1.1rem;" onclick="startExam()">
+      <i class="fas fa-play"></i> Start Premium Exam
+    </button>
+  </div>
+</div>
+
+<!-- Results Modal -->
+<div class="modal" id="resultModal">
+<div class="modal-card">
+<h2 style="text-align:center;margin-bottom:5px" id="results">Exam Results</h2>
+<div class="score" id="score">0%</div>
+<p style="text-align:center;color:var(--text-secondary)" id="scoreText"></p>
+<div class="result-grid">
+<div class="result-box"><b id="tasksScore">0%</b><span>Task Management</span></div>
+<div class="result-box"><b id="resourcesScore">0%</b><span>Resource Mgmt</span></div>
+<div class="result-box"><b id="trackingScore">0%</b><span>Tracking & Baselines</span></div>
+</div>
+
+<div id="certDownloadSection" style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color); display: none;">
+  <p style="color: var(--green); font-weight: 600; margin-bottom: 15px;"><i class="fas fa-check-circle"></i> Congratulations! You are eligible for the certificate.</p>
+  <button class="btn btn-premium" onclick="generateCertificatePDF()" style="padding: 12px 24px; font-size: 1rem;">
+    <i class="fas fa-file-pdf"></i> Download Premium Certificate (PDF)
+  </button>
+</div>
+
+<div style="display:flex;gap:10px;justify-content:center; margin-top: 20px;">
+<button class="btn btn-dark" onclick="closeResults()">Review Answers</button>
+<button class="btn btn-dark" onclick="confirmReset()">Start Again</button>
+</div>
+</div>
+</div>
+
+<div class="break-banner" id="breakBanner">
+<div><i class="fas fa-mug-hot" style="font-size:44px;color:var(--accent)"></i><h2>Scheduled Break</h2>
+<p>The MS Project exam includes a 10-minute break at the halfway point. The simulator pauses the timer while you take a break. Continue when you are ready.</p>
+<button class="btn btn-primary" onclick="endBreak()">Continue Exam</button></div>
+</div>
+
+<!-- Hidden Certificate Render Area -->
+<div id="certificate-render-area">
+  <div class="cert-container" id="cert-container">
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo" class="cert-logo">
+    <div class="cert-frame"><div class="cert-frame-inner"></div></div>
+    <div class="cert-corner cert-corner-tl"></div>
+    <div class="cert-corner cert-corner-tr"></div>
+    <div class="cert-corner cert-corner-bl"></div>
+    <div class="cert-corner cert-corner-br"></div>
+    
+    <div class="cert-brand-name">BM Planning</div>
+    <div class="cert-title">CERTIFICATE OF COMPLETION</div>
+
+    <div class="cert-content">
+      <p class="cert-subtitle">This is to certify that</p>
+      <div class="cert-photo-box">
+        <img id="cert-photo-img" src="" alt="Trainee Photo" style="display: none;">
+        <svg id="cert-photo-default" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+
+      <div class="cert-recipient-name" id="cert-recipient-name">[Trainee Full Name]</div>
+      <p class="cert-course-text">has successfully completed the professional training course</p>
+      <div class="cert-course-name">Microsoft Project Professional Mastery 2026</div>
+      
+      <div class="cert-score-block">Achieved Score: <span id="cert-score">[Score]%</span></div>
+      
+      <div class="cert-date-block">
+        Date of Issue: <span id="cert-date">[Month, Day, Year]</span> &nbsp;&nbsp;|&nbsp;&nbsp; Duration: <span>35 Contact Hours</span> &nbsp;&nbsp;|&nbsp;&nbsp; Cert ID: <span id="cert-id">[ID]</span>
+      </div>
+
+      <div class="cert-footer">
+        <div class="cert-sig-block">
+          <div class="cert-sig-wrapper">
+            <div class="cert-sig-name">Behzad Mousavi</div>
+            <div class="cert-sig-swoosh"></div>
+          </div>
+          <div class="cert-sig-title">Director</div>
+          <div class="cert-sig-title">BM Planning</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="cert-disclaimer">
+      Microsoft Project is a registered trademark of Microsoft Corporation. This certificate is issued by BM Planning and is not endorsed by Microsoft.
+    </div>
+  </div>
+</div>
+
+<div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...</div>
+
+<script>
+// --- MS PROJECT QUESTIONS DATA (60 Expert-Level Questions) ---
+const QUESTIONS = [
+{"id":"Q001","domain":"Project Setup","question":"What is the default 'Task Type' for new tasks in Microsoft Project?","options":["Fixed Duration","Fixed Units","Fixed Work","Effort Driven"],"answer":"B"},
+{"id":"Q002","domain":"Project Setup","question":"Before entering any tasks, what is the most critical first step in MS Project?","options":["Assigning resources","Setting the Project Start Date or Finish Date","Creating a baseline","Entering costs"],"answer":"B"},
+{"id":"Q003","domain":"Project Setup","question":"Which calendar type is applied to the entire project by default?","options":["Standard","24 Hours","Night Shift","Resource Calendar"],"answer":"A"},
+{"id":"Q004","domain":"Project Setup","question":"What does the 'New Tasks Start On' option in Project Options control?","options":["The default start date for manually scheduled tasks","The default start date for auto-scheduled tasks","The project start date","The baseline start date"],"answer":"B"},
+{"id":"Q005","domain":"Project Setup","question":"How do you make a specific day a working day in a project calendar?","options":["Change the task type","Select the day and click 'Set Days to Working Time'","Add a resource calendar","Change the project start date"],"answer":"B"},
+{"id":"Q006","domain":"Task Management","question":"What is the difference between 'Auto Scheduled' and 'Manually Scheduled' tasks?","options":["Auto Scheduled tasks are calculated by MSP logic; Manually Scheduled stay where you put them","Manually Scheduled tasks cannot have resources","Auto Scheduled tasks cannot have dependencies","There is no difference"],"answer":"A"},
+{"id":"Q007","domain":"Task Management","question":"What happens to a task's duration if you increase resource units on a 'Fixed Duration' task?","options":["Duration increases","Duration decreases","Work increases, duration stays the same","Work decreases, duration stays the same"],"answer":"D"},
+{"id":"Q008","domain":"Task Management","question":"Which dependency type is the default in Microsoft Project?","options":["Finish-to-Start (FS)","Start-to-Start (SS)","Finish-to-Finish (FF)","Start-to-Finish (SF)"],"answer":"A"},
+{"id":"Q009","domain":"Task Management","question":"What does checking the 'Effort Driven' box do when you add more resources to a task?","options":["Increases the task duration","Decreases the task duration to keep total work constant","Increases the total work","Has no effect"],"answer":"B"},
+{"id":"Q010","domain":"Task Management","question":"What is a 'Summary Task' in MS Project?","options":["A task with zero duration","A task that automatically rolls up the data of its subtasks","A milestone","A critical task"],"answer":"B"},
+{"id":"Q011","domain":"Task Management","question":"How do you create a Milestone in MS Project?","options":["Set duration to 0 days","Check the 'Milestone' box in Task Information","Both A and B","Assign a special resource"],"answer":"C"},
+{"id":"Q012","domain":"Task Management","question":"What does a negative lag (or lead) in a Finish-to-Start relationship mean?","options":["The successor starts after the predecessor finishes","The successor starts before the predecessor finishes","The relationship is invalid","The task is critical"],"answer":"B"},
+{"id":"Q013","domain":"Task Management","question":"Which constraint is applied automatically when you type a specific start date for an 'Auto Scheduled' task?","options":["As Soon As Possible","Start No Earlier Than","Must Start On","As Late As Possible"],"answer":"B"},
+{"id":"Q014","domain":"Task Management","question":"What is the purpose of a 'Deadline' date in MS Project?","options":["It acts as a hard constraint","It generates a warning indicator if the task finishes after this date","It changes the task to a milestone","It prevents the task from being delayed"],"answer":"B"},
+{"id":"Q015","domain":"Task Management","question":"What does the 'Task Mode' column indicate?","options":["Whether the task is Auto Scheduled or Manually Scheduled","The task's priority","The task's cost","The task's resource names"],"answer":"A"},
+{"id":"Q016","domain":"Task Management","question":"How can you indent tasks to create a WBS hierarchy?","options":["Use the 'Indent Task' button on the Task ribbon","Change the task type","Add a dependency","Change the calendar"],"answer":"A"},
+{"id":"Q017","domain":"Task Management","question":"What is a 'Recurring Task' used for?","options":["Tasks that happen multiple times on a regular schedule","Tasks with multiple resources","Tasks on the critical path","Tasks with negative float"],"answer":"A"},
+{"id":"Q018","domain":"Task Management","question":"If a task has a 'Must Finish On' constraint, what happens to its Total Float?","options":["It becomes zero or negative","It increases","It is calculated normally","It is hidden"],"answer":"A"},
+{"id":"Q019","domain":"Task Management","question":"What does the 'WBS' column display by default?","options":["The task name","An outline number representing the task's position in the hierarchy","The resource names","The task duration"],"answer":"B"},
+{"id":"Q020","domain":"Task Management","question":"How do you split a task in MS Project?","options":["Delete and recreate it","Use the 'Split Task' tool on the Task ribbon","Change the task type to Fixed Work","Add a lag"],"answer":"B"},
+{"id":"Q021","domain":"Resource Management","question":"What are the three Resource Types in MS Project?","options":["Labor, Material, Cost","Work, Material, Cost","Human, Equipment, Material","Fixed, Variable, Cost"],"answer":"B"},
+{"id":"Q022","domain":"Resource Management","question":"What does the 'Max Units' field for a Work resource represent?","options":["The total cost of the resource","The maximum percentage or number of units available for work on any given day","The total hours the resource can work","The resource's hourly rate"],"answer":"B"},
+{"id":"Q023","domain":"Resource Management","question":"If a resource is assigned at 100% to two different full-time tasks scheduled at the same time, what happens?","options":["MS Project automatically extends the duration","The resource becomes overallocated (indicated in red)","The tasks are deleted","Nothing, it is normal"],"answer":"B"},
+{"id":"Q024","domain":"Resource Management","question":"What is the primary purpose of the 'Resource Sheet' view?","options":["To assign resources to tasks","To define resource names, types, rates, and calendars","To track actual work","To view the critical path"],"answer":"B"},
+{"id":"Q025","domain":"Resource Management","question":"How does a 'Material' resource behave differently from a 'Work' resource?","options":["Material resources are measured in units (e.g., tons, liters), not time","Material resources have hourly rates","Material resources can be overallocated","Material resources have calendars"],"answer":"A"},
+{"id":"Q026","domain":"Resource Management","question":"What does the 'Leveling Gantt' view show?","options":["The original schedule","The schedule after resource leveling has been applied","Only critical tasks","Only completed tasks"],"answer":"B"},
+{"id":"Q027","domain":"Resource Management","question":"What is the effect of 'Resource Leveling' in MS Project?","options":["It reduces the project scope","It resolves overallocations by delaying or splitting tasks, which may extend the project finish date","It increases resource rates","It deletes non-critical tasks"],"answer":"B"},
+{"id":"Q028","domain":"Resource Management","question":"Which field shows the total cost of a resource based on its rate and assigned work?","options":["Cost","Actual Cost","Remaining Cost","Cumulative Cost"],"answer":"A"},
+{"id":"Q029","domain":"Resource Management","question":"How do you assign a resource to a task quickly?","options":["Type the resource name in the 'Resource Names' column","Use the 'Assign Resources' dialog box","Both A and B","Drag and drop from the calendar"],"answer":"C"},
+{"id":"Q030","domain":"Resource Management","question":"What is a 'Cost Resource' used for?","options":["To pay hourly wages","To capture travel, lodging, or other one-time expenses associated with a task","To define material quantities","To set the project budget"],"answer":"B"},
+{"id":"Q031","domain":"Resource Management","question":"If you change a resource's 'Standard Rate', what happens to existing assignments?","options":["Nothing, rates are locked","The cost of the task is recalculated based on the new rate","The resource is removed","The task duration changes"],"answer":"B"},
+{"id":"Q032","domain":"Resource Management","question":"What does the 'Team Planner' view allow you to do?","options":["View and adjust resource assignments visually over time","Define project calendars","Set baselines","Export to Excel"],"answer":"A"},
+{"id":"Q033","domain":"Resource Management","question":"How can you prevent a resource from being leveled (delayed) during resource leveling?","options":["Delete the resource","Check the 'Leveling can adjust individual assignments on this resource' box to uncheck it, or set Leveling Order to prioritize","Change the resource type to Material","Increase the task duration"],"answer":"B"},
+{"id":"Q034","domain":"Resource Management","question":"What is the formula MS Project uses to calculate Work?","options":["Work = Duration + Units","Work = Duration × Units","Work = Cost / Rate","Work = Duration / Units"],"answer":"B"},
+{"id":"Q035","domain":"Tracking & Baselines","question":"What is the primary purpose of saving a 'Baseline' in MS Project?","options":["To free up memory","To save a snapshot of the original plan (Start, Finish, Duration, Cost, Work) for comparison","To delete old tasks","To change the project calendar"],"answer":"B"},
+{"id":"Q036","domain":"Tracking & Baselines","question":"How many baselines can you save in a single MS Project file?","options":["1","3","5","11 (Baseline through Baseline 10)"],"answer":"D"},
+{"id":"Q037","domain":"Tracking & Baselines","question":"Before updating actual progress, what must you ensure is set correctly?","options":["The project title","The 'Status Date' (or Current Date)","The resource names","The task priorities"],"answer":"B"},
+{"id":"Q038","domain":"Tracking & Baselines","question":"If you enter '50%' in the '% Complete' field, what does MS Project assume?","options":["50% of the duration has passed","50% of the work has been completed","50% of the cost has been spent","Both duration and work are 50% complete (unless effort driven is off)"],"answer":"D"},
+{"id":"Q039","domain":"Tracking & Baselines","question":"What is the difference between '% Complete' and '% Work Complete'?","options":["There is no difference","% Complete is based on duration; % Work Complete is based on actual work hours","% Work Complete is for material resources only","% Complete is for cost only"],"answer":"B"},
+{"id":"Q040","domain":"Tracking & Baselines","question":"How do you mark a task as 100% complete quickly?","options":["Set duration to 0","Check the box in the 'Indicator' column or set % Complete to 100%","Delete the task","Change the task type"],"answer":"B"},
+{"id":"Q041","domain":"Tracking & Baselines","question":"What does the 'Tracking Gantt' view display?","options":["Only the current schedule","Two bars per task: a gray baseline bar and a colored current schedule bar","Only resource assignments","Only critical tasks"],"answer":"B"},
+{"id":"Q042","domain":"Tracking & Baselines","question":"If a task's 'Actual Start' date is later than the 'Baseline Start' date, what will the 'Start Variance' be?","options":["Zero","Negative","Positive","Hidden"],"answer":"C"},
+{"id":"Q043","domain":"Tracking & Baselines","question":"What happens when you 'Update Project' to a specific status date?","options":["It deletes all future tasks","It automatically calculates % Complete and remaining duration for in-progress tasks up to that date","It saves a new baseline","It changes the project start date"],"answer":"B"},
+{"id":"Q044","domain":"Tracking & Baselines","question":"How can you enter actual work hours that differ from the default schedule?","options":["You cannot","Use the 'Task Usage' or 'Resource Usage' view and enter actuals in the timescale grid","Change the baseline","Delete the resource"],"answer":"B"},
+{"id":"Q045","domain":"Tracking & Baselines","question":"What does a red person icon next to a resource name indicate?","options":["The resource is on vacation","The resource is overallocated","The resource has completed all work","The resource has no cost"],"answer":"B"},
+{"id":"Q046","domain":"Tracking & Baselines","question":"If you need to reschedule uncompleted work to start after the Status Date, which feature should you use?","options":["Update Project","Level Resources","Save Baseline","Inspect"],"answer":"A"},
+{"id":"Q047","domain":"Tracking & Baselines","question":"What is the 'Earned Value' method in MS Project used for?","options":["To calculate resource calendars","To measure project performance and progress objectively in terms of scope, schedule, and cost","To assign tasks","To print reports"],"answer":"B"},
+{"id":"Q048","domain":"Tracking & Baselines","question":"In MS Project Earned Value, what does 'BCWS' stand for?","options":["Budgeted Cost of Work Scheduled (Planned Value)","Budgeted Cost of Work Performed (Earned Value)","Actual Cost of Work Performed","Budget at Completion"],"answer":"A"},
+{"id":"Q049","domain":"Tracking & Baselines","question":"If the Schedule Performance Index (SPI) is less than 1.0, what does it mean?","options":["The project is ahead of schedule","The project is behind schedule","The project is exactly on schedule","The project is under budget"],"answer":"B"},
+{"id":"Q050","domain":"Tracking & Baselines","question":"How do you clear actuals from a task if you made a mistake?","options":["Delete the task","Set % Complete to 0% and clear Actual Start/Finish dates","Save a new baseline","You cannot clear actuals"],"answer":"B"},
+{"id":"Q051","domain":"Reporting","question":"Which built-in report provides a high-level visual overview of project tasks, milestones, and progress?","options":["Resource Overview","Project Overview","Upcoming Tasks","Cost Overview"],"answer":"B"},
+{"id":"Q052","domain":"Reporting","question":"How can you customize a visual report in MS Project?","options":["You cannot customize them","Open the report in Excel or Visio and modify it","Change the Windows theme","Edit the MS Project source code"],"answer":"B"},
+{"id":"Q053","domain":"Reporting","question":"What is the best way to share a read-only, non-editable version of your schedule with stakeholders?","options":["Send the .mpp file","Export to PDF or XPS","Print to a dot matrix printer","Copy and paste into Notepad"],"answer":"B"},
+{"id":"Q054","domain":"Reporting","question":"Which view is best for seeing the cost of each resource on a day-by-day or week-by-week basis?","options":["Gantt Chart","Resource Usage","Calendar","Network Diagram"],"answer":"B"},
+{"id":"Q055","domain":"Reporting","question":"What does the 'Dashboard' report category typically include?","options":["Detailed timesheets","Visual charts and graphs summarizing project health (e.g., burndown, cost, work)","List of all resources","Gantt chart only"],"answer":"B"},
+{"id":"Q056","domain":"Advanced Features","question":"What is the purpose of 'Custom Fields' in MS Project?","options":["To change the software language","To store project-specific data (e.g., Risk Level, Location) and use it for filtering/grouping","To delete standard fields","To change the calendar"],"answer":"B"},
+{"id":"Q057","domain":"Advanced Features","question":"How can you group tasks by a specific criterion (e.g., by Resource or by Priority)?","options":["Use the 'Group By' dropdown on the View ribbon","Sort the tasks","Filter the tasks","Change the task type"],"answer":"A"},
+{"id":"Q058","domain":"Advanced Features","question":"What does the 'Inspect' feature do?","options":["Deletes tasks","Shows why a task is scheduled the way it is, including driving predecessors and constraints","Prints the schedule","Assigns resources automatically"],"answer":"B"},
+{"id":"Q059","domain":"Advanced Features","question":"What is a 'Global Template' (Global.mpt) used for?","options":["To store custom views, tables, and calendars so they are available in all new projects","To backup the current project","To calculate earned value","To level resources"],"answer":"A"},
+{"id":"Q060","domain":"Advanced Features","question":"How do you protect an MS Project file from unauthorized changes?","options":["Mark as Final","Use 'Protect Project' to set a password for modifying the file","Hide the file","Change the file extension"],"answer":"B"}
+];
+
+function toggleMobileMenu(){document.getElementById('navLinks').classList.toggle('active');}
+function scrollToExam(){document.getElementById('examTop').scrollIntoView({behavior:'smooth',block:'start'});}
+function scrollToNavigator(){document.getElementById('questionNavigator').scrollIntoView({behavior:'smooth',block:'center'});}
+function showInstructions(){
+  alert("MS Project 2026 Premium Simulator\n\n• Enter your details to generate a personalized certificate.\n• 60 expert-level questions • 90 minutes\n• Setup / Tasks / Resources / Tracking / Reporting\n• Select one answer for each question.\n• Use Flag to mark questions for review.\n• Submit the exam when you are ready to view your performance report and download your certificate.");
+}
+function jumpToFlagged(){
+  const flaggedIndexes=QUESTIONS.map((q,i)=>flags.has(q.id)?i:-1).filter(i=>i>=0);
+  if(!flaggedIndexes.length){alert("There are no flagged questions yet.");return;}
+  const next=flaggedIndexes.find(i=>i>current);
+  current=next!==undefined?next:flaggedIndexes[0];
+  render();
+  scrollToExam();
+}
+
+const goldenTips=[
+"💡 Tip: Always set the Project Start Date before entering any tasks to ensure accurate scheduling.",
+"💡 Tip: Understand the difference between Fixed Units, Fixed Duration, and Fixed Work before assigning resources.",
+"💡 Tip: Save a Baseline before updating any actual progress to enable meaningful variance tracking.",
+"💡 Tip: Use the 'Inspect' feature to understand why a task is scheduled on a specific date."
+];
+let tipIndex=0;
+function rotateGoldenTip(){
+ const el=document.getElementById('golden-tip'); if(!el)return;
+ el.style.opacity=0;
+ setTimeout(()=>{el.textContent=goldenTips[tipIndex];el.style.opacity=1;tipIndex=(tipIndex+1)%goldenTips.length;},250);
+}
+rotateGoldenTip();setInterval(rotateGoldenTip,6000);
+
+function animateCounters(){
+ document.querySelectorAll('.cred-number').forEach(counter=>{
+   const target=Number(counter.dataset.target);let value=0;const step=Math.max(1,Math.ceil(target/100));
+   const timer=setInterval(()=>{
+     value+=step;
+     if(value>=target){value=target;clearInterval(timer);}
+     counter.textContent=value+(target>100?'+':'');
+   },18);
+ });
+}
+animateCounters();
+
+// ===== PREMIUM REGISTRATION LOGIC =====
+let userName = "";
+let userPhotoBase64 = "";
+
+function compressImage(base64, maxSize, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64;
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > height) {
+        if (width > maxSize) { height *= maxSize / width; width = maxSize; }
+      } else {
+        if (height > maxSize) { width *= maxSize / height; height = maxSize; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+  });
+}
+
+async function handlePhotoUpload(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      userPhotoBase64 = await compressImage(e.target.result, 400, 0.8);
+      const preview = document.getElementById('photoPreview');
+      const placeholder = document.getElementById('photoPlaceholder');
+      preview.src = userPhotoBase64;
+      preview.style.display = 'block';
+      placeholder.style.display = 'none';
+      saveExamState();
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function startExam() {
+  const nameInput = document.getElementById('userNameInput').value.trim();
+  if (!nameInput) {
+    alert("Please enter your full name to proceed.");
+    return;
+  }
+  userName = nameInput;
+  saveExamState();
+  document.getElementById('regModal').classList.remove('show');
+  render();
+}
+
+// ===== EXAM STATE MANAGEMENT =====
+let current=0, answers={}, flags=new Set(), remaining=90*60, submitted=false, breakCount=0;
+const $=id=>document.getElementById(id);
+
+function saveExamState(){
+  try{
+    localStorage.setItem('msp2026_premium_state',JSON.stringify({
+      current, answers, flags:[...flags], remaining, breakCount, userName, userPhotoBase64
+    }));
+  }catch(e){}
+}
+
+function loadExamState(){
+  try{
+    const raw=localStorage.getItem('msp2026_premium_state');
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    if(s && typeof s==='object'){
+      current=Math.min(Math.max(Number(s.current)||0,0),QUESTIONS.length-1);
+      answers=s.answers||{};
+      flags=new Set(Array.isArray(s.flags)?s.flags:[]);
+      remaining=Number.isFinite(s.remaining)?Math.max(0,s.remaining):90*60;
+      breakCount=Number(s.breakCount)||0;
+      userName = s.userName || "";
+      userPhotoBase64 = s.userPhotoBase64 || "";
+      
+      if (userName) {
+        document.getElementById('userNameInput').value = userName;
+        if (userPhotoBase64) {
+          document.getElementById('photoPreview').src = userPhotoBase64;
+          document.getElementById('photoPreview').style.display = 'block';
+          document.getElementById('photoPlaceholder').style.display = 'none';
+        }
+        if (submitted) {
+           document.getElementById('regModal').classList.remove('show');
+        }
+      }
+    }
+  }catch(e){}
+}
+
+function render(){
+ const q=QUESTIONS[current];
+ $("qCounter").textContent=`Question ${current+1} of ${QUESTIONS.length}`;
+ $("domain").textContent=q.domain;
+ $("question").textContent=q.question;
+ $("progress").style.width=((current+1)/QUESTIONS.length*100)+"%";
+ $("options").innerHTML=q.options.map((o,i)=>`<div class="option ${answers[q.id]===String.fromCharCode(65+i)?'selected':''}" onclick="choose('${String.fromCharCode(65+i)}')"><span class="letter">${String.fromCharCode(65+i)}</span><span>${escapeHtml(o)}</span></div>`).join("");
+ $("flagBtn").innerHTML=flags.has(q.id)?'<i class="fas fa-flag"></i> Unflag':'<i class="far fa-flag"></i> Flag';
+ renderPalette(); updateStats();
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function choose(v){answers[QUESTIONS[current].id]=v;saveExamState();render();}
+function nextQ(){if(current<QUESTIONS.length-1){current++;saveExamState();render();}else submitExam();}
+function prevQ(){if(current>0){current--;saveExamState();render();}}
+function toggleFlag(){let id=QUESTIONS[current].id;flags.has(id)?flags.delete(id):flags.add(id);saveExamState();render();}
+function renderPalette(){$("palette").innerHTML=QUESTIONS.map((q,i)=>`<button class="qnum ${answers[q.id]?'answered ':''}${flags.has(q.id)?'flagged ':''}${i===current?'current':''}" onclick="current=${i};render()">${i+1}</button>`).join("")}
+function updateStats(){$("answered").textContent=Object.keys(answers).length;$("flagged").textContent=flags.size}
+function formatTime(s){let h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return [h,m,sec].map((x,i)=>String(x).padStart(i?2:2,'0')).join(':')}
+function tick(){if(submitted||document.getElementById("breakBanner").classList.contains("show"))return;if(remaining<=0){submitExam();return}remaining--;saveExamState();$("timer").textContent=formatTime(remaining);
+ const elapsed=90*60-remaining;
+ if((elapsed===45*60)&&breakCount<1){breakCount++;$("breakBanner").classList.add("show");}
+}
+function endBreak(){$("breakBanner").classList.remove("show")}
+function confirmReset(){if(confirm("Reset this exam and clear all data?")){localStorage.removeItem("msp2026_premium_state");location.reload()}}
+
+function submitExam(){
+ if(submitted)return;
+ submitted=true;
+ let correct=0, by={Tasks:[0,0],Resources:[0,0],Tracking:[0,0]};
+ QUESTIONS.forEach(q=>{
+   let ok=answers[q.id]===q.answer;
+   if(ok)correct++;
+   if(q.domain==="Task Management" || q.domain==="Project Setup"){by.Tasks[1]++;if(ok)by.Tasks[0]++;}
+   else if(q.domain==="Resource Management"){by.Resources[1]++;if(ok)by.Resources[0]++;}
+   else if(q.domain==="Tracking & Baselines" || q.domain==="Reporting" || q.domain==="Advanced Features"){by.Tracking[1]++;if(ok)by.Tracking[0]++;}
+ });
+ let pct=Math.round(correct/QUESTIONS.length*100);
+ $("score").textContent=pct+"%";
+ $("scoreText").textContent=`${correct} of ${QUESTIONS.length} questions answered correctly.`;
+ $("tasksScore").textContent=by.Tasks[1]?Math.round(by.Tasks[0]/by.Tasks[1]*100)+"%":"N/A";
+ $("resourcesScore").textContent=by.Resources[1]?Math.round(by.Resources[0]/by.Resources[1]*100)+"%":"N/A";
+ $("trackingScore").textContent=by.Tracking[1]?Math.round(by.Tracking[0]/by.Tracking[1]*100)+"%":"N/A";
+ 
+ if (pct >= 70) {
+   document.getElementById('certDownloadSection').style.display = 'block';
+ } else {
+   document.getElementById('certDownloadSection').style.display = 'none';
+   $("scoreText").innerHTML += `<br><span style="color:var(--red); font-size: 0.9rem;">(Minimum 70% required for certificate)</span>`;
+ }
+ 
+ $("resultModal").classList.add("show");
+ saveExamState();
+}
+
+function closeResults(){$("resultModal").classList.remove("show");}
+
+// ===== CERTIFICATE PDF GENERATION =====
+async function generateCertificatePDF() {
+  const btn = document.querySelector('#certDownloadSection button');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+  btn.disabled = true;
+
+  try {
+    document.getElementById('cert-recipient-name').textContent = userName || 'Trainee Name';
+    const currentScore = document.getElementById('score').textContent;
+    document.getElementById('cert-score').textContent = currentScore;
+
+    const certId = "MSP-" + new Date().getFullYear() + "-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+    document.getElementById('cert-id').textContent = certId;
+
+    const photoImg = document.getElementById('cert-photo-img');
+    const photoDefault = document.getElementById('cert-photo-default');
+    if (userPhotoBase64) {
+      photoImg.src = userPhotoBase64;
+      photoImg.style.display = 'block';
+      photoDefault.style.display = 'none';
+    } else {
+      photoImg.style.display = 'none';
+      photoDefault.style.display = 'block';
+    }
+
+    const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('cert-date').textContent = today;
+
+    const certArea = document.getElementById('certificate-render-area');
+    certArea.style.left = '0';
+    certArea.style.top = '0';
+    certArea.style.zIndex = '-1';
+
+    await document.fonts.ready;
+    await new Promise(r => setTimeout(r, 300));
+
+    const canvas = await html2canvas(document.getElementById('cert-container'), {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#fdfbf7',
+      width: 1122,
+      height: 793
+    });
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('l', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgData = canvas.toDataURL('image/png');
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+    const safeFileName = (userName || 'Trainee').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    pdf.save(`${safeFileName}_MS_Project_Certificate.pdf`);
+
+  } catch (error) {
+    console.error("Certificate generation failed:", error);
+    alert("An error occurred while generating the PDF. Please try again.");
+  } finally {
+    document.getElementById('certificate-render-area').style.left = '-9999px';
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+// Easter egg
+const logoTrigger=document.getElementById('easter-egg-trigger');
+const toast=document.getElementById('easter-toast');
+let eggClicks=0,lastEggClick=0;
+if(logoTrigger){
+ logoTrigger.addEventListener('click',e=>{
+   const now=Date.now();
+   eggClicks=(now-lastEggClick<800)?eggClicks+1:1;lastEggClick=now;
+   if(eggClicks>=5){
+     e.preventDefault();eggClicks=0;
+     toast.classList.add('show');
+     setTimeout(()=>{window.location.href="https://sbmousavices.github.io/Community-Hub/hub.html";},1800);
+   }
+ });
+}
+
+// Initialize
+loadExamState();
+$("timer").textContent=formatTime(remaining);
+setInterval(tick,1000);
+
+// Network background
+const canvas=$("network-canvas"),ctx=canvas.getContext("2d");let ps=[],mouse={x:null,y:null};
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;ps=Array.from({length:Math.min(60,Math.floor(innerWidth*innerHeight/15000))},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,s:Math.random()*2+1}))}
+addEventListener("resize",resize);addEventListener("mousemove",e=>{mouse.x=e.clientX;mouse.y=e.clientY});resize();
+function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);ps.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.fillStyle="rgba(212,175,55,.5)";ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,Math.PI*2);ctx.fill();ps.slice(i+1).forEach(n=>{let d=Math.hypot(p.x-n.x,p.y-n.y);if(d<120){ctx.strokeStyle=`rgba(212,175,55,${.15-d/800})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(n.x,n.y);ctx.stroke()}})});requestAnimationFrame(anim)}anim();
+</script>
+</body>
+</html>
