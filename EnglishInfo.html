@@ -621,6 +621,26 @@ transform: scale(1.1);
 .hero-text .greeting { color: var(--accent); font-size: 1rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: fadeInUp 0.8s forwards; }
 .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; opacity: 0; animation: fadeInUp 0.8s 0.2s forwards; }
 .hero-text h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ✅ NEW: PMP BADGE STYLE (Much smaller, superscript, gold gradient) */
+.hero-text h1 .pmp-badge {
+    font-size: 0.35em;
+    vertical-align: baseline;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    margin-left: 8px;
+    letter-spacing: 1px;
+}
+@media (max-width: 768px) {
+    .hero-text h1 .pmp-badge {
+        font-size: 0.25em;
+        margin-left: 5px;
+    }
+}
+
 .hero-text .tagline { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; opacity: 0; animation: fadeInUp 0.8s 0.4s forwards; }
 /* ✅ TYPING EFFECT STYLES */
 .typing-container {
@@ -1817,7 +1837,8 @@ Home
 <div class="hero-content">
 <div class="hero-text">
 <p class="greeting">Professional Portfolio</p>
-<h1>Behzad <span>Mousavi</span></h1>
+<!-- ✅ MODIFIED: Added PMP badge with smaller size -->
+<h1>Behzad <span>Mousavi</span> <span class="pmp-badge">PMP</span></h1>
 <!-- ✅ TYPING EFFECT CONTAINER -->
 <div class="typing-container">
 Planning & Project Control Manager<br>
