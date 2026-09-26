@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--bg-primary:#0a1628;--bg-secondary:#111827;--bg-card:#1e293b;--border-color:rgba(212,175,55,.2);--text-primary:#e8eef7;--text-secondary:#a0aec0;--accent:#d4af37;--accent-light:#f4d06f;--red:#ef4444;--green:#10b981;--blue:#3b82f6;--input-bg:#0f172a;--nav-height:70px;--nav-bg:rgba(10,10,12,.95)}
+:root{--bg-primary:#0a1628;--bg-secondary:#111827;--bg-card:#1e293b;--border-color:rgba(212,175,55,.2);--text-primary:#e8eef7;--text-secondary:#a0aec0;--accent:#d4af37;--accent-light:#f4d06f;--red:#ef4444;--green:#10b981;--blue:#3b82f6;--input-bg:#0f172a;--nav-height:70px;--nav-bg:rgba(10,10,12,.95);--gradient: linear-gradient(135deg, #d4af37 0%, #f4d06f 100%);}
 *{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:Inter,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding-top:70px;padding-bottom:60px;background-image:radial-gradient(circle at top right,rgba(212,175,55,.08),transparent 40%);overflow-x:hidden}
 #network-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
@@ -56,10 +56,38 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 .break-banner.show{display:grid} .break-banner h2{font-size:34px;color:var(--accent)} .break-banner p{color:var(--text-secondary);max-width:650px;line-height:1.8;margin:15px auto}
 
 /* ===== Back to Engineering Tools (outside exam container) ===== */
-.back-to-tools-wrapper{width:100%;display:flex;justify-content:flex-end;box-sizing:border-box;padding:12px 24px 0;position:relative;z-index:10}
+.back-to-tools-wrapper{width:100%;display:flex;justify-content:flex-end;box-sizing:border-box;padding:12px 24px 0;position:relative;z-index:10; gap: 12px; flex-wrap: wrap;}
 .back-to-tools{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--accent);border-radius:50px;background:rgba(0,0,0,.25);color:var(--accent);text-decoration:none;font-size:.85rem;font-weight:600;transition:all .3s ease;white-space:nowrap}
 .back-to-tools:hover{background:var(--accent);color:var(--bg-primary);transform:translateY(-1px)}
-@media(max-width:600px){.back-to-tools-wrapper{padding:10px 14px 0}.back-to-tools{font-size:.8rem;padding:7px 13px}}
+
+/* ===== Get Premium Button ===== */
+.btn-get-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 50px;
+  background: var(--gradient);
+  color: var(--bg-primary);
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 700;
+  transition: all .3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+.btn-get-premium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.5);
+  filter: brightness(1.1);
+}
+
+@media(max-width:600px){
+  .back-to-tools-wrapper{padding:10px 14px 0; justify-content: center;}
+  .back-to-tools{font-size:.8rem;padding:7px 13px}
+  .btn-get-premium{font-size:.8rem;padding:7px 13px}
+}
 
 /* ===== Engineering Tools Hub Feature Layer ===== */
 .exam-control-center{margin:32px 0 20px;background:rgba(17,24,39,.94);border:1px solid var(--border-color);border-radius:14px;padding:18px 20px;box-shadow:0 12px 35px rgba(0,0,0,.18)}
@@ -114,12 +142,16 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
-<!-- Back to Engineering Tools - positioned outside the exam container -->
+<!-- Back to Engineering Tools & Get Premium - positioned outside the exam container -->
 <div class="back-to-tools-wrapper">
-<a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools">
-<i class="fas fa-arrow-left"></i>
-<span>Back to Eng. Tools</span>
-</a>
+  <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools">
+    <i class="fas fa-arrow-left"></i>
+    <span>Back to Eng. Tools</span>
+  </a>
+  <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-PMP-PRO-017" class="btn-get-premium">
+    <i class="fas fa-crown"></i>
+    <span>Get the Premium</span>
+  </a>
 </div>
 
 <div class="container">
