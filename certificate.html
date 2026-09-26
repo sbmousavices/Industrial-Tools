@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BM Planning - Certificate of Completion</title>
+<!-- فونت‌های کلاسیک و حرفه‌ای بین‌المللی -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Great+Vibes&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --gold: #d4af37;
+    --gold-light: #f4d06f;
+    --cream: #fdfbf7;
+  }
+  
+  body {
+    background: #eef2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .certificate-container {
+    position: relative;
+    width: 297mm;
+    height: 210mm;
+    background: var(--cream);
+    padding: 15mm;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .certificate-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* نام موسسه: بالاترین نقطه، وسط‌چین */
+  .brand-name {
+    position: absolute;
+    top: 12mm;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cream); /* همرنگ پس‌زمینه برای خوانایی بهتر */
+    color: var(--navy);
+    padding: 6px 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    z-index: 20;
+  }
+
+  /* عنوان اصلی گواهی: زیر نام موسسه */
+  .certificate-title {
+    position: absolute;
+    top: 26mm; /* فاصله مناسب از نام موسسه */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--navy);
+    letter-spacing: 3px;
+    white-space: nowrap;
+    font-weight: 700;
+    z-index: 20;
+    margin: 0;
+  }
+
+  .logo {
+    position: absolute;
+    top: 25mm;
+    right: 25mm;
+    width: 18mm;
+    height: 18mm;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    object-fit: cover;
+    background: #fff;
+    padding: 2px;
+    z-index: 5;
+  }
+
+  .frame {
+    position: absolute;
+    top: 10mm;
+    left: 10mm;
+    right: 10mm;
+    bottom: 10mm;
+    border: 3px double var(--gold);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .frame-inner {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid var(--navy);
+  }
+
+  .corner {
+    position: absolute;
+    width: 20mm;
+    height: 20mm;
+    border: 3px solid var(--gold);
+    z-index: 3;
+  }
+  .corner-tl { top: 8mm; left: 8mm; border-right: none; border-bottom: none; }
+  .corner-tr { top: 8mm; right: 8mm; border-left: none; border-bottom: none; }
+  .corner-bl { bottom: 8mm; left: 8mm; border-right: none; border-top: none; }
+  .corner-br { bottom: 8mm; right: 8mm; border-left: none; border-top: none; }
+
+  .content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40mm;
+    margin-top: 35mm; /* فاصله از بالا برای جلوگیری از تداخل با عنوان اصلی */
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 15px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .photo-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px dashed var(--gold);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px auto;
+    background: rgba(212, 175, 55, 0.05);
+    color: var(--gold);
+  }
+  .photo-placeholder span {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .recipient-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8rem;
+    color: var(--navy);
+    margin: 5px 0 15px 0;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 5px;
+    min-width: 50%;
+    display: inline-block;
+  }
+
+  .course-text {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0 5px 0;
+  }
+
+  .course-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--navy);
+    font-weight: 700;
+    margin: 5px 0 20px 0;
+  }
+
+  .date-block {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 15mm;
+  }
+  .date-block span {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    padding-right: 10mm;
+    padding-bottom: 22mm;
+  }
+
+  .signature-block {
+    text-align: center;
+    width: 220px;
+  }
+
+  .signature-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 35px;
+  }
+
+  .signature-name {
+    font-family: 'Herr Von Muellerhoff', cursive;
+    font-size: 3.2rem;
+    color: var(--navy);
+    line-height: 1;
+    white-space: nowrap;
+    transform: rotate(-2deg); 
+  }
+
+  .signature-swoosh {
+    position: absolute;
+    top: -12px; 
+    right: -15px;
+    width: 110%;
+    height: 3px;
+    background: var(--navy);
+    border-radius: 50%;
+    transform: rotate(-8deg);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .signature-title {
+    font-size: 0.75rem;
+    color: #777;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  
+  @media print {
+    body { 
+      background: white; 
+      margin: 0;
+      padding: 0;
+    }
+    .certificate-container { 
+      box-shadow: none; 
+      width: 297mm;
+      height: 210mm;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="certificate-container">
+    
+    <!-- لوگوی موسسه (گوشه بالا سمت راست) -->
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo" class="logo">
+
+    <!-- نام موسسه و عنوان اصلی (خارج از content برای کنترل دقیق موقعیت) -->
+    <div class="brand-name">BM Planning</div>
+    <div class="certificate-title">CERTIFICATE OF COMPLETION</div>
+
+    <!-- کادر تزئینی -->
+    <div class="frame">
+      <div class="frame-inner"></div>
+    </div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- محتوای اصلی گواهی -->
+    <div class="content">
+      
+      <p class="subtitle">This is to certify that</p>
+      
+      <!-- جایگاه عکس کارآموز -->
+      <div class="photo-placeholder">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>Photo</span>
+      </div>
+
+      <div class="recipient-name">[Trainee Full Name]</div>
+      
+      <p class="course-text">has successfully completed the professional training course</p>
+      <div class="course-name">[Course / Program Name]</div>
+      
+      <div class="date-block">
+        Date of Issue: <span>[Month, Day, Year]</span> &nbsp;&nbsp;|&nbsp;&nbsp; Duration: <span>[XX Hours]</span>
+      </div>
+
+      <!-- فوتر با امضا در سمت راست و داخل کادر -->
+      <div class="footer">
+        <div class="signature-block">
+          <div class="signature-wrapper">
+            <div class="signature-name">Behzad Mousavi</div>
+            <div class="signature-swoosh"></div>
+          </div>
+          <div class="signature-title">Director</div>
+          <div class="signature-title">BM Planning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
