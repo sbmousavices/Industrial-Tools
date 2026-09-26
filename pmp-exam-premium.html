@@ -105,7 +105,7 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 .easter-egg-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* ===== Hidden Certificate Container for PDF Generation ===== */
+/* ===== Hidden Certificate Container for PDF Generation (OPTIMIZED FOR A4) ===== */
 #certificate-render-area {
   position: absolute;
   left: -9999px;
@@ -117,13 +117,13 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 @media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:var(--nav-height);left:0;width:100%;background:var(--nav-bg);padding:20px;border-bottom:1px solid var(--border-color)}.nav-links.active{display:flex}.mobile-menu-btn{display:block}}
 @media(max-width:600px){.container{padding:0 12px}.header{text-align:center;justify-content:center}.question{font-size:16px}.result-grid{grid-template-columns:1fr}.nav-logo span{font-size:.95rem}.back-to-tools-wrapper{padding:10px 14px 0}.back-to-tools{font-size:.8rem;padding:7px 13px}.exam-shortcuts{grid-template-columns:1fr}.credibility-bar{gap:18px}.control-row{justify-content:center}.control-left,.control-right{justify-content:center}.exam-control-center{margin-top:22px}}
 
-/* Certificate Specific Styles (Scoped) */
+/* Certificate Specific Styles (Scoped & Optimized for A4 Landscape) */
 .cert-container {
   position: relative;
   width: 297mm;
   height: 210mm;
   background: var(--cream);
-  padding: 15mm;
+  padding: 15mm 20mm;
   box-sizing: border-box;
   overflow: hidden;
   color: #0a1628;
@@ -139,14 +139,14 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-brand-name {
   position: absolute;
-  top: 12mm;
+  top: 10mm;
   left: 50%;
   transform: translateX(-50%);
   background: var(--cream);
   color: #0a1628;
-  padding: 6px 30px;
+  padding: 5px 25px;
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -156,11 +156,11 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-title {
   position: absolute;
-  top: 26mm;
+  top: 22mm;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   color: #0a1628;
   letter-spacing: 3px;
   white-space: nowrap;
@@ -170,10 +170,10 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-logo {
   position: absolute;
-  top: 25mm;
-  right: 25mm;
-  width: 18mm;
-  height: 18mm;
+  top: 20mm;
+  right: 20mm;
+  width: 15mm;
+  height: 15mm;
   border-radius: 50%;
   border: 2px solid #d4af37;
   object-fit: cover;
@@ -183,26 +183,26 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-frame {
   position: absolute;
-  top: 10mm; left: 10mm; right: 10mm; bottom: 10mm;
+  top: 8mm; left: 8mm; right: 8mm; bottom: 8mm;
   border: 3px double #d4af37;
   pointer-events: none;
   z-index: 2;
 }
 .cert-frame-inner {
   position: absolute;
-  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
   border: 1px solid #0a1628;
 }
 .cert-corner {
   position: absolute;
-  width: 20mm; height: 20mm;
+  width: 15mm; height: 15mm;
   border: 3px solid #d4af37;
   z-index: 3;
 }
-.cert-corner-tl { top: 8mm; left: 8mm; border-right: none; border-bottom: none; }
-.cert-corner-tr { top: 8mm; right: 8mm; border-left: none; border-bottom: none; }
-.cert-corner-bl { bottom: 8mm; left: 8mm; border-right: none; border-top: none; }
-.cert-corner-br { bottom: 8mm; right: 8mm; border-left: none; border-top: none; }
+.cert-corner-tl { top: 6mm; left: 6mm; border-right: none; border-bottom: none; }
+.cert-corner-tr { top: 6mm; right: 6mm; border-left: none; border-bottom: none; }
+.cert-corner-bl { bottom: 6mm; left: 6mm; border-right: none; border-top: none; }
+.cert-corner-br { bottom: 6mm; right: 6mm; border-left: none; border-top: none; }
 .cert-content {
   position: relative;
   z-index: 5;
@@ -212,25 +212,25 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 40mm;
-  margin-top: 35mm;
+  padding: 0 30mm;
+  margin-top: 25mm;
   color: #0a1628;
 }
 .cert-subtitle {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #555;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-style: italic;
   font-family: 'Playfair Display', serif;
 }
 .cert-photo-box {
-  width: 90px; height: 90px;
+  width: 70px; height: 70px;
   border-radius: 50%;
   border: 2px dashed #d4af37;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 8px auto;
   background: rgba(212, 175, 55, 0.05);
   overflow: hidden;
 }
@@ -240,53 +240,54 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-recipient-name {
   font-family: 'Great Vibes', cursive;
-  font-size: 3.8rem;
+  font-size: 3.2rem;
   color: #0a1628;
-  margin: 5px 0 15px 0;
+  margin: 5px 0 10px 0;
   border-bottom: 1px solid #d4af37;
   padding-bottom: 5px;
-  min-width: 50%;
+  min-width: 40%;
   max-width: 100%;
   display: inline-block;
   word-break: break-word;
   line-height: 1.1;
   white-space: normal;
 }
-.cert-course-text { font-size: 1rem; color: #555; margin: 10px 0 5px 0; }
+.cert-course-text { font-size: 0.9rem; color: #555; margin: 8px 0 5px 0; }
 .cert-course-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #0a1628;
   font-weight: 700;
-  margin: 5px 0 20px 0;
+  margin: 5px 0 15px 0;
 }
 .cert-score-block {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #0a1628;
   font-weight: 600;
-  margin-top: 10px;
+  margin-top: 5px;
   background: rgba(212, 175, 55, 0.15);
-  padding: 6px 20px;
+  padding: 5px 15px;
   border-radius: 20px;
   display: inline-block;
   border: 1px solid #d4af37;
 }
-.cert-date-block { text-align: center; font-size: 0.95rem; color: #555; margin-bottom: 15mm; }
+.cert-date-block { text-align: center; font-size: 0.85rem; color: #555; margin-bottom: 10mm; margin-top: 10px; }
 .cert-date-block span { font-weight: 600; color: #0a1628; }
 .cert-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-end;
   width: 100%;
-  padding-right: 10mm;
-  padding-bottom: 22mm;
+  padding: 0 30mm;
+  margin-top: auto;
+  margin-bottom: 15mm;
 }
-.cert-sig-block { text-align: center; width: 220px; }
-.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 35px; }
+.cert-sig-block { text-align: center; width: 180px; }
+.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 25px; }
 .cert-sig-name {
   font-family: 'Herr Von Muellerhoff', cursive;
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   color: #0a1628;
   line-height: 1;
   white-space: nowrap;
@@ -294,7 +295,7 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-sig-swoosh {
   position: absolute;
-  top: -12px; right: -15px;
+  top: -10px; right: -10px;
   width: 110%; height: 3px;
   background: #0a1628;
   border-radius: 50%;
@@ -304,14 +305,14 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   opacity: 0.85;
   pointer-events: none;
 }
-.cert-sig-title { font-size: 0.75rem; color: #777; margin-top: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.cert-sig-title { font-size: 0.7rem; color: #777; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
 .cert-disclaimer {
   position: absolute;
-  bottom: 6mm;
+  bottom: 4mm;
   left: 0;
   right: 0;
   text-align: center;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: #888;
   z-index: 10;
   font-family: 'Inter', sans-serif;
@@ -720,7 +721,7 @@ function submitExam(){
 
 function closeResults(){$("resultModal").classList.remove("show");}
 
-// ===== CERTIFICATE PDF GENERATION =====
+// ===== CERTIFICATE PDF GENERATION (OPTIMIZED FOR 100% A4 SCALE) =====
 async function generateCertificatePDF() {
   const btn = document.querySelector('#certDownloadSection button');
   const originalText = btn.innerHTML;
@@ -759,24 +760,27 @@ async function generateCertificatePDF() {
     certArea.style.top = '0';
     certArea.style.zIndex = '-1';
 
-    // 🐛 FIX: Wait for fonts to load completely to prevent fallback fonts in PDF
+    // Wait for fonts to load completely to prevent fallback fonts in PDF
     await document.fonts.ready;
     await new Promise(r => setTimeout(r, 300)); // Small delay to ensure DOM repaint
 
-    // 3. Capture with html2canvas
+    // 3. Capture with html2canvas (EXACT A4 LANDSCAPE PIXEL DIMENSIONS)
     const canvas = await html2canvas(document.getElementById('cert-container'), {
-      scale: 3, // High resolution for print
+      scale: 2, // Optimal balance of quality and file size
       useCORS: true,
-      backgroundColor: '#fdfbf7'
+      backgroundColor: '#fdfbf7',
+      width: 1122,  // Exact A4 landscape width in pixels (297mm at 96 DPI)
+      height: 793   // Exact A4 landscape height in pixels (210mm at 96 DPI)
     });
 
     // 4. Generate PDF
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('l', 'mm', 'a4'); // Landscape, millimeters, A4
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const pdfWidth = pdf.internal.pageSize.getWidth(); // 297
+    const pdfHeight = pdf.internal.pageSize.getHeight(); // 210
     const imgData = canvas.toDataURL('image/png');
     
+    // Force image to exactly match PDF page dimensions (100% scale)
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     
     const safeFileName = (userName || 'Trainee').replace(/[^a-z0-9]/gi, '_').toLowerCase();
