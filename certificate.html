@@ -6,6 +6,9 @@
 <title>BM Planning - Certificate of Completion</title>
 <!-- فونت‌های کلاسیک و حرفه‌ای بین‌المللی -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Great+Vibes&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
+<!-- اضافه کردن Font Awesome برای آیکون دکمه -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
   :root {
     --navy: #0a1628;
@@ -17,16 +20,44 @@
   body {
     background: #eef2f5;
     display: flex;
+    flex-direction: column; /* چیدمان ستونی برای قرار گرفتن دکمه بالای گواهینامه */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px; /* فاصله از لبه‌ها در صفحات کوچک */
     font-family: 'Inter', sans-serif;
+  }
+
+  /* استایل دکمه بازگشت به خرید */
+  .back-to-purchase-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: var(--navy);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 25px; /* فاصله از کادر گواهینامه */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .back-to-purchase-btn:hover {
+    background: var(--gold);
+    color: var(--navy);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
   }
 
   .certificate-container {
     position: relative;
     width: 297mm;
+    max-width: 100%; /* ریسپانسیو شدن در صفحات کوچک */
     height: 210mm;
     background: var(--cream);
     padding: 15mm;
@@ -261,6 +292,9 @@
       margin: 0;
       padding: 0;
     }
+    .back-to-purchase-btn { 
+      display: none !important; /* مخفی کردن دکمه در هنگام پرینت یا ذخیره PDF */
+    }
     .certificate-container { 
       box-shadow: none; 
       width: 297mm;
@@ -268,9 +302,39 @@
       page-break-after: always;
     }
   }
+
+  /* ریسپانسیو برای موبایل */
+  @media (max-width: 768px) {
+    .certificate-container {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 297 / 210;
+      padding: 10mm;
+    }
+    .certificate-title {
+      font-size: 1.8rem;
+      top: 22mm;
+    }
+    .brand-name {
+      font-size: 0.9rem;
+      top: 10mm;
+      padding: 4px 20px;
+    }
+    .recipient-name {
+      font-size: 2.5rem;
+    }
+    .course-name {
+      font-size: 1.3rem;
+    }
+  }
 </style>
 </head>
 <body>
+
+  <!-- دکمه بازگشت به خرید (خارج از کادر گواهینامه) -->
+  <a href="https://sbmousavices.github.io/Industrial-Tools/index.html#BM-PMP-PRO-017" class="back-to-purchase-btn">
+    <i class="fas fa-arrow-left"></i> Back to Purchase
+  </a>
 
   <div class="certificate-container">
     
