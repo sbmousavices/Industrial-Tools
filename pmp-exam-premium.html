@@ -246,7 +246,11 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   border-bottom: 1px solid #d4af37;
   padding-bottom: 5px;
   min-width: 50%;
+  max-width: 100%;
   display: inline-block;
+  word-break: break-word;
+  line-height: 1.1;
+  white-space: normal;
 }
 .cert-course-text { font-size: 1rem; color: #555; margin: 10px 0 5px 0; }
 .cert-course-name {
@@ -255,6 +259,18 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   color: #0a1628;
   font-weight: 700;
   margin: 5px 0 20px 0;
+}
+.cert-score-block {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #0a1628;
+  font-weight: 600;
+  margin-top: 10px;
+  background: rgba(212, 175, 55, 0.15);
+  padding: 6px 20px;
+  border-radius: 20px;
+  display: inline-block;
+  border: 1px solid #d4af37;
 }
 .cert-date-block { text-align: center; font-size: 0.95rem; color: #555; margin-bottom: 15mm; }
 .cert-date-block span { font-weight: 600; color: #0a1628; }
@@ -289,6 +305,18 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   pointer-events: none;
 }
 .cert-sig-title { font-size: 0.75rem; color: #777; margin-top: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.cert-disclaimer {
+  position: absolute;
+  bottom: 6mm;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.55rem;
+  color: #888;
+  z-index: 10;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
 </style>
 </head>
 <body>
@@ -478,8 +506,10 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
       <p class="cert-course-text">has successfully completed the professional training course</p>
       <div class="cert-course-name">PMP® Exam Preparation Program 2026</div>
       
+      <div class="cert-score-block">Achieved Score: <span id="cert-score">[Score]%</span></div>
+      
       <div class="cert-date-block">
-        Date of Issue: <span id="cert-date">[Month, Day, Year]</span> &nbsp;&nbsp;|&nbsp;&nbsp; Duration: <span>35 Contact Hours</span>
+        Date of Issue: <span id="cert-date">[Month, Day, Year]</span> &nbsp;&nbsp;|&nbsp;&nbsp; Duration: <span>35 Contact Hours</span> &nbsp;&nbsp;|&nbsp;&nbsp; Cert ID: <span id="cert-id">[ID]</span>
       </div>
 
       <div class="cert-footer">
@@ -493,6 +523,10 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
         </div>
       </div>
     </div>
+    
+    <div class="cert-disclaimer">
+      PMP® is a registered trademark of the Project Management Institute, Inc. This certificate is issued by BM Planning and is not endorsed by PMI.
+    </div>
   </div>
 </div>
 
@@ -500,10 +534,8 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 <div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...</div>
 
 <script>
-// --- QUESTIONS DATA (Truncated for brevity, using a subset for demo, but logic supports 180) ---
-// Note: In production, paste the full 180 QUESTIONS array here. Using a representative sample.
+// --- QUESTIONS DATA ---
 const QUESTIONS = [{"id": "Q001", "domain": "People", "question": "A cross-functional team has recurring conflict over architecture decisions. What should the project manager do first?", "options": ["Facilitate a discussion to identify the underlying interests and agree on a resolution approach.", "Ask the sponsor to decide which architecture the team must use.", "Replace the most vocal team member.", "Document the conflict and wait for the next steering meeting."], "answer": "A"}, {"id": "Q002", "domain": "Business Environment", "question": "During execution, a market competitor launches a substitute product during your project. What should the project manager focus on?", "options": ["Reassess assumptions, risks, expected outcomes, and strategic alignment with the sponsor and stakeholders.", "Increase project duration automatically.", "Stop all communication.", "Protect the original scope at all costs."], "answer": "A"}, {"id": "Q003", "domain": "People", "question": "During execution, a newly formed team is unsure who has authority to make product decisions. What should the project manager do?", "options": ["Clarify governance, decision rights, and escalation paths with the appropriate stakeholders.", "Let the team infer authority from seniority.", "Ask the most experienced developer to decide.", "Defer all decisions to the sponsor."], "answer": "A"}, {"id": "Q004", "domain": "Business Environment", "question": "A portfolio manager asks which project should receive scarce funding. What information is most relevant?", "options": ["Only which project started first.", "Strategic alignment, expected value, risk, constraints, and resource implications.", "Only the number of team members.", "Only the project manager's preference."], "answer": "B"}, {"id": "Q005", "domain": "People", "question": "A team member repeatedly misses commitments because requirements are unclear. What should the project manager do first?", "options": ["Reduce the team member's responsibilities permanently.", "Issue a formal warning.", "Mark all missed commitments as performance issues.", "Clarify the requirement and acceptance criteria with the relevant stakeholders."], "answer": "D"}]; 
-// IMPORTANT: Replace the above array with your full 180 questions array in the final code.
 
 function toggleMobileMenu(){document.getElementById('navLinks').classList.toggle('active');}
 function scrollToExam(){document.getElementById('examTop').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -549,11 +581,31 @@ animateCounters();
 let userName = "";
 let userPhotoBase64 = "";
 
-function handlePhotoUpload(input) {
+function compressImage(base64, maxSize, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64;
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > height) {
+        if (width > maxSize) { height *= maxSize / width; width = maxSize; }
+      } else {
+        if (height > maxSize) { width *= maxSize / height; height = maxSize; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+  });
+}
+
+async function handlePhotoUpload(input) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
-    reader.onload = function(e) {
-      userPhotoBase64 = e.target.result;
+    reader.onload = async function(e) {
+      userPhotoBase64 = await compressImage(e.target.result, 400, 0.8);
       const preview = document.getElementById('photoPreview');
       const placeholder = document.getElementById('photoPlaceholder');
       preview.src = userPhotoBase64;
@@ -603,7 +655,6 @@ function loadExamState(){
       userName = s.userName || "";
       userPhotoBase64 = s.userPhotoBase64 || "";
       
-      // Restore UI if already registered
       if (userName) {
         document.getElementById('userNameInput').value = userName;
         if (userPhotoBase64) {
@@ -611,7 +662,6 @@ function loadExamState(){
           document.getElementById('photoPreview').style.display = 'block';
           document.getElementById('photoPlaceholder').style.display = 'none';
         }
-        // If exam was already submitted, show results directly
         if (submitted) {
            document.getElementById('regModal').classList.remove('show');
         }
@@ -657,7 +707,6 @@ function submitExam(){
  $("processScore").textContent=by.Process[1]?Math.round(by.Process[0]/by.Process[1]*100)+"%":"0%";
  $("businessScore").textContent=by["Business Environment"][1]?Math.round(by["Business Environment"][0]/by["Business Environment"][1]*100)+"%":"0%";
  
- // Show certificate download if passed (e.g., >= 70%) or just on completion
  if (pct >= 70) {
    document.getElementById('certDownloadSection').style.display = 'block';
  } else {
@@ -682,6 +731,14 @@ async function generateCertificatePDF() {
     // 1. Populate Certificate Data
     document.getElementById('cert-recipient-name').textContent = userName || 'Trainee Name';
     
+    // Inject Score
+    const currentScore = document.getElementById('score').textContent;
+    document.getElementById('cert-score').textContent = currentScore;
+
+    // Generate Unique Cert ID
+    const certId = "BM-" + new Date().getFullYear() + "-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+    document.getElementById('cert-id').textContent = certId;
+
     const photoImg = document.getElementById('cert-photo-img');
     const photoDefault = document.getElementById('cert-photo-default');
     if (userPhotoBase64) {
@@ -701,6 +758,10 @@ async function generateCertificatePDF() {
     certArea.style.left = '0';
     certArea.style.top = '0';
     certArea.style.zIndex = '-1';
+
+    // 🐛 FIX: Wait for fonts to load completely to prevent fallback fonts in PDF
+    await document.fonts.ready;
+    await new Promise(r => setTimeout(r, 300)); // Small delay to ensure DOM repaint
 
     // 3. Capture with html2canvas
     const canvas = await html2canvas(document.getElementById('cert-container'), {
