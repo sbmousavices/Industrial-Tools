@@ -105,7 +105,7 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 .easter-egg-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* ===== Hidden Certificate Container for PDF Generation (OPTIMIZED FOR A4) ===== */
+/* ===== Hidden Certificate Container for PDF Generation ===== */
 #certificate-render-area {
   position: absolute;
   left: -9999px;
@@ -117,13 +117,13 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 @media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:var(--nav-height);left:0;width:100%;background:var(--nav-bg);padding:20px;border-bottom:1px solid var(--border-color)}.nav-links.active{display:flex}.mobile-menu-btn{display:block}}
 @media(max-width:600px){.container{padding:0 12px}.header{text-align:center;justify-content:center}.question{font-size:16px}.result-grid{grid-template-columns:1fr}.nav-logo span{font-size:.95rem}.back-to-tools-wrapper{padding:10px 14px 0}.back-to-tools{font-size:.8rem;padding:7px 13px}.exam-shortcuts{grid-template-columns:1fr}.credibility-bar{gap:18px}.control-row{justify-content:center}.control-left,.control-right{justify-content:center}.exam-control-center{margin-top:22px}}
 
-/* Certificate Specific Styles (Scoped & Optimized for A4 Landscape) */
+/* Certificate Specific Styles (Scoped) */
 .cert-container {
   position: relative;
   width: 297mm;
   height: 210mm;
   background: var(--cream);
-  padding: 15mm 20mm;
+  padding: 15mm;
   box-sizing: border-box;
   overflow: hidden;
   color: #0a1628;
@@ -139,14 +139,14 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-brand-name {
   position: absolute;
-  top: 10mm;
+  top: 12mm;
   left: 50%;
   transform: translateX(-50%);
   background: var(--cream);
   color: #0a1628;
-  padding: 5px 25px;
+  padding: 6px 30px;
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -156,11 +156,11 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-title {
   position: absolute;
-  top: 22mm;
+  top: 26mm;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   color: #0a1628;
   letter-spacing: 3px;
   white-space: nowrap;
@@ -170,10 +170,10 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-logo {
   position: absolute;
-  top: 20mm;
-  right: 20mm;
-  width: 15mm;
-  height: 15mm;
+  top: 25mm;
+  right: 25mm;
+  width: 18mm;
+  height: 18mm;
   border-radius: 50%;
   border: 2px solid #d4af37;
   object-fit: cover;
@@ -183,26 +183,26 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-frame {
   position: absolute;
-  top: 8mm; left: 8mm; right: 8mm; bottom: 8mm;
+  top: 10mm; left: 10mm; right: 10mm; bottom: 10mm;
   border: 3px double #d4af37;
   pointer-events: none;
   z-index: 2;
 }
 .cert-frame-inner {
   position: absolute;
-  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
   border: 1px solid #0a1628;
 }
 .cert-corner {
   position: absolute;
-  width: 15mm; height: 15mm;
+  width: 20mm; height: 20mm;
   border: 3px solid #d4af37;
   z-index: 3;
 }
-.cert-corner-tl { top: 6mm; left: 6mm; border-right: none; border-bottom: none; }
-.cert-corner-tr { top: 6mm; right: 6mm; border-left: none; border-bottom: none; }
-.cert-corner-bl { bottom: 6mm; left: 6mm; border-right: none; border-top: none; }
-.cert-corner-br { bottom: 6mm; right: 6mm; border-left: none; border-top: none; }
+.cert-corner-tl { top: 8mm; left: 8mm; border-right: none; border-bottom: none; }
+.cert-corner-tr { top: 8mm; right: 8mm; border-left: none; border-bottom: none; }
+.cert-corner-bl { bottom: 8mm; left: 8mm; border-right: none; border-top: none; }
+.cert-corner-br { bottom: 8mm; right: 8mm; border-left: none; border-top: none; }
 .cert-content {
   position: relative;
   z-index: 5;
@@ -212,25 +212,25 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 30mm;
-  margin-top: 25mm;
+  padding: 0 40mm;
+  margin-top: 35mm;
   color: #0a1628;
 }
 .cert-subtitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-style: italic;
   font-family: 'Playfair Display', serif;
 }
 .cert-photo-box {
-  width: 70px; height: 70px;
+  width: 90px; height: 90px;
   border-radius: 50%;
   border: 2px dashed #d4af37;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 8px auto;
+  margin: 0 auto 10px auto;
   background: rgba(212, 175, 55, 0.05);
   overflow: hidden;
 }
@@ -240,54 +240,53 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-recipient-name {
   font-family: 'Great Vibes', cursive;
-  font-size: 3.2rem;
+  font-size: 3.8rem;
   color: #0a1628;
-  margin: 5px 0 10px 0;
+  margin: 5px 0 15px 0;
   border-bottom: 1px solid #d4af37;
   padding-bottom: 5px;
-  min-width: 40%;
+  min-width: 50%;
   max-width: 100%;
   display: inline-block;
   word-break: break-word;
   line-height: 1.1;
   white-space: normal;
 }
-.cert-course-text { font-size: 0.9rem; color: #555; margin: 8px 0 5px 0; }
+.cert-course-text { font-size: 1rem; color: #555; margin: 10px 0 5px 0; }
 .cert-course-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #0a1628;
   font-weight: 700;
-  margin: 5px 0 15px 0;
+  margin: 5px 0 20px 0;
 }
 .cert-score-block {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #0a1628;
   font-weight: 600;
-  margin-top: 5px;
+  margin-top: 10px;
   background: rgba(212, 175, 55, 0.15);
-  padding: 5px 15px;
+  padding: 6px 20px;
   border-radius: 20px;
   display: inline-block;
   border: 1px solid #d4af37;
 }
-.cert-date-block { text-align: center; font-size: 0.85rem; color: #555; margin-bottom: 10mm; margin-top: 10px; }
+.cert-date-block { text-align: center; font-size: 0.95rem; color: #555; margin-bottom: 15mm; }
 .cert-date-block span { font-weight: 600; color: #0a1628; }
 .cert-footer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-end;
   width: 100%;
-  padding: 0 30mm;
-  margin-top: auto;
-  margin-bottom: 15mm;
+  padding-right: 10mm;
+  padding-bottom: 22mm;
 }
-.cert-sig-block { text-align: center; width: 180px; }
-.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 25px; }
+.cert-sig-block { text-align: center; width: 220px; }
+.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 35px; }
 .cert-sig-name {
   font-family: 'Herr Von Muellerhoff', cursive;
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   color: #0a1628;
   line-height: 1;
   white-space: nowrap;
@@ -295,7 +294,7 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 }
 .cert-sig-swoosh {
   position: absolute;
-  top: -10px; right: -10px;
+  top: -12px; right: -15px;
   width: 110%; height: 3px;
   background: #0a1628;
   border-radius: 50%;
@@ -305,14 +304,14 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
   opacity: 0.85;
   pointer-events: none;
 }
-.cert-sig-title { font-size: 0.7rem; color: #777; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.cert-sig-title { font-size: 0.75rem; color: #777; margin-top: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
 .cert-disclaimer {
   position: absolute;
-  bottom: 4mm;
+  bottom: 6mm;
   left: 0;
   right: 0;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   color: #888;
   z-index: 10;
   font-family: 'Inter', sans-serif;
@@ -535,8 +534,189 @@ nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-height);background:v
 <div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...</div>
 
 <script>
-// --- QUESTIONS DATA ---
-const QUESTIONS = [{"id": "Q001", "domain": "People", "question": "A cross-functional team has recurring conflict over architecture decisions. What should the project manager do first?", "options": ["Facilitate a discussion to identify the underlying interests and agree on a resolution approach.", "Ask the sponsor to decide which architecture the team must use.", "Replace the most vocal team member.", "Document the conflict and wait for the next steering meeting."], "answer": "A"}, {"id": "Q002", "domain": "Business Environment", "question": "During execution, a market competitor launches a substitute product during your project. What should the project manager focus on?", "options": ["Reassess assumptions, risks, expected outcomes, and strategic alignment with the sponsor and stakeholders.", "Increase project duration automatically.", "Stop all communication.", "Protect the original scope at all costs."], "answer": "A"}, {"id": "Q003", "domain": "People", "question": "During execution, a newly formed team is unsure who has authority to make product decisions. What should the project manager do?", "options": ["Clarify governance, decision rights, and escalation paths with the appropriate stakeholders.", "Let the team infer authority from seniority.", "Ask the most experienced developer to decide.", "Defer all decisions to the sponsor."], "answer": "A"}, {"id": "Q004", "domain": "Business Environment", "question": "A portfolio manager asks which project should receive scarce funding. What information is most relevant?", "options": ["Only which project started first.", "Strategic alignment, expected value, risk, constraints, and resource implications.", "Only the number of team members.", "Only the project manager's preference."], "answer": "B"}, {"id": "Q005", "domain": "People", "question": "A team member repeatedly misses commitments because requirements are unclear. What should the project manager do first?", "options": ["Reduce the team member's responsibilities permanently.", "Issue a formal warning.", "Mark all missed commitments as performance issues.", "Clarify the requirement and acceptance criteria with the relevant stakeholders."], "answer": "D"}]; 
+// --- QUESTIONS DATA (180 Questions) ---
+const QUESTIONS = [
+{"id":"Q001","domain":"People","question":"A cross-functional team has recurring conflict over architecture decisions. What should the project manager do first?","options":["Facilitate a discussion to identify underlying interests","Ask the sponsor to decide","Replace the most vocal member","Document the conflict and wait"],"answer":"A"},
+{"id":"Q002","domain":"People","question":"A newly formed team is unsure who has authority to make product decisions. What should the project manager do?","options":["Clarify governance and decision rights with stakeholders","Let the team infer authority from seniority","Ask the most experienced developer to decide","Defer all decisions to the sponsor"],"answer":"A"},
+{"id":"Q003","domain":"People","question":"A team member repeatedly misses commitments because requirements are unclear. What should the project manager do first?","options":["Reduce the team member's responsibilities","Issue a formal warning","Mark all missed commitments as performance issues","Clarify requirements and acceptance criteria with stakeholders"],"answer":"D"},
+{"id":"Q004","domain":"People","question":"Two senior team members are in a heated disagreement about technical approach during a sprint planning meeting. What is the best approach?","options":["Make the decision yourself as project manager","Facilitate a collaborative discussion to reach consensus","Escalate immediately to the sponsor","Postpone the decision to the next meeting"],"answer":"B"},
+{"id":"Q005","domain":"People","question":"A key stakeholder is resistant to the project's change management approach. What should the project manager do?","options":["Ignore the resistance and proceed","Engage the stakeholder to understand concerns and address them","Remove the stakeholder from the project","Escalate to the project sponsor"],"answer":"B"},
+{"id":"Q006","domain":"People","question":"The project team is experiencing low morale after several scope changes. What should the project manager do?","options":["Acknowledge concerns and involve team in solution planning","Ignore the morale issue and focus on delivery","Request team replacement from HR","Reduce scope to ease team burden"],"answer":"A"},
+{"id":"Q007","domain":"People","question":"A virtual team across multiple time zones is struggling with communication. What is the best solution?","options":["Establish overlapping core hours and communication norms","Require all team members to work the same hours","Switch to email-only communication","Reduce team size"],"answer":"A"},
+{"id":"Q008","domain":"People","question":"During a retrospective, a team member openly criticizes another member's work. How should the facilitator respond?","options":["Allow the criticism to continue for transparency","Redirect focus to processes and behaviors, not individuals","End the retrospective immediately","Ask the criticized member to defend their work"],"answer":"B"},
+{"id":"Q009","domain":"People","question":"A high-performing team member is being poached by another department. What should the project manager do?","options":["Immediately report to HR","Discuss career goals and explore retention options with the member","Block the transfer request","Ignore the situation"],"answer":"B"},
+{"id":"Q010","domain":"People","question":"The project sponsor is unavailable for critical decisions, causing delays. What should the project manager do?","options":["Make decisions independently to avoid delays","Escalate through the governance structure to find an alternate decision-maker","Stop all work until the sponsor returns","Document the delays and proceed"],"answer":"B"},
+{"id":"Q011","domain":"People","question":"A team member consistently delivers high-quality work but struggles with teamwork. What should the project manager do?","options":["Provide coaching on collaboration skills","Reassign the member to individual tasks","Issue a performance warning","Remove the member from the team"],"answer":"A"},
+{"id":"Q012","domain":"People","question":"Stakeholders have conflicting priorities for project features. What should the project manager do?","options":["Facilitate a prioritization workshop using agreed criteria","Let the sponsor decide all priorities","Implement all features to satisfy everyone","Defer prioritization to the development team"],"answer":"A"},
+{"id":"Q013","domain":"People","question":"A junior team member is hesitant to speak up in meetings. What should the project manager do?","options":["Create safe opportunities for contribution and mentor the member","Publicly call on the member to force participation","Ignore the behavior as it's a personality trait","Reassign the member to a different team"],"answer":"A"},
+{"id":"Q014","domain":"People","question":"The team is experiencing burnout due to sustained overtime. What should the project manager do?","options":["Address root causes and rebalance workload with stakeholders","Encourage the team to push through for project success","Request additional budget for overtime pay","Replace burned-out team members"],"answer":"A"},
+{"id":"Q015","domain":"People","question":"A functional manager is pulling team members away for operational work. What should the project manager do?","options":["Negotiate resource commitments through proper governance channels","Complain to the project sponsor","Accept the situation and adjust the schedule","Confront the functional manager publicly"],"answer":"A"},
+{"id":"Q016","domain":"People","question":"Team members from different cultures have different communication styles causing misunderstandings. What should the project manager do?","options":["Establish team norms that respect cultural differences","Require everyone to adopt the same communication style","Separate team members by culture","Ignore the differences as they will resolve naturally"],"answer":"A"},
+{"id":"Q017","domain":"People","question":"A stakeholder requests a major change that would significantly impact team morale. What should the project manager do?","options":["Assess impact with team and negotiate scope with stakeholder","Immediately reject the change to protect morale","Accept the change without team consultation","Escalate to the steering committee"],"answer":"A"},
+{"id":"Q018","domain":"People","question":"Two team members have a personality clash affecting project work. What should the project manager do?","options":["Meet with both privately to understand perspectives and find common ground","Reassign one member to another project","Let them resolve it themselves","Issue formal warnings to both"],"answer":"A"},
+{"id":"Q019","domain":"People","question":"The team is resistant to adopting a new agile methodology. What should the project manager do?","options":["Provide training and demonstrate benefits through pilot iterations","Mandate adoption with strict enforcement","Abandon the agile approach","Replace resistant team members"],"answer":"A"},
+{"id":"Q020","domain":"People","question":"A critical team member resigns unexpectedly mid-project. What should the project manager do first?","options":["Assess impact and activate knowledge transfer and succession plan","Panic and escalate to sponsor","Immediately hire a replacement","Redistribute work without assessment"],"answer":"A"},
+{"id":"Q021","domain":"People","question":"The project team lacks motivation after a major milestone was achieved. What should the project manager do?","options":["Celebrate success and set new meaningful goals","Push immediately to next phase without break","Ignore the demotivation","Request team replacement"],"answer":"A"},
+{"id":"Q022","domain":"People","question":"A stakeholder is spreading negative rumors about the project. What should the project manager do?","options":["Meet privately to understand concerns and address them","Ignore the rumors","Publicly confront the stakeholder","Report to HR immediately"],"answer":"A"},
+{"id":"Q023","domain":"People","question":"Team members are unclear about their roles and responsibilities. What should the project manager do?","options":["Create or update a RACI matrix and review with team","Let roles evolve naturally","Assign all decisions to yourself","Request HR intervention"],"answer":"A"},
+{"id":"Q024","domain":"People","question":"A vendor's team is not collaborating effectively with the internal team. What should the project manager do?","options":["Establish joint working agreements and regular sync meetings","Terminate the vendor contract","Escalate to legal department","Separate the teams completely"],"answer":"A"},
+{"id":"Q025","domain":"People","question":"The project manager notices a team member is disengaged during meetings. What is the best approach?","options":["Have a private conversation to understand underlying issues","Publicly call out the disengagement","Ignore the behavior","Reassign the member"],"answer":"A"},
+{"id":"Q026","domain":"People","question":"Multiple stakeholders are requesting conflicting changes. What should the project manager do?","options":["Facilitate a joint session to align on priorities","Implement changes in order received","Reject all changes","Let the team decide"],"answer":"A"},
+{"id":"Q027","domain":"People","question":"A team member is consistently late with deliverables. What should the project manager do first?","options":["Have a private conversation to understand root causes","Issue a formal warning","Reassign the work","Reduce the member's workload"],"answer":"A"},
+{"id":"Q028","domain":"People","question":"The team is struggling with a complex technical challenge. What should the project manager do?","options":["Facilitate collaborative problem-solving and bring in expertise if needed","Solve the problem yourself","Extend the deadline without investigation","Replace the team"],"answer":"A"},
+{"id":"Q029","domain":"People","question":"A key stakeholder loses interest in the project. What should the project manager do?","options":["Re-engage by demonstrating value and addressing their concerns","Remove the stakeholder from the project","Ignore the disengagement","Escalate to senior management"],"answer":"A"},
+{"id":"Q030","domain":"People","question":"Team members are working in silos and not sharing information. What should the project manager do?","options":["Establish regular knowledge-sharing sessions and collaborative tools","Mandate daily status reports","Separate work streams further","Ignore the silos"],"answer":"A"},
+{"id":"Q031","domain":"People","question":"A new team member is struggling to integrate into the team culture. What should the project manager do?","options":["Assign a mentor and facilitate integration activities","Let the member figure it out alone","Reassign to another team","Issue performance improvement plan"],"answer":"A"},
+{"id":"Q032","domain":"People","question":"The team disagrees with the project manager's decision on a technical approach. What should the project manager do?","options":["Listen to concerns, explain rationale, and seek collaborative solution","Insist on the original decision","Abandon the decision entirely","Escalate to sponsor"],"answer":"A"},
+{"id":"Q033","domain":"People","question":"A stakeholder is demanding daily status updates, consuming team time. What should the project manager do?","options":["Negotiate an appropriate reporting frequency and format","Provide daily updates as requested","Refuse all updates","Escalate to sponsor"],"answer":"A"},
+{"id":"Q034","domain":"People","question":"The team is experiencing conflict between remote and co-located members. What should the project manager do?","options":["Establish inclusive practices ensuring equal participation","Favor co-located members for efficiency","Move all members to same location","Ignore the conflict"],"answer":"A"},
+{"id":"Q035","domain":"People","question":"A team member raises a concern about project ethics. What should the project manager do?","options":["Take the concern seriously and follow organizational ethics procedures","Dismiss the concern as minor","Investigate personally without documentation","Report to media"],"answer":"A"},
+{"id":"Q036","domain":"People","question":"The team lacks confidence in delivering a complex feature. What should the project manager do?","options":["Break work into smaller increments and provide support","Extend deadline significantly","Remove the feature from scope","Replace the team"],"answer":"A"},
+{"id":"Q037","domain":"People","question":"Stakeholders are not attending important review meetings. What should the project manager do?","options":["Understand barriers and adjust meeting format or timing","Cancel the meetings","Proceed without stakeholders","Escalate to all stakeholders' managers"],"answer":"A"},
+{"id":"Q038","domain":"People","question":"A team member is overcommitted across multiple projects. What should the project manager do?","options":["Negotiate realistic commitments through resource management","Accept the overcommitment","Remove the member from other projects unilaterally","Ignore the issue"],"answer":"A"},
+{"id":"Q039","domain":"People","question":"The team is resistant to feedback during retrospectives. What should the project manager do?","options":["Create psychological safety and model vulnerability","Force participation","Cancel retrospectives","Replace team members"],"answer":"A"},
+{"id":"Q040","domain":"People","question":"A critical decision requires input from an expert who is unavailable. What should the project manager do?","options":["Identify alternate experts or defer decision appropriately","Make decision without expert input","Delay project indefinitely","Remove the decision requirement"],"answer":"A"},
+{"id":"Q041","domain":"People","question":"Team members are unsure about career development opportunities in the project. What should the project manager do?","options":["Discuss growth opportunities and align with organizational paths","Focus only on project deliverables","Promise promotions you cannot deliver","Ignore career concerns"],"answer":"A"},
+{"id":"Q042","domain":"People","question":"A stakeholder is micromanaging the team's daily work. What should the project manager do?","options":["Clarify roles and establish appropriate governance boundaries","Allow the micromanagement to continue","Confront the stakeholder aggressively","Remove the stakeholder from project"],"answer":"A"},
+{"id":"Q043","domain":"People","question":"The team is facing ambiguity in project requirements. What should the project manager do?","options":["Facilitate requirements clarification sessions with stakeholders","Proceed with assumptions","Delay all work until requirements are perfect","Assign blame to business analyst"],"answer":"A"},
+{"id":"Q044","domain":"People","question":"A team member excels technically but lacks leadership skills needed for a lead role. What should the project manager do?","options":["Provide mentoring and gradual leadership opportunities","Keep the member in technical role indefinitely","Promote immediately and hope for the best","Replace the member"],"answer":"A"},
+{"id":"Q045","domain":"People","question":"Stakeholders have unrealistic expectations about project timeline. What should the project manager do?","options":["Present data-driven analysis and negotiate realistic expectations","Accept unrealistic expectations","Refuse to discuss timeline","Blame the estimation team"],"answer":"A"},
+{"id":"Q046","domain":"People","question":"The team is experiencing decision fatigue from too many meetings. What should the project manager do?","options":["Streamline meetings and empower team to make appropriate decisions","Add more meetings for clarity","Cancel all meetings","Make all decisions yourself"],"answer":"A"},
+{"id":"Q047","domain":"People","question":"A team member's personal issues are affecting work performance. What should the project manager do?","options":["Show empathy and explore flexible work arrangements","Ignore personal issues","Issue performance warning","Terminate the member"],"answer":"A"},
+{"id":"Q048","domain":"People","question":"The project requires skills that the current team lacks. What should the project manager do?","options":["Assess skill gaps and arrange training or acquire resources","Proceed without the skills","Cancel the project","Blame HR for poor hiring"],"answer":"A"},
+{"id":"Q049","domain":"People","question":"Team members are not following agreed-upon processes. What should the project manager do?","options":["Understand reasons and reinforce process benefits collaboratively","Punish non-compliance","Ignore the non-compliance","Create more processes"],"answer":"A"},
+{"id":"Q050","domain":"People","question":"A stakeholder is blocking project progress due to personal agenda. What should the project manager do?","options":["Engage privately to understand and align with project objectives","Escalate immediately to CEO","Ignore the stakeholder","Remove the stakeholder from organization"],"answer":"A"},
+{"id":"Q051","domain":"People","question":"The team is struggling with work-life balance during a critical phase. What should the project manager do?","options":["Assess workload and negotiate sustainable pace with stakeholders","Push team to work harder","Ignore work-life balance","Replace team members"],"answer":"A"},
+{"id":"Q052","domain":"People","question":"A team member is hoarding critical knowledge, creating a single point of failure. What should the project manager do?","options":["Establish knowledge sharing practices and cross-training","Confront the member publicly","Terminate the member","Ignore the risk"],"answer":"A"},
+{"id":"Q053","domain":"People","question":"Stakeholders are not providing timely feedback on deliverables. What should the project manager do?","options":["Establish clear feedback timelines and escalation paths","Proceed without feedback","Cancel deliverable reviews","Blame stakeholders for delays"],"answer":"A"},
+{"id":"Q054","domain":"People","question":"The team is demotivated after a failed product launch. What should the project manager do?","options":["Conduct blameless retrospective and extract lessons learned","Blame team members","Ignore the failure","Cancel future projects"],"answer":"A"},
+{"id":"Q055","domain":"People","question":"A new regulatory requirement affects team roles. What should the project manager do?","options":["Assess impact and provide necessary training and role adjustments","Ignore the regulation","Terminate affected roles","Blame compliance team"],"answer":"A"},
+{"id":"Q056","domain":"People","question":"Team members are confused about project vision and goals. What should the project manager do?","options":["Recommunicate vision and connect individual work to project goals","Assume team understands","Create more documentation","Blame sponsor for poor vision"],"answer":"A"},
+{"id":"Q057","domain":"People","question":"A high-performing team member is bored with routine work. What should the project manager do?","options":["Provide stretch assignments and growth opportunities","Ignore the boredom","Assign more routine work","Terminate the member"],"answer":"A"},
+{"id":"Q058","domain":"People","question":"The team is experiencing trust issues after a failed project phase. What should the project manager do?","options":["Facilitate trust-building activities and transparent communication","Ignore trust issues","Replace team members","Blame external factors"],"answer":"A"},
+{"id":"Q059","domain":"People","question":"Stakeholders are requesting features beyond project scope. What should the project manager do?","options":["Assess value and follow change control process","Reject all requests immediately","Accept all requests","Implement without approval"],"answer":"A"},
+{"id":"Q060","domain":"People","question":"A team member is not adapting to agile practices. What should the project manager do?","options":["Provide coaching and support for agile mindset development","Force compliance","Remove from agile team","Cancel agile transformation"],"answer":"A"},
+{"id":"Q061","domain":"People","question":"The project team lacks diversity of thought. What should the project manager do?","options":["Actively seek diverse perspectives and inclusive practices","Maintain current team composition","Ignore diversity","Homogenize team thinking"],"answer":"A"},
+{"id":"Q062","domain":"People","question":"A stakeholder is providing conflicting direction to team members. What should the project manager do?","options":["Clarify decision authority and establish single source of truth","Allow multiple directions","Ignore the conflict","Remove the stakeholder"],"answer":"A"},
+{"id":"Q063","domain":"People","question":"Team members are not taking ownership of their work. What should the project manager do?","options":["Clarify expectations and empower decision-making within boundaries","Micromanage all work","Remove ownership requirements","Blame team culture"],"answer":"A"},
+{"id":"Q064","domain":"People","question":"The team is facing resistance from external departments. What should the project manager do?","options":["Build relationships and demonstrate mutual benefits","Force compliance through authority","Ignore the resistance","Escalate to all department heads"],"answer":"A"},
+{"id":"Q065","domain":"People","question":"A team member is consistently negative and affecting team morale. What should the project manager do?","options":["Address behavior privately and explore root causes","Publicly reprimand the member","Remove from team immediately","Ignore the negativity"],"answer":"A"},
+{"id":"Q066","domain":"People","question":"Stakeholders have different definitions of project success. What should the project manager do?","options":["Facilitate alignment on success criteria early in project","Let each stakeholder define their own success","Ignore differing definitions","Let sponsor decide unilaterally"],"answer":"A"},
+{"id":"Q067","domain":"People","question":"The team is struggling with remote collaboration tools. What should the project manager do?","options":["Provide training and establish tool usage guidelines","Force tool adoption without training","Abandon remote tools","Blame IT department"],"answer":"A"},
+{"id":"Q068","domain":"People","question":"A team member is taking credit for others' work. What should the project manager do?","options":["Address behavior privately and reinforce team recognition practices","Publicly expose the behavior","Ignore the issue","Remove the member"],"answer":"A"},
+{"id":"Q069","domain":"People","question":"The project requires collaboration with a difficult external partner. What should the project manager do?","options":["Establish clear agreements and regular communication rhythms","Avoid the partner","Terminate the partnership","Escalate all issues immediately"],"answer":"A"},
+{"id":"Q070","domain":"People","question":"Team members are unsure about escalation paths for issues. What should the project manager do?","options":["Define and communicate clear escalation procedures","Let team figure it out","Handle all escalations personally","Create complex escalation matrix"],"answer":"A"},
+{"id":"Q071","domain":"People","question":"A stakeholder is not honoring their commitments to the project. What should the project manager do?","options":["Discuss impact and renegotiate commitments realistically","Ignore broken commitments","Publicly shame the stakeholder","Terminate stakeholder relationship"],"answer":"A"},
+{"id":"Q072","domain":"People","question":"The team is experiencing information overload from too many communication channels. What should the project manager do?","options":["Streamline communication channels and establish clear protocols","Add more communication channels","Reduce all communication","Blame team for not keeping up"],"answer":"A"},
+{"id":"Q073","domain":"People","question":"A team member is resistant to feedback from peers. What should the project manager do?","options":["Coach on receiving feedback and model constructive feedback behaviors","Stop peer feedback","Remove the member","Force acceptance of feedback"],"answer":"A"},
+{"id":"Q074","domain":"People","question":"The project team is geographically dispersed across many time zones. What should the project manager do?","options":["Establish asynchronous communication practices and overlapping hours","Require everyone to work same hours","Reduce team size","Ignore time zone challenges"],"answer":"A"},
+{"id":"Q075","domain":"People","question":"Stakeholders are not engaged in risk identification. What should the project manager do?","options":["Facilitate engaging risk workshops demonstrating value","Proceed without stakeholder input","Cancel risk management","Blame stakeholders"],"answer":"A"},
+{"id":"Q076","domain":"People","question":"A team member is showing signs of ethical misconduct. What should the project manager do?","options":["Follow organizational ethics reporting procedures immediately","Investigate personally without documentation","Ignore minor misconduct","Confront publicly"],"answer":"A"},
+{"id":"Q077","domain":"Process","question":"During execution, a market competitor launches a substitute product. What should the project manager focus on?","options":["Reassess assumptions, risks, and strategic alignment with sponsor","Increase project duration automatically","Stop all communication","Protect original scope at all costs"],"answer":"A"},
+{"id":"Q078","domain":"Process","question":"A portfolio manager asks which project should receive scarce funding. What information is most relevant?","options":["Strategic alignment, expected value, risk, and resource implications","Only which project started first","Only the number of team members","Only the project manager's preference"],"answer":"A"},
+{"id":"Q079","domain":"Process","question":"The project scope is continuously expanding without formal approval. What should the project manager do?","options":["Implement formal change control process","Accept all scope changes","Stop all work","Blame stakeholders"],"answer":"A"},
+{"id":"Q080","domain":"Process","question":"A critical path activity is delayed by 5 days. What is the impact?","options":["Project finish date is delayed by 5 days unless compressed","No impact on project finish","Only affects non-critical activities","Reduces project cost"],"answer":"A"},
+{"id":"Q081","domain":"Process","question":"The project budget is exhausted but work remains. What should the project manager do?","options":["Assess remaining work and seek additional funding through proper channels","Stop all work immediately","Continue without budget","Reduce scope without approval"],"answer":"A"},
+{"id":"Q082","domain":"Process","question":"Quality issues are being discovered late in the project. What should the project manager do?","options":["Implement quality checks earlier in the process","Increase testing at the end","Ignore minor quality issues","Blame the quality team"],"answer":"A"},
+{"id":"Q083","domain":"Process","question":"A key supplier is unable to deliver materials on time. What should the project manager do first?","options":["Assess impact and activate contingency plans","Terminate the supplier contract immediately","Stop all project work","Ignore the delay"],"answer":"A"},
+{"id":"Q084","domain":"Process","question":"The project schedule shows negative float. What does this indicate?","options":["Project cannot meet its deadline without schedule compression","Project is ahead of schedule","Schedule is accurate","Float calculation is wrong"],"answer":"A"},
+{"id":"Q085","domain":"Process","question":"Stakeholders request a change that would double the project budget. What should the project manager do?","options":["Assess impact and present options to change control board","Reject the change immediately","Accept the change","Implement without approval"],"answer":"A"},
+{"id":"Q086","domain":"Process","question":"The project team is using outdated processes. What should the project manager do?","options":["Assess current processes and implement improvements","Force team to continue with outdated processes","Ignore process issues","Blame team for inefficiency"],"answer":"A"},
+{"id":"Q087","domain":"Process","question":"Risk monitoring reveals a high-probability risk is about to occur. What should the project manager do?","options":["Execute the planned risk response","Ignore the risk","Wait for the risk to occur","Blame risk register"],"answer":"A"},
+{"id":"Q088","domain":"Process","question":"The project deliverable does not meet acceptance criteria. What should the project manager do?","options":["Address gaps and resubmit for acceptance","Force stakeholder acceptance","Ignore the gaps","Cancel the deliverable"],"answer":"A"},
+{"id":"Q089","domain":"Process","question":"Multiple projects are competing for the same resources. What should the project manager do?","options":["Negotiate through portfolio governance and prioritize strategically","Demand all resources","Give up resources","Ignore resource conflicts"],"answer":"A"},
+{"id":"Q090","domain":"Process","question":"The project is using agile methodology but stakeholders expect waterfall reporting. What should the project manager do?","options":["Adapt reporting to provide visibility while maintaining agile practices","Abandon agile methodology","Ignore stakeholder reporting needs","Force waterfall approach"],"answer":"A"},
+{"id":"Q091","domain":"Process","question":"A regulatory change affects project requirements mid-execution. What should the project manager do?","options":["Assess impact and update project plan accordingly","Ignore the regulatory change","Continue with original requirements","Blame legal department"],"answer":"A"},
+{"id":"Q092","domain":"Process","question":"The project's earned value shows CPI of 0.85. What does this indicate?","options":["Project is over budget","Project is under budget","Project is on budget","CPI is irrelevant"],"answer":"A"},
+{"id":"Q093","domain":"Process","question":"Team members are unclear about project priorities. What should the project manager do?","options":["Clarify priorities through project charter and stakeholder alignment","Let team set their own priorities","Ignore priority confusion","Create more documentation"],"answer":"A"},
+{"id":"Q094","domain":"Process","question":"A critical dependency on another project is delayed. What should the project manager do?","options":["Assess impact and coordinate with dependent project manager","Ignore the dependency","Cancel the project","Blame the other project"],"answer":"A"},
+{"id":"Q095","domain":"Process","question":"The project scope baseline needs to be updated due to approved changes. What should the project manager do?","options":["Update scope baseline through formal change control","Update baseline informally","Ignore baseline updates","Create new project"],"answer":"A"},
+{"id":"Q096","domain":"Process","question":"Quality audits reveal non-compliance with standards. What should the project manager do?","options":["Implement corrective actions and process improvements","Ignore audit findings","Blame quality auditor","Cancel quality audits"],"answer":"A"},
+{"id":"Q097","domain":"Process","question":"The project schedule is too optimistic. What should the project manager do?","options":["Re-estimate with team using appropriate techniques","Accept the optimistic schedule","Blame estimators","Extend schedule arbitrarily"],"answer":"A"},
+{"id":"Q098","domain":"Process","question":"A vendor contract needs to be modified due to scope changes. What should the project manager do?","options":["Follow contract change procedures and negotiate amendments","Modify contract unilaterally","Ignore contract terms","Terminate contract"],"answer":"A"},
+{"id":"Q099","domain":"Process","question":"The project is using a hybrid approach. What should the project manager ensure?","options":["Clear integration points between predictive and agile components","Use only one approach","Ignore methodology conflicts","Let team choose randomly"],"answer":"A"},
+{"id":"Q100","domain":"Process","question":"Stakeholders are not satisfied with project progress reports. What should the project manager do?","options":["Understand information needs and adapt reporting format","Continue with current reports","Stop reporting","Blame stakeholders"],"answer":"A"},
+{"id":"Q101","domain":"Process","question":"The project has multiple critical paths. What does this indicate?","options":["Higher schedule risk requiring careful monitoring","Better schedule flexibility","No impact on project","Critical path calculation is wrong"],"answer":"A"},
+{"id":"Q102","domain":"Process","question":"A deliverable is completed but not formally accepted. What should the project manager do?","options":["Obtain formal acceptance through defined process","Assume acceptance","Move to next deliverable","Blame stakeholder"],"answer":"A"},
+{"id":"Q103","domain":"Process","question":"The project budget includes management reserves. When can these be used?","options":["For unknown-unknown risks through management approval","For any project expense","For known risks only","Never"],"answer":"A"},
+{"id":"Q104","domain":"Process","question":"The team is using story points for estimation. What does this measure?","options":["Relative complexity and effort","Absolute time in hours","Cost in dollars","Team velocity only"],"answer":"A"},
+{"id":"Q105","domain":"Process","question":"A project phase is complete but deliverables are not transferred. What should the project manager do?","options":["Complete formal phase closure and handover","Start next phase immediately","Ignore phase closure","Blame operations team"],"answer":"A"},
+{"id":"Q106","domain":"Process","question":"The project risk register has not been updated in months. What should the project manager do?","options":["Conduct risk review and update register regularly","Ignore risk register","Delete old risks","Blame team"],"answer":"A"},
+{"id":"Q107","domain":"Process","question":"Stakeholders request a feature that conflicts with regulatory requirements. What should the project manager do?","options":["Explain regulatory constraints and propose compliant alternatives","Implement the feature","Ignore regulations","Blame legal team"],"answer":"A"},
+{"id":"Q108","domain":"Process","question":"The project schedule baseline needs to be rebaselined. When is this appropriate?","options":["When approved changes significantly alter original baseline","Whenever schedule slips","Never rebaseline","Monthly as routine"],"answer":"A"},
+{"id":"Q109","domain":"Process","question":"The team velocity is decreasing over iterations. What should the project manager do?","options":["Investigate root causes and address impediments","Increase sprint duration","Add more team members","Ignore velocity trend"],"answer":"A"},
+{"id":"Q110","domain":"Process","question":"A procurement audit reveals contract compliance issues. What should the project manager do?","options":["Address non-compliance through contract management processes","Ignore audit findings","Terminate all contracts","Blame vendor"],"answer":"A"},
+{"id":"Q111","domain":"Process","question":"The project has a fixed deadline but scope is flexible. What approach is best?","options":["Use agile approach with time-boxed delivery","Use predictive approach with fixed scope","Ignore deadline","Extend deadline"],"answer":"A"},
+{"id":"Q112","domain":"Process","question":"Quality metrics show increasing defect rates. What should the project manager do?","options":["Investigate root causes and implement quality improvements","Ignore defect trends","Increase inspection only","Blame developers"],"answer":"A"},
+{"id":"Q113","domain":"Process","question":"The project charter has not been signed. What should the project manager do?","options":["Obtain charter approval before proceeding with planning","Start execution without charter","Ignore charter requirement","Create charter alone"],"answer":"A"},
+{"id":"Q114","domain":"Process","question":"A change request is approved but not implemented. What should the project manager do?","options":["Update project documents and communicate changes","Ignore approved change","Reject the change","Blame team"],"answer":"A"},
+{"id":"Q115","domain":"Process","question":"The project is behind schedule and over budget. What should the project manager do first?","options":["Analyze root causes and develop recovery plan","Request more budget and time","Cancel the project","Blame external factors"],"answer":"A"},
+{"id":"Q116","domain":"Process","question":"Stakeholders disagree on project priorities. What should the project manager do?","options":["Facilitate prioritization using agreed business value criteria","Let sponsor decide alone","Ignore disagreements","Implement all priorities"],"answer":"A"},
+{"id":"Q117","domain":"Process","question":"The project team is using inappropriate estimation technique. What should the project manager do?","options":["Assess and implement suitable estimation methods","Continue with current technique","Stop estimating","Blame team"],"answer":"A"},
+{"id":"Q118","domain":"Process","question":"A deliverable fails user acceptance testing. What should the project manager do?","options":["Address defects and retest","Force acceptance","Ignore test results","Cancel deliverable"],"answer":"A"},
+{"id":"Q119","domain":"Process","question":"The project schedule shows resource overallocation. What should the project manager do?","options":["Level resources or negotiate additional capacity","Ignore overallocation","Remove resources","Extend schedule arbitrarily"],"answer":"A"},
+{"id":"Q120","domain":"Process","question":"The project benefits realization plan has not been created. What should the project manager do?","options":["Develop benefits realization plan with stakeholders","Ignore benefits","Assume benefits will materialize","Blame sponsor"],"answer":"A"},
+{"id":"Q121","domain":"Process","question":"A critical risk materializes without a response plan. What should the project manager do?","options":["Develop and implement workaround immediately","Ignore the risk","Blame risk management","Cancel project"],"answer":"A"},
+{"id":"Q122","domain":"Process","question":"The project is using rolling wave planning. What does this mean?","options":["Near-term work is detailed, future work is planned at higher level","All work is planned in detail upfront","No planning is done","Planning is done randomly"],"answer":"A"},
+{"id":"Q123","domain":"Process","question":"Stakeholders request scope reduction due to budget constraints. What should the project manager do?","options":["Assess impact and reprioritize scope with stakeholders","Reject scope reduction","Reduce scope without analysis","Blame finance team"],"answer":"A"},
+{"id":"Q124","domain":"Process","question":"The project schedule network diagram has not been created. What should the project manager do?","options":["Develop network diagram to identify dependencies and critical path","Skip network diagram","Use only Gantt chart","Blame scheduler"],"answer":"A"},
+{"id":"Q125","domain":"Process","question":"A vendor is not meeting contract performance standards. What should the project manager do?","options":["Review contract terms and engage vendor on performance improvement","Terminate contract immediately","Ignore performance issues","Blame procurement"],"answer":"A"},
+{"id":"Q126","domain":"Process","question":"The project team is not following the defined change control process. What should the project manager do?","options":["Reinforce process and provide necessary training","Ignore process violations","Create more complex process","Blame team"],"answer":"A"},
+{"id":"Q127","domain":"Process","question":"Project performance reports show consistent variances. What should the project manager do?","options":["Analyze trends and implement corrective actions","Ignore variances","Blame reporting system","Stop reporting"],"answer":"A"},
+{"id":"Q128","domain":"Process","question":"The project requires integration with legacy systems. What should the project manager do?","options":["Assess integration requirements and plan accordingly","Ignore legacy systems","Replace all legacy systems","Blame IT department"],"answer":"A"},
+{"id":"Q129","domain":"Process","question":"The project scope statement is ambiguous. What should the project manager do?","options":["Clarify scope with stakeholders and document precisely","Proceed with ambiguous scope","Ignore scope issues","Blame business analyst"],"answer":"A"},
+{"id":"Q130","domain":"Process","question":"A project phase gate review identifies major issues. What should the project manager do?","options":["Address issues before proceeding to next phase","Ignore phase gate findings","Proceed to next phase","Cancel project"],"answer":"A"},
+{"id":"Q131","domain":"Process","question":"The project team is using inappropriate technology. What should the project manager do?","options":["Assess technology fit and propose alternatives","Continue with current technology","Ignore technology issues","Blame IT"],"answer":"A"},
+{"id":"Q132","domain":"Process","question":"Stakeholders are not providing timely approvals. What should the project manager do?","options":["Establish clear approval timelines and escalation paths","Proceed without approvals","Cancel approvals","Blame stakeholders"],"answer":"A"},
+{"id":"Q133","domain":"Process","question":"The project cost baseline needs adjustment. What should the project manager do?","options":["Follow change control process for baseline modification","Adjust baseline informally","Ignore cost baseline","Create new project"],"answer":"A"},
+{"id":"Q134","domain":"Process","question":"The project is experiencing scope creep. What should the project manager do?","options":["Enforce change control process and manage scope formally","Accept all scope changes","Ignore scope creep","Blame stakeholders"],"answer":"A"},
+{"id":"Q135","domain":"Process","question":"A critical activity has zero float. What does this mean?","options":["Activity is on the critical path","Activity has flexibility","Activity can be delayed","Activity is complete"],"answer":"A"},
+{"id":"Q136","domain":"Process","question":"The project quality management plan has not been created. What should the project manager do?","options":["Develop quality plan defining standards and processes","Skip quality planning","Ignore quality","Blame quality team"],"answer":"A"},
+{"id":"Q137","domain":"Process","question":"The team is not achieving sprint goals consistently. What should the project manager do?","options":["Review capacity and adjust commitments realistically","Increase sprint goals","Ignore missed goals","Blame team"],"answer":"A"},
+{"id":"Q138","domain":"Process","question":"A procurement decision needs to be made. What should the project manager consider first?","options":["Make-or-buy analysis and procurement strategy","Vendor preferences","Cost only","Timeline only"],"answer":"A"},
+{"id":"Q139","domain":"Process","question":"The project schedule is too detailed for executive stakeholders. What should the project manager do?","options":["Provide appropriate level of detail for each audience","Share detailed schedule with everyone","Provide no schedule","Blame stakeholders"],"answer":"A"},
+{"id":"Q140","domain":"Process","question":"The project risk appetite has changed. What should the project manager do?","options":["Update risk management approach and reassess risks","Ignore risk appetite change","Continue with original approach","Blame sponsor"],"answer":"A"},
+{"id":"Q141","domain":"Process","question":"A deliverable is technically complete but not usable. What should the project manager do?","options":["Address usability issues before formal acceptance","Force acceptance","Ignore usability","Cancel deliverable"],"answer":"A"},
+{"id":"Q142","domain":"Process","question":"The project team is not documenting lessons learned. What should the project manager do?","options":["Establish regular lessons learned practices throughout project","Document only at project end","Ignore lessons learned","Blame team"],"answer":"A"},
+{"id":"Q143","domain":"Process","question":"Stakeholders request a change after project closure. What should the project manager do?","options":["Evaluate as new project or enhancement request","Implement change in closed project","Ignore request","Blame stakeholders"],"answer":"A"},
+{"id":"Q144","domain":"Process","question":"The project budget forecast shows overrun. What should the project manager do?","options":["Analyze causes and present options to stakeholders","Ignore forecast","Request unlimited budget","Blame finance"],"answer":"A"},
+{"id":"Q145","domain":"Process","question":"The project is using a fixed-price contract but scope is uncertain. What is the risk?","options":["Vendor may cut corners or request changes","No risk","Fixed-price eliminates all risk","Scope will define itself"],"answer":"A"},
+{"id":"Q146","domain":"Process","question":"The team velocity varies significantly between iterations. What should the project manager do?","options":["Investigate causes and stabilize team conditions","Ignore velocity variation","Average velocity only","Blame team"],"answer":"A"},
+{"id":"Q147","domain":"Process","question":"A project dependency is not documented. What should the project manager do?","options":["Identify and document all dependencies","Ignore undocumented dependencies","Assume no dependencies","Blame planner"],"answer":"A"},
+{"id":"Q148","domain":"Process","question":"The project schedule shows positive float on all paths. What does this indicate?","options":["Project can finish earlier than required date","Project is delayed","Schedule is wrong","Float is irrelevant"],"answer":"A"},
+{"id":"Q149","domain":"Process","question":"Stakeholders are not engaged in requirements gathering. What should the project manager do?","options":["Use appropriate engagement techniques to elicit requirements","Proceed without requirements","Ignore stakeholder input","Blame business analyst"],"answer":"A"},
+{"id":"Q150","domain":"Process","question":"The project quality standards are not being met. What should the project manager do?","options":["Implement quality assurance and control processes","Ignore quality standards","Lower standards","Blame quality team"],"answer":"A"},
+{"id":"Q151","domain":"Process","question":"A project phase is behind schedule. What should the project manager do?","options":["Assess options for schedule compression or scope adjustment","Ignore the delay","Extend phase indefinitely","Blame team"],"answer":"A"},
+{"id":"Q152","domain":"Process","question":"The project team is not using defined tools effectively. What should the project manager do?","options":["Provide training and support for tool adoption","Force tool usage","Abandon tools","Blame team"],"answer":"A"},
+{"id":"Q153","domain":"Process","question":"Stakeholders disagree on acceptance criteria. What should the project manager do?","options":["Facilitate agreement on measurable acceptance criteria","Let each stakeholder define criteria","Ignore disagreement","Proceed without criteria"],"answer":"A"},
+{"id":"Q154","domain":"Process","question":"The project risk register is too long and unmanageable. What should the project manager do?","options":["Prioritize risks and focus on high-impact items","Delete risks","Ignore risk register","Blame team"],"answer":"A"},
+{"id":"Q155","domain":"Process","question":"A deliverable meets specifications but not stakeholder expectations. What should the project manager do?","options":["Clarify expectations and address gaps","Force acceptance","Ignore expectations","Blame stakeholder"],"answer":"A"},
+{"id":"Q156","domain":"Process","question":"The project is using an inappropriate lifecycle approach. What should the project manager do?","options":["Assess and adapt lifecycle to project characteristics","Continue with inappropriate approach","Ignore lifecycle issues","Blame methodology"],"answer":"A"},
+{"id":"Q157","domain":"Process","question":"The project cost performance index is 1.15. What does this indicate?","options":["Project is under budget","Project is over budget","Project is on budget","CPI is irrelevant"],"answer":"A"},
+{"id":"Q158","domain":"Process","question":"Team members are unclear about quality standards. What should the project manager do?","options":["Communicate and train on quality standards","Ignore quality confusion","Lower standards","Blame quality team"],"answer":"A"},
+{"id":"Q159","domain":"Process","question":"A critical resource becomes unavailable. What should the project manager do?","options":["Assess impact and activate resource contingency plans","Stop all work","Ignore resource unavailability","Blame resource manager"],"answer":"A"},
+{"id":"Q160","domain":"Process","question":"The project scope baseline has been baselined but stakeholders want changes. What should the project manager do?","options":["Process changes through formal change control","Reject all changes","Accept changes informally","Ignore baseline"],"answer":"A"},
+{"id":"Q161","domain":"Process","question":"The project schedule shows many activities with negative float. What should the project manager do?","options":["Analyze and compress schedule or adjust scope","Ignore negative float","Extend deadline arbitrarily","Blame scheduler"],"answer":"A"},
+{"id":"Q162","domain":"Process","question":"Stakeholders are not satisfied with deliverable quality. What should the project manager do?","options":["Review quality processes and implement improvements","Ignore quality concerns","Blame quality team","Lower standards"],"answer":"A"},
+{"id":"Q163","domain":"Process","question":"The project is using agile but needs regulatory documentation. What should the project manager do?","options":["Integrate necessary documentation into agile process","Abandon agile","Ignore regulatory requirements","Blame compliance"],"answer":"A"},
+{"id":"Q164","domain":"Process","question":"A vendor proposes a change that benefits the project. What should the project manager do?","options":["Evaluate change through proper change control process","Accept change immediately","Reject all vendor changes","Ignore proposal"],"answer":"A"},
+{"id":"Q165","domain":"Process","question":"The project team is not achieving defined KPIs. What should the project manager do?","options":["Analyze root causes and implement corrective actions","Ignore KPIs","Change KPIs","Blame team"],"answer":"A"},
+{"id":"Q166","domain":"Process","question":"The project benefits are not being realized as planned. What should the project manager do?","options":["Review benefits realization plan and adjust approach","Ignore benefits","Cancel project","Blame operations"],"answer":"A"},
+{"id":"Q167","domain":"Business Environment","question":"A new regulation affects project compliance requirements. What should the project manager do?","options":["Assess impact and update project to meet regulatory requirements","Ignore the regulation","Continue with non-compliant approach","Blame legal department"],"answer":"A"},
+{"id":"Q168","domain":"Business Environment","question":"Market conditions change making project deliverables less valuable. What should the project manager do?","options":["Reassess project business case with sponsor","Continue regardless of market change","Cancel project immediately","Ignore market changes"],"answer":"A"},
+{"id":"Q169","domain":"Process","question":"The project team discovers a more efficient technology mid-project. What should the project manager do?","options":["Assess benefits and risks of technology change through proper channels","Immediately adopt new technology","Ignore the discovery","Blame team for late discovery"],"answer":"A"},
+{"id":"Q170","domain":"Business Environment","question":"Organizational strategy shifts affecting project priorities. What should the project manager do?","options":["Align project with new strategy through portfolio governance","Ignore strategy change","Continue with original priorities","Blame strategy team"],"answer":"A"},
+{"id":"Q171","domain":"Business Environment","question":"A competitor releases a superior product. What should the project manager do?","options":["Reassess project value proposition and adapt accordingly","Ignore competition","Cancel project","Blame marketing"],"answer":"A"},
+{"id":"Q172","domain":"Process","question":"The project is delivering on time and budget but business needs have changed. What should the project manager do?","options":["Reassess project alignment with current business needs","Continue delivering original scope","Ignore business changes","Blame business"],"answer":"A"},
+{"id":"Q173","domain":"Business Environment","question":"New environmental regulations affect project approach. What should the project manager do?","options":["Incorporate environmental requirements into project plan","Ignore environmental regulations","Continue with original approach","Blame environmental team"],"answer":"A"},
+{"id":"Q174","domain":"Process","question":"The project deliverables are complete but the business case is no longer valid. What should the project manager do?","options":["Present findings to sponsor for project continuation decision","Continue project","Ignore business case","Cancel unilaterally"],"answer":"A"},
+{"id":"Q175","domain":"Business Environment","question":"Economic downturn affects project funding. What should the project manager do?","options":["Assess impact and present options to maintain project value","Ignore funding issues","Cancel project","Blame economy"],"answer":"A"},
+{"id":"Q176","domain":"Process","question":"The project team identifies a significant opportunity to increase project value. What should the project manager do?","options":["Assess and present opportunity through proper governance","Ignore the opportunity","Implement without approval","Blame team for late discovery"],"answer":"A"},
+{"id":"Q177","domain":"Business Environment","question":"Industry standards change affecting project deliverables. What should the project manager do?","options":["Update project to meet new industry standards","Ignore standard changes","Continue with old standards","Blame standards body"],"answer":"A"},
+{"id":"Q178","domain":"Process","question":"The project is technically successful but not adopted by users. What should the project manager do?","options":["Assess adoption barriers and implement change management","Ignore adoption issues","Blame users","Cancel project"],"answer":"A"},
+{"id":"Q179","domain":"Business Environment","question":"New data privacy laws affect project data handling. What should the project manager do?","options":["Ensure project complies with data privacy requirements","Ignore privacy laws","Continue with current approach","Blame legal"],"answer":"A"},
+{"id":"Q180","domain":"Business Environment","question":"The project's strategic alignment is questioned by senior management. What should the project manager do?","options":["Demonstrate project value and strategic contribution","Ignore the questioning","Cancel project","Blame management"],"answer":"A"}
+];
 
 function toggleMobileMenu(){document.getElementById('navLinks').classList.toggle('active');}
 function scrollToExam(){document.getElementById('examTop').scrollIntoView({behavior:'smooth',block:'start'});}
@@ -721,7 +901,7 @@ function submitExam(){
 
 function closeResults(){$("resultModal").classList.remove("show");}
 
-// ===== CERTIFICATE PDF GENERATION (OPTIMIZED FOR 100% A4 SCALE) =====
+// ===== CERTIFICATE PDF GENERATION =====
 async function generateCertificatePDF() {
   const btn = document.querySelector('#certDownloadSection button');
   const originalText = btn.innerHTML;
@@ -760,27 +940,24 @@ async function generateCertificatePDF() {
     certArea.style.top = '0';
     certArea.style.zIndex = '-1';
 
-    // Wait for fonts to load completely to prevent fallback fonts in PDF
+    // 🐛 FIX: Wait for fonts to load completely to prevent fallback fonts in PDF
     await document.fonts.ready;
     await new Promise(r => setTimeout(r, 300)); // Small delay to ensure DOM repaint
 
-    // 3. Capture with html2canvas (EXACT A4 LANDSCAPE PIXEL DIMENSIONS)
+    // 3. Capture with html2canvas
     const canvas = await html2canvas(document.getElementById('cert-container'), {
-      scale: 2, // Optimal balance of quality and file size
+      scale: 3, // High resolution for print
       useCORS: true,
-      backgroundColor: '#fdfbf7',
-      width: 1122,  // Exact A4 landscape width in pixels (297mm at 96 DPI)
-      height: 793   // Exact A4 landscape height in pixels (210mm at 96 DPI)
+      backgroundColor: '#fdfbf7'
     });
 
     // 4. Generate PDF
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('l', 'mm', 'a4'); // Landscape, millimeters, A4
-    const pdfWidth = pdf.internal.pageSize.getWidth(); // 297
-    const pdfHeight = pdf.internal.pageSize.getHeight(); // 210
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
     const imgData = canvas.toDataURL('image/png');
     
-    // Force image to exactly match PDF page dimensions (100% scale)
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     
     const safeFileName = (userName || 'Trainee').replace(/[^a-z0-9]/gi, '_').toLowerCase();
