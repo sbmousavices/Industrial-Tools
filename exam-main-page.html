@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Exam Simulators | BM Planning</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg-primary: #0a1628;
+  --bg-secondary: #111827;
+  --bg-card: #1e293b;
+  --border-color: rgba(212, 175, 55, 0.2);
+  --text-primary: #e8eef7;
+  --text-secondary: #a0aec0;
+  --accent: #d4af37;
+  --accent-light: #f4d06f;
+  --nav-height: 70px;
+  --nav-bg: rgba(10, 10, 12, 0.95);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+  background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+  overflow-x: hidden;
+}
+
+#network-canvas {
+  position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+  background: var(--nav-bg); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color); z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+  color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer;
+}
+.nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+.nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;
+  font-weight: 500; transition: color 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.btn-signin {
+  display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important;
+  border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important;
+  text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap;
+}
+.btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+/* ===== MAIN CONTAINER ===== */
+.container { max-width: 1200px; margin: auto; padding: 40px 30px; position: relative; z-index: 1; }
+
+/* ===== CREDIBILITY BAR ===== */
+.credibility-bar {
+  display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; margin-bottom: 50px;
+}
+.cred-item { text-align: center; min-width: 105px; }
+.cred-number { font-size: 1.55rem; font-weight: 800; color: var(--accent); display: block; }
+.cred-label { font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ===== HEADER SECTION ===== */
+.page-header { text-align: center; margin-bottom: 60px; }
+.page-header h1 {
+  font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900; margin-bottom: 15px; line-height: 1.2;
+}
+.page-header h1 span {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.page-header p {
+  color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.7;
+}
+
+/* ===== EXAM CARDS GRID ===== */
+.exams-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+}
+
+.exam-card {
+  background: var(--bg-secondary); border: 1px solid var(--border-color);
+  border-radius: 16px; padding: 35px 30px; text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; height: 100%;
+}
+.exam-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.exam-card:hover {
+  transform: translateY(-8px); border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+}
+.exam-card:hover::before { transform: scaleX(1); }
+
+.card-icon {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; margin: 0 auto 20px; transition: all 0.3s ease;
+}
+.exam-card:hover .card-icon {
+  background: var(--accent); color: var(--bg-primary); transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 15px;
+}
+.card-desc {
+  color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;
+}
+.card-features {
+  list-style: none; text-align: left; margin-bottom: 30px; padding: 0 10px;
+}
+.card-features li {
+  color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-features li i { color: var(--accent); font-size: 0.7rem; }
+
+.btn-start {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px; border-radius: 50px; text-decoration: none;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  color: var(--bg-primary); font-weight: 700; font-size: 1rem;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.btn-start::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-25deg); animation: shimmer 3s infinite;
+}
+@keyframes shimmer { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center; padding: 30px; color: var(--text-secondary); font-size: 0.85rem;
+  border-top: 1px solid var(--border-color); margin-top: 60px;
+}
+
+/* ===== EASTER EGG TOAST ===== */
+.easter-egg-toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--bg-primary); padding: 15px 30px; border-radius: 50px;
+  font-weight: 700; font-size: 1rem; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+  z-index: 10000; opacity: 0; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: flex; align-items: center; gap: 10px;
+}
+.easter-egg-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; flex-direction: column; position: absolute; top: var(--nav-height);
+    left: 0; width: 100%; background: var(--nav-bg); padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .nav-links.active { display: flex; }
+  .mobile-menu-btn { display: block; }
+  .credibility-bar { gap: 25px; }
+  .container { padding: 30px 20px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="network-canvas"></canvas>
+
+<nav>
+  <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+    <span>BM Planning</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+    <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+    <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+    <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+    <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="container">
+  <!-- Credibility Bar -->
+  <div class="credibility-bar">
+    <div class="cred-item"><span class="cred-number" data-target="500">0</span><span class="cred-label">Active Users</span></div>
+    <div class="cred-item"><span class="cred-number" data-target="12">0</span><span class="cred-label">Pro Tools</span></div>
+    <div class="cred-item"><span class="cred-number" data-target="41">0</span><span class="cred-label">Expert Articles</span></div>
+  </div>
+
+  <!-- Header -->
+  <header class="page-header">
+    <h1>Professional <span>Exam Simulators</span></h1>
+    <p>Test your knowledge and validate your expertise with our premium, industry-standard exam simulators. Designed for project planners, controllers, and engineering professionals.</p>
+  </header>
+
+  <!-- Exam Cards -->
+  <div class="exams-grid">
+    
+    <!-- PMP Card -->
+    <div class="exam-card">
+      <div class="card-icon"><i class="fas fa-certificate"></i></div>
+      <h3 class="card-title">PMP® Exam Simulator</h3>
+      <p class="card-desc">Comprehensive preparation for the Project Management Professional exam based on the latest PMI Examination Content Outline (ECO).</p>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> 180 Expert-Level Questions</li>
+        <li><i class="fas fa-check-circle"></i> 240 Minutes Duration</li>
+        <li><i class="fas fa-check-circle"></i> People, Process & Business Environment</li>
+        <li><i class="fas fa-check-circle"></i> Premium PDF Certificate upon passing</li>
+      </ul>
+      <a href="https://sbmousavices.github.io/Industrial-Tools/pmp-exam-premium.html" class="btn-start">
+        Start PMP Exam <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- P6 Card -->
+    <div class="exam-card">
+      <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+      <h3 class="card-title">Primavera P6 Simulator</h3>
+      <p class="card-desc">Validate your enterprise project management skills with advanced scenarios covering scheduling, resource leveling, and tracking in Oracle P6.</p>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> 60 Expert-Level Questions</li>
+        <li><i class="fas fa-check-circle"></i> 90 Minutes Duration</li>
+        <li><i class="fas fa-check-circle"></i> Enterprise, Planning, Resources & Tracking</li>
+        <li><i class="fas fa-check-circle"></i> Premium PDF Certificate upon passing</li>
+      </ul>
+      <a href="https://sbmousavices.github.io/Industrial-Tools/p6-exam.html" class="btn-start">
+        Start P6 Exam <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MSP Card -->
+    <div class="exam-card">
+      <div class="card-icon"><i class="fas fa-chart-gantt"></i></div>
+      <h3 class="card-title">MS Project Simulator</h3>
+      <p class="card-desc">Master Microsoft Project with practical questions on task management, resource allocation, baseline tracking, and professional reporting.</p>
+      <ul class="card-features">
+        <li><i class="fas fa-check-circle"></i> 60 Expert-Level Questions</li>
+        <li><i class="fas fa-check-circle"></i> 90 Minutes Duration</li>
+        <li><i class="fas fa-check-circle"></i> Setup, Tasks, Resources & Reporting</li>
+        <li><i class="fas fa-check-circle"></i> Premium PDF Certificate upon passing</li>
+      </ul>
+      <a href="https://sbmousavices.github.io/Industrial-Tools/msp-exam.html" class="btn-start">
+        Start MS Project Exam <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 BM Planning. All Rights Reserved. | Precision Planning. Powerful Control. Proven Results.</p>
+</footer>
+
+<!-- Easter Egg Toast -->
+<div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...</div>
+
+<script>
+// ===== MOBILE MENU =====
+function toggleMobileMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+
+// ===== COUNTER ANIMATION =====
+function animateCounters() {
+  document.querySelectorAll('.cred-number').forEach(counter => {
+    const target = Number(counter.dataset.target);
+    let value = 0;
+    const step = Math.max(1, Math.ceil(target / 100));
+    const timer = setInterval(() => {
+      value += step;
+      if (value >= target) { value = target; clearInterval(timer); }
+      counter.textContent = value + (target > 100 ? '+' : '');
+    }, 18);
+  });
+}
+document.addEventListener('DOMContentLoaded', animateCounters);
+
+// ===== EASTER EGG (5 Clicks on Logo) =====
+const logoTrigger = document.getElementById('easter-egg-trigger');
+const toast = document.getElementById('easter-toast');
+let eggClicks = 0, lastEggClick = 0;
+
+if (logoTrigger) {
+  logoTrigger.addEventListener('click', e => {
+    const now = Date.now();
+    eggClicks = (now - lastEggClick < 800) ? eggClicks + 1 : 1;
+    lastEggClick = now;
+    if (eggClicks >= 5) {
+      e.preventDefault();
+      eggClicks = 0;
+      toast.classList.add('show');
+      setTimeout(() => {
+        window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html";
+      }, 1800);
+    }
+  });
+}
+
+// ===== INTERACTIVE NETWORK BACKGROUND =====
+const canvas = document.getElementById('network-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouse = { x: null, y: null };
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+window.addEventListener('mousemove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+});
+
+window.addEventListener('mouseleave', () => {
+  mouse.x = null;
+  mouse.y = null;
+});
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.size = Math.random() * 1.5 + 0.5;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+  draw() {
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = [];
+  const numberOfParticles = Math.min(50, (canvas.width * canvas.height) / 25000);
+  for (let i = 0; i < numberOfParticles; i++) {
+    particles.push(new Particle());
+  }
+}
+initParticles();
+
+function animateNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+    if (mouse.x != null && mouse.y != null) {
+      const dx = particles[i].x - mouse.x;
+      const dy = particles[i].y - mouse.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < 200) {
+        const opacity = 0.5 - (distance / 400);
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(244, 208, 111, ${opacity})`;
+        ctx.lineWidth = 1.2;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateNetwork);
+}
+animateNetwork();
+
+window.addEventListener('resize', () => {
+  setTimeout(initParticles, 100);
+});
+</script>
+</body>
+</html>
