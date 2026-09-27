@@ -245,252 +245,47 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- PDF Articles -->
+  <!-- New Premium & Free Tools -->
   <url>
-    <loc>https://sbmousavices.github.io/Articles/Resource_Loading.pdf</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/kpi.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/kpi-demo.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sbmousavices.github.io/Articles/Baseline_Schedule_Development.pdf</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/world-clock.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbmousavices.github.io/Articles/Critical_Path_Analysis.pdf</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/salary-calculator.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbmousavices.github.io/Articles/WBS_Development_for_EPC_Projects.pdf</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/risk-generator.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbmousavices.github.io/Articles/Primavera_P6_Scheduling_Best_Practices.pdf</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/pmp-exam.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbmousavices.github.io/Articles/EPC_Project_Delay_Due_to_10_Critical_Schedule_Risks.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
+    <loc>https://sbmousavices.github.io/Industrial-Tools/ppc-interview.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Activity_Codes.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Best_Practices.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Calendars.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Change_Management.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Claims_Avoidance.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Constraints.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Construction_Progress_Measurement.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Cost_Control.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Dashboards.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Delay_Analysis.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Engineering_Progress_Measurement.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Float_Management.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Forecasting.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Global_Change.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Interface_Management.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/KPI_Development.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Layouts.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Lessons_Learned.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Mastering_Resource_Leveling.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Performance_Reporting.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Procurement_Tracking.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Productivity_Analysis.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Project_Closeout.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Project_Controls_Framework.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Project_Dashboards.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Project_Progress_Measurement.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Recovery_Planning.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Relationships.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Reports.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Risk_Management.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Schedule_Recovery.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Schedule_Compression.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Tips&amp;Tricks.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Trend_Analysis.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sbmousavices.github.io/Articles/Updating_Schedules.pdf</loc>
-    <lastmod>2026-07-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
