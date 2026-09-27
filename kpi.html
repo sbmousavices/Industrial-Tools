@@ -3,10 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S-Curve Builder & Project Health Dashboard | BM Planning</title>
+<!-- ✅ SEO OPTIMIZED TITLE -->
+<title>Free S-Curve Builder & EVM Project Health Dashboard | BM Planning</title>
+<!-- ✅ SEO OPTIMIZED META DESCRIPTION -->
+<meta name="description" content="Generate professional S-Curve charts and track EVM metrics (SPI, CPI, EAC) in real-time. Free online project health dashboard for planning engineers and project managers.">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- ✅ AUTO CANONICAL TAG FOR SEO -->
+<script>
+  (function() {
+    const existingCanonical = document.querySelector('link[rel="canonical"]');
+    if (!existingCanonical) {
+      const canonicalUrl = window.location.href.split('?')[0].split('#')[0];
+      const canonicalLink = document.createElement('link');
+      canonicalLink.rel = 'canonical';
+      canonicalLink.href = canonicalUrl;
+      document.head.appendChild(canonicalLink);
+    }
+  })();
+</script>
 
 <style>
 :root {
@@ -293,6 +311,20 @@ nav {
       </div>
     </div>
   </div>
+
+  <!-- ✅ SEO OPTIMIZED CONTENT SECTION (Helps Google index the page) -->
+  <section style="max-width: 900px; margin: 4rem auto; padding: 0 5%; color: var(--text-secondary); line-height: 1.8;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-primary); margin-bottom: 1rem; text-align: center;">
+      Why Use Our Free S-Curve Builder & EVM Dashboard?
+    </h2>
+    <p style="margin-bottom: 1.5rem;">
+      Effective project management relies on accurate, real-time data. Our <strong>Free S-Curve Builder and Project Health Dashboard</strong> is designed specifically for Planning Engineers, Project Managers, and Project Controls Professionals in EPC, Oil & Gas, and construction industries. It allows you to visualize project progress, track Earned Value Management (EVM) metrics like <strong>SPI, CPI, and EAC</strong>, and analyze monthly variances instantly.
+    </p>
+    <p>
+      Whether you are managing a small task or a multi-million dollar industrial project, having a clear view of your schedule variance and cost performance is critical for making data-driven decisions. This browser-based tool requires no installation, ensures your data remains private, and helps you maintain compliance with industry best practices for project reporting.
+    </p>
+  </section>
+
 </div>
 
 <script>
@@ -343,8 +375,6 @@ function loadSampleData() {
 function clearTable() {
   document.querySelectorAll('#dataTableBody input[type="number"]').forEach(i => i.value = 0);
 }
-
-// ✅ REMOVED: exportCSV() and importCSV() functions
 
 // ===== GENERATE DASHBOARD =====
 function generateDashboard() {
@@ -486,8 +516,6 @@ function formatCurrency(val) {
   if (Math.abs(val) >= 1e3) return cur + (val / 1e3).toFixed(1) + 'K';
   return cur + val.toFixed(0);
 }
-
-// ✅ REMOVED: downloadPNG() function
 
 // ===== UTILITIES =====
 function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('active'); }
