@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning Engineer Interview Simulator | BM Planning</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+:root {
+  --bg-primary: #0a1628;
+  --bg-secondary: #111827;
+  --bg-card: #1e293b;
+  --border-color: rgba(212, 175, 55, 0.2);
+  --text-primary: #e8eef7;
+  --text-secondary: #a0aec0;
+  --accent: #d4af37;
+  --accent-light: #f4d06f;
+  --red: #ef4444;
+  --green: #10b981;
+  --blue: #3b82f6;
+  --purple: #a855f7;
+  --input-bg: #0f172a;
+  --nav-height: 70px;
+  --nav-bg: rgba(10, 10, 12, 0.95);
+  --cream: #fdfbf7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+  background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+  overflow-x: hidden;
+}
+
+#network-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+  background: var(--nav-bg); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color); z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+.nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+.nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.btn-signin { display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important; border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap; }
+.btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+.back-to-tools-wrapper { width: 100%; display: flex; justify-content: flex-end; box-sizing: border-box; padding: 12px 24px 0; position: relative; z-index: 10; }
+.back-to-tools { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid var(--accent); border-radius: 50px; background: rgba(0,0,0,.25); color: var(--accent); text-decoration: none; font-size: .85rem; font-weight: 600; transition: all .3s ease; white-space: nowrap; }
+.back-to-tools:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-1px); }
+
+.container { max-width: 1400px; margin: auto; padding: 20px 30px; position: relative; z-index: 1; }
+
+/* ===== HEADER ===== */
+.page-header { text-align: center; margin-bottom: 40px; }
+.page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; margin-bottom: 15px; }
+.page-header h1 span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.7; }
+
+/* ===== CONFIG PANEL ===== */
+.config-panel {
+  background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; margin-bottom: 30px;
+}
+.config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
+.config-group { display: flex; flex-direction: column; gap: 8px; }
+.config-group label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.config-group select, .config-group input {
+  padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px;
+  color: var(--text-primary); font-family: inherit; font-size: 0.95rem; transition: 0.3s;
+}
+.config-group select:focus, .config-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); }
+
+.btn-start {
+  width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  color: var(--bg-primary); border: none; border-radius: 10px; font-weight: 700; font-size: 1rem;
+  cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+
+/* ===== EXAM LAYOUT ===== */
+.exam-layout { display: none; grid-template-columns: minmax(0, 1fr) 310px; gap: 20px; }
+.exam-layout.active { display: grid; }
+
+.panel { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; }
+
+.progress-wrap { height: 7px; background: var(--bg-card); border-radius: 20px; overflow: hidden; margin: 12px 0 20px; }
+.progress { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: 0.25s; }
+
+.q-top { display: flex; justify-content: space-between; gap: 15px; color: var(--text-secondary); font-size: 12px; margin-bottom: 15px; flex-wrap: wrap; }
+.category-badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.cat-technical { background: rgba(59, 130, 246, 0.15); color: var(--blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+.cat-behavioral { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+.difficulty-badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+}
+.diff-junior { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+.diff-mid { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.diff-senior { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+.question { font-size: 1.15rem; line-height: 1.7; margin-bottom: 20px; font-weight: 500; color: var(--text-primary); }
+
+.options { display: grid; gap: 10px; }
+.option {
+  background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px;
+  cursor: pointer; display: flex; gap: 12px; align-items: flex-start; transition: 0.2s;
+}
+.option:hover { border-color: var(--accent); background: #121d30; }
+.option.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); background: rgba(212, 175, 55, 0.08); }
+.option.correct { border-color: var(--green); background: rgba(16, 185, 129, 0.1); }
+.option.wrong { border-color: var(--red); background: rgba(239, 68, 68, 0.1); }
+.letter {
+  min-width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--bg-card); color: var(--accent); font-weight: 800; flex-shrink: 0;
+}
+.option.selected .letter { background: var(--accent); color: var(--bg-primary); }
+.option.correct .letter { background: var(--green); color: white; }
+.option.wrong .letter { background: var(--red); color: white; }
+
+/* ===== MODEL ANSWER BOX ===== */
+.model-answer-box {
+  margin-top: 20px; padding: 20px; background: rgba(212, 175, 55, 0.05);
+  border-left: 4px solid var(--accent); border-radius: 8px; display: none;
+  animation: slideIn 0.4s ease;
+}
+.model-answer-box.show { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.model-answer-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  color: var(--accent); font-weight: 700; font-size: 0.95rem;
+}
+.model-answer-text { color: var(--text-primary); line-height: 1.7; font-size: 0.95rem; }
+.model-answer-text strong { color: var(--accent-light); }
+.interview-tip {
+  margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color);
+  font-size: 0.9rem; color: var(--text-secondary); font-style: italic;
+}
+.interview-tip i { color: var(--accent); margin-right: 5px; }
+
+.nav-q { display: flex; justify-content: space-between; margin-top: 20px; gap: 10px; flex-wrap: wrap; }
+
+.btn { border: 0; border-radius: 8px; padding: 10px 16px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 7px; font-family: inherit; }
+.btn-primary { background: var(--accent); color: var(--bg-primary); }
+.btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+.btn-dark { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); }
+.btn-dark:hover { color: var(--accent); border-color: var(--accent); }
+.btn-success { background: var(--green); color: white; }
+.btn-success:hover { background: #059669; }
+
+/* ===== SIDEBAR ===== */
+.side-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.timer { font-size: 28px; font-weight: 800; color: var(--accent); text-align: center; margin: 8px 0 18px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 18px; }
+.stat { background: var(--bg-card); padding: 10px 5px; text-align: center; border-radius: 8px; }
+.stat b { display: block; font-size: 18px; }
+.stat span { font-size: 10px; color: var(--text-secondary); }
+.palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; max-height: 320px; overflow: auto; padding-right: 3px; }
+.qnum {
+  height: 32px; border: 1px solid var(--border-color); background: var(--input-bg);
+  color: var(--text-secondary); border-radius: 6px; cursor: pointer; font-size: 11px;
+}
+.qnum.answered { background: rgba(16, 185, 129, 0.18); border-color: var(--green); color: #a7f3d0; }
+.qnum.correct { background: rgba(16, 185, 129, 0.3); border-color: var(--green); color: white; }
+.qnum.wrong { background: rgba(239, 68, 68, 0.3); border-color: var(--red); color: white; }
+.qnum.current { outline: 2px solid var(--accent); color: var(--accent); }
+.qnum.flagged { background: rgba(245, 158, 11, 0.18); border-color: #f59e0b; color: #fde68a; }
+.info { font-size: 11px; color: var(--text-secondary); line-height: 1.6; margin-top: 14px; }
+
+/* ===== RESULTS MODAL ===== */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; place-items: center; z-index: 2000; padding: 20px; backdrop-filter: blur(5px); }
+.modal.show { display: grid; }
+.modal-card { max-width: 800px; width: 100%; max-height: 90vh; overflow: auto; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px; padding: 26px; }
+.score { font-size: 55px; font-weight: 800; color: var(--accent); text-align: center; }
+.result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+.result-box { background: var(--bg-card); padding: 15px; border-radius: 10px; text-align: center; }
+.result-box b { display: block; font-size: 22px; color: var(--accent); }
+.result-box span { font-size: 0.85rem; color: var(--text-secondary); }
+
+/* ===== CERTIFICATE ===== */
+#certificate-render-area { position: absolute; left: -9999px; top: 0; z-index: -1; }
+.cert-container {
+  position: relative; width: 297mm; height: 210mm; background: var(--cream); padding: 15mm 20mm;
+  box-sizing: border-box; overflow: hidden; color: #0a1628; font-family: 'Inter', sans-serif;
+}
+.cert-container::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+.cert-brand-name {
+  position: absolute; top: 10mm; left: 50%; transform: translateX(-50%);
+  background: var(--cream); color: #0a1628; padding: 5px 25px;
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase; border: 2px solid #d4af37;
+  border-radius: 4px; z-index: 20;
+}
+.cert-title {
+  position: absolute; top: 22mm; left: 50%; transform: translateX(-50%);
+  font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #0a1628;
+  letter-spacing: 3px; white-space: nowrap; font-weight: 700; z-index: 20; margin: 0;
+}
+.cert-logo {
+  position: absolute; top: 20mm; right: 20mm; width: 15mm; height: 15mm;
+  border-radius: 50%; border: 2px solid #d4af37; object-fit: cover; background: #fff; padding: 2px; z-index: 5;
+}
+.cert-frame { position: absolute; top: 8mm; left: 8mm; right: 8mm; bottom: 8mm; border: 3px double #d4af37; pointer-events: none; z-index: 2; }
+.cert-frame-inner { position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; border: 1px solid #0a1628; }
+.cert-corner { position: absolute; width: 15mm; height: 15mm; border: 3px solid #d4af37; z-index: 3; }
+.cert-corner-tl { top: 6mm; left: 6mm; border-right: none; border-bottom: none; }
+.cert-corner-tr { top: 6mm; right: 6mm; border-left: none; border-bottom: none; }
+.cert-corner-bl { bottom: 6mm; left: 6mm; border-right: none; border-top: none; }
+.cert-corner-br { bottom: 6mm; right: 6mm; border-left: none; border-top: none; }
+.cert-content {
+  position: relative; z-index: 5; text-align: center; height: 100%;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 0 30mm; margin-top: 25mm; color: #0a1628;
+}
+.cert-subtitle { font-size: 1rem; color: #555; margin-bottom: 10px; font-style: italic; font-family: 'Playfair Display', serif; }
+.cert-recipient-name {
+  font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #0a1628;
+  margin: 5px 0 10px 0; border-bottom: 1px solid #d4af37; padding-bottom: 5px;
+  min-width: 40%; max-width: 100%; display: inline-block; word-break: break-word; line-height: 1.1;
+}
+.cert-course-text { font-size: 0.9rem; color: #555; margin: 8px 0 5px 0; }
+.cert-course-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #0a1628; font-weight: 700; margin: 5px 0 15px 0; }
+.cert-score-block {
+  font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #0a1628; font-weight: 600;
+  margin-top: 5px; background: rgba(212, 175, 55, 0.15); padding: 5px 15px;
+  border-radius: 20px; display: inline-block; border: 1px solid #d4af37;
+}
+.cert-date-block { text-align: center; font-size: 0.85rem; color: #555; margin-bottom: 10mm; margin-top: 10px; }
+.cert-date-block span { font-weight: 600; color: #0a1628; }
+.cert-footer { display: flex; justify-content: center; align-items: flex-end; width: 100%; padding: 0 30mm; margin-top: auto; margin-bottom: 15mm; }
+.cert-sig-block { text-align: center; width: 180px; }
+.cert-sig-wrapper { position: relative; display: inline-block; margin-top: 25px; }
+.cert-sig-name {
+  font-family: 'Herr Von Muellerhoff', cursive; font-size: 2.8rem; color: #0a1628;
+  line-height: 1; white-space: nowrap; transform: rotate(-2deg);
+}
+.cert-sig-title { font-size: 0.7rem; color: #777; margin-top: 6px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+.cert-disclaimer {
+  position: absolute; bottom: 4mm; left: 0; right: 0; text-align: center;
+  font-size: 0.5rem; color: #888; z-index: 10; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;
+}
+
+/* ===== EASTER EGG ===== */
+.easter-egg-toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--bg-primary); padding: 15px 30px; border-radius: 50px;
+  font-weight: 700; font-size: 1rem; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+  z-index: 10000; opacity: 0; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: flex; align-items: center; gap: 10px;
+}
+.easter-egg-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+@media (max-width: 900px) {
+  .exam-layout { grid-template-columns: 1fr; }
+  .exam-layout.active { display: flex; flex-direction: column-reverse; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: var(--nav-bg); padding: 20px; border-bottom: 1px solid var(--border-color); }
+  .nav-links.active { display: flex; }
+  .mobile-menu-btn { display: block; }
+  .container { padding: 20px 15px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="network-canvas"></canvas>
+
+<nav>
+  <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+    <span>Home</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+    <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+    <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+    <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+    <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="back-to-tools-wrapper">
+  <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools">
+    <i class="fas fa-arrow-left"></i>
+    <span>Back to Eng. Tools</span>
+  </a>
+</div>
+
+<div class="container">
+  <header class="page-header">
+    <h1>Planning Engineer <span>Interview Simulator</span></h1>
+    <p>Practice real interview questions for Planning & Project Control positions. Get instant feedback with professional model answers and interview delivery tips.</p>
+  </header>
+
+  <!-- ===== CONFIG PANEL ===== -->
+  <div class="config-panel" id="configPanel">
+    <div class="config-grid">
+      <div class="config-group">
+        <label><i class="fas fa-user"></i> Your Name (for certificate)</label>
+        <input type="text" id="userName" placeholder="e.g., Behzad Mousavi">
+      </div>
+      <div class="config-group">
+        <label><i class="fas fa-layer-group"></i> Experience Level</label>
+        <select id="level">
+          <option value="junior">Junior (0-3 years)</option>
+          <option value="mid" selected>Mid-Level (3-7 years)</option>
+          <option value="senior">Senior (7+ years)</option>
+          <option value="mixed">Mixed (All Levels)</option>
+        </select>
+      </div>
+      <div class="config-group">
+        <label><i class="fas fa-filter"></i> Question Category</label>
+        <select id="category">
+          <option value="mixed" selected>Mixed (Technical + Behavioral)</option>
+          <option value="technical">Technical Only</option>
+          <option value="behavioral">Behavioral Only</option>
+        </select>
+      </div>
+      <div class="config-group">
+        <label><i class="fas fa-list-ol"></i> Number of Questions</label>
+        <select id="qCount">
+          <option value="10">10 Questions (Quick)</option>
+          <option value="20" selected>20 Questions (Standard)</option>
+          <option value="30">30 Questions (Full)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startInterview()">
+      <i class="fas fa-play"></i> Start Interview Simulation
+    </button>
+  </div>
+
+  <!-- ===== EXAM LAYOUT ===== -->
+  <div class="exam-layout" id="examLayout">
+    <main class="panel">
+      <div class="q-top">
+        <span id="qCounter">Question 1 of 20</span>
+        <span id="categoryBadge" class="category-badge cat-technical"><i class="fas fa-cogs"></i> Technical</span>
+        <span id="difficultyBadge" class="difficulty-badge diff-mid"><i class="fas fa-signal"></i> Mid-Level</span>
+      </div>
+      <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      
+      <!-- Model Answer Box (Unique Feature) -->
+      <div class="model-answer-box" id="modelAnswerBox">
+        <div class="model-answer-header">
+          <i class="fas fa-star"></i>
+          <span>MODEL PROFESSIONAL ANSWER</span>
+        </div>
+        <div class="model-answer-text" id="modelAnswerText"></div>
+        <div class="interview-tip" id="interviewTip"></div>
+      </div>
+
+      <div class="nav-q">
+        <button class="btn btn-dark" onclick="prevQ()"><i class="fas fa-arrow-left"></i> Previous</button>
+        <button class="btn btn-dark" id="flagBtn" onclick="toggleFlag()"><i class="far fa-flag"></i> Flag</button>
+        <button class="btn btn-success" id="showAnswerBtn" onclick="showModelAnswer()" style="display:none;"><i class="fas fa-lightbulb"></i> Show Model Answer</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">Next <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </main>
+
+    <aside class="panel">
+      <div class="side-title"><i class="fas fa-clock"></i> Remaining Time</div>
+      <div class="timer" id="timer">30:00</div>
+      <div class="stats">
+        <div class="stat"><b id="answered">0</b><span>Answered</span></div>
+        <div class="stat"><b id="correct">0</b><span>Correct</span></div>
+        <div class="stat"><b id="total">20</b><span>Total</span></div>
+      </div>
+      <div class="side-title">Question Navigator</div>
+      <div class="palette" id="palette"></div>
+      <div class="info">Green = correct • Red = wrong • Yellow = flagged • Gold = current</div>
+      <hr style="border:0;border-top:1px solid var(--border-color);margin:18px 0">
+      <button class="btn btn-primary" onclick="submitInterview()" style="width:100%; justify-content:center;"><i class="fas fa-flag-checkered"></i> Finish Interview</button>
+    </aside>
+  </div>
+</div>
+
+<!-- ===== RESULTS MODAL ===== -->
+<div class="modal" id="resultModal">
+  <div class="modal-card">
+    <h2 style="text-align:center;margin-bottom:5px" id="results">Interview Results</h2>
+    <div class="score" id="score">0%</div>
+    <p style="text-align:center;color:var(--text-secondary)" id="scoreText"></p>
+    <div class="result-grid">
+      <div class="result-box"><b id="techScore">0%</b><span>Technical</span></div>
+      <div class="result-box"><b id="behScore">0%</b><span>Behavioral</span></div>
+      <div class="result-box"><b id="juniorScore">0%</b><span>Junior Qs</span></div>
+      <div class="result-box"><b id="seniorScore">0%</b><span>Senior Qs</span></div>
+    </div>
+    <div id="certDownloadSection" style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color); display: none;">
+      <p style="color: var(--green); font-weight: 600; margin-bottom: 15px;"><i class="fas fa-check-circle"></i> Congratulations! You are ready for real interviews.</p>
+      <button class="btn btn-primary" onclick="generateCertificatePDF()" style="padding: 12px 24px; font-size: 1rem;">
+        <i class="fas fa-file-pdf"></i> Download Interview Certificate (PDF)
+      </button>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center; margin-top: 20px; flex-wrap:wrap;">
+      <button class="btn btn-dark" onclick="closeResults()">Review Answers</button>
+      <button class="btn btn-dark" onclick="resetInterview()">Start Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HIDDEN CERTIFICATE ===== -->
+<div id="certificate-render-area">
+  <div class="cert-container" id="cert-container">
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo" class="cert-logo">
+    <div class="cert-frame"><div class="cert-frame-inner"></div></div>
+    <div class="cert-corner cert-corner-tl"></div>
+    <div class="cert-corner cert-corner-tr"></div>
+    <div class="cert-corner cert-corner-bl"></div>
+    <div class="cert-corner cert-corner-br"></div>
+    <div class="cert-brand-name">BM Planning</div>
+    <div class="cert-title">CERTIFICATE OF COMPLETION</div>
+    <div class="cert-content">
+      <p class="cert-subtitle">This is to certify that</p>
+      <div class="cert-recipient-name" id="cert-recipient-name">[Trainee Full Name]</div>
+      <p class="cert-course-text">has successfully completed the interview preparation program</p>
+      <div class="cert-course-name">Planning Engineer Interview Mastery 2026</div>
+      <div class="cert-score-block">Achieved Score: <span id="cert-score">[Score]%</span></div>
+      <div class="cert-date-block">
+        Date of Issue: <span id="cert-date">[Month, Day, Year]</span> &nbsp;&nbsp;|&nbsp;&nbsp; Duration: <span>20 Practice Sessions</span> &nbsp;&nbsp;|&nbsp;&nbsp; Cert ID: <span id="cert-id">[ID]</span>
+      </div>
+      <div class="cert-footer">
+        <div class="cert-sig-block">
+          <div class="cert-sig-wrapper">
+            <div class="cert-sig-name">Behzad Mousavi</div>
+          </div>
+          <div class="cert-sig-title">Director</div>
+          <div class="cert-sig-title">BM Planning</div>
+        </div>
+      </div>
+    </div>
+    <div class="cert-disclaimer">
+      This certificate is issued by BM Planning for interview preparation purposes. It does not represent an official industry certification.
+    </div>
+  </div>
+</div>
+
+<div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i>  Game Hub Unlocked! Redirecting...</div>
+
+<script>
+// ===== QUESTION BANK =====
+const QUESTION_BANK = [
+  // ===== TECHNICAL - JUNIOR =====
+  { id: "T001", category: "technical", difficulty: "junior",
+    question: "What is the difference between Total Float and Free Float in CPM scheduling?",
+    options: [
+      "Total Float is the time an activity can be delayed without delaying the project finish date; Free Float is the time it can be delayed without delaying any successor's early start.",
+      "They are the same concept with different names.",
+      "Free Float applies only to critical activities.",
+      "Total Float is always zero on non-critical paths."
+    ],
+    answer: "A",
+    modelAnswer: "<strong>Total Float (TF)</strong> = LS - ES (or LF - EF). It represents the total time an activity can slip without affecting the project completion date. <strong>Free Float (FF)</strong> = ES(successor) - EF(current). It's the time an activity can slip without affecting the early start of any immediate successor. <strong>Key insight:</strong> FF is always ≤ TF. On the critical path, both are zero.",
+    tip: " Interview Tip: Mention a real example — 'In my last project, Activity X had 5 days TF but only 2 days FF because its successor had a hard constraint.'"
+  },
+  { id: "T002", category: "technical", difficulty: "junior",
+    question: "What does a negative float indicate in a project schedule?",
+    options: [
+      "The activity is ahead of schedule.",
+      "The project cannot meet its required finish date without schedule compression.",
+      "The activity has no resources assigned.",
+      "The schedule has been baselined incorrectly."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>Negative float</strong> means the calculated finish date exceeds a imposed constraint or deadline. It signals that the current schedule is infeasible. The project manager must apply <strong>schedule compression</strong> (crashing or fast-tracking) or negotiate a deadline extension.",
+    tip: "💡 Interview Tip: Add — 'In Primavera P6, I always monitor negative float weekly and escalate to stakeholders if it exceeds 3 days.'"
+  },
+  { id: "T003", category: "technical", difficulty: "junior",
+    question: "What is the primary purpose of a Work Breakdown Structure (WBS)?",
+    options: [
+      "To assign resources to activities.",
+      "To hierarchically decompose project scope into manageable deliverables.",
+      "To calculate the critical path.",
+      "To track actual costs."
+    ],
+    answer: "B",
+    modelAnswer: "The <strong>WBS</strong> is a hierarchical decomposition of the total scope of work. It's deliverable-oriented (not activity-oriented). Each level represents increasing detail. The lowest level is the <strong>work package</strong>, which can be reliably estimated and managed.",
+    tip: "💡 Interview Tip: Mention the <strong>100% Rule</strong> — 'The WBS must include 100% of the scope defined in the project charter, nothing more, nothing less.'"
+  },
+  { id: "T004", category: "technical", difficulty: "junior",
+    question: "In Primavera P6, what is the default task type?",
+    options: ["Fixed Duration", "Fixed Units", "Fixed Work", "Resource Dependent"],
+    answer: "B",
+    modelAnswer: "Primavera P6 defaults to <strong>Fixed Units</strong>. This means when you change duration, work changes proportionally while units stay constant. Understanding task types (Fixed Units/Duration/Work) is essential for accurate resource leveling.",
+    tip: "💡 Interview Tip: Show depth — 'I always review task types before resource loading because wrong types cause unrealistic resource histograms.'"
+  },
+  { id: "T005", category: "technical", difficulty: "junior",
+    question: "What does SPI (Schedule Performance Index) of 0.85 indicate?",
+    options: [
+      "The project is 15% ahead of schedule.",
+      "The project is progressing at 85% of the planned rate (behind schedule).",
+      "The project has 85% of its budget remaining.",
+      "The schedule baseline needs to be rebaselined."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>SPI = EV / PV</strong>. An SPI of 0.85 means for every $1 of work planned, only $0.85 of work has been earned — the project is <strong>15% behind schedule</strong>. SPI < 1.0 = behind; SPI = 1.0 = on track; SPI > 1.0 = ahead.",
+    tip: "💡 Interview Tip: Always pair SPI with CPI — 'In my experience, SPI of 0.85 combined with CPI of 1.1 often means the team is rushing quality to catch up.'"
+  },
+
+  // ===== TECHNICAL - MID =====
+  { id: "T006", category: "technical", difficulty: "mid",
+    question: "Your project has CPI = 0.82 and SPI = 1.05. What is the most accurate interpretation?",
+    options: [
+      "The project is under budget and ahead of schedule.",
+      "The project is over budget relative to earned value but slightly ahead of schedule.",
+      "The indices cannot be interpreted without the risk register.",
+      "The project is under budget and behind schedule."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>CPI = 0.82</strong> → Over budget (earning $0.82 for every $1 spent). <strong>SPI = 1.05</strong> → Slightly ahead of schedule. This combination often indicates <strong>crashing</strong> — throwing money at the schedule to accelerate. The PM should investigate cost overruns immediately.",
+    tip: "💡 Interview Tip: Show analytical thinking — 'I would drill down into cost accounts to find which work packages are driving the CPI below 1.0.'"
+  },
+  { id: "T007", category: "technical", difficulty: "mid",
+    question: "A critical activity is delayed by 5 days and has 3 days of total float. What should you conclude?",
+    options: [
+      "The project completion date must move by 5 days.",
+      "The activity has exceeded its float by 2 days, so project impact must be assessed.",
+      "There is no project impact because float exists.",
+      "The activity is automatically removed from the critical path."
+    ],
+    answer: "B",
+    modelAnswer: "If an activity had 3 days TF and is delayed 5 days, it has <strong>consumed all its float plus 2 extra days</strong>. This means the project finish date is now at risk by at least 2 days. Immediate action: assess successors, evaluate compression options, and notify stakeholders.",
+    tip: " Interview Tip: Demonstrate proactivity — 'I would immediately run a what-if analysis in P6 to evaluate fast-tracking options on the new critical path.'"
+  },
+  { id: "T008", category: "technical", difficulty: "mid",
+    question: "What is the difference between 'Retained Logic' and 'Progress Override' in Primavera P6?",
+    options: [
+      "They are the same scheduling method.",
+      "Retained Logic respects original network logic despite out-of-sequence progress; Progress Override ignores logic and schedules based on actuals only.",
+      "Progress Override is used only for baselines.",
+      "Retained Logic deletes all relationships."
+    ],
+    answer: "B",
+    modelAnswer: "When activities progress out-of-sequence (e.g., successor starts before predecessor finishes): <strong>Retained Logic</strong> keeps original relationships, potentially extending the schedule. <strong>Progress Override</strong> ignores the violated logic, often producing optimistic dates. <strong>Best practice:</strong> Use Retained Logic for contractual schedules; document any overrides.",
+    tip: "💡 Interview Tip: Mention real experience — 'On my last EPC project, we used Retained Logic for client reporting but ran a parallel Progress Override schedule for internal recovery planning.'"
+  },
+  { id: "T009", category: "technical", difficulty: "mid",
+    question: "How do you calculate EAC (Estimate at Completion) when current cost performance is expected to continue?",
+    options: [
+      "EAC = AC + (BAC - EV)",
+      "EAC = BAC / CPI",
+      "EAC = AC + Bottom-up ETC",
+      "EAC = PV / SPI"
+    ],
+    answer: "B",
+    modelAnswer: "When current CPI is expected to continue: <strong>EAC = BAC / CPI</strong>. This is the most common EAC formula. Example: BAC = $1M, CPI = 0.8 → EAC = $1.25M (25% overrun). Other formulas apply when variances are atypical or when both CPI and SPI affect future performance.",
+    tip: "💡 Interview Tip: Show mastery — 'I always present multiple EAC scenarios (typical, atypical, and CPI×SPI) to give management a range, not a single number.'"
+  },
+  { id: "T010", category: "technical", difficulty: "mid",
+    question: "What is the purpose of resource leveling in project scheduling?",
+    options: [
+      "To reduce the project budget.",
+      "To resolve resource overallocations by adjusting activity start/finish dates within available float.",
+      "To eliminate all float from the schedule.",
+      "To increase the number of resources assigned."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>Resource leveling</strong> resolves overallocations (when demand > capacity) by delaying activities within their float. It may extend the project duration if overallocations are on the critical path. <strong>Resource smoothing</strong> is different — it only uses float without extending the finish date.",
+    tip: "💡 Interview Tip: Clarify the distinction — 'Leveling can change the critical path; smoothing cannot. I always explain this trade-off to stakeholders before running either.'"
+  },
+
+  // ===== TECHNICAL - SENIOR =====
+  { id: "T011", category: "technical", difficulty: "senior",
+    question: "A client requests a 3-month schedule compression on a fixed-price EPC contract. What is your systematic approach?",
+    options: [
+      "Add more resources to all activities immediately.",
+      "Analyze the critical path, evaluate fast-tracking and crashing options with cost-benefit analysis, and present trade-offs to stakeholders.",
+      "Reject the request because the contract is fixed-price.",
+      "Reduce scope to meet the new deadline."
+    ],
+    answer: "B",
+    modelAnswer: "A systematic compression approach: <strong>1)</strong> Validate the critical path (ensure logic is sound). <strong>2)</strong> Identify fast-tracking opportunities (parallel activities with acceptable risk). <strong>3)</strong> Evaluate crashing options (cost per day saved). <strong>4)</strong> Present a trade-off curve to stakeholders showing cost vs. time options. <strong>5)</strong> Update risk register for new compression risks.",
+    tip: "💡 Interview Tip: Demonstrate seniority — 'On a $50M pipeline project, I compressed 45 days by fast-tracking procurement with construction, saving $200K vs. crashing. I always quantify the risk of each option.'"
+  },
+  { id: "T012", category: "technical", difficulty: "senior",
+    question: "How would you handle a situation where the baseline schedule is no longer realistic due to major approved changes?",
+    options: [
+      "Continue measuring against the original baseline for consistency.",
+      "Stop performance reporting until a new baseline is approved.",
+      "Update the baseline through formal change control, communicate the new basis, and maintain the original as a reference.",
+      "Delete the original baseline and start fresh."
+    ],
+    answer: "C",
+    modelAnswer: "When the baseline becomes invalid: <strong>1)</strong> Document the changes and their impact. <strong>2)</strong> Submit a formal baseline change request through governance. <strong>3)</strong> Once approved, create a new baseline (P6 allows up to 11 baselines). <strong>4)</strong> Keep the original for historical variance analysis. <strong>5)</strong> Communicate the new performance measurement basis to all stakeholders.",
+    tip: "💡 Interview Tip: Show governance awareness — 'I never re-baseline unilaterally. I prepare an impact analysis, present it to the change board, and only proceed after formal approval.'"
+  },
+  { id: "T013", category: "technical", difficulty: "senior",
+    question: "Explain how you would conduct a forensic schedule analysis for an EOT (Extension of Time) claim.",
+    options: [
+      "Compare the as-planned vs. as-built schedules and attribute delays to responsible parties.",
+      "Only look at the final delay and assign blame.",
+      "Use only the impacted as-planned method.",
+      "Ignore concurrent delays."
+    ],
+    answer: "A",
+    modelAnswer: "Forensic delay analysis methods include: <strong>1) As-Planned vs. As-Built</strong> (simplest). <strong>2) Impacted As-Planned</strong> (adds delays to baseline). <strong>3) Collapsed As-Built (But-For)</strong> (removes delays from actual). <strong>4) Time Impact Analysis (TIA)</strong> (most accepted — inserts delays at the time they occurred). Always identify <strong>concurrent delays</strong> and apply contract clauses appropriately.",
+    tip: "💡 Interview Tip: Show expertise — 'I typically use TIA for claims over $1M because it's the most defensible method in arbitration. I always maintain contemporaneous records — retrospective analysis is weak.'"
+  },
+  { id: "T014", category: "technical", difficulty: "senior",
+    question: "Your project shows SPI = 0.75 and CPI = 0.70 with 60% of duration elapsed. What is your recovery plan?",
+    options: [
+      "Request a budget increase and deadline extension.",
+      "Conduct root cause analysis, re-baseline if necessary, implement crash/fast-track options, and establish weekly recovery metrics.",
+      "Replace the project team.",
+      "Cancel the project."
+    ],
+    answer: "B",
+    modelAnswer: "With SPI 0.75 and CPI 0.70 at 60% duration, the project is in <strong>critical distress</strong>. Recovery plan: <strong>1)</strong> Root cause analysis (why both indices are low). <strong>2)</strong> Re-estimate remaining work (bottom-up). <strong>3)</strong> Evaluate re-baselining. <strong>4)</strong> Implement compression with cost-benefit. <strong>5)</strong> Establish weekly recovery KPIs. <strong>6)</strong> Escalate to steering committee with clear options.",
+    tip: "💡 Interview Tip: Show leadership — 'In a similar situation on a $30M project, I led a 2-week recovery workshop that brought SPI from 0.72 to 0.95 over 3 months through resequencing and targeted crashing.'"
+  },
+
+  // ===== BEHAVIORAL - JUNIOR =====
+  { id: "B001", category: "behavioral", difficulty: "junior",
+    question: "Tell me about a time you had to deliver bad news to a project manager about schedule delays.",
+    options: [
+      "I avoided the conversation until the last moment.",
+      "I prepared data, presented facts objectively, and came with proposed solutions.",
+      "I blamed the subcontractors in the meeting.",
+      "I sent an email without a follow-up meeting."
+    ],
+    answer: "B",
+    modelAnswer: "The STAR method works best: <strong>Situation:</strong> Describe the context briefly. <strong>Task:</strong> Your responsibility. <strong>Action:</strong> 'I prepared a variance analysis showing the 2-week delay, identified root causes, and developed 3 recovery options with cost implications.' <strong>Result:</strong> 'The PM appreciated the proactive approach and we implemented Option 2, recovering 10 days.'",
+    tip: "💡 Interview Tip: Always use the <strong>STAR method</strong> (Situation-Task-Action-Result). Quantify results — 'recovered 10 days' is stronger than 'improved the schedule.'"
+  },
+  { id: "B002", category: "behavioral", difficulty: "junior",
+    question: "How do you handle a situation where a site engineer disagrees with your schedule logic?",
+    options: [
+      "Insist that my schedule is correct because I'm the planner.",
+      "Listen to their field perspective, validate concerns, and collaboratively adjust logic if justified.",
+      "Escalate immediately to the project manager.",
+      "Ignore their input."
+    ],
+    answer: "B",
+    modelAnswer: "Site engineers have valuable field insight. Approach: <strong>1)</strong> Listen actively to understand their concern. <strong>2)</strong> Visit the site if possible to see constraints firsthand. <strong>3)</strong> Validate if their logic is more realistic. <strong>4)</strong> If yes, update the schedule and document the change. <strong>5)</strong> If no, explain your reasoning with data. Collaboration builds trust.",
+    tip: "💡 Interview Tip: Show humility and collaboration — 'I once changed 3 activity relationships after a site walk-down with the construction manager. It improved schedule accuracy by 15%.'"
+  },
+
+  // ===== BEHAVIORAL - MID =====
+  { id: "B003", category: "behavioral", difficulty: "mid",
+    question: "Describe a time when you had to manage conflicting priorities from multiple stakeholders.",
+    options: [
+      "I prioritized the highest-paying stakeholder.",
+      "I created a priority matrix based on project objectives and facilitated a joint decision session.",
+      "I let them fight it out among themselves.",
+      "I made the decision unilaterally."
+    ],
+    answer: "B",
+    modelAnswer: "Use a structured approach: <strong>1)</strong> Document all stakeholder requests. <strong>2)</strong> Map each to project objectives (scope, time, cost, quality). <strong>3)</strong> Create a weighted priority matrix. <strong>4)</strong> Facilitate a workshop where stakeholders see trade-offs visually. <strong>5)</strong> Get formal sign-off on the agreed priority. This removes emotion and creates accountability.",
+    tip: "💡 Interview Tip: Mention a specific tool — 'I used a MoSCoW matrix (Must/Should/Could/Won't) in a recent workshop with 5 stakeholders, and we reached consensus in 2 hours instead of weeks of emails.'"
+  },
+  { id: "B004", category: "behavioral", difficulty: "mid",
+    question: "How do you handle a situation where your project is behind schedule but management refuses to approve additional resources?",
+    options: [
+      "Work overtime silently and hope to catch up.",
+      "Present data-driven options showing the cost of inaction vs. investment, and let management make an informed decision.",
+      "Blame management for the delay.",
+      "Quietly reduce scope without approval."
+    ],
+    answer: "B",
+    modelAnswer: "Frame the conversation in business terms: <strong>1)</strong> Quantify the delay impact (liquidated damages, lost revenue). <strong>2)</strong> Present 3 options: (a) no action = $X loss, (b) add resources = $Y cost but saves $Z, (c) reduce scope = impact on benefits. <strong>3)</strong> Let management choose with full information. <strong>4)</strong> Document the decision for accountability.",
+    tip: "💡 Interview Tip: Show business acumen — 'I once showed that adding 2 planners for $20K would avoid $200K in liquidated damages. Management approved immediately when they saw the ROI.'"
+  },
+
+  // ===== BEHAVIORAL - SENIOR =====
+  { id: "B005", category: "behavioral", difficulty: "senior",
+    question: "Tell me about a time you had to influence a senior executive to change their decision on a project approach.",
+    options: [
+      "I accepted their decision because they're senior.",
+      "I prepared a data-backed alternative with risk analysis, requested a private meeting, and presented the business case respectfully.",
+      "I complained to their boss.",
+      "I went behind their back and changed the plan."
+    ],
+    answer: "B",
+    modelAnswer: "Influencing up requires: <strong>1)</strong> Deep understanding of their priorities (what do they care about — cost, reputation, timeline?). <strong>2)</strong> Data-driven alternative with clear ROI. <strong>3)</strong> Private meeting (never challenge publicly). <strong>4)</strong> Frame as 'helping you achieve your goal' not 'you're wrong'. <strong>5)</strong> Be prepared to accept their final decision gracefully.",
+    tip: "💡 Interview Tip: Share a real story — 'I convinced our VP to delay a launch by 6 weeks by showing that rushing would cost 3x more in rework. I used a decision tree analysis that made the risk visible.'"
+  },
+  { id: "B006", category: "behavioral", difficulty: "senior",
+    question: "How do you build and lead a high-performing planning team across multiple time zones?",
+    options: [
+      "I enforce strict working hours for everyone.",
+      "I establish clear processes, overlapping core hours, asynchronous communication norms, and empower local leads.",
+      "I micromanage every task daily.",
+      "I let each region work completely independently."
+    ],
+    answer: "B",
+    modelAnswer: "Leading distributed teams: <strong>1)</strong> Define clear processes and standards (templates, naming conventions). <strong>2)</strong> Establish 2-3 hours of overlapping core time for sync meetings. <strong>3)</strong> Use asynchronous tools (P6 cloud, SharePoint) effectively. <strong>4)</strong> Empower local leads with decision authority. <strong>5)</strong> Build culture through regular virtual team-building. <strong>6)</strong> Measure outcomes, not hours.",
+    tip: "💡 Interview Tip: Show global experience — 'I led a 12-person planning team across 4 time zones. We used a 'follow-the-sun' model where handovers happened at overlap hours, achieving 24/7 schedule updates.'"
+  },
+
+  // ===== MORE TECHNICAL - MID/SENIOR =====
+  { id: "T015", category: "technical", difficulty: "mid",
+    question: "What is the difference between a milestone and a summary task in MS Project?",
+    options: [
+      "They are the same thing.",
+      "A milestone has zero duration and marks a significant point; a summary task rolls up subtasks and has duration.",
+      "Summary tasks have zero duration.",
+      "Milestones cannot be baselined."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>Milestone:</strong> Zero-duration marker for a significant event (e.g., 'Design Approved'). Used for reporting and gate reviews. <strong>Summary Task:</strong> Parent task that automatically aggregates duration, cost, and work of its subtasks. It represents a phase (e.g., 'Design Phase'). Never assign resources to summary tasks.",
+    tip: "💡 Interview Tip: Show P6/MSP mastery — 'I use milestones for client reporting gates and summary tasks for WBS phase rollups. Mixing them up is a common junior mistake.'"
+  },
+  { id: "T016", category: "technical", difficulty: "mid",
+    question: "How do you establish a realistic project baseline?",
+    options: [
+      "Copy a similar project's schedule and adjust dates.",
+      "Collaborate with subject matter experts, validate logic, resource-load, and get formal stakeholder approval.",
+      "Use management's target dates regardless of feasibility.",
+      "Let the scheduling software auto-generate it."
+    ],
+    answer: "B",
+    modelAnswer: "A realistic baseline requires: <strong>1)</strong> WBS validation with SMEs. <strong>2)</strong> Bottom-up duration estimates (not top-down). <strong>3)</strong> Logic review (no open ends, correct relationships). <strong>4)</strong> Resource loading and leveling. <strong>5)</strong> Risk-adjusted contingency. <strong>6)</strong> Formal sign-off from sponsor and key stakeholders. A baseline without buy-in will fail.",
+    tip: "💡 Interview Tip: Emphasize collaboration — 'I never build a baseline in isolation. I run a 2-day planning workshop with all discipline leads. The resulting baseline has 90%+ accuracy because owners committed to it.'"
+  },
+  { id: "T017", category: "technical", difficulty: "senior",
+    question: "Explain the difference between deterministic and probabilistic schedule analysis.",
+    options: [
+      "They produce the same results.",
+      "Deterministic uses single-point estimates; probabilistic (like Monte Carlo) uses ranges to produce confidence levels.",
+      "Probabilistic is only for software projects.",
+      "Deterministic is more accurate."
+    ],
+    answer: "B",
+    modelAnswer: "<strong>Deterministic (CPM):</strong> Uses single-point duration estimates. Produces one finish date. Ignores uncertainty. <strong>Probabilistic (Monte Carlo):</strong> Uses 3-point estimates (optimistic, most likely, pessimistic). Runs thousands of simulations. Produces a probability distribution (e.g., '80% confidence of finishing by June 15'). Essential for high-risk projects.",
+    tip: "💡 Interview Tip: Mention tools — 'I use Primavera Risk Analysis or @Risk for Monte Carlo simulations. On a recent project, it showed our 'on-time' deterministic date had only 35% confidence — we adjusted the commitment accordingly.'"
+  },
+  { id: "T018", category: "technical", difficulty: "senior",
+    question: "How do you integrate cost and schedule for earned value management on a complex project?",
+    options: [
+      "Track them separately and compare at month-end.",
+      "Establish a integrated WBS-CBS-OBS matrix, define control accounts, and measure performance at the work package level.",
+      "Only track cost; schedule is secondary.",
+      "Use Excel for everything."
+    ],
+    answer: "B",
+    modelAnswer: "Integrated EVM requires: <strong>1)</strong> WBS (scope) × CBS (cost) × OBS (organization) matrix. <strong>2)</strong> Define <strong>Control Accounts</strong> where scope, schedule, and cost are managed. <strong>3)</strong> Assign <strong>Planning Packages</strong> for future work. <strong>4)</strong> Measure <strong>Earned Value</strong> at work package level using appropriate techniques (% complete, milestones, weighted milestones). <strong>5)</strong> Roll up to project level for CPI/SPI.",
+    tip: "💡 Interview Tip: Show systems thinking — 'I implemented an integrated EVM system on a $100M project that reduced variance reporting time from 5 days to 4 hours by automating the WBS-CBS-OBS rollup in P6 and Power BI.'"
+  },
+  { id: "T019", category: "technical", difficulty: "mid",
+    question: "What is the purpose of a look-ahead schedule?",
+    options: [
+      "To replace the master schedule.",
+      "To provide a detailed short-term view (2-6 weeks) for field execution and resource coordination.",
+      "To report to the client.",
+      "To calculate the critical path."
+    ],
+    answer: "B",
+    modelAnswer: "A <strong>look-ahead schedule</strong> (typically 3-6 weeks) extracts near-term activities from the master schedule with enhanced detail: daily sequencing, resource assignments, material availability, permits, and constraints. It's the bridge between high-level planning and daily execution. Updated weekly in coordination with construction.",
+    tip: "💡 Interview Tip: Show field awareness — 'I run a weekly look-ahead meeting with superintendents every Monday. We review the next 3 weeks, identify constraints, and assign owners. This reduced our look-ahead reliability from 60% to 85%.'"
+  },
+  { id: "T020", category: "technical", difficulty: "junior",
+    question: "What does 'critical path' mean in project scheduling?",
+    options: [
+      "The most expensive path through the project.",
+      "The longest path through the network that determines the minimum project duration.",
+      "The path with the most resources.",
+      "The path that the project manager focuses on."
+    ],
+    answer: "B",
+    modelAnswer: "The <strong>critical path</strong> is the longest sequence of dependent activities from start to finish. It determines the <strong>minimum project duration</strong>. Activities on the critical path have <strong>zero total float</strong> — any delay directly delays the project. A project can have multiple critical paths, which increases risk.",
+    tip: "💡 Interview Tip: Add insight — 'I always check for near-critical paths (float < 5 days) too, because they can become critical with small delays. Managing only the critical path is a common mistake.'"
+  },
+
+  // ===== MORE BEHAVIORAL =====
+  { id: "B007", category: "behavioral", difficulty: "junior",
+    question: "Describe how you prioritize your work when managing schedules for multiple projects.",
+    options: [
+      "I work on whichever project manager yells the loudest.",
+      "I use an urgency-importance matrix and align with strategic priorities.",
+      "I spend equal time on all projects regardless of status.",
+      "I focus only on the largest project."
+    ],
+    answer: "B",
+    modelAnswer: "Prioritization framework: <strong>1)</strong> Urgency-Impact matrix (Eisenhower). <strong>2)</strong> Align with strategic portfolio priorities. <strong>3)</strong> Consider contractual deadlines and liquidated damages exposure. <strong>4)</strong> Balance proactive (planning) vs. reactive (firefighting) work. <strong>5)</strong> Communicate priorities transparently to all stakeholders.",
+    tip: "💡 Interview Tip: Be specific — 'I use a Monday morning triage: red (due this week), amber (due this month), green (routine). I spend 60% of my time on red items.'"
+  },
+  { id: "B008", category: "behavioral", difficulty: "mid",
+    question: "Tell me about a time you made a significant mistake in a schedule. How did you handle it?",
+    options: [
+      "I covered it up and hoped no one noticed.",
+      "I immediately owned the mistake, assessed the impact, corrected it, and implemented a process to prevent recurrence.",
+      "I blamed the software.",
+      "I quit the project."
+    ],
+    answer: "B",
+    modelAnswer: "Use the STAR method with emphasis on <strong>accountability</strong>: <strong>Situation:</strong> Describe the mistake briefly. <strong>Task:</strong> Your responsibility. <strong>Action:</strong> 'I immediately informed the PM, quantified the 2-week impact, corrected the logic, and created a peer-review checklist.' <strong>Result:</strong> 'We recovered the delay, and the checklist prevented similar errors on future projects.'",
+    tip: "💡 Interview Tip: Vulnerability shows maturity. Say — 'Early in my career, I missed a logic link that caused a 3-week delay. I owned it immediately. That experience taught me to always run a logic integrity check before issuing any schedule.'"
+  },
+  { id: "B009", category: "behavioral", difficulty: "senior",
+    question: "How do you handle a situation where the project sponsor has unrealistic expectations about the schedule?",
+    options: [
+      "Agree with them to keep them happy.",
+      "Present data-driven analysis showing realistic scenarios, educate on constraints, and negotiate achievable targets.",
+      "Ignore their expectations.",
+      "Quit the project."
+    ],
+    answer: "B",
+    modelAnswer: "Managing up requires diplomacy and data: <strong>1)</strong> Understand their underlying business driver (why this date?). <strong>2)</strong> Prepare objective analysis (critical path, resource constraints, historical data). <strong>3)</strong> Present multiple scenarios with trade-offs. <strong>4)</strong> Educate on the 'iron triangle' — scope, time, cost are linked. <strong>5)</strong> Propose phased delivery if full scope by their date is impossible.",
+    tip: "💡 Interview Tip: Share a win — 'A sponsor wanted a 12-month delivery for a 18-month scope. I presented a phased approach: core features in 12 months, full scope in 18. They agreed, and we delivered both milestones successfully.'"
+  },
+  { id: "B010", category: "behavioral", difficulty: "mid",
+    question: "How do you ensure effective communication between the planning team and field execution team?",
+    options: [
+      "Send weekly email reports.",
+      "Establish regular coordination meetings, shared dashboards, and a common language between planning and field teams.",
+      "Let them figure it out themselves.",
+      "Only communicate through formal letters."
+    ],
+    answer: "B",
+    modelAnswer: "Bridging planning and field: <strong>1)</strong> Weekly look-ahead meetings with superintendents. <strong>2)</strong> Visual dashboards (not just Gantt charts — use 4D, color-coded status). <strong>3)</strong> Site walks to understand field constraints. <strong>4)</strong> Simple language — avoid planning jargon with field teams. <strong>5)</strong> Two-way feedback loop — field inputs schedule updates, planning provides forecasts.",
+    tip: "💡 Interview Tip: Show empathy — 'I spend at least 2 hours per week on site. Understanding field realities makes my schedules 30% more accurate and builds trust with superintendents.'"
+  }
+];
+
+// ===== STATE =====
+let currentQuestions = [];
+let currentIndex = 0;
+let answers = {};
+let flags = new Set();
+let remaining = 30 * 60;
+let timerInterval;
+let submitted = false;
+
+// ===== START INTERVIEW =====
+function startInterview() {
+  const userName = document.getElementById('userName').value.trim();
+  if (!userName) { alert('Please enter your name for the certificate.'); return; }
+
+  const level = document.getElementById('level').value;
+  const category = document.getElementById('category').value;
+  const count = parseInt(document.getElementById('qCount').value);
+
+  // Filter questions
+  let filtered = QUESTION_BANK.filter(q => {
+    const matchLevel = level === 'mixed' || q.difficulty === level;
+    const matchCat = category === 'mixed' || q.category === category;
+    return matchLevel && matchCat;
+  });
+
+  // Shuffle and take requested count
+  filtered = filtered.sort(() => Math.random() - 0.5).slice(0, count);
+  
+  if (filtered.length === 0) { alert('No questions match your criteria. Try different filters.'); return; }
+
+  currentQuestions = filtered;
+  currentIndex = 0;
+  answers = {};
+  flags = new Set();
+  remaining = count * 90; // 90 seconds per question
+  submitted = false;
+
+  document.getElementById('configPanel').style.display = 'none';
+  document.getElementById('examLayout').classList.add('active');
+  document.getElementById('total').textContent = currentQuestions.length;
+
+  renderQuestion();
+  renderPalette();
+  startTimer();
+}
+
+// ===== RENDER QUESTION =====
+function renderQuestion() {
+  const q = currentQuestions[currentIndex];
+  document.getElementById('qCounter').textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+  
+  // Category badge
+  const catBadge = document.getElementById('categoryBadge');
+  catBadge.className = `category-badge cat-${q.category}`;
+  catBadge.innerHTML = q.category === 'technical' 
+    ? '<i class="fas fa-cogs"></i> Technical' 
+    : '<i class="fas fa-user-tie"></i> Behavioral';
+  
+  // Difficulty badge
+  const diffBadge = document.getElementById('difficultyBadge');
+  diffBadge.className = `difficulty-badge diff-${q.difficulty}`;
+  diffBadge.innerHTML = `<i class="fas fa-signal"></i> ${q.difficulty.charAt(0).toUpperCase() + q.difficulty.slice(1)}`;
+
+  document.getElementById('question').textContent = q.question;
+  document.getElementById('progress').style.width = ((currentIndex + 1) / currentQuestions.length * 100) + '%';
+
+  // Options
+  const optionsDiv = document.getElementById('options');
+  const userAnswer = answers[q.id];
+  const isAnswered = userAnswer !== undefined;
+
+  optionsDiv.innerHTML = q.options.map((opt, i) => {
+    const letter = String.fromCharCode(65 + i);
+    let cls = 'option';
+    if (isAnswered) {
+      if (letter === q.answer) cls += ' correct';
+      else if (letter === userAnswer && userAnswer !== q.answer) cls += ' wrong';
+    } else if (userAnswer === letter) {
+      cls += ' selected';
+    }
+    return `<div class="${cls}" onclick="selectAnswer('${letter}')">
+      <span class="letter">${letter}</span>
+      <span>${escapeHtml(opt)}</span>
+    </div>`;
+  }).join('');
+
+  // Show/hide model answer
+  const modelBox = document.getElementById('modelAnswerBox');
+  const showBtn = document.getElementById('showAnswerBtn');
+  if (isAnswered) {
+    modelBox.classList.add('show');
+    document.getElementById('modelAnswerText').innerHTML = q.modelAnswer;
+    document.getElementById('interviewTip').innerHTML = q.tip;
+    showBtn.style.display = 'none';
+  } else {
+    modelBox.classList.remove('show');
+    showBtn.style.display = 'inline-flex';
+  }
+
+  // Flag button
+  document.getElementById('flagBtn').innerHTML = flags.has(q.id) 
+    ? '<i class="fas fa-flag"></i> Unflag' 
+    : '<i class="far fa-flag"></i> Flag';
+
+  // Next button text
+  document.getElementById('nextBtn').innerHTML = currentIndex === currentQuestions.length - 1 
+    ? 'Finish <i class="fas fa-check"></i>' 
+    : 'Next <i class="fas fa-arrow-right"></i>';
+
+  updateStats();
+  renderPalette();
+}
+
+function selectAnswer(letter) {
+  if (answers[currentQuestions[currentIndex].id] !== undefined) return; // Already answered
+  answers[currentQuestions[currentIndex].id] = letter;
+  renderQuestion();
+}
+
+function showModelAnswer() {
+  const q = currentQuestions[currentIndex];
+  if (answers[q.id] === undefined) {
+    if (confirm('You have not selected an answer yet. Show the model answer anyway? (This will mark the question as unanswered)')) {
+      document.getElementById('modelAnswerText').innerHTML = q.modelAnswer;
+      document.getElementById('interviewTip').innerHTML = q.tip;
+      document.getElementById('modelAnswerBox').classList.add('show');
+    }
+  }
+}
+
+function nextQ() {
+  if (currentIndex < currentQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    submitInterview();
+  }
+}
+
+function prevQ() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+function toggleFlag() {
+  const id = currentQuestions[currentIndex].id;
+  if (flags.has(id)) flags.delete(id);
+  else flags.add(id);
+  renderQuestion();
+}
+
+function jumpToQuestion(index) {
+  currentIndex = index;
+  renderQuestion();
+}
+
+function renderPalette() {
+  const palette = document.getElementById('palette');
+  palette.innerHTML = currentQuestions.map((q, i) => {
+    const userAns = answers[q.id];
+    let cls = 'qnum';
+    if (userAns !== undefined) {
+      cls += userAns === q.answer ? ' correct' : ' wrong';
+    }
+    if (flags.has(q.id)) cls += ' flagged';
+    if (i === currentIndex) cls += ' current';
+    return `<button class="${cls}" onclick="jumpToQuestion(${i})">${i + 1}</button>`;
+  }).join('');
+}
+
+function updateStats() {
+  const answered = Object.keys(answers).length;
+  const correct = currentQuestions.filter(q => answers[q.id] === q.answer).length;
+  document.getElementById('answered').textContent = answered;
+  document.getElementById('correct').textContent = correct;
+}
+
+// ===== TIMER =====
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (submitted) return;
+    if (remaining <= 0) { submitInterview(); return; }
+    remaining--;
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    document.getElementById('timer').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }, 1000);
+}
+
+// ===== SUBMIT =====
+function submitInterview() {
+  if (submitted) return;
+  if (Object.keys(answers).length < currentQuestions.length) {
+    if (!confirm(`You have answered ${Object.keys(answers).length} of ${currentQuestions.length} questions. Submit anyway?`)) return;
+  }
+  submitted = true;
+  clearInterval(timerInterval);
+
+  const total = currentQuestions.length;
+  const correct = currentQuestions.filter(q => answers[q.id] === q.answer).length;
+  const pct = Math.round(correct / total * 100);
+
+  // Category breakdowns
+  const tech = currentQuestions.filter(q => q.category === 'technical');
+  const beh = currentQuestions.filter(q => q.category === 'behavioral');
+  const junior = currentQuestions.filter(q => q.difficulty === 'junior');
+  const senior = currentQuestions.filter(q => q.difficulty === 'senior');
+
+  const calcPct = (arr) => {
+    if (arr.length === 0) return 'N/A';
+    const c = arr.filter(q => answers[q.id] === q.answer).length;
+    return Math.round(c / arr.length * 100) + '%';
+  };
+
+  document.getElementById('score').textContent = pct + '%';
+  document.getElementById('scoreText').textContent = `${correct} of ${total} questions answered correctly.`;
+  document.getElementById('techScore').textContent = calcPct(tech);
+  document.getElementById('behScore').textContent = calcPct(beh);
+  document.getElementById('juniorScore').textContent = calcPct(junior);
+  document.getElementById('seniorScore').textContent = calcPct(senior);
+
+  if (pct >= 70) {
+    document.getElementById('certDownloadSection').style.display = 'block';
+  } else {
+    document.getElementById('certDownloadSection').style.display = 'none';
+    document.getElementById('scoreText').innerHTML += `<br><span style="color:var(--red); font-size: 0.9rem;">(Minimum 70% required for certificate)</span>`;
+  }
+
+  document.getElementById('resultModal').classList.add('show');
+}
+
+function closeResults() {
+  document.getElementById('resultModal').classList.remove('show');
+}
+
+function resetInterview() {
+  document.getElementById('resultModal').classList.remove('show');
+  document.getElementById('examLayout').classList.remove('active');
+  document.getElementById('configPanel').style.display = 'block';
+}
+
+// ===== CERTIFICATE PDF =====
+async function generateCertificatePDF() {
+  const userName = document.getElementById('userName').value.trim() || 'Candidate';
+  const total = currentQuestions.length;
+  const correct = currentQuestions.filter(q => answers[q.id] === q.answer).length;
+  const pct = Math.round(correct / total * 100);
+
+  document.getElementById('cert-recipient-name').textContent = userName;
+  document.getElementById('cert-score').textContent = pct + '%';
+  document.getElementById('cert-id').textContent = 'INT-' + new Date().getFullYear() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const certArea = document.getElementById('certificate-render-area');
+  certArea.style.left = '0';
+  certArea.style.top = '0';
+  certArea.style.zIndex = '-1';
+
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 300));
+
+  const canvas = await html2canvas(document.getElementById('cert-container'), {
+    scale: 2, useCORS: true, backgroundColor: '#fdfbf7', width: 1122, height: 793
+  });
+
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('l', 'mm', 'a4');
+  pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
+  pdf.save(`${userName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_Interview_Certificate.pdf`);
+
+  certArea.style.left = '-9999px';
+}
+
+// ===== UTILITIES =====
+function escapeHtml(s) { return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
+// ===== NETWORK BACKGROUND =====
+const canvas = document.getElementById('network-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], mouse = { x: null, y: null };
+
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
+window.addEventListener('mousemove', e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+    this.size = Math.random() * 1.5 + 0.5;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+  draw() {
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = [];
+  const count = Math.min(50, (canvas.width * canvas.height) / 25000);
+  for (let i = 0; i < count; i++) particles.push(new Particle());
+}
+initParticles();
+
+function animateNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update(); particles[i].draw();
+    if (mouse.x != null && mouse.y != null) {
+      const dx = particles[i].x - mouse.x, dy = particles[i].y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(244, 208, 111, ${0.5 - dist / 400})`;
+        ctx.lineWidth = 1.2;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateNetwork);
+}
+animateNetwork();
+window.addEventListener('resize', () => setTimeout(initParticles, 100));
+
+// ===== EASTER EGG =====
+const logoTrigger = document.getElementById('easter-egg-trigger');
+const toast = document.getElementById('easter-toast');
+let eggClicks = 0, lastEggClick = 0;
+if (logoTrigger) {
+  logoTrigger.addEventListener('click', e => {
+    const now = Date.now();
+    eggClicks = (now - lastEggClick < 800) ? eggClicks + 1 : 1;
+    lastEggClick = now;
+    if (eggClicks >= 5) {
+      e.preventDefault(); eggClicks = 0;
+      toast.classList.add('show');
+      setTimeout(() => window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html", 1800);
+    }
+  });
+}
+</script>
+</body>
+</html>
