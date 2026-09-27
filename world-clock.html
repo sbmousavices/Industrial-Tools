@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Clock Pro | Global Time & Country Info</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --bg-primary: #0a1628;
+  --bg-secondary: #111827;
+  --bg-card: #1e293b;
+  --border-color: rgba(212, 175, 55, 0.2);
+  --text-primary: #e8eef7;
+  --text-secondary: #a0aec0;
+  --accent: #d4af37;
+  --accent-light: #f4d06f;
+  --red: #ef4444;
+  --green: #10b981;
+  --blue: #3b82f6;
+  --input-bg: #0f172a;
+  --nav-height: 70px;
+  --nav-bg: rgba(10, 10, 12, 0.95);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+  background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08), transparent 40%);
+  overflow-x: hidden;
+}
+
+#network-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+  background: var(--nav-bg); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color); z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--accent); font-weight: 700; font-size: 1.2rem; cursor: pointer; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
+.nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+.nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.btn-signin {
+  display: inline-flex !important; align-items: center; gap: 8px; padding: 0.6rem 1.5rem !important;
+  border: 1px solid var(--accent); border-radius: 50px; color: var(--accent) !important;
+  text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; white-space: nowrap;
+}
+.btn-signin:hover { background: var(--accent); color: var(--bg-primary) !important; }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+.back-to-tools-wrapper { width: 100%; display: flex; justify-content: flex-end; box-sizing: border-box; padding: 12px 24px 0; position: relative; z-index: 10; }
+.back-to-tools {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+  border: 1px solid var(--accent); border-radius: 50px; background: rgba(0,0,0,.25);
+  color: var(--accent); text-decoration: none; font-size: .85rem; font-weight: 600; transition: all .3s ease; white-space: nowrap;
+}
+.back-to-tools:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-1px); }
+
+.container { max-width: 1400px; margin: auto; padding: 20px 30px; position: relative; z-index: 1; }
+
+.credibility-bar { display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; margin-bottom: 30px; }
+.cred-item { text-align: center; min-width: 105px; }
+.cred-number { font-size: 1.55rem; font-weight: 800; color: var(--accent); display: block; }
+.cred-label { font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+.page-header { text-align: center; margin-bottom: 40px; }
+.page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin-bottom: 15px; line-height: 1.2; }
+.page-header h1 span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.7; }
+
+.live-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--green); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--green); margin-top: 15px; }
+.live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+.controls { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 30px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+.search-box { flex: 1; min-width: 250px; position: relative; }
+.search-box input { width: 100%; padding: 12px 12px 12px 45px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: 1rem; transition: 0.3s; }
+.search-box input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); }
+.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+.filter-select { padding: 12px 16px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+.filter-select:focus { outline: none; border-color: var(--accent); }
+
+.clock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.clock-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 16px; }
+.clock-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15); }
+
+.card-header { display: flex; align-items: center; gap: 12px; }
+.flag { width: 48px; height: 32px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border-color); background: var(--bg-card); }
+.country-info { flex: 1; }
+.country-name { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.capital { font-size: 0.85rem; color: var(--text-secondary); }
+
+.clock-container { display: flex; align-items: center; justify-content: space-around; gap: 16px; }
+.analog-clock { width: 120px; height: 120px; position: relative; }
+.analog-clock svg { width: 100%; height: 100%; }
+
+.digital-clock { text-align: center; }
+.digital-time { font-size: 1.8rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+.digital-date { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+.digital-day { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
+
+.country-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-color); }
+.detail-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.detail-item i { color: var(--accent); width: 16px; text-align: center; }
+.detail-item span { color: var(--text-secondary); }
+.detail-item strong { color: var(--text-primary); font-weight: 600; }
+
+.loading, .no-results { text-align: center; padding: 60px 20px; color: var(--text-secondary); grid-column: 1 / -1; }
+.loading i, .no-results i { font-size: 3rem; color: var(--accent); margin-bottom: 15px; }
+.loading i { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.easter-egg-toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--bg-primary); padding: 15px 30px; border-radius: 50px;
+  font-weight: 700; font-size: 1rem; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+  z-index: 10000; opacity: 0; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: flex; align-items: center; gap: 10px;
+}
+.easter-egg-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: var(--nav-bg); padding: 20px; border-bottom: 1px solid var(--border-color); }
+  .nav-links.active { display: flex; }
+  .mobile-menu-btn { display: block; }
+  .container { padding: 20px 15px; }
+  .controls { flex-direction: column; }
+  .search-box { width: 100%; }
+  .clock-grid { grid-template-columns: 1fr; }
+  .clock-container { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="network-canvas"></canvas>
+
+<nav>
+  <a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="nav-logo" id="easter-egg-trigger">
+    <img src="https://sbmousavices.github.io/Industrial-Tools/icon-192.png" alt="BM Planning Logo">
+    <span>Home</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="https://sbmousavices.github.io/Resume/Resume_Builder_English.html">Resume Builder</a></li>
+    <li><a href="https://sbmousavices.github.io/Theme/index.html">Web Design</a></li>
+    <li><a href="https://sbmousavices.github.io/NFT/">NFT Gallery</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/" class="active">Products</a></li>
+    <li><a href="https://sbmousavices.github.io/Articles/">Articles</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/Community.html">Community</a></li>
+    <li><a href="https://sbmousavices.github.io/Community-Hub/hub.html">Hub</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html#contact">Contact</a></li>
+    <li><a href="https://sbmousavices.github.io/Industrial-Tools/EnglishInfo.html" class="btn-signin"><i class="fas fa-user"></i> Sign In</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="back-to-tools-wrapper">
+  <a href="https://sbmousavices.github.io/Industrial-Tools/tools.html" class="back-to-tools">
+    <i class="fas fa-arrow-left"></i>
+    <span>Back to Eng. Tools</span>
+  </a>
+</div>
+
+<div class="container">
+  <div class="credibility-bar">
+    <div class="cred-item"><span class="cred-number" data-target="500">0</span><span class="cred-label">Active Users</span></div>
+    <div class="cred-item"><span class="cred-number" data-target="12">0</span><span class="cred-label">Pro Tools</span></div>
+    <div class="cred-item"><span class="cred-number" data-target="41">0</span><span class="cred-label">Expert Articles</span></div>
+  </div>
+
+  <header class="page-header">
+    <h1>World <span>Clock Pro</span></h1>
+    <p>Real-time global time tracking with comprehensive country information. Stay connected across time zones.</p>
+    <div class="live-indicator">
+      <span class="live-dot"></span>
+      <span>LIVE • Auto-synced</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search country or capital...">
+    </div>
+    <select class="filter-select" id="continentFilter">
+      <option value="all">All Continents</option>
+      <option value="Africa">Africa</option>
+      <option value="Americas">Americas</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Oceania">Oceania</option>
+    </select>
+  </div>
+
+  <div class="clock-grid" id="clockGrid">
+    <div class="loading">
+      <i class="fas fa-spinner"></i>
+      <p>Loading world clocks...</p>
+    </div>
+  </div>
+</div>
+
+<div class="easter-egg-toast" id="easter-toast"><i class="fas fa-gamepad"></i> 🎮 Game Hub Unlocked! Redirecting...</div>
+
+<script>
+// ===== COMPREHENSIVE & RELIABLE COUNTRIES DATA (Prevents API crashes) =====
+const COUNTRIES_DATA = [
+  { name: "Iran", capital: "Tehran", timezone: "Asia/Tehran", continent: "Asia", flag: "https://flagcdn.com/w80/ir.png", population: 85000000 },
+  { name: "United States", capital: "Washington D.C.", timezone: "America/New_York", continent: "Americas", flag: "https://flagcdn.com/w80/us.png", population: 331000000 },
+  { name: "United Kingdom", capital: "London", timezone: "Europe/London", continent: "Europe", flag: "https://flagcdn.com/w80/gb.png", population: 67000000 },
+  { name: "Germany", capital: "Berlin", timezone: "Europe/Berlin", continent: "Europe", flag: "https://flagcdn.com/w80/de.png", population: 83000000 },
+  { name: "France", capital: "Paris", timezone: "Europe/Paris", continent: "Europe", flag: "https://flagcdn.com/w80/fr.png", population: 67000000 },
+  { name: "Japan", capital: "Tokyo", timezone: "Asia/Tokyo", continent: "Asia", flag: "https://flagcdn.com/w80/jp.png", population: 125000000 },
+  { name: "China", capital: "Beijing", timezone: "Asia/Shanghai", continent: "Asia", flag: "https://flagcdn.com/w80/cn.png", population: 1412000000 },
+  { name: "India", capital: "New Delhi", timezone: "Asia/Kolkata", continent: "Asia", flag: "https://flagcdn.com/w80/in.png", population: 1380000000 },
+  { name: "Russia", capital: "Moscow", timezone: "Europe/Moscow", continent: "Europe", flag: "https://flagcdn.com/w80/ru.png", population: 144000000 },
+  { name: "Brazil", capital: "Brasília", timezone: "America/Sao_Paulo", continent: "Americas", flag: "https://flagcdn.com/w80/br.png", population: 212000000 },
+  { name: "Australia", capital: "Canberra", timezone: "Australia/Sydney", continent: "Oceania", flag: "https://flagcdn.com/w80/au.png", population: 25000000 },
+  { name: "Canada", capital: "Ottawa", timezone: "America/Toronto", continent: "Americas", flag: "https://flagcdn.com/w80/ca.png", population: 38000000 },
+  { name: "UAE", capital: "Abu Dhabi", timezone: "Asia/Dubai", continent: "Asia", flag: "https://flagcdn.com/w80/ae.png", population: 9800000 },
+  { name: "Saudi Arabia", capital: "Riyadh", timezone: "Asia/Riyadh", continent: "Asia", flag: "https://flagcdn.com/w80/sa.png", population: 34000000 },
+  { name: "Turkey", capital: "Ankara", timezone: "Europe/Istanbul", continent: "Asia", flag: "https://flagcdn.com/w80/tr.png", population: 84000000 },
+  { name: "Egypt", capital: "Cairo", timezone: "Africa/Cairo", continent: "Africa", flag: "https://flagcdn.com/w80/eg.png", population: 102000000 },
+  { name: "South Africa", capital: "Pretoria", timezone: "Africa/Johannesburg", continent: "Africa", flag: "https://flagcdn.com/w80/za.png", population: 59000000 },
+  { name: "Mexico", capital: "Mexico City", timezone: "America/Mexico_City", continent: "Americas", flag: "https://flagcdn.com/w80/mx.png", population: 128000000 },
+  { name: "South Korea", capital: "Seoul", timezone: "Asia/Seoul", continent: "Asia", flag: "https://flagcdn.com/w80/kr.png", population: 51000000 },
+  { name: "Italy", capital: "Rome", timezone: "Europe/Rome", continent: "Europe", flag: "https://flagcdn.com/w80/it.png", population: 60000000 },
+  { name: "Spain", capital: "Madrid", timezone: "Europe/Madrid", continent: "Europe", flag: "https://flagcdn.com/w80/es.png", population: 47000000 },
+  { name: "Netherlands", capital: "Amsterdam", timezone: "Europe/Amsterdam", continent: "Europe", flag: "https://flagcdn.com/w80/nl.png", population: 17000000 },
+  { name: "Sweden", capital: "Stockholm", timezone: "Europe/Stockholm", continent: "Europe", flag: "https://flagcdn.com/w80/se.png", population: 10000000 },
+  { name: "Switzerland", capital: "Bern", timezone: "Europe/Zurich", continent: "Europe", flag: "https://flagcdn.com/w80/ch.png", population: 8600000 },
+  { name: "Iraq", capital: "Baghdad", timezone: "Asia/Baghdad", continent: "Asia", flag: "https://flagcdn.com/w80/iq.png", population: 40000000 },
+  { name: "Afghanistan", capital: "Kabul", timezone: "Asia/Kabul", continent: "Asia", flag: "https://flagcdn.com/w80/af.png", population: 38000000 },
+  { name: "Pakistan", capital: "Islamabad", timezone: "Asia/Karachi", continent: "Asia", flag: "https://flagcdn.com/w80/pk.png", population: 220000000 },
+  { name: "Indonesia", capital: "Jakarta", timezone: "Asia/Jakarta", continent: "Asia", flag: "https://flagcdn.com/w80/id.png", population: 273000000 },
+  { name: "Malaysia", capital: "Kuala Lumpur", timezone: "Asia/Kuala_Lumpur", continent: "Asia", flag: "https://flagcdn.com/w80/my.png", population: 32000000 },
+  { name: "Singapore", capital: "Singapore", timezone: "Asia/Singapore", continent: "Asia", flag: "https://flagcdn.com/w80/sg.png", population: 5600000 },
+  { name: "Thailand", capital: "Bangkok", timezone: "Asia/Bangkok", continent: "Asia", flag: "https://flagcdn.com/w80/th.png", population: 69000000 },
+  { name: "Vietnam", capital: "Hanoi", timezone: "Asia/Ho_Chi_Minh", continent: "Asia", flag: "https://flagcdn.com/w80/vn.png", population: 97000000 },
+  { name: "Philippines", capital: "Manila", timezone: "Asia/Manila", continent: "Asia", flag: "https://flagcdn.com/w80/ph.png", population: 109000000 },
+  { name: "Argentina", capital: "Buenos Aires", timezone: "America/Argentina/Buenos_Aires", continent: "Americas", flag: "https://flagcdn.com/w80/ar.png", population: 45000000 },
+  { name: "Chile", capital: "Santiago", timezone: "America/Santiago", continent: "Americas", flag: "https://flagcdn.com/w80/cl.png", population: 19000000 },
+  { name: "Colombia", capital: "Bogotá", timezone: "America/Bogota", continent: "Americas", flag: "https://flagcdn.com/w80/co.png", population: 50000000 },
+  { name: "Nigeria", capital: "Abuja", timezone: "Africa/Lagos", continent: "Africa", flag: "https://flagcdn.com/w80/ng.png", population: 206000000 },
+  { name: "Kenya", capital: "Nairobi", timezone: "Africa/Nairobi", continent: "Africa", flag: "https://flagcdn.com/w80/ke.png", population: 53000000 },
+  { name: "Morocco", capital: "Rabat", timezone: "Africa/Casablanca", continent: "Africa", flag: "https://flagcdn.com/w80/ma.png", population: 36000000 },
+  { name: "Algeria", capital: "Algiers", timezone: "Africa/Algiers", continent: "Africa", flag: "https://flagcdn.com/w80/dz.png", population: 43000000 },
+  { name: "Ukraine", capital: "Kyiv", timezone: "Europe/Kyiv", continent: "Europe", flag: "https://flagcdn.com/w80/ua.png", population: 44000000 },
+  { name: "Poland", capital: "Warsaw", timezone: "Europe/Warsaw", continent: "Europe", flag: "https://flagcdn.com/w80/pl.png", population: 38000000 },
+  { name: "Austria", capital: "Vienna", timezone: "Europe/Vienna", continent: "Europe", flag: "https://flagcdn.com/w80/at.png", population: 9000000 },
+  { name: "Belgium", capital: "Brussels", timezone: "Europe/Brussels", continent: "Europe", flag: "https://flagcdn.com/w80/be.png", population: 11500000 },
+  { name: "Portugal", capital: "Lisbon", timezone: "Europe/Lisbon", continent: "Europe", flag: "https://flagcdn.com/w80/pt.png", population: 10300000 },
+  { name: "Greece", capital: "Athens", timezone: "Europe/Athens", continent: "Europe", flag: "https://flagcdn.com/w80/gr.png", population: 10700000 },
+  { name: "Ireland", capital: "Dublin", timezone: "Europe/Dublin", continent: "Europe", flag: "https://flagcdn.com/w80/ie.png", population: 4900000 },
+  { name: "New Zealand", capital: "Wellington", timezone: "Pacific/Auckland", continent: "Oceania", flag: "https://flagcdn.com/w80/nz.png", population: 5000000 },
+  { name: "Qatar", capital: "Doha", timezone: "Asia/Qatar", continent: "Asia", flag: "https://flagcdn.com/w80/qa.png", population: 2800000 },
+  { name: "Oman", capital: "Muscat", timezone: "Asia/Muscat", continent: "Asia", flag: "https://flagcdn.com/w80/om.png", population: 5100000 },
+  { name: "Kuwait", capital: "Kuwait City", timezone: "Asia/Kuwait", continent: "Asia", flag: "https://flagcdn.com/w80/kw.png", population: 4200000 },
+  { name: "Jordan", capital: "Amman", timezone: "Asia/Amman", continent: "Asia", flag: "https://flagcdn.com/w80/jo.png", population: 10200000 },
+  { name: "Lebanon", capital: "Beirut", timezone: "Asia/Beirut", continent: "Asia", flag: "https://flagcdn.com/w80/lb.png", population: 6800000 },
+  { name: "Sri Lanka", capital: "Colombo", timezone: "Asia/Colombo", continent: "Asia", flag: "https://flagcdn.com/w80/lk.png", population: 21000000 },
+  { name: "Bangladesh", capital: "Dhaka", timezone: "Asia/Dhaka", continent: "Asia", flag: "https://flagcdn.com/w80/bd.png", population: 164000000 },
+  { name: "Kazakhstan", capital: "Nur-Sultan", timezone: "Asia/Almaty", continent: "Asia", flag: "https://flagcdn.com/w80/kz.png", population: 18700000 },
+  { name: "Azerbaijan", capital: "Baku", timezone: "Asia/Baku", continent: "Asia", flag: "https://flagcdn.com/w80/az.png", population: 10100000 },
+  { name: "Georgia", capital: "Tbilisi", timezone: "Asia/Tbilisi", continent: "Asia", flag: "https://flagcdn.com/w80/ge.png", population: 3700000 },
+  { name: "Finland", capital: "Helsinki", timezone: "Europe/Helsinki", continent: "Europe", flag: "https://flagcdn.com/w80/fi.png", population: 5500000 },
+  { name: "Norway", capital: "Oslo", timezone: "Europe/Oslo", continent: "Europe", flag: "https://flagcdn.com/w80/no.png", population: 5400000 },
+  { name: "Denmark", capital: "Copenhagen", timezone: "Europe/Copenhagen", continent: "Europe", flag: "https://flagcdn.com/w80/dk.png", population: 5800000 }
+];
+
+let filteredCountries = [...COUNTRIES_DATA];
+let clockIntervals = [];
+
+// ===== RENDER CLOCKS =====
+function renderClocks() {
+  const grid = document.getElementById('clockGrid');
+  
+  if (filteredCountries.length === 0) {
+    grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><p>No countries found matching your criteria.</p></div>`;
+    return;
+  }
+  
+  grid.innerHTML = filteredCountries.map((country, index) => `
+    <div class="clock-card" data-index="${index}">
+      <div class="card-header">
+        <img src="${country.flag}" alt="${country.name} flag" class="flag" loading="lazy">
+        <div class="country-info">
+          <div class="country-name">${country.name}</div>
+          <div class="capital"><i class="fas fa-map-marker-alt"></i> ${country.capital}</div>
+        </div>
+      </div>
+      <div class="clock-container">
+        <div class="analog-clock" id="analog-${index}">${createAnalogClockSVG()}</div>
+        <div class="digital-clock">
+          <div class="digital-time" id="digital-time-${index}">--:--:--</div>
+          <div class="digital-date" id="digital-date-${index}">---</div>
+          <div class="digital-day" id="digital-day-${index}">---</div>
+        </div>
+      </div>
+      <div class="country-details">
+        <div class="detail-item"><i class="fas fa-users"></i><span>Pop:</span><strong>${formatPopulation(country.population)}</strong></div>
+        <div class="detail-item"><i class="fas fa-globe"></i><span>Zone:</span><strong>${country.timezone.split('/').pop().replace('_', ' ')}</strong></div>
+      </div>
+    </div>
+  `).join('');
+  
+  startClockUpdates();
+}
+
+// ===== CREATE ANALOG CLOCK SVG =====
+function createAnalogClockSVG() {
+  return `
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="var(--input-bg)" stroke="var(--accent)" stroke-width="3"/>
+      <circle cx="100" cy="100" r="85" fill="none" stroke="var(--border-color)" stroke-width="1"/>
+      ${Array.from({length: 12}, (_, i) => {
+        const angle = (i * 30 - 90) * Math.PI / 180;
+        return `<line x1="${100 + 75 * Math.cos(angle)}" y1="${100 + 75 * Math.sin(angle)}" x2="${100 + 85 * Math.cos(angle)}" y2="${100 + 85 * Math.sin(angle)}" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>`;
+      }).join('')}
+      <line class="hour-hand" x1="100" y1="100" x2="100" y2="55" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+      <line class="minute-hand" x1="100" y1="100" x2="100" y2="35" stroke="var(--text-primary)" stroke-width="3" stroke-linecap="round"/>
+      <line class="second-hand" x1="100" y1="100" x2="100" y2="25" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="6" fill="var(--accent)"/><circle cx="100" cy="100" r="3" fill="var(--bg-primary)"/>
+    </svg>`;
+}
+
+// ===== UPDATE CLOCKS =====
+function startClockUpdates() {
+  clockIntervals.forEach(interval => clearInterval(interval));
+  clockIntervals = [];
+  updateAllClocks();
+  clockIntervals.push(setInterval(updateAllClocks, 1000));
+}
+
+function updateAllClocks() {
+  filteredCountries.forEach((country, index) => updateClock(index, country.timezone));
+}
+
+function updateClock(index, timezone) {
+  try {
+    const now = new Date();
+    const options = { timeZone: timezone };
+    
+    const timeEl = document.getElementById(`digital-time-${index}`);
+    if (timeEl) timeEl.textContent = now.toLocaleTimeString('en-US', { ...options, hour12: false });
+    
+    const dateEl = document.getElementById(`digital-date-${index}`);
+    if (dateEl) dateEl.textContent = now.toLocaleDateString('en-US', { ...options, year: 'numeric', month: 'short', day: 'numeric' });
+    
+    const dayEl = document.getElementById(`digital-day-${index}`);
+    if (dayEl) dayEl.textContent = now.toLocaleDateString('en-US', { ...options, weekday: 'long' });
+    
+    const timeInTz = new Date(now.toLocaleString('en-US', { timeZone: timezone }));
+    const h = timeInTz.getHours(), m = timeInTz.getMinutes(), s = timeInTz.getSeconds();
+    
+    const analogClock = document.getElementById(`analog-${index}`);
+    if (analogClock) {
+      analogClock.querySelector('.hour-hand').setAttribute('transform', `rotate(${(h % 12) * 30 + m * 0.5} 100 100)`);
+      analogClock.querySelector('.minute-hand').setAttribute('transform', `rotate(${m * 6 + s * 0.1} 100 100)`);
+      analogClock.querySelector('.second-hand').setAttribute('transform', `rotate(${s * 6} 100 100)`);
+    }
+  } catch (e) { /* Ignore minor timezone edge cases */ }
+}
+
+function formatPopulation(pop) {
+  if (!pop) return 'N/A';
+  if (pop >= 1e9) return (pop / 1e9).toFixed(1) + 'B';
+  if (pop >= 1e6) return (pop / 1e6).toFixed(1) + 'M';
+  if (pop >= 1e3) return (pop / 1e3).toFixed(1) + 'K';
+  return pop.toString();
+}
+
+// ===== SEARCH & FILTER (100% Reliable) =====
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('continentFilter').addEventListener('change', applyFilters);
+
+function applyFilters() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const continent = document.getElementById('continentFilter').value;
+  
+  filteredCountries = COUNTRIES_DATA.filter(country => {
+    const matchesSearch = country.name.toLowerCase().includes(searchTerm) || country.capital.toLowerCase().includes(searchTerm);
+    const matchesContinent = continent === 'all' || country.continent === continent;
+    return matchesSearch && matchesContinent;
+  });
+  renderClocks();
+}
+
+// ===== UI HELPERS =====
+function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
+function animateCounters() {
+  document.querySelectorAll('.cred-number').forEach(counter => {
+    const target = Number(counter.dataset.target);
+    let value = 0; const step = Math.max(1, Math.ceil(target / 100));
+    const timer = setInterval(() => {
+      value += step;
+      if (value >= target) { value = target; clearInterval(timer); }
+      counter.textContent = value + (target > 100 ? '+' : '');
+    }, 18);
+  });
+}
+
+// ===== EASTER EGG =====
+const logoTrigger = document.getElementById('easter-egg-trigger');
+const toast = document.getElementById('easter-toast');
+let eggClicks = 0, lastEggClick = 0;
+if (logoTrigger) {
+  logoTrigger.addEventListener('click', e => {
+    const now = Date.now();
+    eggClicks = (now - lastEggClick < 800) ? eggClicks + 1 : 1;
+    lastEggClick = now;
+    if (eggClicks >= 5) {
+      e.preventDefault(); eggClicks = 0;
+      toast.classList.add('show');
+      setTimeout(() => window.location.href = "https://sbmousavices.github.io/Community-Hub/hub.html", 1800);
+    }
+  });
+}
+
+// ===== NETWORK BACKGROUND =====
+const canvas = document.getElementById('network-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], mouse = { x: null, y: null };
+
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
+window.addEventListener('mousemove', e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+    this.size = Math.random() * 1.5 + 0.5;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+  draw() {
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = [];
+  const count = Math.min(50, (canvas.width * canvas.height) / 25000);
+  for (let i = 0; i < count; i++) particles.push(new Particle());
+}
+initParticles();
+
+function animateNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update(); particles[i].draw();
+    if (mouse.x != null && mouse.y != null) {
+      const dx = particles[i].x - mouse.x, dy = particles[i].y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(244, 208, 111, ${0.5 - dist / 400})`;
+        ctx.lineWidth = 1.2;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateNetwork);
+}
+animateNetwork();
+window.addEventListener('resize', () => setTimeout(initParticles, 100));
+
+// ===== INITIALIZE =====
+document.addEventListener('DOMContentLoaded', () => {
+  animateCounters();
+  renderClocks(); // Instant load, no API delay!
+});
+</script>
+</body>
+</html>
