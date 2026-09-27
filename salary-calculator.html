@@ -3,7 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Global Salary Calculator | Project Control Engineers</title>
+
+<!-- ✅ SEO OPTIMIZED META TAGS -->
+<title>Global Salary Calculator for Planning Engineers & Project Managers | BM Planning</title>
+<meta name="description" content="Discover the average salary for Planning Engineers and Project Control professionals worldwide. Compare market rates across 25+ countries, factor in certifications (PMP, P6), and get expert negotiation tips.">
+<meta name="keywords" content="Planning Engineer Salary, Project Control Manager Salary, Construction Planner Salary, PMP Salary, Project Management Compensation, EPC Salary Guide, Scheduler Salary">
+<meta name="author" content="Behzad Mousavi">
+
+<!-- ✅ CANONICAL TAG -->
+<script>
+  (function() {
+    const existingCanonical = document.querySelector('link[rel="canonical"]');
+    if (!existingCanonical) {
+      const canonicalUrl = window.location.href.split('?')[0].split('#')[0];
+      const canonicalLink = document.createElement('link');
+      canonicalLink.rel = 'canonical';
+      canonicalLink.href = canonicalUrl;
+      document.head.appendChild(canonicalLink);
+    }
+  })();
+</script>
+
+<!-- ✅ SCHEMA.ORG STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Global Salary Calculator for Project Controls",
+  "description": "A free online tool to estimate the market salary for Planning Engineers and Project Managers across different countries, industries, and experience levels.",
+  "url": "https://sbmousavices.github.io/Industrial-Tools/salary-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "BM Planning",
+    "url": "https://sbmousavices.github.io/Industrial-Tools/"
+  }
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -349,13 +392,11 @@ nav {
 
     <div class="salary-range-card">
       <div class="range-header">
-        <!-- Maximum on the LEFT -->
         <div>
           <div class="range-label">Maximum Annual Salary</div>
           <div class="range-value" id="maxSalary">-</div>
           <div class="range-label" style="margin-top: 8px; font-size: 0.75rem;">Maximum Monthly: <span id="maxMonthly">-</span></div>
         </div>
-        <!-- Minimum on the RIGHT -->
         <div style="text-align: right;">
           <div class="range-label">Minimum Annual Salary</div>
           <div class="range-value" id="minSalary">-</div>
@@ -367,7 +408,6 @@ nav {
         <div class="range-marker" id="rangeMarker" style="left: 50%;"></div>
       </div>
       <div class="range-labels">
-        <!-- Swapped to match: High on left, Low on right -->
         <span id="highLabel">High: -</span>
         <span id="lowLabel">Low: -</span>
       </div>
@@ -415,6 +455,33 @@ nav {
       <strong>Disclaimer:</strong> These figures are estimates based on aggregated industry reports (2024-2025) and may vary based on company size, location within the country, and individual negotiation. Always verify with local market data and consider total compensation (bonus, benefits, equity).
     </div>
   </div>
+
+  <!-- ===== SEO OPTIMIZED CONTENT SECTION ===== -->
+  <section style="max-width: 900px; margin: 4rem auto 0; padding: 0 5%; color: var(--text-secondary); line-height: 1.8;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-primary); margin-bottom: 1.5rem; text-align: center;">
+      Understand Your Market Value as a Planning Professional
+    </h2>
+    <p style="margin-bottom: 1.5rem;">
+      Knowing your market value is the first step toward career growth and successful salary negotiations. Our <strong>Global Salary Calculator</strong> provides data-driven insights into the compensation trends for <strong>Planning Engineers</strong>, <strong>Schedulers</strong>, and <strong>Project Control Managers</strong> across the globe. 
+    </p>
+    <p style="margin-bottom: 1.5rem;">
+      Whether you are working in the Middle East (UAE, Saudi Arabia, Qatar), Europe, North America, or Asia, factors like industry (Oil & Gas, EPC, Construction, IT), years of experience, and professional certifications (<strong>PMP, PMI-SP, Primavera P6</strong>) significantly impact your earning potential. 
+    </p>
+    <div style="background: rgba(212, 175, 55, 0.05); border-left: 4px solid var(--accent); padding: 20px; border-radius: 8px; margin: 2rem 0;">
+      <h3 style="color: var(--accent); margin-bottom: 1rem; font-family: 'Playfair Display', serif;">
+        <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Why Use This Tool?
+      </h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>Accurate Benchmarks:</strong> Based on aggregated 2024-2025 industry reports from Hays, Michael Page, and Mercer.</li>
+        <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>Certification Impact:</strong> See exactly how much a PMP or Primavera P6 certification can boost your salary.</li>
+        <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>Negotiation Tips:</strong> Get tailored, actionable advice on how to negotiate your compensation based on your specific profile and region.</li>
+      </ul>
+    </div>
+    <p>
+      Use this free tool to benchmark your current compensation, prepare for your next job interview, or negotiate a raise with confidence. Always remember to consider total compensation, including bonuses, health insurance, and retirement contributions, when evaluating an offer.
+    </p>
+  </section>
+
 </div>
 
 <script>
