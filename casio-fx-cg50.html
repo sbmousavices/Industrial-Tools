@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CASIO fx-CG50 Graphing Calculator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  
+  body {
+    background: radial-gradient(ellipse at center, #2a2a3a, #0a0a15);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+
+  .calculator {
+    width: 420px;
+    background: linear-gradient(160deg, #1e3a5f 0%, #0d1f35 40%, #050d18 100%);
+    border-radius: 30px 30px 20px 20px;
+    padding: 20px 18px 25px;
+    box-shadow: 
+      0 30px 60px rgba(0,0,0,0.9),
+      inset 0 2px 3px rgba(255,255,255,0.15),
+      inset 0 -3px 5px rgba(0,0,0,0.6);
+    border: 2px solid #000;
+    position: relative;
+  }
+
+  /* Top bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 10px;
+  }
+  .brand {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 1.3rem;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  }
+  .model {
+    color: #f5a623;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  /* Screen frame */
+  .screen-frame {
+    background: #000;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-shadow: 
+      inset 0 3px 8px rgba(0,0,0,0.9),
+      0 1px 0 rgba(255,255,255,0.1);
+  }
+  .screen {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(180deg, #e8e8d8 0%, #d8d8c8 100%);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px, transparent 2px,
+      rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Top status bar */
+  .status-bar {
+    background: linear-gradient(180deg, #4a6fa5, #2a4a75);
+    color: #fff;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Screen content */
+  .screen-content {
+    padding: 8px;
+    height: calc(100% - 22px);
+    position: relative;
+    z-index: 2;
+    font-family: 'Courier New', monospace;
+    color: #000;
+    overflow: hidden;
+  }
+
+  /* Menu screen */
+  .menu-screen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 6px;
+    height: 100%;
+  }
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .menu-item:hover {
+    background: rgba(255,255,255,0.7);
+    border-color: #2a4a75;
+  }
+  .menu-item.selected {
+    background: #2a4a75;
+    color: #fff;
+  }
+  .menu-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: bold;
+  }
+  .menu-label {
+    font-size: 0.6rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* Run-Matrix screen */
+  .run-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: 0.95rem;
+  }
+  .run-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2px;
+  }
+  .run-line {
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .run-line.expr { color: #000; }
+  .run-line.result { color: #000; text-align: right; font-weight: bold; }
+  .run-input {
+    border-top: 1px dashed #666;
+    padding-top: 4px;
+    min-height: 1.3rem;
+  }
+  .run-input::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 12px;
+    background: #000;
+    margin-right: 2px;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Graph screen */
+  .graph-screen {
+    height: 100%;
+    position: relative;
+  }
+  #graphCanvas {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: block;
+  }
+
+  /* Table screen */
+  .table-screen {
+    height: 100%;
+    overflow: auto;
+    font-size: 0.8rem;
+  }
+  .table-screen table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table-screen th, .table-screen td {
+    border: 1px solid #666;
+    padding: 3px 6px;
+    text-align: right;
+  }
+  .table-screen th {
+    background: #4a6fa5;
+    color: #fff;
+  }
+
+  /* Equation screen */
+  .equation-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+  .eq-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 6px;
+    color: #2a4a75;
+  }
+  .eq-types {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .eq-type {
+    flex: 1;
+    background: #ddd;
+    border: 1px solid #888;
+    padding: 3px;
+    text-align: center;
+    font-size: 0.65rem;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+  .eq-type.active {
+    background: #4a6fa5;
+    color: #fff;
+  }
+  .eq-inputs {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .eq-input {
+    flex: 1;
+    min-width: 30px;
+    padding: 3px;
+    border: 1px solid #666;
+    background: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .eq-formula {
+    background: #fff;
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #aaa;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .eq-result {
+    background: #fff;
+    padding: 6px;
+    border: 1px solid #4a6fa5;
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    white-space: pre-line;
+    overflow: auto;
+  }
+
+  /* Statistics screen */
+  .stats-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+  .stats-input-area {
+    margin-bottom: 4px;
+  }
+  .stats-input {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #666;
+    background: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    border-radius: 2px;
+  }
+  .stats-results {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #4a6fa5;
+    padding: 4px;
+    overflow: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    white-space: pre-line;
+  }
+
+  /* Program screen */
+  .program-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+  .prog-editor {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #666;
+    padding: 4px;
+    overflow: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+    white-space: pre-wrap;
+  }
+  .prog-editor textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    background: transparent;
+    outline: none;
+  }
+  .prog-output {
+    background: #000;
+    color: #0f0;
+    padding: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    min-height: 35px;
+    border-radius: 2px;
+    overflow: auto;
+    white-space: pre-wrap;
+  }
+
+  /* Geometry screen */
+  .geometry-screen {
+    height: 100%;
+    position: relative;
+  }
+  #geoCanvas {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: block;
+  }
+
+  /* Python screen */
+  .python-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+  .py-logo {
+    text-align: center;
+    color: #3776ab;
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-size: 0.7rem;
+  }
+  .py-editor {
+    flex: 1;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    margin-bottom: 3px;
+    overflow: auto;
+    border-radius: 2px;
+  }
+  .py-editor textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    background: transparent;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    outline: none;
+  }
+  .py-output {
+    background: #2d2d2d;
+    color: #ffd43b;
+    padding: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    min-height: 35px;
+    border-radius: 2px;
+    overflow: auto;
+    white-space: pre-wrap;
+  }
+
+  /* F1-F6 buttons below screen */
+  .f-buttons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .f-btn {
+    background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+    color: #fff;
+    border: none;
+    padding: 6px 0;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 0 #000, inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.08s;
+  }
+  .f-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 #000;
+  }
+  .f-label {
+    text-align: center;
+    font-size: 0.65rem;
+    color: #aaa;
+    margin-bottom: 2px;
+    font-weight: bold;
+  }
+
+  /* D-pad and navigation buttons */
+  .nav-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+  .nav-left, .nav-right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .nav-btn {
+    background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 0 #000, inset 0 1px 0 rgba(255,255,255,0.15);
+    min-width: 55px;
+    transition: all 0.08s;
+  }
+  .nav-btn:active { transform: translateY(2px); box-shadow: 0 0 0 #000; }
+  .nav-btn.shift { background: linear-gradient(180deg, #f5a623, #d48a0a); color: #fff; }
+  .nav-btn.alpha { background: linear-gradient(180deg, #d44a4a, #a02020); color: #fff; }
+  .nav-btn.optn { background: linear-gradient(180deg, #8e44ad, #5e2a75); color: #fff; }
+  .nav-btn.vars { background: linear-gradient(180deg, #27ae60, #157a3e); color: #fff; }
+  .nav-btn.menu { background: linear-gradient(180deg, #e8e8e8, #b8b8b8); color: #000; }
+
+  /* D-Pad */
+  .dpad {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #2a2a2a, #0a0a0a);
+    box-shadow: 
+      0 4px 8px rgba(0,0,0,0.6),
+      inset 0 2px 3px rgba(255,255,255,0.1);
+  }
+  .dpad-btn {
+    position: absolute;
+    background: linear-gradient(180deg, #4a4a4a, #1a1a1a);
+    color: #fff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  }
+  .dpad-btn:active { transform: scale(0.95); }
+  .dpad-up { top: 3px; left: 50%; transform: translateX(-50%); }
+  .dpad-down { bottom: 3px; left: 50%; transform: translateX(-50%); }
+  .dpad-left { left: 3px; top: 50%; transform: translateY(-50%); }
+  .dpad-right { right: 3px; top: 50%; transform: translateY(-50%); }
+  .dpad-center {
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #e8e8e8, #b8b8b8);
+    color: #000;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: bold;
+  }
+
+  /* Main keyboard */
+  .keyboard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    padding: 0 5px;
+  }
+  .key {
+    background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #000, inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.08s;
+    position: relative;
+  }
+  .key:active { transform: translateY(3px); box-shadow: 0 0 0 #000; }
+  .key.num {
+    background: linear-gradient(180deg, #e8e8e8 0%, #b8b8b8 100%);
+    color: #000;
+    box-shadow: 0 3px 0 #666, inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+  .key.num:active { box-shadow: 0 0 0 #666; }
+  .key.op {
+    background: linear-gradient(180deg, #5a5a5a 0%, #3a3a3a 100%);
+  }
+  .key.shift-fn {
+    background: linear-gradient(180deg, #f5a623 0%, #d48a0a 100%);
+    color: #fff;
+  }
+  .key.ac {
+    background: linear-gradient(180deg, #e74c3c 0%, #a02020 100%);
+    color: #fff;
+  }
+  .key.eq {
+    background: linear-gradient(180deg, #3498db 0%, #2070a8 100%);
+    color: #fff;
+  }
+  .key-label-top {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.55rem;
+    color: #f5a623;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .bottom-brand {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.65rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <div class="top-bar">
+    <div class="brand">CASIO</div>
+    <div class="model">fx-CG50</div>
+  </div>
+
+  <!-- Screen -->
+  <div class="screen-frame">
+    <div class="screen">
+      <div class="status-bar">
+        <span id="status-mode">MAIN</span>
+        <span id="status-info">DEG</span>
+      </div>
+      <div class="screen-content" id="screenContent">
+        <!-- Content filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- F1-F6 buttons -->
+  <div>
+    <div class="f-buttons">
+      <div><div class="f-label" id="fl1">SEL</div><button class="f-btn" onclick="fKey(1)">F1</button></div>
+      <div><div class="f-label" id="fl2">EDIT</div><button class="f-btn" onclick="fKey(2)">F2</button></div>
+      <div><div class="f-label" id="fl3">DEL</div><button class="f-btn" onclick="fKey(3)">F3</button></div>
+      <div><div class="f-label" id="fl4">SEL</div><button class="f-btn" onclick="fKey(4)">F4</button></div>
+      <div><div class="f-label" id="fl5">CLR</div><button class="f-btn" onclick="fKey(5)">F5</button></div>
+      <div><div class="f-label" id="fl6">▶</div><button class="f-btn" onclick="fKey(6)">F6</button></div>
+    </div>
+  </div>
+
+  <!-- Navigation area -->
+  <div class="nav-area">
+    <div class="nav-left">
+      <button class="nav-btn shift" onclick="toggleShift()">SHIFT</button>
+      <button class="nav-btn alpha" onclick="toggleAlpha()">ALPHA</button>
+      <button class="nav-btn optn" onclick="pressOptn()">OPTN</button>
+      <button class="nav-btn vars" onclick="pressVars()">VARS</button>
+    </div>
+
+    <div class="dpad">
+      <button class="dpad-btn dpad-up" onclick="dpadPress('up')">▲</button>
+      <button class="dpad-btn dpad-down" onclick="dpadPress('down')">▼</button>
+      <button class="dpad-btn dpad-left" onclick="dpadPress('left')">◀</button>
+      <button class="dpad-btn dpad-right" onclick="dpadPress('right')">▶</button>
+      <button class="dpad-btn dpad-center" onclick="pressMenu()">MENU</button>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-btn" onclick="pressSetup()">SET UP</button>
+      <button class="nav-btn" onclick="pressExit()">EXIT</button>
+      <button class="nav-btn" onclick="pressXot()">X,θ,T</button>
+      <button class="nav-btn" onclick="pressCatalog()">CATALOG</button>
+    </div>
+  </div>
+
+  <!-- Main keyboard -->
+  <div class="keyboard">
+    <button class="key ac" onclick="pressAC()">AC</button>
+    <button class="key op" onclick="pressDel()">DEL</button>
+    <button class="key op" onclick="insert('(')">(</button>
+    <button class="key op" onclick="insert(')')">)</button>
+    <button class="key op" onclick="insert(',')">,</button>
+    <button class="key op" onclick="insert('→')">→</button>
+
+    <button class="key" onclick="insert('sin(')">sin</button>
+    <button class="key" onclick="insert('cos(')">cos</button>
+    <button class="key" onclick="insert('tan(')">tan</button>
+    <button class="key" onclick="insert('log(')">log</button>
+    <button class="key" onclick="insert('ln(')">ln</button>
+    <button class="key eq" onclick="pressEquals()">=</button>
+
+    <button class="key num" onclick="insert('7')">7</button>
+    <button class="key num" onclick="insert('8')">8</button>
+    <button class="key num" onclick="insert('9')">9</button>
+    <button class="key op" onclick="insert('×')">×</button>
+    <button class="key op" onclick="insert('÷')">÷</button>
+    <button class="key" onclick="insert('^')">^</button>
+
+    <button class="key num" onclick="insert('4')">4</button>
+    <button class="key num" onclick="insert('5')">5</button>
+    <button class="key num" onclick="insert('6')">6</button>
+    <button class="key op" onclick="insert('+')">+</button>
+    <button class="key op" onclick="insert('-')">-</button>
+    <button class="key" onclick="insert('√(')">√</button>
+
+    <button class="key num" onclick="insert('1')">1</button>
+    <button class="key num" onclick="insert('2')">2</button>
+    <button class="key num" onclick="insert('3')">3</button>
+    <button class="key" onclick="insert('π')">π</button>
+    <button class="key" onclick="insert('e')">e</button>
+    <button class="key" onclick="insert('Ans')">Ans</button>
+
+    <button class="key num" onclick="insert('0')">0</button>
+    <button class="key num" onclick="insert('.')">.</button>
+    <button class="key" onclick="insert('E')">EXP</button>
+    <button class="key" onclick="insert('(-')">(-)</button>
+    <button class="key" onclick="insert('x')">x</button>
+    <button class="key shift-fn" onclick="pressEquals()">EXE</button>
+  </div>
+
+  <div class="bottom-brand">COLOR GRAPHING • PYTHON INSIDE • NATURAL DISPLAY</div>
+</div>
+
+<script>
+  // ============ Global state ============
+  let currentMode = 'menu';
+  let selectedMenu = 0;
+  let currentInput = "";
+  let lastAns = 0;
+  let history = [];
+  let angleMode = 'DEG';
+  let shiftActive = false;
+  let alphaActive = false;
+
+  // State for Equation mode
+  let eqType = 'linear';
+  let eqCoeffs = { a: '', b: '', c: '' };
+
+  // State for Statistics mode
+  let statsData = [];
+
+  // State for Program mode
+  let programCode = 'For 1→I To 5\n  Print I*I\nNext';
+
+  // State for Geometry mode
+  let geoShape = 'circle';
+  let geoParams = { r: 3, a: 4, b: 3 };
+
+  // State for Python mode
+  let pythonCode = 'for i in range(5):\n    print(i*i)';
+
+  const screenContent = document.getElementById('screenContent');
+  const statusMode = document.getElementById('status-mode');
+  const statusInfo = document.getElementById('status-info');
+
+  const menuItems = [
+    { name: 'Run-Mat', color: '#3498db', icon: '▶', mode: 'run' },
+    { name: 'Graph', color: '#27ae60', icon: '∿', mode: 'graph' },
+    { name: 'Table', color: '#e67e22', icon: '▦', mode: 'table' },
+    { name: 'Equation', color: '#e74c3c', icon: 'x=', mode: 'equation' },
+    { name: 'Statistics', color: '#8e44ad', icon: 'σ', mode: 'stats' },
+    { name: 'Program', color: '#16a085', icon: 'PRG', mode: 'program' },
+    { name: 'Geometry', color: '#d35400', icon: '△', mode: 'geometry' },
+    { name: 'Python', color: '#34495e', icon: 'PY', mode: 'python' }
+  ];
+
+  // ============ Screen renderers ============
+  function renderMenu() {
+    currentMode = 'menu';
+    statusMode.textContent = 'MAIN';
+    statusInfo.textContent = angleMode;
+    setFLabels(['', '', '', '', '', '']);
+    
+    let html = '<div class="menu-screen">';
+    menuItems.forEach((item, i) => {
+      html += `
+        <div class="menu-item ${i === selectedMenu ? 'selected' : ''}" onclick="selectMenu(${i})">
+          <div class="menu-icon" style="background:${item.color}">${item.icon}</div>
+          <div class="menu-label">${item.name}</div>
+        </div>`;
+    });
+    html += '</div>';
+    screenContent.innerHTML = html;
+  }
+
+  function renderRun() {
+    currentMode = 'run';
+    statusMode.textContent = 'RUN';
+    statusInfo.textContent = angleMode;
+    setFLabels(['SEL', 'EDIT', 'DEL', 'SEL', 'CLR', '▶']);
+    
+    let html = '<div class="run-screen"><div class="run-history" id="runHistory">';
+    history.forEach(h => {
+      html += `<div class="run-line expr">${h.expr}</div>`;
+      html += `<div class="run-line result">${h.result}</div>`;
+    });
+    html += '</div>';
+    html += `<div class="run-input" id="runInput">${currentInput}</div>`;
+    html += '</div>';
+    screenContent.innerHTML = html;
+    
+    const hist = document.getElementById('runHistory');
+    if (hist) hist.scrollTop = hist.scrollHeight;
+  }
+
+  function renderGraph() {
+    currentMode = 'graph';
+    statusMode.textContent = 'GRAPH';
+    statusInfo.textContent = angleMode;
+    setFLabels(['Y=', 'GRAPH', 'DRAW', 'STYLE', 'CLR', 'EXIT']);
+    
+    screenContent.innerHTML = '<div class="graph-screen"><canvas id="graphCanvas"></canvas></div>';
+    drawGraph();
+  }
+
+  function renderTable() {
+    currentMode = 'table';
+    statusMode.textContent = 'TABLE';
+    statusInfo.textContent = angleMode;
+    setFLabels(['Y=', 'RNG', 'CALC', 'STYLE', 'CLR', 'EXIT']);
+    
+    let html = '<div class="table-screen"><table><tr><th>X</th><th>Y</th></tr>';
+    const func = currentInput || 'x^2';
+    for (let x = -5; x <= 5; x++) {
+      try {
+        const y = evalFunction(func, x);
+        html += `<tr><td>${x}</td><td>${typeof y === 'number' ? y.toFixed(4) : y}</td></tr>`;
+      } catch(e) {
+        html += `<tr><td>${x}</td><td>ERR</td></tr>`;
+      }
+    }
+    html += '</table></div>';
+    screenContent.innerHTML = html;
+  }
+
+  // ============ Equation Mode ============
+  function renderEquation() {
+    currentMode = 'equation';
+    statusMode.textContent = 'EQUA';
+    statusInfo.textContent = angleMode;
+    setFLabels(['Lin', 'Quad', 'Sys2', 'Solve', 'CLR', 'EXIT']);
+
+    let formula = '', inputs = '';
+    if (eqType === 'linear') {
+      formula = 'ax + b = 0';
+      inputs = `
+        <input class="eq-input" id="eqa" placeholder="a" value="${eqCoeffs.a}">
+        <input class="eq-input" id="eqb" placeholder="b" value="${eqCoeffs.b}">`;
+    } else if (eqType === 'quad') {
+      formula = 'ax² + bx + c = 0';
+      inputs = `
+        <input class="eq-input" id="eqa" placeholder="a" value="${eqCoeffs.a}">
+        <input class="eq-input" id="eqb" placeholder="b" value="${eqCoeffs.b}">
+        <input class="eq-input" id="eqc" placeholder="c" value="${eqCoeffs.c}">`;
+    } else {
+      formula = 'a₁x + b₁y = c₁ / a₂x + b₂y = c₂';
+      inputs = `
+        <input class="eq-input" id="eqa" placeholder="a₁" value="${eqCoeffs.a}">
+        <input class="eq-input" id="eqb" placeholder="b₁" value="${eqCoeffs.b}">
+        <input class="eq-input" id="eqc" placeholder="c₁" value="${eqCoeffs.c}">`;
+    }
+
+    const html = `
+      <div class="equation-screen">
+        <div class="eq-title">EQUATION SOLVER</div>
+        <div class="eq-types">
+          <div class="eq-type ${eqType==='linear'?'active':''}" onclick="setEqType('linear')">Linear</div>
+          <div class="eq-type ${eqType==='quad'?'active':''}" onclick="setEqType('quad')">Quadratic</div>
+          <div class="eq-type ${eqType==='sys'?'active':''}" onclick="setEqType('sys')">2-Var Sys</div>
+        </div>
+        <div class="eq-formula">${formula}</div>
+        <div class="eq-inputs">${inputs}</div>
+        <div class="eq-result" id="eqResult">Press F4 (Solve) or EXE</div>
+      </div>`;
+    screenContent.innerHTML = html;
+
+    // Attach input listeners
+    setTimeout(() => {
+      ['eqa','eqb','eqc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', e => {
+          const map = { eqa:'a', eqb:'b', eqc:'c' };
+          eqCoeffs[map[id]] = e.target.value;
+        });
+      });
+    }, 50);
+  }
+
+  function setEqType(t) {
+    eqType = t;
+    eqCoeffs = { a:'', b:'', c:'' };
+    renderEquation();
+  }
+
+  function solveEquation() {
+    const a = parseFloat(eqCoeffs.a);
+    const b = parseFloat(eqCoeffs.b);
+    const c = parseFloat(eqCoeffs.c);
+    let out = '';
+
+    if (eqType === 'linear') {
+      if (isNaN(a) || isNaN(b)) { out = 'Enter a, b'; }
+      else if (a === 0) { out = b === 0 ? 'Infinite solutions' : 'No solution'; }
+      else { out = `x = ${formatNumber(-b/a)}`; }
+    } else if (eqType === 'quad') {
+      if (isNaN(a) || isNaN(b) || isNaN(c)) { out = 'Enter a, b, c'; }
+      else if (a === 0) { out = `Linear: x = ${formatNumber(-c/b)}`; }
+      else {
+        const disc = b*b - 4*a*c;
+        out = `Discriminant = ${formatNumber(disc)}\n`;
+        if (disc > 0) {
+          const x1 = (-b + Math.sqrt(disc))/(2*a);
+          const x2 = (-b - Math.sqrt(disc))/(2*a);
+          out += `x₁ = ${formatNumber(x1)}\nx₂ = ${formatNumber(x2)}`;
+        } else if (disc === 0) {
+          out += `x = ${formatNumber(-b/(2*a))} (double)`;
+        } else {
+          const re = -b/(2*a), im = Math.sqrt(-disc)/(2*a);
+          out += `x₁ = ${formatNumber(re)} + ${formatNumber(im)}i\n`;
+          out += `x₂ = ${formatNumber(re)} - ${formatNumber(im)}i`;
+        }
+      }
+    } else {
+      // 2-variable system
+      if (isNaN(a) || isNaN(b) || isNaN(c)) { out = 'Enter a₁, b₁, c₁'; }
+      else {
+        const a2 = parseFloat(prompt('Enter a₂:', '1')) || 1;
+        const b2 = parseFloat(prompt('Enter b₂:', '1')) || 1;
+        const c2 = parseFloat(prompt('Enter c₂:', '2')) || 2;
+        const det = a*b2 - a2*b;
+        if (det === 0) { out = 'No unique solution (det=0)'; }
+        else {
+          const x = (c*b2 - c2*b)/det;
+          const y = (a*c2 - a2*c)/det;
+          out = `x = ${formatNumber(x)}\ny = ${formatNumber(y)}`;
+        }
+      }
+    }
+    const el = document.getElementById('eqResult');
+    if (el) el.textContent = out;
+  }
+
+  // ============ Statistics Mode ============
+  function renderStats() {
+    currentMode = 'stats';
+    statusMode.textContent = 'STAT';
+    statusInfo.textContent = angleMode;
+    setFLabels(['1-Var', 'Calc', 'Sort', 'Clr', 'Add', 'EXIT']);
+
+    const html = `
+      <div class="stats-screen">
+        <div class="stats-input-area">
+          <input class="stats-input" id="statsInput" placeholder="Enter values separated by comma: 1,2,3,4,5" value="${statsData.join(',')}">
+        </div>
+        <div class="stats-results" id="statsResults">Press F2 (Calc) to compute statistics</div>
+      </div>`;
+    screenContent.innerHTML = html;
+
+    setTimeout(() => {
+      const el = document.getElementById('statsInput');
+      if (el) el.addEventListener('input', e => {
+        statsData = e.target.value.split(',').map(s => parseFloat(s.trim())).filter(v => !isNaN(v));
+      });
+    }, 50);
+  }
+
+  function calcStats() {
+    const el = document.getElementById('statsInput');
+    if (el) {
+      statsData = el.value.split(',').map(s => parseFloat(s.trim())).filter(v => !isNaN(v));
+    }
+    const n = statsData.length;
+    let out = '';
+    if (n === 0) {
+      out = 'No data entered';
+    } else {
+      const sum = statsData.reduce((a,b) => a+b, 0);
+      const mean = sum / n;
+      const sorted = [...statsData].sort((a,b) => a-b);
+      const min = sorted[0];
+      const max = sorted[n-1];
+      const median = n % 2 === 0 ? (sorted[n/2 - 1] + sorted[n/2])/2 : sorted[Math.floor(n/2)];
+      const sumSq = statsData.reduce((a,b) => a + b*b, 0);
+      const popVar = statsData.reduce((a,b) => a + (b - mean)**2, 0) / n;
+      const samVar = n > 1 ? statsData.reduce((a,b) => a + (b - mean)**2, 0) / (n - 1) : 0;
+
+      out = `n        = ${n}\n`;
+      out += `Σx       = ${formatNumber(sum)}\n`;
+      out += `Σx²      = ${formatNumber(sumSq)}\n`;
+      out += `Mean (x̄) = ${formatNumber(mean)}\n`;
+      out += `Median   = ${formatNumber(median)}\n`;
+      out += `Min      = ${formatNumber(min)}\n`;
+      out += `Max      = ${formatNumber(max)}\n`;
+      out += `σn (pop) = ${formatNumber(Math.sqrt(popVar))}\n`;
+      out += `σn-1 (s) = ${formatNumber(Math.sqrt(samVar))}\n`;
+      out += `Var(n)   = ${formatNumber(popVar)}\n`;
+      out += `Var(n-1) = ${formatNumber(samVar)}`;
+    }
+    const r = document.getElementById('statsResults');
+    if (r) r.textContent = out;
+  }
+
+  // ============ Program Mode ============
+  function renderProgram() {
+    currentMode = 'program';
+    statusMode.textContent = 'PRGM';
+    statusInfo.textContent = angleMode;
+    setFLabels(['Run', 'Edit', 'Clr', 'New', 'Del', 'EXIT']);
+
+    const html = `
+      <div class="program-screen">
+        <div class="prog-editor">
+          <textarea id="progArea">${programCode}</textarea>
+        </div>
+        <div class="prog-output" id="progOutput">Press F1 (Run) or EXE to execute</div>
+      </div>`;
+    screenContent.innerHTML = html;
+
+    setTimeout(() => {
+      const el = document.getElementById('progArea');
+      if (el) el.addEventListener('input', e => { programCode = e.target.value; });
+    }, 50);
+  }
+
+  function runProgram() {
+    const el = document.getElementById('progArea');
+    if (el) programCode = el.value;
+
+    let output = [];
+    const vars = {};
+
+    function evalExpr(expr) {
+      let e = expr
+        .replace(/×/g, '*').replace(/÷/g, '/')
+        .replace(/π/g, 'Math.PI')
+        .replace(/\^/g, '**')
+        .replace(/sin\(/g, 'Math.sin(')
+        .replace(/cos\(/g, 'Math.cos(')
+        .replace(/tan\(/g, 'Math.tan(')
+        .replace(/√\(/g, 'Math.sqrt(')
+        .replace(/log\(/g, 'Math.log10(')
+        .replace(/ln\(/g, 'Math.log(');
+      
+      // Replace variables
+      for (const k in vars) {
+        e = e.replace(new RegExp('\\b' + k + '\\b', 'g'), vars[k]);
+      }
+      try { return eval(e); } catch (err) { return NaN; }
+    }
+
+    const lines = programCode.split('\n');
+    let i = 0;
+    const loopStack = [];
+
+    while (i < lines.length && output.length < 200) {
+      let line = lines[i].trim();
+      if (!line) { i++; continue; }
+
+      // For ... To ... Next loop
+      const forMatch = line.match(/^For\s+(\d+(?:\.\d+)?)\s*→\s*([A-Z])\s+To\s+(\d+(?:\.\d+)?)/i);
+      if (forMatch) {
+        const start = parseFloat(forMatch[1]);
+        const varName = forMatch[2];
+        const end = parseFloat(forMatch[3]);
+        vars[varName] = start;
+        loopStack.push({ varName, end, startLine: i });
+        i++;
+        continue;
+      }
+
+      if (/^Next$/i.test(line)) {
+        if (loopStack.length > 0) {
+          const lp = loopStack[loopStack.length - 1];
+          vars[lp.varName]++;
+          if (vars[lp.varName] <= lp.end) {
+            i = lp.startLine + 1;
+          } else {
+            loopStack.pop();
+            i++;
+          }
+          continue;
+        }
+      }
+
+      // Print
+      const printMatch = line.match(/^Print\s+(.+)$/i);
+      if (printMatch) {
+        output.push(String(evalExpr(printMatch[1])));
+        i++;
+        continue;
+      }
+
+      // Assignment: value → Var  or  expr → Var
+      const assignMatch = line.match(/^(.+?)\s*→\s*([A-Z])$/);
+      if (assignMatch) {
+        vars[assignMatch[2]] = evalExpr(assignMatch[1]);
+        i++;
+        continue;
+      }
+
+      // If ... Then ... IfEnd
+      const ifMatch = line.match(/^If\s+(.+?)\s*Then\s*(.*)$/i);
+      if (ifMatch) {
+        const cond = evalExpr(ifMatch[1]);
+        if (cond) {
+          if (ifMatch[2].trim()) {
+            lines.splice(i + 1, 0, ifMatch[2].trim());
+          }
+        } else {
+          // Skip to IfEnd
+          let depth = 1;
+          let j = i + 1;
+          while (j < lines.length && depth > 0) {
+            if (/^If\s+/i.test(lines[j])) depth++;
+            if (/^IfEnd$/i.test(lines[j])) depth--;
+            j++;
+          }
+          i = j;
+          continue;
+        }
+        i++;
+        continue;
+      }
+
+      if (/^IfEnd$/i.test(line)) { i++; continue; }
+
+      i++;
+    }
+
+    const out = document.getElementById('progOutput');
+    if (out) out.textContent = output.length ? output.join('\n') : '(no output)';
+  }
+
+  // ============ Geometry Mode ============
+  function renderGeometry() {
+    currentMode = 'geometry';
+    statusMode.textContent = 'GEOM';
+    statusInfo.textContent = angleMode;
+    setFLabels(['Circle', 'Rect', 'Tri', 'Draw', 'Clr', 'EXIT']);
+
+    const html = `
+      <div class="geometry-screen">
+        <canvas id="geoCanvas"></canvas>
+      </div>`;
+    screenContent.innerHTML = html;
+    drawGeometry();
+  }
+
+  function drawGeometry() {
+    const canvas = document.getElementById('geoCanvas');
+    if (!canvas) return;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const cx = W / 2, cy = H / 2;
+    const scale = Math.min(W, H) / 12;
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= W; x += scale) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = 0; y <= H; y += scale) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = '#888';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+
+    ctx.strokeStyle = '#e74c3c';
+    ctx.fillStyle = '#2a4a75';
+    ctx.lineWidth = 2;
+    ctx.font = 'bold 10px Arial';
+
+    let info = '';
+
+    if (geoShape === 'circle') {
+      const r = geoParams.r * scale;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + r, cy);
+      ctx.stroke();
+      ctx.fillText('r=' + geoParams.r, cx + r/2, cy - 3);
+      const area = Math.PI * geoParams.r * geoParams.r;
+      const perim = 2 * Math.PI * geoParams.r;
+      info = `Circle r=${geoParams.r}\nArea = ${formatNumber(area)}\nCirc = ${formatNumber(perim)}`;
+    } else if (geoShape === 'rect') {
+      const w = geoParams.a * scale, h = geoParams.b * scale;
+      ctx.strokeRect(cx - w/2, cy - h/2, w, h);
+      ctx.fillText('a=' + geoParams.a, cx, cy - h/2 - 3);
+      ctx.fillText('b=' + geoParams.b, cx + w/2 + 3, cy);
+      const area = geoParams.a * geoParams.b;
+      const perim = 2 * (geoParams.a + geoParams.b);
+      info = `Rectangle a=${geoParams.a}, b=${geoParams.b}\nArea = ${formatNumber(area)}\nPerim = ${formatNumber(perim)}`;
+    } else {
+      // Triangle
+      const a = geoParams.a * scale, b = geoParams.b * scale;
+      ctx.beginPath();
+      ctx.moveTo(cx - a/2, cy + b/2);
+      ctx.lineTo(cx + a/2, cy + b/2);
+      ctx.lineTo(cx, cy - b/2);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fillText('base=' + geoParams.a, cx, cy + b/2 + 10);
+      ctx.fillText('h=' + geoParams.b, cx - a/2 - 15, cy);
+      const area = 0.5 * geoParams.a * geoParams.b;
+      const s1 = Math.sqrt((a/2)**2 + b**2);
+      const perim = geoParams.a + 2 * (s1/scale);
+      info = `Triangle b=${geoParams.a}, h=${geoParams.b}\nArea = ${formatNumber(area)}\nPerim ≈ ${formatNumber(perim)}`;
+    }
+
+    // Info box
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.fillRect(5, 5, 130, 45);
+    ctx.strokeStyle = '#4a6fa5';
+    ctx.strokeRect(5, 5, 130, 45);
+    ctx.fillStyle = '#000';
+    ctx.font = '9px Courier New';
+    info.split('\n').forEach((line, idx) => {
+      ctx.fillText(line, 8, 16 + idx * 11);
+    });
+  }
+
+  function setGeoShape(s) {
+    geoShape = s;
+    if (s === 'circle') geoParams = { r: 3, a: 4, b: 3 };
+    else if (s === 'rect') geoParams = { r: 3, a: 4, b: 2 };
+    else geoParams = { r: 3, a: 4, b: 3 };
+    drawGeometry();
+  }
+
+  // ============ Python Mode ============
+  function renderPython() {
+    currentMode = 'python';
+    statusMode.textContent = 'PYTH';
+    statusInfo.textContent = '3.9';
+    setFLabels(['Run', 'Edit', 'Clr', 'New', 'Del', 'EXIT']);
+
+    const html = `
+      <div class="python-screen">
+        <div class="py-logo">🐍 MicroPython (Casio)</div>
+        <div class="py-editor">
+          <textarea id="pyArea">${pythonCode}</textarea>
+        </div>
+        <div class="py-output" id="pyOutput">Press F1 (Run) or EXE to execute</div>
+      </div>`;
+    screenContent.innerHTML = html;
+
+    setTimeout(() => {
+      const el = document.getElementById('pyArea');
+      if (el) el.addEventListener('input', e => { pythonCode = e.target.value; });
+    }, 50);
+  }
+
+  function runPython() {
+    const el = document.getElementById('pyArea');
+    if (el) pythonCode = el.value;
+
+    // Transform Python-like code to JavaScript
+    const output = [];
+    const pyPrint = (...args) => output.push(args.map(String).join(' '));
+
+    try {
+      let code = pythonCode;
+      // Transform print
+      code = code.replace(/print\s*\(/g, '__pyPrint(');
+      // Transform range
+      code = code.replace(/range\s*\(/g, '__pyRange(');
+      // Transform indentation-based blocks to braces
+      code = transformPyBlocks(code);
+      // Handle ** for power (already valid JS)
+      // Replace True/False/None
+      code = code.replace(/\bTrue\b/g, 'true');
+      code = code.replace(/\bFalse\b/g, 'false');
+      code = code.replace(/\bNone\b/g, 'null');
+      // int, float, str, len
+      code = code.replace(/\bint\s*\(/g, 'Math.trunc(');
+      code = code.replace(/\bfloat\s*\(/g, 'Number(');
+      code = code.replace(/\blen\s*\(/g, '__pyLen(');
+      code = code.replace(/\bstr\s*\(/g, 'String(');
+
+      const __pyPrint = pyPrint;
+      const __pyRange = (...args) => {
+        const arr = [];
+        let start = 0, stop, step = 1;
+        if (args.length === 1) { stop = args[0]; }
+        else if (args.length === 2) { start = args[0]; stop = args[1]; }
+        else if (args.length === 3) { start = args[0]; stop = args[1]; step = args[2]; }
+        if (step > 0) for (let i = start; i < stop; i += step) arr.push(i);
+        else if (step < 0) for (let i = start; i > stop; i += step) arr.push(i);
+        return arr;
+      };
+      const __pyLen = (x) => x.length;
+
+      const fn = new Function('__pyPrint', '__pyRange', '__pyLen', code);
+      fn(__pyPrint, __pyRange, __pyLen);
+
+      const out = document.getElementById('pyOutput');
+      if (out) out.textContent = output.length ? output.join('\n') : '(no output)';
+    } catch (err) {
+      const out = document.getElementById('pyOutput');
+      if (out) out.textContent = 'Error: ' + err.message;
+    }
+  }
+
+  function transformPyBlocks(code) {
+    // Convert indentation-based Python to JS braces
+    const lines = code.split('\n');
+    const result = [];
+    const stack = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmed = line.replace(/\s+$/, '');
+      if (!trimmed) continue;
+
+      const indent = line.match(/^(\s*)/)[1].length;
+
+      // Close blocks at higher indent
+      while (stack.length && stack[stack.length - 1] >= indent) {
+        result.push('}');
+        stack.pop();
+      }
+
+      if (/:\s*$/.test(trimmed)) {
+        // Block starter
+        const head = trimmed.replace(/:\s*$/, '');
+        let jsHead = head;
+        if (/^for\s+/.test(head)) {
+          const m = head.match(/^for\s+(\w+)\s+in\s+(.+)$/);
+          if (m) jsHead = `for (let ${m[1]} of ${m[2]})`;
+        } else if (/^while\s+/.test(head)) {
+          jsHead = head;
+        } else if (/^if\s+/.test(head) || /^elif\s+/.test(head) || /^else/.test(head)) {
+          jsHead = head.replace('elif', 'else if');
+        } else if (/^def\s+/.test(head)) {
+          const m = head.match(/^def\s+(\w+)\s*\(([^)]*)\)$/);
+          if (m) jsHead = `function ${m[1]}(${m[2]})`;
+        }
+        result.push(jsHead + ' {');
+        stack.push(indent);
+      } else {
+        result.push(trimmed);
+      }
+    }
+    while (stack.length) { result.push('}'); stack.pop(); }
+    return result.join('\n');
+  }
+
+  // ============ Menu management ============
+  function selectMenu(i) {
+    selectedMenu = i;
+    const item = menuItems[i];
+    if (item.mode === 'run') { history = []; currentInput = ""; renderRun(); }
+    else if (item.mode === 'graph') { currentInput = 'sin(x)'; renderGraph(); }
+    else if (item.mode === 'table') { currentInput = 'x^2'; renderTable(); }
+    else if (item.mode === 'equation') { renderEquation(); }
+    else if (item.mode === 'stats') { renderStats(); }
+    else if (item.mode === 'program') { renderProgram(); }
+    else if (item.mode === 'geometry') { renderGeometry(); }
+    else if (item.mode === 'python') { renderPython(); }
+  }
+
+  function pressMenu() { renderMenu(); }
+  function pressExit() { if (currentMode !== 'menu') renderMenu(); }
+
+  // ============ F buttons ============
+  function setFLabels(labels) {
+    for (let i = 0; i < 6; i++) {
+      document.getElementById('fl' + (i+1)).textContent = labels[i] || '';
+    }
+  }
+
+  function fKey(n) {
+    if (currentMode === 'menu') {
+      if (n === 6 && selectedMenu < menuItems.length - 4) {
+        selectedMenu += 4;
+        renderMenu();
+      }
+      return;
+    }
+    if (currentMode === 'run') {
+      if (n === 3) pressDel();
+      else if (n === 5) { history = []; currentInput = ""; renderRun(); }
+      return;
+    }
+    if (currentMode === 'graph') {
+      if (n === 1) {
+        const f = prompt('Enter function Y= (use x, e.g. sin(x), x^2+1):', currentInput);
+        if (f !== null) { currentInput = f; renderGraph(); }
+      } else if (n === 5) { currentInput = ''; renderGraph(); }
+      else if (n === 6) { renderMenu(); }
+      return;
+    }
+    if (currentMode === 'table') {
+      if (n === 1) {
+        const f = prompt('Enter function Y= (use x):', currentInput);
+        if (f !== null) { currentInput = f; renderTable(); }
+      } else if (n === 6) { renderMenu(); }
+      return;
+    }
+    if (currentMode === 'equation') {
+      if (n === 1) setEqType('linear');
+      else if (n === 2) setEqType('quad');
+      else if (n === 3) setEqType('sys');
+      else if (n === 4) solveEquation();
+      else if (n === 5) { eqCoeffs = { a:'', b:'', c:'' }; renderEquation(); }
+      else if (n === 6) renderMenu();
+      return;
+    }
+    if (currentMode === 'stats') {
+      if (n === 2) calcStats();
+      else if (n === 4) { statsData = []; renderStats(); }
+      else if (n === 6) renderMenu();
+      return;
+    }
+    if (currentMode === 'program') {
+      if (n === 1) runProgram();
+      else if (n === 3) {
+        const o = document.getElementById('progOutput');
+        if (o) o.textContent = '';
+      }
+      else if (n === 4) { programCode = ''; renderProgram(); }
+      else if (n === 6) renderMenu();
+      return;
+    }
+    if (currentMode === 'geometry') {
+      if (n === 1) setGeoShape('circle');
+      else if (n === 2) setGeoShape('rect');
+      else if (n === 3) setGeoShape('tri');
+      else if (n === 4) drawGeometry();
+      else if (n === 5) renderGeometry();
+      else if (n === 6) renderMenu();
+      return;
+    }
+    if (currentMode === 'python') {
+      if (n === 1) runPython();
+      else if (n === 3) {
+        const o = document.getElementById('pyOutput');
+        if (o) o.textContent = '';
+      }
+      else if (n === 4) { pythonCode = '# New script\nfor i in range(5):\n    print(i)'; renderPython(); }
+      else if (n === 6) renderMenu();
+      return;
+    }
+  }
+
+  // ============ Input and calculation ============
+  function insert(val) {
+    if (currentMode === 'menu') {
+      const n = parseInt(val);
+      if (!isNaN(n) && n >= 1 && n <= 8 && menuItems[n-1]) {
+        selectMenu(n-1);
+      }
+      return;
+    }
+    if (currentMode === 'run' || currentMode === 'graph' || currentMode === 'table') {
+      currentInput += val;
+      if (currentMode === 'run') renderRun();
+    }
+  }
+
+  function pressAC() {
+    currentInput = "";
+    if (currentMode === 'run') renderRun();
+    else if (currentMode === 'graph') { currentInput = ''; renderGraph(); }
+    else if (currentMode === 'table') { currentInput = ''; renderTable(); }
+  }
+
+  function pressDel() {
+    currentInput = currentInput.slice(0, -1);
+    if (currentMode === 'run') renderRun();
+  }
+
+  function pressEquals() {
+    if (currentMode === 'run' && currentInput) {
+      try {
+        const result = evalFunction(currentInput);
+        if (typeof result === 'number') {
+          lastAns = result;
+          history.push({ expr: currentInput, result: formatNumber(result) });
+        } else {
+          history.push({ expr: currentInput, result: String(result) });
+        }
+        currentInput = "";
+        renderRun();
+      } catch (e) {
+        history.push({ expr: currentInput, result: 'Math ERROR' });
+        currentInput = "";
+        renderRun();
+      }
+    } else if (currentMode === 'graph') {
+      renderGraph();
+    } else if (currentMode === 'table') {
+      renderTable();
+    } else if (currentMode === 'equation') {
+      solveEquation();
+    } else if (currentMode === 'stats') {
+      calcStats();
+    } else if (currentMode === 'program') {
+      runProgram();
+    } else if (currentMode === 'geometry') {
+      drawGeometry();
+    } else if (currentMode === 'python') {
+      runPython();
+    }
+  }
+
+  function evalFunction(expr, xVal) {
+    let e = expr
+      .replace(/×/g, '*')
+      .replace(/÷/g, '/')
+      .replace(/π/g, 'Math.PI')
+      .replace(/(?<![a-zA-Z])e(?![a-zA-Z])/g, 'Math.E')
+      .replace(/√\(/g, 'Math.sqrt(')
+      .replace(/log\(/g, 'Math.log10(')
+      .replace(/ln\(/g, 'Math.log(')
+      .replace(/sin\(/g, '__sin(')
+      .replace(/cos\(/g, '__cos(')
+      .replace(/tan\(/g, '__tan(')
+      .replace(/\^/g, '**')
+      .replace(/Ans/g, '(' + lastAns + ')');
+    
+    if (xVal !== undefined) {
+      e = e.replace(/x/g, '(' + xVal + ')');
+    }
+    
+    const __sin = (a) => Math.sin(angleMode === 'DEG' ? a * Math.PI/180 : a);
+    const __cos = (a) => Math.cos(angleMode === 'DEG' ? a * Math.PI/180 : a);
+    const __tan = (a) => Math.tan(angleMode === 'DEG' ? a * Math.PI/180 : a);
+    
+    return new Function('__sin', '__cos', '__tan', 'return ' + e)(__sin, __cos, __tan);
+  }
+
+  function formatNumber(n) {
+    if (Number.isInteger(n)) return n;
+    return Math.round(n * 1e10) / 1e10;
+  }
+
+  // ============ Graph drawing ============
+  function drawGraph() {
+    const canvas = document.getElementById('graphCanvas');
+    if (!canvas) return;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    const xMin = -10, xMax = 10, yMin = -6, yMax = 6;
+    const toX = (x) => (x - xMin) / (xMax - xMin) * W;
+    const toY = (y) => H - (y - yMin) / (yMax - yMin) * H;
+
+    ctx.strokeStyle = '#d0d0d0';
+    ctx.lineWidth = 1;
+    for (let x = Math.ceil(xMin); x <= xMax; x++) {
+      ctx.beginPath();
+      ctx.moveTo(toX(x), 0);
+      ctx.lineTo(toX(x), H);
+      ctx.stroke();
+    }
+    for (let y = Math.ceil(yMin); y <= yMax; y++) {
+      ctx.beginPath();
+      ctx.moveTo(0, toY(y));
+      ctx.lineTo(W, toY(y));
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, toY(0)); ctx.lineTo(W, toY(0));
+    ctx.moveTo(toX(0), 0); ctx.lineTo(toX(0), H);
+    ctx.stroke();
+
+    ctx.fillStyle = '#000';
+    ctx.font = '10px Arial';
+    for (let x = Math.ceil(xMin); x <= xMax; x += 2) {
+      if (x === 0) continue;
+      ctx.fillText(x, toX(x) - 5, toY(0) + 12);
+    }
+    for (let y = Math.ceil(yMin); y <= yMax; y += 2) {
+      if (y === 0) continue;
+      ctx.fillText(y, toX(0) + 3, toY(y) + 3);
+    }
+
+    if (currentInput) {
+      ctx.strokeStyle = '#e74c3c';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let started = false;
+      const steps = W;
+      for (let i = 0; i <= steps; i++) {
+        const x = xMin + (xMax - xMin) * i / steps;
+        try {
+          const y = evalFunction(currentInput, x);
+          if (typeof y !== 'number' || !isFinite(y) || Math.abs(y) > 1000) {
+            started = false;
+            continue;
+          }
+          const px = toX(x), py = toY(y);
+          if (!started) { ctx.moveTo(px, py); started = true; }
+          else ctx.lineTo(px, py);
+        } catch (e) { started = false; }
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fillRect(5, 5, 180, 20);
+      ctx.strokeStyle = '#e74c3c';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(5, 5, 180, 20);
+      ctx.fillStyle = '#000';
+      ctx.font = 'bold 12px Courier New';
+      ctx.fillText('Y=' + currentInput, 10, 19);
+    }
+  }
+
+  // ============ Navigation buttons ============
+  function dpadPress(dir) {
+    if (currentMode === 'menu') {
+      const cols = 4;
+      if (dir === 'left') selectedMenu = Math.max(0, selectedMenu - 1);
+      if (dir === 'right') selectedMenu = Math.min(menuItems.length - 1, selectedMenu + 1);
+      if (dir === 'up') selectedMenu = Math.max(0, selectedMenu - cols);
+      if (dir === 'down') selectedMenu = Math.min(menuItems.length - 1, selectedMenu + cols);
+      renderMenu();
+    } else if (currentMode === 'geometry') {
+      if (dir === 'left') geoParams.r = Math.max(0.5, geoParams.r - 0.5);
+      if (dir === 'right') geoParams.r += 0.5;
+      if (dir === 'up') { geoParams.a += 0.5; geoParams.b += 0.5; }
+      if (dir === 'down') { geoParams.a = Math.max(0.5, geoParams.a - 0.5); geoParams.b = Math.max(0.5, geoParams.b - 0.5); }
+      drawGeometry();
+    }
+  }
+
+  function toggleShift() { shiftActive = !shiftActive; }
+  function toggleAlpha() { alphaActive = !alphaActive; }
+  function pressOptn() { /* Placeholder */ }
+  function pressVars() { /* Placeholder */ }
+  function pressSetup() {
+    angleMode = angleMode === 'DEG' ? 'RAD' : 'DEG';
+    if (currentMode === 'menu') renderMenu();
+    else if (currentMode === 'run') renderRun();
+  }
+  function pressXot() { insert('x'); }
+  function pressCatalog() { /* Placeholder */ }
+
+  // ============ Keyboard support ============
+  document.addEventListener('keydown', (e) => {
+    const k = e.key;
+    if (currentMode === 'menu') {
+      if (k === 'ArrowLeft') dpadPress('left');
+      else if (k === 'ArrowRight') dpadPress('right');
+      else if (k === 'ArrowUp') dpadPress('up');
+      else if (k === 'ArrowDown') dpadPress('down');
+      else if (k === 'Enter') selectMenu(selectedMenu);
+      return;
+    }
+    // Skip keyboard for textarea modes
+    if (currentMode === 'program' || currentMode === 'python' || currentMode === 'stats' || currentMode === 'equation') {
+      return;
+    }
+    if (/[0-9\.\+\-\*\/\(\)\^,x]/.test(k)) {
+      let v = k === '*' ? '×' : (k === '/' ? '÷' : k);
+      insert(v);
+    } else if (k === 'Enter') { e.preventDefault(); pressEquals(); }
+    else if (k === 'Backspace') pressDel();
+    else if (k === 'Escape') pressAC();
+  });
+
+  // ============ Start ============
+  renderMenu();
+</script>
+
+</body>
+</html>
