@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Schedule Health Analyzer | BM Planning</title>
-    <meta name="description" content="Free online schedule health checker for Primavera P6 and MS Project. Analyze DCMA 14-Point compliance, find open ends, negative lags, and critical path issues.">
-    <meta name="keywords" content="schedule health check, Primavera P6 analyzer, DCMA 14-point, XER analyzer, XML schedule checker, project schedule quality">
+    
+    <!-- ✅ SEO OPTIMIZED META TAGS -->
+    <title>Free Schedule Health Analyzer for Primavera P6 & MS Project | BM Planning</title>
+    <meta name="description" content="Free online schedule health checker for Primavera P6 and MS Project. Instantly analyze DCMA 14-Point compliance, find open ends, negative lags, and critical path issues.">
+    <meta name="keywords" content="schedule health check, Primavera P6 analyzer, DCMA 14-point, XER analyzer, XML schedule checker, project schedule quality, MS Project logic check">
+    <meta name="author" content="Behzad Mousavi">
+
+    <!-- ✅ CANONICAL TAG -->
+    <script>
+      (function() {
+        const existingCanonical = document.querySelector('link[rel="canonical"]');
+        if (!existingCanonical) {
+          const canonicalUrl = window.location.href.split('?')[0].split('#')[0];
+          const canonicalLink = document.createElement('link');
+          canonicalLink.rel = 'canonical';
+          canonicalLink.href = canonicalUrl;
+          document.head.appendChild(canonicalLink);
+        }
+      })();
+    </script>
+
+    <!-- ✅ SCHEMA.ORG STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Smart Schedule Health Analyzer",
+      "description": "A free online tool to analyze Primavera P6 and MS Project schedules for DCMA 14-Point compliance, open ends, negative lags, and critical path issues.",
+      "url": "https://sbmousavices.github.io/Industrial-Tools/schedule-health-checker.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "BM Planning",
+        "url": "https://sbmousavices.github.io/Industrial-Tools/"
+      }
+    }
+    </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -274,6 +314,34 @@
             </button>
         </div>
     </div>
+
+    <!-- ===== SEO OPTIMIZED CONTENT SECTION ===== -->
+    <section style="max-width: 900px; margin: 4rem auto 0; padding: 0 5%; color: var(--text-secondary); line-height: 1.8;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-primary); margin-bottom: 1.5rem; text-align: center;">
+            Why Use Our Free Schedule Health Analyzer?
+        </h2>
+        <p style="margin-bottom: 1.5rem;">
+            A robust project schedule is the foundation of successful project delivery. Our <strong>Free Schedule Health Analyzer</strong> is designed specifically for Planning Engineers, Project Managers, and Schedulers working with <strong>Primavera P6</strong> and <strong>MS Project</strong>. It instantly evaluates your schedule against industry best practices, including the renowned <strong>DCMA 14-Point Assessment</strong>.
+        </p>
+        <p style="margin-bottom: 1.5rem;">
+            Instead of manually hunting for logic errors, our tool automatically scans your uploaded file (XML, XER, or MPP) to identify critical issues that could derail your project's critical path and compromise your Extension of Time (EOT) claims.
+        </p>
+        <div style="background: rgba(212, 175, 55, 0.05); border-left: 4px solid var(--accent); padding: 20px; border-radius: 8px; margin: 2rem 0;">
+            <h3 style="color: var(--accent); margin-bottom: 1rem; font-family: 'Playfair Display', serif;">
+                <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Key Checks Performed:
+            </h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>Open Ends (Missing Logic):</strong> Identifies activities without predecessors or successors that break the critical path calculation.</li>
+                <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>Negative Lags & Leads:</strong> Flags discouraged scheduling practices that distort float calculations and create unrealistic logic.</li>
+                <li style="margin-bottom: 8px;"><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>High Float Analysis:</strong> Highlights activities with excessive total float, indicating potential logic gaps, outdated constraints, or missing relationships.</li>
+                <li><i class="fas fa-angle-right" style="color: var(--accent); margin-right: 8px;"></i> <strong>100% Client-Side Privacy:</strong> Your schedule files are processed entirely within your browser. They are <strong>never</strong> uploaded to any server, ensuring complete confidentiality of your project data.</li>
+            </ul>
+        </div>
+        <p>
+            Whether you are preparing a baseline for client approval, conducting a monthly schedule update, or defending a delay claim, ensuring your schedule logic is sound is non-negotiable. Use this free tool to validate your schedule quality, build stakeholder confidence, and mitigate project risks before they become costly delays.
+        </p>
+    </section>
+
 </div>
 
 <script>
