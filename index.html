@@ -501,6 +501,43 @@
             #custom-chat-wrapper { top: 130px; left: 20px; }
             #chat-box { width: calc(100% - 40px); left: 20px; top: 180px; height: 60vh; }
         }
+
+        /* ===== کادر تخفیف با های‌لایت چرخشی ===== */
+        @property --promo-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+        @keyframes promoSpin { to { --promo-angle: 360deg; } }
+        .promo-box {
+            position: relative; max-width: 800px; margin: 2rem auto 0; padding: 1.4rem 1.5rem;
+            background: linear-gradient(135deg, #132847 0%, #0f1f38 100%);
+            border: 1px solid var(--border); border-radius: 15px; text-align: center; direction: rtl;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1;
+        }
+        .promo-box:hover { transform: translateY(-5px); box-shadow: 0 15px 45px rgba(212, 175, 55, 0.25); }
+        .promo-box::before {
+            content: ''; position: absolute; inset: -2px; padding: 2px; border-radius: 17px;
+            background: conic-gradient(from var(--promo-angle), transparent 0%, transparent 55%,
+                var(--accent) 75%, var(--accent-light) 88%, transparent 100%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+            animation: promoSpin 4s linear infinite; pointer-events: none;
+        }
+        .promo-box i { color: var(--accent); font-size: 1.6rem; margin-left: 0.6rem; vertical-align: middle; }
+        .promo-box .promo-text {
+            font-family: Tahoma, 'Inter', sans-serif; font-size: clamp(1rem, 2.4vw, 1.3rem);
+            font-weight: 700; color: var(--text-primary); line-height: 1.8; vertical-align: middle;
+        }
+        .promo-box .promo-text b {
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* ===== قیمت قدیمی (خط کج) + قیمت با تخفیف ===== */
+        .price-stack { display: inline-flex; flex-direction: column; align-items: flex-start; vertical-align: middle; line-height: 1.1; }
+        .old-price { position: relative; display: inline-block; font-size: 0.72rem; font-weight: 500; color: var(--text-secondary); opacity: 0.85; line-height: 1; }
+        .old-price::after { content: ''; position: absolute; left: -2px; right: -2px; top: 50%; height: 1px; background: #e74c3c; transform: rotate(-12deg); }
+        .new-price { font-size: 1.05rem; font-weight: 700; color: var(--accent); line-height: 1.1; margin-top: 1px; }
+        @media print { .promo-box { display: none !important; } }
     </style>
     <script src="seo-helper.js"></script>
 </head>
@@ -540,6 +577,11 @@
             <div class="stat-box"><i class="fas fa-star"></i><div class="stat-number">25+</div><div class="stat-label">Years Exp.</div></div>
             <div class="stat-box"><i class="fas fa-users"></i><div class="stat-number">500+</div><div class="stat-label">Users</div></div>
             <div class="stat-box"><i class="fas fa-globe"></i><div class="stat-number">Global</div><div class="stat-label">Delivery</div></div>
+        </div>
+
+        <div class="promo-box reveal">
+            <i class="fas fa-gift"></i>
+            <span class="promo-text"><b>Special 20% Birthday Anniversary Discount for Mr. Mousavi – Available Until the End of November</span>
         </div>
     </section>
 
@@ -643,7 +685,7 @@
                     <h3 class="product-title">WBS Grouping Tool for MS Project</h3>
                     <p class="product-description">Automatically organize Work Breakdown Structure in Microsoft Project and save hours of manual work.</p>
                     <div class="product-meta">
-                        <span class="product-price">79 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">79 USDT</span><span class="new-price">63.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-WBS-001</span>
                     </div>
@@ -669,7 +711,7 @@
                     <h3 class="product-title">Executive Monthly Action Plan</h3>
                     <p class="product-description">Dynamic monthly action plan with integrated Gantt chart (Excel + Gantt).</p>
                     <div class="product-meta">
-                        <span class="product-price">350 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">350 USDT</span><span class="new-price">280 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 days</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EXEC-002</span>
                     </div>
@@ -695,7 +737,7 @@
                     <h3 class="product-title">Manpower & Machinery Data Bank</h3>
                     <p class="product-description">Automated Excel system for tracking manpower, equipment usage, and monthly project resources.</p>
                     <div class="product-meta">
-                        <span class="product-price">600 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">600 USDT</span><span class="new-price">480 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 24 hours</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-MAN-003</span>
                     </div>
@@ -721,7 +763,7 @@
                     <h3 class="product-title">EVMS - Earned Value Management</h3>
                     <p class="product-description">Complete Earned Value Management dashboard for analyzing cost and schedule performance.</p>
                     <div class="product-meta">
-                        <span class="product-price">800 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">800 USDT</span><span class="new-price">640 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 3 days</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EVM-004</span>
                     </div>
@@ -747,7 +789,7 @@
                     <h3 class="product-title">Executive Management Dashboard</h3>
                     <p class="product-description">Dynamic one-page dashboard showing project KPIs, timelines, progress status, and executive information.</p>
                     <div class="product-meta">
-                        <span class="product-price">1200 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">1200 USDT</span><span class="new-price">960 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-crown"></i> Premium</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DASH-005</span>
                     </div>
@@ -773,7 +815,7 @@
                     <h3 class="product-title">PMS - Progress Measurement System</h3>
                     <p class="product-description">Custom Progress Measurement System aligned with contract measurement rules and payment terms.</p>
                     <div class="product-meta">
-                        <span class="product-price">1500 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">1500 USDT</span><span class="new-price">1200 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-PMS-006</span>
                     </div>
@@ -799,7 +841,7 @@
                     <h3 class="product-title">Project Time Schedule</h3>
                     <p class="product-description">A fully compliant project schedule created from approved WBS, contract milestones, and project requirements (MSP or Primavera).</p>
                     <div class="product-meta">
-                        <span class="product-price">1500 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">1500 USDT</span><span class="new-price">1200 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 2 weeks</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-SCH-007</span>
                     </div>
@@ -825,7 +867,7 @@
                     <h3 class="product-title">Project Delay Report (EOT Support)</h3>
                     <p class="product-description">Professional delay analysis report documenting disruption events and supporting Extension of Time claims.</p>
                     <div class="product-meta">
-                        <span class="product-price">3000 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">3000 USDT</span><span class="new-price">2400 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EOT-008</span>
                     </div>
@@ -851,7 +893,7 @@
                     <h3 class="product-title">Claim Package - Financial Impact</h3>
                     <p class="product-description">Complete claim documentation including disruption, prolongation, and acceleration cost assessment.</p>
                     <div class="product-meta">
-                        <span class="product-price" style="font-size: 0.95rem;">3000 USDT in Advance &<br>5% of Claim Value</span>
+                        <span class="product-price" style="font-size: 0.95rem;"><span class="price-stack"><span class="old-price">3000 USDT</span><span class="new-price">2400 USDT</span></span> in Advance &<br>5% of Claim Value</span>
                         <span class="product-delivery"><i class="fas fa-clock"></i> 1 month</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CLM-009</span>
                     </div>
@@ -880,7 +922,7 @@
                         <li>Managerial Analysis Engine</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-EVM-PRO-010</span>
                     </div>
@@ -913,7 +955,7 @@
                         <li>EOT Claim Calculation</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-DIA-PRO-011</span>
                     </div>
@@ -945,7 +987,7 @@
                         <li>Excel Export & Print Reports</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">149 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">149 USDT</span><span class="new-price">119.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-WBS-PRO-012</span>
                     </div>
@@ -978,7 +1020,7 @@
                         <li>Interactive S-Curve & Bar Charts</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">149 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">149 USDT</span><span class="new-price">119.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CFP-PRO-013</span>
                     </div>
@@ -1011,7 +1053,7 @@
                         <li>Natural Textbook Display & Full Keyboard Support</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">99 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">99 USDT</span><span class="new-price">79.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-CALC-PRO-014</span>
                     </div>
@@ -1044,7 +1086,7 @@
                         <li>Interactive S-Curve & Performance Charts</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-WPA-PRO-015</span>
                     </div>
@@ -1077,7 +1119,7 @@
                         <li>Watermark-Free Premium PDF Reports</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-SHA-PRO-016</span>
                     </div>
@@ -1111,7 +1153,7 @@
                         <li>Professional BM Planning Branding</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-PMP-PRO-017</span>
                     </div>
@@ -1144,7 +1186,7 @@
                         <li>Multi-Project Dashboard View</li>
                     </ul>
                     <div class="product-meta">
-                        <span class="product-price">199 USDT</span>
+                        <span class="product-price"><span class="price-stack"><span class="old-price">199 USDT</span><span class="new-price">159.2 USDT</span></span></span>
                         <span class="product-delivery"><i class="fas fa-infinity"></i> Lifetime</span>
                         <span style="font-size: 0.75rem; color: var(--accent);">ID: BM-KPI-PRO-018</span>
                     </div>
